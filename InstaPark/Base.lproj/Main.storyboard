@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="GFf-U4-gGd">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17156" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="7w2-uL-iKy">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17126"/>
@@ -77,13 +77,53 @@
                     <view key="view" contentMode="scaleToFill" id="0tu-wt-Jpv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3k-4t-CT2">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <connections>
+                                    <outlet property="delegate" destination="7w2-uL-iKy" id="hat-xM-dO6"/>
+                                </connections>
+                            </mapView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qbB-kT-IgQ">
+                                <rect key="frame" x="246" y="810" width="148" height="39"/>
+                                <color key="backgroundColor" red="0.38145515320000001" green="0.00025814626129999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="148" id="AkW-fA-SDO"/>
+                                    <constraint firstAttribute="height" constant="39" id="fIS-jn-Tjm"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                <state key="normal" title="My Transactions">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="20"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="transactionButton:" destination="7w2-uL-iKy" eventType="touchUpInside" id="JGa-Sy-JVu"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="YIb-ms-dvT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="j3k-4t-CT2" secondAttribute="bottom" id="60Y-8J-kK4"/>
+                            <constraint firstItem="j3k-4t-CT2" firstAttribute="top" secondItem="0tu-wt-Jpv" secondAttribute="top" id="IAw-5g-x65"/>
+                            <constraint firstItem="j3k-4t-CT2" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="KYB-Jk-kjr"/>
+                            <constraint firstItem="j3k-4t-CT2" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" id="Qc6-Wf-2zr"/>
+                            <constraint firstItem="YIb-ms-dvT" firstAttribute="trailing" secondItem="qbB-kT-IgQ" secondAttribute="trailing" constant="20" id="ZEe-te-1TP"/>
+                            <constraint firstItem="YIb-ms-dvT" firstAttribute="bottom" secondItem="qbB-kT-IgQ" secondAttribute="bottom" constant="13" id="bsU-vH-GKm"/>
+                        </constraints>
                     </view>
+                    <connections>
+                        <outlet property="mapView" destination="j3k-4t-CT2" id="joe-eP-ejC"/>
+                        <outlet property="transactionsButton" destination="qbB-kT-IgQ" id="CvP-AZ-FMP"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rs4-fz-PP7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1854" y="75"/>
+            <point key="canvasLocation" x="1853.6231884057972" y="75"/>
         </scene>
     </scenes>
     <resources>
