@@ -59,33 +59,32 @@ class ParkingCalloutView: CalloutView {
         
         //title customization
         let name = parkingSpace.name!
-        let attrs0 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 19), NSAttributedString.Key.foregroundColor : UIColor.black]
-        let title = NSMutableAttributedString(string:name, attributes:attrs0)
+        let name_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 19), NSAttributedString.Key.foregroundColor : UIColor.black]
+        let title = NSMutableAttributedString(string:name, attributes:name_attrs)
         
         let price = "   $" + String(parkingSpace.price)
-        let attrs2 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 19), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
-        let amount = NSMutableAttributedString(string:price, attributes:attrs2)
-        title.append(amount)
+        let price_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 19), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
+        let price_string = NSMutableAttributedString(string:price, attributes:price_attrs)
+        title.append(price_string)
         
         let hour = "/hr"
-        let normalString = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
-        let normal = NSMutableAttributedString(string:hour, attributes:normalString)
-        title.append(normal)
+        let hour_attrs = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
+        let hour_string = NSMutableAttributedString(string:hour, attributes:hour_attrs)
+        title.append(hour_string)
         
         self.titleLabel.attributedText = title
         
         //subtitle customization
-        let italizedText = "Available "
-        let attrs = [NSAttributedString.Key.font : UIFont.italicSystemFont(ofSize: 12), NSAttributedString.Key.foregroundColor : UIColor.gray]
-        let attributedString = NSMutableAttributedString(string:italizedText, attributes:attrs)
+        let available = "Available "
+        let available_attrs = [NSAttributedString.Key.font : UIFont.italicSystemFont(ofSize: 12), NSAttributedString.Key.foregroundColor : UIColor.gray]
+        let subtitle = NSMutableAttributedString(string:available, attributes:available_attrs)
         
-        let boldText = parkingSpace.time
-        let attrs1 = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor : UIColor.black]
-        let attributedString2 = NSMutableAttributedString(string:boldText, attributes:attrs1)
-        attributedString.append(attributedString2)
+        let time = parkingSpace.time
+        let time_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor : UIColor.black]
+        let time_string = NSMutableAttributedString(string:time, attributes:time_attrs)
+        subtitle.append(time_string)
         
-        self.subtitleLabel.attributedText = attributedString
-        
+        self.subtitleLabel.attributedText = subtitle
     }
 
     

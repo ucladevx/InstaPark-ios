@@ -16,12 +16,15 @@ class MapViewViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
+        
+        //transaction button shadow
         transactionsButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
         transactionsButton.layer.shadowOffset = CGSize(width: 4.0, height: 3.0)
         transactionsButton.layer.shadowOpacity = 0.5
         transactionsButton.layer.shadowRadius = 3.0
         transactionsButton.layer.masksToBounds = false
         
+        //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(34.0703, -118.4441)
         let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
@@ -42,8 +45,7 @@ class MapViewViewController: UIViewController {
         self.mapView.addAnnotations(annotations)
     }
     
-
-
+    //transaction button, for later use
     @IBAction func transactionButton(_ sender: UIButton) {
         
     }
@@ -54,16 +56,16 @@ extension MapViewViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         if annotation is MKUserLocation { return nil }
 
-        if #available(iOS 11.0, *) {
-            if annotation is MKClusterAnnotation { return nil }
-        }
+        //if #available(iOS 11.0, *) {
+           // if annotation is MKClusterAnnotation { return nil }
+        //}
         
-        let customAnnotationViewIdentifier = "MyAnnotation"
+        let indentifier = "MyAnnotation"
 
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: customAnnotationViewIdentifier)
+        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: indentifier)
         if annotationView == nil {
             
-            annotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: customAnnotationViewIdentifier)
+            annotationView = CustomAnnotationView(annotation: annotation, reuseIdentifier: indentifier)
         } else {
             annotationView?.annotation = annotation
         }
@@ -88,6 +90,7 @@ extension MapViewViewController: MKMapViewDelegate {
     
 }
 
+//for the "Book" button in the callouts, pass data and segue in here 
 extension MapViewViewController: ParkingCalloutViewDelegate {
     func mapView(_ mapView: MKMapView, didTapDetailsButton button: UIButton, for annotation: MKAnnotation) {
         let parkingSpace = annotation as! parkingSpace

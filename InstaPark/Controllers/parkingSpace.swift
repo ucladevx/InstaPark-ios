@@ -8,9 +8,8 @@
 import MapKit
 import UIKit
 
+//class for MapView to pass data into annotations 
 class parkingSpace: NSObject, MKAnnotation {
-    var title: String?
-    var subtitle: String?
     var name: String?
     var coordinate: CLLocationCoordinate2D
     var price: Double
@@ -21,10 +20,6 @@ class parkingSpace: NSObject, MKAnnotation {
         self.price = price
         self.time = time
         self.name = name
-        
-        //temporary variables
-        self.subtitle = "Available " + time
-        self.title = name + "   $" + String(price) + "/hr"
     }
 }
 
