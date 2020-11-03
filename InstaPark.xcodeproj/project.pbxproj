@@ -28,6 +28,9 @@
 		048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E542550D739009B6AE3 /* ParkingSpotService.swift */; };
 		5EC37271123F868AC4006BD5 /* Pods_InstaPark_InstaParkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */; };
 		6780CFAC78BE57EC1A46239B /* Pods_InstaPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */; };
+		9404764D254CEABC008C111E /* parkingSpace.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404764C254CEABC008C111E /* parkingSpace.swift */; };
+		9431304E254E4E83002221F4 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431304D254E4E83002221F4 /* CalloutView.swift */; };
+		94313053254E4ED0002221F4 /* ParkingCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94313052254E4ED0002221F4 /* ParkingCallout.swift */; };
 		B077A1B195D83D092DCED7A6 /* Pods_InstaParkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -80,6 +83,9 @@
 		62C5430310CECA7E1F1E1A83 /* Pods-InstaPark-InstaParkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaParkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93BBE7307C025EDEF69CB82A /* Pods-InstaPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.debug.xcconfig"; sourceTree = "<group>"; };
+		9404764C254CEABC008C111E /* parkingSpace.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = parkingSpace.swift; sourceTree = "<group>"; };
+		9431304D254E4E83002221F4 /* CalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
+		94313052254E4ED0002221F4 /* ParkingCallout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingCallout.swift; sourceTree = "<group>"; };
 		BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB3BEB0DBAF3EBA683DD6B0 /* Pods-InstaParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.debug.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F2A1EA382BF589B312F96A2D /* Pods-InstaParkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.release.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -174,6 +180,8 @@
 				0410B18F254A49F7001C4D27 /* LoginViewController.swift */,
 				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
 				0410B199254A4A7E001C4D27 /* MapViewViewController.swift */,
+				9404764C254CEABC008C111E /* parkingSpace.swift */,
+				9431304C254E4E47002221F4 /* CustomCallout */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -239,6 +247,15 @@
 				8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		9431304C254E4E47002221F4 /* CustomCallout */ = {
+			isa = PBXGroup;
+			children = (
+				9431304D254E4E83002221F4 /* CalloutView.swift */,
+				94313052254E4ED0002221F4 /* ParkingCallout.swift */,
+			);
+			path = CustomCallout;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -483,7 +500,10 @@
 				0410B190254A49F7001C4D27 /* LoginViewController.swift in Sources */,
 				0410B195254A4A08001C4D27 /* SignupViewController.swift in Sources */,
 				0410B18B254A49A5001C4D27 /* StartViewController.swift in Sources */,
+				9431304E254E4E83002221F4 /* CalloutView.swift in Sources */,
+				94313053254E4ED0002221F4 /* ParkingCallout.swift in Sources */,
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
+				9404764D254CEABC008C111E /* parkingSpace.swift in Sources */,
 				0410B11A2548D8E9001C4D27 /* AppDelegate.swift in Sources */,
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,
@@ -598,7 +618,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -653,7 +673,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -671,6 +691,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -690,6 +711,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
