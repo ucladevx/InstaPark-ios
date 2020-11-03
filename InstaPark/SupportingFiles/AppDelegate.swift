@@ -12,6 +12,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
+        ParkingSpotService.createParkingSpotIn(lat: 34.0703, long: -118.4398)
         // Override point for customization after application launch.
         return true
     }

@@ -9,6 +9,8 @@ target 'InstaPark' do
   pod 'Firebase/Analytics'
   pod 'Firebase/Auth'
   pod 'Firebase/Core'
+  pod 'Firebase/Firestore'
+  pod 'FirebaseFirestoreSwift'
   target 'InstaParkTests' do
     inherit! :search_paths
     # Pods for testing

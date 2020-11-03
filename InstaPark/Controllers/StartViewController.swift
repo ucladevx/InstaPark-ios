@@ -11,11 +11,17 @@ class StartViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+//        print("Initializing View Controller.")
+//        AuthService.login(email: "tonyjiang02@gmail.com", password: "test123$") { authResult, error in
+//            if error != nil {
+//                print(error!.errorString())
+//            } else {
+//                print("Success!")
+//            }
+//        }
         // Do any additional setup after loading the view.
     }
     
-
     /*
     // MARK: - Navigation
 
