@@ -7,6 +7,7 @@
 
 import Foundation
 import FirebaseAuth
+import Firebase
 class AuthService {
     enum AuthenticationError: Error {
         case invalidEmail
@@ -62,7 +63,8 @@ class AuthService {
                 //No specific firebase error
                 completion(nil, .error)
                 return;
-            } else {
+            } else if let authResult = authResult{
+                createUserDocument(authResult: authResult)
                 completion(authResult, nil)
             }
         }
@@ -91,5 +93,13 @@ class AuthService {
                 completion(authResult, nil)
             }
         }
+    }
+    static func createUserDocument(authResult: AuthDataResult) {
+        print("Creating user document")
+        let user = authResult.user
+        let data = user.providerData[0]
+        let db = Firestore.firestore()
+        let customer = Customer(uid: data.uid, displayName: "Tony", phoneNumber: "", transactions: [])
+        db.collection("customers").document(data.uid).setData(customer.dictionary)
     }
 }
