@@ -9,7 +9,7 @@ import MapKit
 import UIKit
 
 //class for MapView to pass data into annotations 
-class parkingSpace: NSObject, MKAnnotation {
+class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
     var name: String?
     var coordinate: CLLocationCoordinate2D
     var price: Double

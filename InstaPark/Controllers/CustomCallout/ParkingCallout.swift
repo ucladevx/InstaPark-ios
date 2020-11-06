@@ -55,7 +55,7 @@ class ParkingCalloutView: CalloutView {
 
 
     private func updateContents(for annotation: MKAnnotation) {
-        let parkingSpace = annotation as! parkingSpace
+        let parkingSpace = annotation as! ParkingSpaceMapAnnotation
         
         //title customization
         let name = parkingSpace.name!

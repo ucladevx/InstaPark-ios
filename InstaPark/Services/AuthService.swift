@@ -36,12 +36,14 @@ class AuthService {
             }
         }
     }
-    static func validateInput(email: String, password1: String, password2: String) -> AuthenticationError?{
+    private static func validateInput(email: String, password1: String, password2: String) -> AuthenticationError?{
         if(password1 != password2){
             return .passwordMatch
         }
         return nil;
     }
+    
+    //signup user with completion
     static func signup(email: String, password1: String, password2: String, completion: @escaping (AuthDataResult?, AuthenticationError?) -> Void){
         if let error = validateInput(email: email, password1: password1, password2: password2) {
             completion(nil, error)
@@ -69,6 +71,8 @@ class AuthService {
             }
         }
     }
+    
+    //login user with completion
     static func login(email: String, password: String, completion: @escaping (AuthDataResult?, AuthenticationError?) -> Void) {
         print("Logging in with firebase.")
         Auth.auth().signIn(withEmail: email, password: password) { authResult, error in
@@ -94,12 +98,14 @@ class AuthService {
             }
         }
     }
-    static func createUserDocument(authResult: AuthDataResult) {
+    
+    //creates  user document
+    private static func createUserDocument(authResult: AuthDataResult) {
         print("Creating user document")
         let user = authResult.user
         let data = user.providerData[0]
         let db = Firestore.firestore()
-        let customer = Customer(uid: data.uid, displayName: "Tony", phoneNumber: "", transactions: [])
+        let customer = Customer(uid: data.uid, displayName: data.displayName ?? "", phoneNumber: data.phoneNumber ?? "", transactions: [])
         db.collection("customers").document(data.uid).setData(customer.dictionary)
     }
 }
