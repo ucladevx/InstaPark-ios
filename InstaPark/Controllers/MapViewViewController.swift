@@ -37,7 +37,7 @@ class MapViewViewController: UIViewController {
                 var annotations = [ParkingSpaceMapAnnotation]()
                 for parking in parkingSpots {
                     
-                    annotations.append(ParkingSpaceMapAnnotation(name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, time: "Start Time - End Time"))
+                    annotations.append(ParkingSpaceMapAnnotation(name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
                 }
                 print("Adding annotations")
                 self.mapView.addAnnotations(annotations)
