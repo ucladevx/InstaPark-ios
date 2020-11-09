@@ -32,18 +32,28 @@ class MapViewViewController: ViewController {
         
         self.mapView.setRegion(region, animated: false)
         
-        var annotations: [parkingSpace] = []
-        
+        ParkingSpotService.getAllParkingSpots() { parkingSpots, error in
+            print("Rendering parking spots on map")
+            if let parkingSpots = parkingSpots {
+                var annotations = [ParkingSpaceMapAnnotation]()
+                for parking in parkingSpots {
+                    
+                    annotations.append(ParkingSpaceMapAnnotation(name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
+                }
+                print("Adding annotations")
+                self.mapView.addAnnotations(annotations)
+            }
+        }
         //test annotations until set up with firebase
-        let annotation1 = parkingSpace(name: "Joe Bruin", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 4.00, time: "3:00-4:00")
-        let annotation2 = parkingSpace(name: "FIRST LAST ", coordinate: CLLocationCoordinate2DMake(34.072, -118.43), price: 7.0, time: "5:00-8:00")
-        let annotation3 = parkingSpace(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.071, -118.439), price: 8.0, time: "7:00-9:00")
-        let annotation4 = parkingSpace(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.073, -118.449), price: 5.0, time: "2:30-4:00")
-        let annotation5 = parkingSpace(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.08, -118.4381), price: 6.0, time: "11:00-12:00")
+//        let annotation1 = ParkingSpaceMapAnnotation(name: "Joe Bruin", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 4.00, time: "3:00-4:00")
+//        let annotation2 = ParkingSpaceMapAnnotation(name: "FIRST LAST ", coordinate: CLLocationCoordinate2DMake(34.072, -118.43), price: 7.0, time: "5:00-8:00")
+//        let annotation3 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.071, -118.439), price: 8.0, time: "7:00-9:00")
+//        let annotation4 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.073, -118.449), price: 5.0, time: "2:30-4:00")
+//        let annotation5 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.08, -118.4381), price: 6.0, time: "11:00-12:00")
         
-        annotations.append(contentsOf: [annotation1, annotation2, annotation3, annotation4, annotation5])
-        
-        self.mapView.addAnnotations(annotations)
+//        annotations.append(contentsOf: [annotation1, annotation2, annotation3, annotation4, annotation5])
+//
+//        self.mapView.addAnnotations(annotations)
     }
     
     //transaction button, for later use
@@ -94,7 +104,7 @@ extension MapViewViewController: MKMapViewDelegate {
 //for the "Book" button in the callouts, pass data and segue in here 
 extension MapViewViewController: ParkingCalloutViewDelegate {
     func mapView(_ mapView: MKMapView, didTapDetailsButton button: UIButton, for annotation: MKAnnotation) {
-        let parkingSpace = annotation as! parkingSpace
+        let parkingSpace = annotation as! ParkingSpaceMapAnnotation
         let name = parkingSpace.name ?? "Unknown"
         let coordinates = String(parkingSpace.coordinate.latitude) + ", " + String(parkingSpace.coordinate.longitude)
         let price = parkingSpace.price
@@ -106,3 +116,9 @@ extension MapViewViewController: ParkingCalloutViewDelegate {
     }
 }
 
+private extension MKMapView {
+    func centerToLocation(_ location: CLLocation, regionRadius: CLLocationDistance = 1000) {
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
+        setRegion(coordinateRegion, animated: true)
+    }
+}
