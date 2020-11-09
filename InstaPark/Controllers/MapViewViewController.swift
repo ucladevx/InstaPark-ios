@@ -8,12 +8,13 @@
 import UIKit
 import MapKit
 
-class MapViewViewController: UIViewController {
+class MapViewViewController: ViewController {
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var transactionsButton: UIButton!
     
     override func viewDidLoad() {
+        super.hideNavBar(false)
         super.viewDidLoad()
         mapView.delegate = self
         
