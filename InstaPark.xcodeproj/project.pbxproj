@@ -31,6 +31,9 @@
 		9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */; };
 		9431304E254E4E83002221F4 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431304D254E4E83002221F4 /* CalloutView.swift */; };
 		94313053254E4ED0002221F4 /* ParkingCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94313052254E4ED0002221F4 /* ParkingCallout.swift */; };
+		94313125255627BE002221F4 /* smallOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94313124255627BE002221F4 /* smallOverlayView.swift */; };
+		943131302556391D002221F4 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431312F2556391D002221F4 /* BookingViewController.swift */; };
+		94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */; };
 		B077A1B195D83D092DCED7A6 /* Pods_InstaParkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -86,6 +89,9 @@
 		9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceMapAnnotation.swift; sourceTree = "<group>"; };
 		9431304D254E4E83002221F4 /* CalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		94313052254E4ED0002221F4 /* ParkingCallout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingCallout.swift; sourceTree = "<group>"; };
+		94313124255627BE002221F4 /* smallOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = smallOverlayView.swift; sourceTree = "<group>"; };
+		9431312F2556391D002221F4 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
+		94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityViewController.swift; sourceTree = "<group>"; };
 		BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB3BEB0DBAF3EBA683DD6B0 /* Pods-InstaParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.debug.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F2A1EA382BF589B312F96A2D /* Pods-InstaParkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.release.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -181,6 +187,7 @@
 				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
 				0410B199254A4A7E001C4D27 /* MapViewViewController.swift */,
 				9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */,
+				9460B9B72558A8720016697A /* Booking Controllers */,
 				9431304C254E4E47002221F4 /* CustomCallout */,
 			);
 			path = Controllers;
@@ -256,6 +263,16 @@
 				94313052254E4ED0002221F4 /* ParkingCallout.swift */,
 			);
 			path = CustomCallout;
+			sourceTree = "<group>";
+		};
+		9460B9B72558A8720016697A /* Booking Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				94313124255627BE002221F4 /* smallOverlayView.swift */,
+				9431312F2556391D002221F4 /* BookingViewController.swift */,
+				94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */,
+			);
+			path = "Booking Controllers";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -507,12 +524,15 @@
 				0410B11A2548D8E9001C4D27 /* AppDelegate.swift in Sources */,
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,
+				943131302556391D002221F4 /* BookingViewController.swift in Sources */,
 				048D7E50254FDA49009B6AE3 /* Codable+Dicionary.swift in Sources */,
 				0410B11C2548D8E9001C4D27 /* SceneDelegate.swift in Sources */,
 				044A3FDE254E40F000B5F19C /* Customer.swift in Sources */,
+				94313125255627BE002221F4 /* smallOverlayView.swift in Sources */,
 				0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */,
 				044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */,
 				0410B1702548F860001C4D27 /* AuthService.swift in Sources */,
+				94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

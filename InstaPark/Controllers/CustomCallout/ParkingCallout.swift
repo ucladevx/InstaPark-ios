@@ -78,13 +78,13 @@ class ParkingCalloutView: CalloutView {
         let available = "Available "
         let available_attrs = [NSAttributedString.Key.font : UIFont.italicSystemFont(ofSize: 12), NSAttributedString.Key.foregroundColor : UIColor.gray]
         let subtitle = NSMutableAttributedString(string:available, attributes:available_attrs)
-        
+        /*
         let time = parkingSpace.time
         let time_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13), NSAttributedString.Key.foregroundColor : UIColor.black]
         let time_string = NSMutableAttributedString(string:time, attributes:time_attrs)
         subtitle.append(time_string)
         
-        self.subtitleLabel.attributedText = subtitle
+        self.subtitleLabel.attributedText = subtitle */
     }
 
     
