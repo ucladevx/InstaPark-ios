@@ -7,14 +7,25 @@
 
 import Foundation
 import Firebase
+import FirebaseAuth
+import GeoFire
 class ParkingSpotService {
     static let db = Firestore.firestore()
+    static let geoFire = GeoFire(firebaseRef: Database.database().reference())
     //Temporary function for creating dummy parking spots
     static func createParkingSpotIn(lat: Double, long: Double) {
         print("Creating parking spot")
         let docRef = db.collection("ParkingSpot").document()
-        let spot = ParkingSpot(id: docRef.documentID, address: Address(city: "LA", state: "CA", street: "Street1", zip: "90024"), startTime: 0, endTime: 0, coordinates: Coordinate(lat: lat, long: long), isAvailable: true, pricePerHour: 1.0, provider: "provider")
+        let spot = ParkingSpot(id: docRef.documentID, address: Address(city: "LA", state: "CA", street: "Street1", zip: "90024"), startTime: 0, endTime: 0, coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", firstName: "Bob", lastName: "Steve", lastEndTime: 0)
         docRef.setData(spot.dictionary)
+    }
+    static func saveParkingSpot(_ parkingSpot: ParkingSpot) {
+        let docRef = db.collection("ParkingSpot").document()
+        var spot = parkingSpot
+        spot.id = docRef.documentID
+        docRef.setData(spot.dictionary)
+        geoFire.setLocation(CLLocation(latitude: spot.coordinates.lat, longitude: spot.coordinates.long), forKey: spot.id)
+        
     }
     //Gets all parking spots from the ParkingSpot collection
     static func getAllParkingSpots(completion: @escaping ([ParkingSpot]?, Error?) -> Void){
@@ -69,10 +80,15 @@ class ParkingSpotService {
         completion(transactions, nil)
         return
     }
-    // TODO
-    static func reserveParkingSpot(_ id: String) {
-        // update parking spot to show not available
-        // add database task to make it available again after reservation ends
+    //Time is seconds since epoch when reservation will end
+    static func reserveParkingSpot(parkingSpot: ParkingSpot, time: Int) {
+        // update parking spot to set ended parking time
+        db.collection("ParkingSpot").document(parkingSpot.id).updateData(["lastEndTime": time])
         // save parking spot information as transaction
+        let docRef = db.collection("Transaction").document()
+        if let user = Auth.auth().currentUser {
+            let transaction = Transaction.init(id: docRef.documentID, customer: user.uid, startTime: Int(NSDate.now.timeIntervalSince1970), endTime: time, fromParkingSpot: parkingSpot)
+            docRef.setData(transaction.dictionary)
+        }
     }
 }
