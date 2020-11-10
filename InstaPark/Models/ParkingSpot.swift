@@ -16,6 +16,11 @@ struct ParkingSpot: Codable {
     var isAvailable: Bool
     var pricePerHour: Double
     var provider: String
+    
+    //Fields below are properties of provider but stored here to minimize data costs
+    var firstName: String
+    var lastName: String
+    
 //    init?(data: [String: Any]) {
 //        guard let id = data["id"] as? String,
 //              let addressObj = data["address"] as? [String: Any],

@@ -7,9 +7,14 @@
 
 import Foundation
 
-struct Customer: Codable {
+struct User: Codable {
     var uid: String
     var displayName: String = ""
     var phoneNumber: String = ""
+    var firstName: String = ""
+    var lastName: String = ""
+    var photoURL: String = ""
+    var email: String = ""
     var transactions: [String] = [String]()
+    var parkingSpots: [String] = [String]()
 }
