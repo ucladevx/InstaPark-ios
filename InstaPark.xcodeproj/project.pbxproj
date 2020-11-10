@@ -17,7 +17,6 @@
 		0410B13C2548D8EB001C4D27 /* InstaParkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B13B2548D8EB001C4D27 /* InstaParkUITests.swift */; };
 		0410B1512548EACC001C4D27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0410B1502548EACC001C4D27 /* GoogleService-Info.plist */; };
 		0410B1702548F860001C4D27 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B16F2548F860001C4D27 /* AuthService.swift */; };
-		0410B18B254A49A5001C4D27 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B18A254A49A5001C4D27 /* StartViewController.swift */; };
 		0410B190254A49F7001C4D27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B18F254A49F7001C4D27 /* LoginViewController.swift */; };
 		0410B195254A4A08001C4D27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B194254A4A08001C4D27 /* SignupViewController.swift */; };
 		0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B199254A4A7E001C4D27 /* MapViewViewController.swift */; };
@@ -26,12 +25,26 @@
 		044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE7254EA07A00B5F19C /* Transaction.swift */; };
 		048D7E50254FDA49009B6AE3 /* Codable+Dicionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E4F254FDA49009B6AE3 /* Codable+Dicionary.swift */; };
 		048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E542550D739009B6AE3 /* ParkingSpotService.swift */; };
-		5EC37271123F868AC4006BD5 /* Pods_InstaPark_InstaParkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */; };
-		6780CFAC78BE57EC1A46239B /* Pods_InstaPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */; };
 		9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */; };
 		9431304E254E4E83002221F4 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431304D254E4E83002221F4 /* CalloutView.swift */; };
 		94313053254E4ED0002221F4 /* ParkingCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94313052254E4ED0002221F4 /* ParkingCallout.swift */; };
-		B077A1B195D83D092DCED7A6 /* Pods_InstaParkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */; };
+		98469DBAB9AA8F9B0A7DFEE6 /* Pods_InstaParkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A738836DC7D1A9AD66C4C0 /* Pods_InstaParkTests.framework */; };
+		A95157DDDE6DBE2DBFC54CCB /* Pods_InstaPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F768F3573788BD1822FC738C /* Pods_InstaPark.framework */; };
+		E51D3A0D880672BDEA387CE9 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		F25AC5552558BD00002CB02F /* SignupPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25AC5542558BD00002CB02F /* SignupPaymentViewController.swift */; };
+		F25AC5E62558D475002CB02F /* BebasNeue-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E12558D471002CB02F /* BebasNeue-Bold.ttf */; };
+		F25AC5E92558D475002CB02F /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E22558D472002CB02F /* BebasNeue-Regular.ttf */; };
+		F25AC5EC2558D475002CB02F /* BebasNeue-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E32558D473002CB02F /* BebasNeue-Light.ttf */; };
+		F25AC5EF2558D475002CB02F /* BebasNeue-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E42558D474002CB02F /* BebasNeue-Book.ttf */; };
+		F25AC5F22558D475002CB02F /* BebasNeue-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E52558D475002CB02F /* BebasNeue-Thin.ttf */; };
+		F25AC6122558D625002CB02F /* BebasNeue-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC60D2558D620002CB02F /* BebasNeue-Light.otf */; };
+		F25AC6132558D625002CB02F /* BebasNeue-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC60E2558D621002CB02F /* BebasNeue-Bold.otf */; };
+		F25AC6142558D625002CB02F /* BebasNeue-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC60F2558D623002CB02F /* BebasNeue-Book.otf */; };
+		F25AC6152558D625002CB02F /* BebasNeue-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC6102558D624002CB02F /* BebasNeue-Regular.otf */; };
+		F25AC6162558D625002CB02F /* BebasNeue-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC6112558D625002CB02F /* BebasNeue-Thin.otf */; };
+		F25AC61B2558F973002CB02F /* google-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = F25AC61A2558F973002CB02F /* google-icon.svg */; };
+		F25AC620255919CD002CB02F /* google-icon.ico in Resources */ = {isa = PBXBuildFile; fileRef = F25AC61F255919CD002CB02F /* google-icon.ico */; };
+		F8CBD1B143631A47D39E127D /* Pods_InstaPark_InstaParkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5824A14A51FD283C02D1E5 /* Pods_InstaPark_InstaParkUITests.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,7 +81,6 @@
 		0410B13D2548D8EB001C4D27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0410B1502548EACC001C4D27 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		0410B16F2548F860001C4D27 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
-		0410B18A254A49A5001C4D27 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
 		0410B18F254A49F7001C4D27 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0410B194254A4A08001C4D27 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0410B199254A4A7E001C4D27 /* MapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewController.swift; sourceTree = "<group>"; };
@@ -77,18 +89,31 @@
 		044A3FE7254EA07A00B5F19C /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		048D7E4F254FDA49009B6AE3 /* Codable+Dicionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dicionary.swift"; sourceTree = "<group>"; };
 		048D7E542550D739009B6AE3 /* ParkingSpotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpotService.swift; sourceTree = "<group>"; };
-		0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark_InstaParkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		30CB94D117C221B132D1BCFA /* Pods-InstaPark-InstaParkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.release.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.release.xcconfig"; sourceTree = "<group>"; };
-		4798B55AD2CA44F01FBFAD9A /* Pods-InstaPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.release.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.release.xcconfig"; sourceTree = "<group>"; };
-		62C5430310CECA7E1F1E1A83 /* Pods-InstaPark-InstaParkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.debug.xcconfig"; sourceTree = "<group>"; };
-		8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaParkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		93BBE7307C025EDEF69CB82A /* Pods-InstaPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.debug.xcconfig"; sourceTree = "<group>"; };
+		253AA03A795D47CC8AB74F24 /* Pods-InstaParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.debug.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6A088A5262652458B591D372 /* Pods-InstaPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.debug.xcconfig"; sourceTree = "<group>"; };
+		7DD1A7A26B721604709ED8B6 /* Pods-InstaPark-InstaParkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.release.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.release.xcconfig"; sourceTree = "<group>"; };
+		8C5824A14A51FD283C02D1E5 /* Pods_InstaPark_InstaParkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark_InstaParkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceMapAnnotation.swift; sourceTree = "<group>"; };
 		9431304D254E4E83002221F4 /* CalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		94313052254E4ED0002221F4 /* ParkingCallout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingCallout.swift; sourceTree = "<group>"; };
-		BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		DBB3BEB0DBAF3EBA683DD6B0 /* Pods-InstaParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.debug.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.debug.xcconfig"; sourceTree = "<group>"; };
-		F2A1EA382BF589B312F96A2D /* Pods-InstaParkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.release.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.release.xcconfig"; sourceTree = "<group>"; };
+		C4A738836DC7D1A9AD66C4C0 /* Pods_InstaParkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaParkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CD70E1A127E255D0A56DF47C /* Pods-InstaPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.release.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.release.xcconfig"; sourceTree = "<group>"; };
+		D741239688EB26E1E4CEE779 /* Pods-InstaPark-InstaParkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		DB9CF31568117B2C2194B58F /* Pods-InstaParkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.release.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.release.xcconfig"; sourceTree = "<group>"; };
+		F25AC5542558BD00002CB02F /* SignupPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPaymentViewController.swift; sourceTree = "<group>"; };
+		F25AC5E12558D471002CB02F /* BebasNeue-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Bold.ttf"; sourceTree = "<group>"; };
+		F25AC5E22558D472002CB02F /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
+		F25AC5E32558D473002CB02F /* BebasNeue-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Light.ttf"; sourceTree = "<group>"; };
+		F25AC5E42558D474002CB02F /* BebasNeue-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Book.ttf"; sourceTree = "<group>"; };
+		F25AC5E52558D475002CB02F /* BebasNeue-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Thin.ttf"; sourceTree = "<group>"; };
+		F25AC60D2558D620002CB02F /* BebasNeue-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Light.otf"; sourceTree = "<group>"; };
+		F25AC60E2558D621002CB02F /* BebasNeue-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Bold.otf"; sourceTree = "<group>"; };
+		F25AC60F2558D623002CB02F /* BebasNeue-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Book.otf"; sourceTree = "<group>"; };
+		F25AC6102558D624002CB02F /* BebasNeue-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.otf"; sourceTree = "<group>"; };
+		F25AC6112558D625002CB02F /* BebasNeue-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Thin.otf"; sourceTree = "<group>"; };
+		F25AC61A2558F973002CB02F /* google-icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "google-icon.svg"; sourceTree = "<group>"; };
+		F25AC61F255919CD002CB02F /* google-icon.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = "google-icon.ico"; sourceTree = "<group>"; };
+		F768F3573788BD1822FC738C /* Pods_InstaPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,7 +121,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6780CFAC78BE57EC1A46239B /* Pods_InstaPark.framework in Frameworks */,
+				A95157DDDE6DBE2DBFC54CCB /* Pods_InstaPark.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -104,7 +129,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				B077A1B195D83D092DCED7A6 /* Pods_InstaParkTests.framework in Frameworks */,
+				E51D3A0D880672BDEA387CE9 /* BuildFile in Frameworks */,
+				98469DBAB9AA8F9B0A7DFEE6 /* Pods_InstaParkTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +138,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5EC37271123F868AC4006BD5 /* Pods_InstaPark_InstaParkUITests.framework in Frameworks */,
+				F8CBD1B143631A47D39E127D /* Pods_InstaPark_InstaParkUITests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -127,7 +153,7 @@
 				0410B13A2548D8EB001C4D27 /* InstaParkUITests */,
 				0410B1172548D8E9001C4D27 /* Products */,
 				4C344A023A696E3843DA9E9C /* Pods */,
-				6A6212AC098713102D55085B /* Frameworks */,
+				4E6E433F2ED5AF14EB6342EC /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -176,9 +202,9 @@
 		0410B14C2548DC1F001C4D27 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				0410B18A254A49A5001C4D27 /* StartViewController.swift */,
 				0410B18F254A49F7001C4D27 /* LoginViewController.swift */,
 				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
+				F25AC5542558BD00002CB02F /* SignupPaymentViewController.swift */,
 				0410B199254A4A7E001C4D27 /* MapViewViewController.swift */,
 				9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */,
 				9431304C254E4E47002221F4 /* CustomCallout */,
@@ -207,6 +233,9 @@
 		0410B14F2548DC8F001C4D27 /* SupportingFiles */ = {
 			isa = PBXGroup;
 			children = (
+				F25AC61F255919CD002CB02F /* google-icon.ico */,
+				F25AC61A2558F973002CB02F /* google-icon.svg */,
+				F25AC5592558CECC002CB02F /* fonts */,
 				0410B1192548D8E9001C4D27 /* AppDelegate.swift */,
 				0410B11B2548D8E9001C4D27 /* SceneDelegate.swift */,
 				0410B1222548D8EB001C4D27 /* Assets.xcassets */,
@@ -229,22 +258,22 @@
 		4C344A023A696E3843DA9E9C /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				93BBE7307C025EDEF69CB82A /* Pods-InstaPark.debug.xcconfig */,
-				4798B55AD2CA44F01FBFAD9A /* Pods-InstaPark.release.xcconfig */,
-				62C5430310CECA7E1F1E1A83 /* Pods-InstaPark-InstaParkUITests.debug.xcconfig */,
-				30CB94D117C221B132D1BCFA /* Pods-InstaPark-InstaParkUITests.release.xcconfig */,
-				DBB3BEB0DBAF3EBA683DD6B0 /* Pods-InstaParkTests.debug.xcconfig */,
-				F2A1EA382BF589B312F96A2D /* Pods-InstaParkTests.release.xcconfig */,
+				CD70E1A127E255D0A56DF47C /* Pods-InstaPark.release.xcconfig */,
+				D741239688EB26E1E4CEE779 /* Pods-InstaPark-InstaParkUITests.debug.xcconfig */,
+				DB9CF31568117B2C2194B58F /* Pods-InstaParkTests.release.xcconfig */,
+				6A088A5262652458B591D372 /* Pods-InstaPark.debug.xcconfig */,
+				7DD1A7A26B721604709ED8B6 /* Pods-InstaPark-InstaParkUITests.release.xcconfig */,
+				253AA03A795D47CC8AB74F24 /* Pods-InstaParkTests.debug.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
 		};
-		6A6212AC098713102D55085B /* Frameworks */ = {
+		4E6E433F2ED5AF14EB6342EC /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */,
-				0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */,
-				8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */,
+				F768F3573788BD1822FC738C /* Pods_InstaPark.framework */,
+				8C5824A14A51FD283C02D1E5 /* Pods_InstaPark_InstaParkUITests.framework */,
+				C4A738836DC7D1A9AD66C4C0 /* Pods_InstaParkTests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -258,6 +287,23 @@
 			path = CustomCallout;
 			sourceTree = "<group>";
 		};
+		F25AC5592558CECC002CB02F /* fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F25AC60E2558D621002CB02F /* BebasNeue-Bold.otf */,
+				F25AC60F2558D623002CB02F /* BebasNeue-Book.otf */,
+				F25AC60D2558D620002CB02F /* BebasNeue-Light.otf */,
+				F25AC6102558D624002CB02F /* BebasNeue-Regular.otf */,
+				F25AC6112558D625002CB02F /* BebasNeue-Thin.otf */,
+				F25AC5E12558D471002CB02F /* BebasNeue-Bold.ttf */,
+				F25AC5E42558D474002CB02F /* BebasNeue-Book.ttf */,
+				F25AC5E32558D473002CB02F /* BebasNeue-Light.ttf */,
+				F25AC5E22558D472002CB02F /* BebasNeue-Regular.ttf */,
+				F25AC5E52558D475002CB02F /* BebasNeue-Thin.ttf */,
+			);
+			path = fonts;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -265,11 +311,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0410B1402548D8EB001C4D27 /* Build configuration list for PBXNativeTarget "InstaPark" */;
 			buildPhases = (
-				CC2D18F59974D49800C6A394 /* [CP] Check Pods Manifest.lock */,
+				454F3853E66DFBB1D68FD5BF /* [CP] Check Pods Manifest.lock */,
 				0410B1122548D8E9001C4D27 /* Sources */,
 				0410B1132548D8E9001C4D27 /* Frameworks */,
 				0410B1142548D8E9001C4D27 /* Resources */,
-				58F2A3232EAFF9699280F6A1 /* [CP] Embed Pods Frameworks */,
+				19C6A30E18C47ABBEE57331F /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -284,7 +330,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0410B1432548D8EB001C4D27 /* Build configuration list for PBXNativeTarget "InstaParkTests" */;
 			buildPhases = (
-				DF85498729DE5813EE433A2F /* [CP] Check Pods Manifest.lock */,
+				4007DABAEB609641131F9130 /* [CP] Check Pods Manifest.lock */,
 				0410B1282548D8EB001C4D27 /* Sources */,
 				0410B1292548D8EB001C4D27 /* Frameworks */,
 				0410B12A2548D8EB001C4D27 /* Resources */,
@@ -303,11 +349,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 0410B1462548D8EB001C4D27 /* Build configuration list for PBXNativeTarget "InstaParkUITests" */;
 			buildPhases = (
-				1E331267B983709FBCE88A49 /* [CP] Check Pods Manifest.lock */,
+				926545CED8B4B09C3209E736 /* [CP] Check Pods Manifest.lock */,
 				0410B1332548D8EB001C4D27 /* Sources */,
 				0410B1342548D8EB001C4D27 /* Frameworks */,
 				0410B1352548D8EB001C4D27 /* Resources */,
-				B07C574BF1089015175DC99D /* [CP] Embed Pods Frameworks */,
+				1E7B7EA24E1AEAF340B5C14C /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -366,10 +412,22 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F25AC61B2558F973002CB02F /* google-icon.svg in Resources */,
+				F25AC5EF2558D475002CB02F /* BebasNeue-Book.ttf in Resources */,
 				0410B1262548D8EB001C4D27 /* LaunchScreen.storyboard in Resources */,
 				0410B1512548EACC001C4D27 /* GoogleService-Info.plist in Resources */,
+				F25AC5E92558D475002CB02F /* BebasNeue-Regular.ttf in Resources */,
+				F25AC5E62558D475002CB02F /* BebasNeue-Bold.ttf in Resources */,
+				F25AC6152558D625002CB02F /* BebasNeue-Regular.otf in Resources */,
+				F25AC6132558D625002CB02F /* BebasNeue-Bold.otf in Resources */,
 				0410B1232548D8EB001C4D27 /* Assets.xcassets in Resources */,
 				0410B1212548D8E9001C4D27 /* Main.storyboard in Resources */,
+				F25AC6122558D625002CB02F /* BebasNeue-Light.otf in Resources */,
+				F25AC620255919CD002CB02F /* google-icon.ico in Resources */,
+				F25AC5F22558D475002CB02F /* BebasNeue-Thin.ttf in Resources */,
+				F25AC5EC2558D475002CB02F /* BebasNeue-Light.ttf in Resources */,
+				F25AC6142558D625002CB02F /* BebasNeue-Book.otf in Resources */,
+				F25AC6162558D625002CB02F /* BebasNeue-Thin.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -390,29 +448,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E331267B983709FBCE88A49 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-InstaPark-InstaParkUITests-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		58F2A3232EAFF9699280F6A1 /* [CP] Embed Pods Frameworks */ = {
+		19C6A30E18C47ABBEE57331F /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -429,7 +465,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InstaPark/Pods-InstaPark-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B07C574BF1089015175DC99D /* [CP] Embed Pods Frameworks */ = {
+		1E7B7EA24E1AEAF340B5C14C /* [CP] Embed Pods Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -446,29 +482,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		CC2D18F59974D49800C6A394 /* [CP] Check Pods Manifest.lock */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
-				"${PODS_ROOT}/Manifest.lock",
-			);
-			name = "[CP] Check Pods Manifest.lock";
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-InstaPark-checkManifestLockResult.txt",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		DF85498729DE5813EE433A2F /* [CP] Check Pods Manifest.lock */ = {
+		4007DABAEB609641131F9130 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -490,6 +504,50 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		454F3853E66DFBB1D68FD5BF /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-InstaPark-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		926545CED8B4B09C3209E736 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-InstaPark-InstaParkUITests-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -499,7 +557,6 @@
 			files = (
 				0410B190254A49F7001C4D27 /* LoginViewController.swift in Sources */,
 				0410B195254A4A08001C4D27 /* SignupViewController.swift in Sources */,
-				0410B18B254A49A5001C4D27 /* StartViewController.swift in Sources */,
 				9431304E254E4E83002221F4 /* CalloutView.swift in Sources */,
 				94313053254E4ED0002221F4 /* ParkingCallout.swift in Sources */,
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
@@ -511,6 +568,7 @@
 				0410B11C2548D8E9001C4D27 /* SceneDelegate.swift in Sources */,
 				044A3FDE254E40F000B5F19C /* Customer.swift in Sources */,
 				0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */,
+				F25AC5552558BD00002CB02F /* SignupPaymentViewController.swift in Sources */,
 				044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */,
 				0410B1702548F860001C4D27 /* AuthService.swift in Sources */,
 			);
@@ -685,7 +743,7 @@
 		};
 		0410B1412548D8EB001C4D27 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 93BBE7307C025EDEF69CB82A /* Pods-InstaPark.debug.xcconfig */;
+			baseConfigurationReference = 6A088A5262652458B591D372 /* Pods-InstaPark.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -705,7 +763,7 @@
 		};
 		0410B1422548D8EB001C4D27 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4798B55AD2CA44F01FBFAD9A /* Pods-InstaPark.release.xcconfig */;
+			baseConfigurationReference = CD70E1A127E255D0A56DF47C /* Pods-InstaPark.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -725,7 +783,7 @@
 		};
 		0410B1442548D8EB001C4D27 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = DBB3BEB0DBAF3EBA683DD6B0 /* Pods-InstaParkTests.debug.xcconfig */;
+			baseConfigurationReference = 253AA03A795D47CC8AB74F24 /* Pods-InstaParkTests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -747,7 +805,7 @@
 		};
 		0410B1452548D8EB001C4D27 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2A1EA382BF589B312F96A2D /* Pods-InstaParkTests.release.xcconfig */;
+			baseConfigurationReference = DB9CF31568117B2C2194B58F /* Pods-InstaParkTests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
@@ -769,7 +827,7 @@
 		};
 		0410B1472548D8EB001C4D27 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 62C5430310CECA7E1F1E1A83 /* Pods-InstaPark-InstaParkUITests.debug.xcconfig */;
+			baseConfigurationReference = D741239688EB26E1E4CEE779 /* Pods-InstaPark-InstaParkUITests.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
@@ -789,7 +847,7 @@
 		};
 		0410B1482548D8EB001C4D27 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 30CB94D117C221B132D1BCFA /* Pods-InstaPark-InstaParkUITests.release.xcconfig */;
+			baseConfigurationReference = 7DD1A7A26B721604709ED8B6 /* Pods-InstaPark-InstaParkUITests.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
