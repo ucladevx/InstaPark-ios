@@ -39,7 +39,11 @@ class MapViewViewController: UIViewController{
             print("Rendering parking spots on map")
             if let parkingSpots = parkingSpots {
                 for parking in parkingSpots {
-                    self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, time: "Start Time - End Time"))
+                    if parking.isAvailable {
+                        
+                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, time: "Start Time - End Time"))
+                    }
+                    
                 }
                 print("Adding annotations")
                 self.mapView.addAnnotations(self.annotations)
