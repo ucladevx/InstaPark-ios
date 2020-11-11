@@ -7,17 +7,21 @@
 
 import UIKit
 import MapKit
-
-class MapViewViewController: ViewController {
+import GeoFire
+class MapViewViewController: ViewController{
 
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var transactionsButton: UIButton!
     
+    private var geoFire = GeoFire(firebaseRef: Database.database().reference())
+    private var regionQuery: GFRegionQuery?
+    
+    private var annotations = [ParkingSpaceMapAnnotation]()
+
     override func viewDidLoad() {
         super.hideNavBar(false)
         super.viewDidLoad()
         mapView.delegate = self
-        
         //transaction button shadow
         transactionsButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
         transactionsButton.layer.shadowOffset = CGSize(width: 4.0, height: 3.0)
@@ -31,17 +35,17 @@ class MapViewViewController: ViewController {
         let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
         
         self.mapView.setRegion(region, animated: false)
-        
+        regionQuery = geoFire.query(with: region)
         ParkingSpotService.getAllParkingSpots() { parkingSpots, error in
             print("Rendering parking spots on map")
             if let parkingSpots = parkingSpots {
-                var annotations = [ParkingSpaceMapAnnotation]()
                 for parking in parkingSpots {
-                    
-                    annotations.append(ParkingSpaceMapAnnotation(name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
+                    if parking.isAvailable {
+                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
                 }
                 print("Adding annotations")
-                self.mapView.addAnnotations(annotations)
+                self.mapView.addAnnotations(self.annotations)
+                }
             }
         }
         //test annotations until set up with firebase
@@ -55,11 +59,32 @@ class MapViewViewController: ViewController {
 //
 //        self.mapView.addAnnotations(annotations)
     }
-    
+    func initializeQueryObservers() {
+        if let regionQuery = regionQuery {
+            regionQuery.observe(.keyEntered, with: { key, location in
+                DispatchQueue.global(qos: .userInteractive).async {
+                    ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
+                        if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
+                        }
+                    }
+                }
+            })
+            //currently no behavior when parking spot leaves the view
+//            regionQuery.observe(.keyExited, with: { key, location in
+//                DispatchQueue.global(qos: .userInteractive).async {
+//
+//                }
+//            })
+        }
+    }
+    func updateMapView() {
+    }
     //transaction button, for later use
     @IBAction func transactionButton(_ sender: UIButton) {
         
     }
+        
 }
 
 

@@ -12,9 +12,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
-//        ParkingSpotService.createParkingSpotIn(lat: 34.0703, long: -118.4398)
-//        for _ in 0..<100 {
-//            ParkingSpotService.createParkingSpotIn(lat: Double.random(in: 34.05..<34.07), long: Double.random(in: -118.45 ..< -118.43))
+        for family in UIFont.familyNames.sorted() {
+            let names = UIFont.fontNames(forFamilyName: family)
+            print("Family: \(family) Font names: \(names)")
+        }//        ParkingSpotService.createParkingSpotIn(lat: 34.0703, long: -118.4398)
+//        for _ in 0..<50 {
+//            ParkingSpotService.createParkingSpotIn(lat: Double.random(in: 34..<34.5), long: Double.random(in: -118.8 ..< -118.3))
 //        }
 //        ParkingSpotService.getAllParkingSpots() { parkingSpaces, error in
 //            

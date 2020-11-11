@@ -10,20 +10,21 @@ import UIKit
 
 //class for MapView to pass data into annotations 
 class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
-    var name: String?
+    var id: String
+    var name: String
     var coordinate: CLLocationCoordinate2D
     var price: Double
     var startTime: NSDate
     var endTime: NSDate
     var time: String
 
-    init(name: String, coordinate: CLLocationCoordinate2D, price: Double, startTime: NSDate, endTime: NSDate) {
+    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, startTime: NSDate, endTime: NSDate) {
         self.coordinate = coordinate
         self.price = price
         self.startTime = startTime
         self.endTime = endTime
         self.name = name
-        
+        self.id = id
         //convert NSDate to String
         let formatter1 = DateFormatter()
         formatter1.dateFormat = "h:00"
@@ -31,7 +32,7 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         let formatter2 = DateFormatter()
         formatter2.dateFormat = "h:00 a"
         let endString = formatter2.string(from: endTime as Date)
-    
+        
         self.time = startString + "-" + endString
 
     }

@@ -99,13 +99,13 @@ class AuthService {
         }
     }
     
-    //creates  user document
+    //creates user document
     private static func createUserDocument(authResult: AuthDataResult) {
         print("Creating user document")
         let user = authResult.user
         let data = user.providerData[0]
         let db = Firestore.firestore()
-        let customer = Customer(uid: data.uid, displayName: data.displayName ?? "", phoneNumber: data.phoneNumber ?? "", transactions: [])
-        db.collection("customers").document(data.uid).setData(customer.dictionary)
+        let customer = User(uid: data.uid, displayName: data.displayName ?? "", phoneNumber: data.phoneNumber ?? "")
+        db.collection("User").document(data.uid).setData(customer.dictionary)
     }
 }

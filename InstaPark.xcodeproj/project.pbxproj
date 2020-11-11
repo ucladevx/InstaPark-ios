@@ -20,28 +20,23 @@
 		0410B190254A49F7001C4D27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B18F254A49F7001C4D27 /* LoginViewController.swift */; };
 		0410B195254A4A08001C4D27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B194254A4A08001C4D27 /* SignupViewController.swift */; };
 		0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B199254A4A7E001C4D27 /* MapViewViewController.swift */; };
-		044A3FDE254E40F000B5F19C /* Customer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FDD254E40F000B5F19C /* Customer.swift */; };
+		044A3FDE254E40F000B5F19C /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FDD254E40F000B5F19C /* User.swift */; };
 		044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */; };
 		044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE7254EA07A00B5F19C /* Transaction.swift */; };
+		0482FE45255C9DE6002F522E /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE44255C9DE6002F522E /* Roboto-Regular.ttf */; };
 		048D7E50254FDA49009B6AE3 /* Codable+Dicionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E4F254FDA49009B6AE3 /* Codable+Dicionary.swift */; };
 		048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E542550D739009B6AE3 /* ParkingSpotService.swift */; };
+		04968FDC2555066E0001B876 /* UserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04968FDB2555066E0001B876 /* UserService.swift */; };
+		04968FE12555176E0001B876 /* TransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04968FE02555176E0001B876 /* TransactionService.swift */; };
+		04968FEE2556042D0001B876 /* ReservationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04968FED2556042D0001B876 /* ReservationModalViewController.swift */; };
+		0496907B255C97C00001B876 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0496907A255C97C00001B876 /* BebasNeue-Regular.ttf */; };
 		9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */; };
 		9431304E254E4E83002221F4 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431304D254E4E83002221F4 /* CalloutView.swift */; };
-		94313053254E4ED0002221F4 /* ParkingCallout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94313052254E4ED0002221F4 /* ParkingCallout.swift */; };
+		94313053254E4ED0002221F4 /* ParkingCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94313052254E4ED0002221F4 /* ParkingCalloutView.swift */; };
 		98469DBAB9AA8F9B0A7DFEE6 /* Pods_InstaParkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C4A738836DC7D1A9AD66C4C0 /* Pods_InstaParkTests.framework */; };
 		A95157DDDE6DBE2DBFC54CCB /* Pods_InstaPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F768F3573788BD1822FC738C /* Pods_InstaPark.framework */; };
-		E51D3A0D880672BDEA387CE9 /* BuildFile in Frameworks */ = {isa = PBXBuildFile; };
+		E51D3A0D880672BDEA387CE9 /* (null) in Frameworks */ = {isa = PBXBuildFile; };
 		F25AC5552558BD00002CB02F /* SignupPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F25AC5542558BD00002CB02F /* SignupPaymentViewController.swift */; };
-		F25AC5E62558D475002CB02F /* BebasNeue-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E12558D471002CB02F /* BebasNeue-Bold.ttf */; };
-		F25AC5E92558D475002CB02F /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E22558D472002CB02F /* BebasNeue-Regular.ttf */; };
-		F25AC5EC2558D475002CB02F /* BebasNeue-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E32558D473002CB02F /* BebasNeue-Light.ttf */; };
-		F25AC5EF2558D475002CB02F /* BebasNeue-Book.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E42558D474002CB02F /* BebasNeue-Book.ttf */; };
-		F25AC5F22558D475002CB02F /* BebasNeue-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC5E52558D475002CB02F /* BebasNeue-Thin.ttf */; };
-		F25AC6122558D625002CB02F /* BebasNeue-Light.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC60D2558D620002CB02F /* BebasNeue-Light.otf */; };
-		F25AC6132558D625002CB02F /* BebasNeue-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC60E2558D621002CB02F /* BebasNeue-Bold.otf */; };
-		F25AC6142558D625002CB02F /* BebasNeue-Book.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC60F2558D623002CB02F /* BebasNeue-Book.otf */; };
-		F25AC6152558D625002CB02F /* BebasNeue-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC6102558D624002CB02F /* BebasNeue-Regular.otf */; };
-		F25AC6162558D625002CB02F /* BebasNeue-Thin.otf in Resources */ = {isa = PBXBuildFile; fileRef = F25AC6112558D625002CB02F /* BebasNeue-Thin.otf */; };
 		F25AC61B2558F973002CB02F /* google-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = F25AC61A2558F973002CB02F /* google-icon.svg */; };
 		F25AC620255919CD002CB02F /* google-icon.ico in Resources */ = {isa = PBXBuildFile; fileRef = F25AC61F255919CD002CB02F /* google-icon.ico */; };
 		F8CBD1B143631A47D39E127D /* Pods_InstaPark_InstaParkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8C5824A14A51FD283C02D1E5 /* Pods_InstaPark_InstaParkUITests.framework */; };
@@ -72,7 +67,6 @@
 		0410B1202548D8E9001C4D27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		0410B1222548D8EB001C4D27 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		0410B1252548D8EB001C4D27 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		0410B1272548D8EB001C4D27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		0410B12C2548D8EB001C4D27 /* InstaParkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = InstaParkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0410B1302548D8EB001C4D27 /* InstaParkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InstaParkTests.swift; sourceTree = "<group>"; };
 		0410B1322548D8EB001C4D27 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -84,33 +78,29 @@
 		0410B18F254A49F7001C4D27 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		0410B194254A4A08001C4D27 /* SignupViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupViewController.swift; sourceTree = "<group>"; };
 		0410B199254A4A7E001C4D27 /* MapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewController.swift; sourceTree = "<group>"; };
-		044A3FDD254E40F000B5F19C /* Customer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Customer.swift; sourceTree = "<group>"; };
+		044A3FDD254E40F000B5F19C /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpot.swift; sourceTree = "<group>"; };
 		044A3FE7254EA07A00B5F19C /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		0482FE44255C9DE6002F522E /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		048D7E4F254FDA49009B6AE3 /* Codable+Dicionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dicionary.swift"; sourceTree = "<group>"; };
 		048D7E542550D739009B6AE3 /* ParkingSpotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpotService.swift; sourceTree = "<group>"; };
+		04968FDB2555066E0001B876 /* UserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserService.swift; sourceTree = "<group>"; };
+		04968FE02555176E0001B876 /* TransactionService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionService.swift; sourceTree = "<group>"; };
+		04968FED2556042D0001B876 /* ReservationModalViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationModalViewController.swift; sourceTree = "<group>"; };
+		0496907A255C97C00001B876 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
+		0496908D255C9BC60001B876 /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		253AA03A795D47CC8AB74F24 /* Pods-InstaParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.debug.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		6A088A5262652458B591D372 /* Pods-InstaPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.debug.xcconfig"; sourceTree = "<group>"; };
 		7DD1A7A26B721604709ED8B6 /* Pods-InstaPark-InstaParkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.release.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.release.xcconfig"; sourceTree = "<group>"; };
 		8C5824A14A51FD283C02D1E5 /* Pods_InstaPark_InstaParkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark_InstaParkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceMapAnnotation.swift; sourceTree = "<group>"; };
 		9431304D254E4E83002221F4 /* CalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
-		94313052254E4ED0002221F4 /* ParkingCallout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingCallout.swift; sourceTree = "<group>"; };
+		94313052254E4ED0002221F4 /* ParkingCalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingCalloutView.swift; sourceTree = "<group>"; };
 		C4A738836DC7D1A9AD66C4C0 /* Pods_InstaParkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaParkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CD70E1A127E255D0A56DF47C /* Pods-InstaPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.release.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.release.xcconfig"; sourceTree = "<group>"; };
 		D741239688EB26E1E4CEE779 /* Pods-InstaPark-InstaParkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.debug.xcconfig"; sourceTree = "<group>"; };
 		DB9CF31568117B2C2194B58F /* Pods-InstaParkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.release.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.release.xcconfig"; sourceTree = "<group>"; };
 		F25AC5542558BD00002CB02F /* SignupPaymentViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignupPaymentViewController.swift; sourceTree = "<group>"; };
-		F25AC5E12558D471002CB02F /* BebasNeue-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Bold.ttf"; sourceTree = "<group>"; };
-		F25AC5E22558D472002CB02F /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
-		F25AC5E32558D473002CB02F /* BebasNeue-Light.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Light.ttf"; sourceTree = "<group>"; };
-		F25AC5E42558D474002CB02F /* BebasNeue-Book.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Book.ttf"; sourceTree = "<group>"; };
-		F25AC5E52558D475002CB02F /* BebasNeue-Thin.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Thin.ttf"; sourceTree = "<group>"; };
-		F25AC60D2558D620002CB02F /* BebasNeue-Light.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Light.otf"; sourceTree = "<group>"; };
-		F25AC60E2558D621002CB02F /* BebasNeue-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Bold.otf"; sourceTree = "<group>"; };
-		F25AC60F2558D623002CB02F /* BebasNeue-Book.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Book.otf"; sourceTree = "<group>"; };
-		F25AC6102558D624002CB02F /* BebasNeue-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.otf"; sourceTree = "<group>"; };
-		F25AC6112558D625002CB02F /* BebasNeue-Thin.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Thin.otf"; sourceTree = "<group>"; };
 		F25AC61A2558F973002CB02F /* google-icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "google-icon.svg"; sourceTree = "<group>"; };
 		F25AC61F255919CD002CB02F /* google-icon.ico */ = {isa = PBXFileReference; lastKnownFileType = image.ico; path = "google-icon.ico"; sourceTree = "<group>"; };
 		F768F3573788BD1822FC738C /* Pods_InstaPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -129,7 +119,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				E51D3A0D880672BDEA387CE9 /* BuildFile in Frameworks */,
+				E51D3A0D880672BDEA387CE9 /* (null) in Frameworks */,
 				98469DBAB9AA8F9B0A7DFEE6 /* Pods_InstaParkTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -202,6 +192,7 @@
 		0410B14C2548DC1F001C4D27 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				04968FED2556042D0001B876 /* ReservationModalViewController.swift */,
 				0410B18F254A49F7001C4D27 /* LoginViewController.swift */,
 				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
 				F25AC5542558BD00002CB02F /* SignupPaymentViewController.swift */,
@@ -222,7 +213,7 @@
 		0410B14E2548DC3A001C4D27 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				044A3FDD254E40F000B5F19C /* Customer.swift */,
+				044A3FDD254E40F000B5F19C /* User.swift */,
 				044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */,
 				044A3FE7254EA07A00B5F19C /* Transaction.swift */,
 				048D7E4F254FDA49009B6AE3 /* Codable+Dicionary.swift */,
@@ -238,10 +229,10 @@
 				F25AC5592558CECC002CB02F /* fonts */,
 				0410B1192548D8E9001C4D27 /* AppDelegate.swift */,
 				0410B11B2548D8E9001C4D27 /* SceneDelegate.swift */,
+				0496908D255C9BC60001B876 /* Info.plist */,
 				0410B1222548D8EB001C4D27 /* Assets.xcassets */,
 				0410B1502548EACC001C4D27 /* GoogleService-Info.plist */,
 				0410B1242548D8EB001C4D27 /* LaunchScreen.storyboard */,
-				0410B1272548D8EB001C4D27 /* Info.plist */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -250,6 +241,8 @@
 			isa = PBXGroup;
 			children = (
 				0410B16F2548F860001C4D27 /* AuthService.swift */,
+				04968FDB2555066E0001B876 /* UserService.swift */,
+				04968FE02555176E0001B876 /* TransactionService.swift */,
 				048D7E542550D739009B6AE3 /* ParkingSpotService.swift */,
 			);
 			path = Services;
@@ -282,7 +275,7 @@
 			isa = PBXGroup;
 			children = (
 				9431304D254E4E83002221F4 /* CalloutView.swift */,
-				94313052254E4ED0002221F4 /* ParkingCallout.swift */,
+				94313052254E4ED0002221F4 /* ParkingCalloutView.swift */,
 			);
 			path = CustomCallout;
 			sourceTree = "<group>";
@@ -290,16 +283,8 @@
 		F25AC5592558CECC002CB02F /* fonts */ = {
 			isa = PBXGroup;
 			children = (
-				F25AC60E2558D621002CB02F /* BebasNeue-Bold.otf */,
-				F25AC60F2558D623002CB02F /* BebasNeue-Book.otf */,
-				F25AC60D2558D620002CB02F /* BebasNeue-Light.otf */,
-				F25AC6102558D624002CB02F /* BebasNeue-Regular.otf */,
-				F25AC6112558D625002CB02F /* BebasNeue-Thin.otf */,
-				F25AC5E12558D471002CB02F /* BebasNeue-Bold.ttf */,
-				F25AC5E42558D474002CB02F /* BebasNeue-Book.ttf */,
-				F25AC5E32558D473002CB02F /* BebasNeue-Light.ttf */,
-				F25AC5E22558D472002CB02F /* BebasNeue-Regular.ttf */,
-				F25AC5E52558D475002CB02F /* BebasNeue-Thin.ttf */,
+				0482FE44255C9DE6002F522E /* Roboto-Regular.ttf */,
+				0496907A255C97C00001B876 /* BebasNeue-Regular.ttf */,
 			);
 			path = fonts;
 			sourceTree = "<group>";
@@ -413,21 +398,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				F25AC61B2558F973002CB02F /* google-icon.svg in Resources */,
-				F25AC5EF2558D475002CB02F /* BebasNeue-Book.ttf in Resources */,
 				0410B1262548D8EB001C4D27 /* LaunchScreen.storyboard in Resources */,
+				0482FE45255C9DE6002F522E /* Roboto-Regular.ttf in Resources */,
+				0496907B255C97C00001B876 /* BebasNeue-Regular.ttf in Resources */,
 				0410B1512548EACC001C4D27 /* GoogleService-Info.plist in Resources */,
-				F25AC5E92558D475002CB02F /* BebasNeue-Regular.ttf in Resources */,
-				F25AC5E62558D475002CB02F /* BebasNeue-Bold.ttf in Resources */,
-				F25AC6152558D625002CB02F /* BebasNeue-Regular.otf in Resources */,
-				F25AC6132558D625002CB02F /* BebasNeue-Bold.otf in Resources */,
 				0410B1232548D8EB001C4D27 /* Assets.xcassets in Resources */,
 				0410B1212548D8E9001C4D27 /* Main.storyboard in Resources */,
-				F25AC6122558D625002CB02F /* BebasNeue-Light.otf in Resources */,
 				F25AC620255919CD002CB02F /* google-icon.ico in Resources */,
-				F25AC5F22558D475002CB02F /* BebasNeue-Thin.ttf in Resources */,
-				F25AC5EC2558D475002CB02F /* BebasNeue-Light.ttf in Resources */,
-				F25AC6142558D625002CB02F /* BebasNeue-Book.otf in Resources */,
-				F25AC6162558D625002CB02F /* BebasNeue-Thin.otf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -558,15 +535,18 @@
 				0410B190254A49F7001C4D27 /* LoginViewController.swift in Sources */,
 				0410B195254A4A08001C4D27 /* SignupViewController.swift in Sources */,
 				9431304E254E4E83002221F4 /* CalloutView.swift in Sources */,
-				94313053254E4ED0002221F4 /* ParkingCallout.swift in Sources */,
+				94313053254E4ED0002221F4 /* ParkingCalloutView.swift in Sources */,
+				04968FEE2556042D0001B876 /* ReservationModalViewController.swift in Sources */,
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
+				04968FE12555176E0001B876 /* TransactionService.swift in Sources */,
+				04968FDC2555066E0001B876 /* UserService.swift in Sources */,
 				9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */,
 				0410B11A2548D8E9001C4D27 /* AppDelegate.swift in Sources */,
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,
 				048D7E50254FDA49009B6AE3 /* Codable+Dicionary.swift in Sources */,
 				0410B11C2548D8E9001C4D27 /* SceneDelegate.swift in Sources */,
-				044A3FDE254E40F000B5F19C /* Customer.swift in Sources */,
+				044A3FDE254E40F000B5F19C /* User.swift in Sources */,
 				0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */,
 				F25AC5552558BD00002CB02F /* SignupPaymentViewController.swift in Sources */,
 				044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */,
