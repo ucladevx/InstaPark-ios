@@ -7,12 +7,14 @@
 
 import UIKit
 import MapKit
+import GeoFire
 
-class MapViewViewController: UIViewController {
+class MapViewViewController: ViewController {
     
     let locationManager = CLLocationManager()
    
     @IBOutlet weak var SlideUpView: SlideView!
+
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var reserveBtn: UIButton!
     @IBOutlet weak var nameLabel: UILabel!
@@ -32,9 +34,21 @@ class MapViewViewController: UIViewController {
     var originalCenterOfslideUpView = CGFloat()
     var totalDistance = CGFloat()
     
+    private var geoFire = GeoFire(firebaseRef: Database.database().reference())
+    private var regionQuery: GFRegionQuery?
+    
+    private var annotations = [ParkingSpaceMapAnnotation]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        super.hideNavBar(false)
         mapView.delegate = self
+        //transaction button shadow
+        transactionsButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
+        transactionsButton.layer.shadowOffset = CGSize(width: 4.0, height: 3.0)
+        transactionsButton.layer.shadowOpacity = 0.5
+        transactionsButton.layer.shadowRadius = 3.0
+        transactionsButton.layer.masksToBounds = false
         
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
@@ -42,17 +56,17 @@ class MapViewViewController: UIViewController {
         let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
         
         self.mapView.setRegion(region, animated: false)
-        
+        regionQuery = geoFire.query(with: region)
         ParkingSpotService.getAllParkingSpots() { parkingSpots, error in
             print("Rendering parking spots on map")
             if let parkingSpots = parkingSpots {
-                var annotations = [ParkingSpaceMapAnnotation]()
                 for parking in parkingSpots {
-                    
-                    annotations.append(ParkingSpaceMapAnnotation(name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
+                    if parking.isAvailable {
+                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
                 }
                 print("Adding annotations")
-                self.mapView.addAnnotations(annotations)
+                self.mapView.addAnnotations(self.annotations)
+                }
             }
         }
         //test annotations until set up with firebase
@@ -154,8 +168,30 @@ class MapViewViewController: UIViewController {
         //SlideUpBtn.isHidden = false
         self.tabBarController?.tabBar.isHidden = false
         mapView.selectedAnnotations.forEach({ mapView.deselectAnnotation($0, animated: false) })
-        
     }
+    func initializeQueryObservers() {
+        if let regionQuery = regionQuery {
+            regionQuery.observe(.keyEntered, with: { key, location in
+                DispatchQueue.global(qos: .userInteractive).async {
+                    ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
+                        if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
+                        }
+                    }
+                }
+            })
+            //currently no behavior when parking spot leaves the view
+//            regionQuery.observe(.keyExited, with: { key, location in
+//                DispatchQueue.global(qos: .userInteractive).async {
+//
+//                }
+//            })
+        }
+    }
+    func updateMapView() {
+    }
+    //transaction button, for later use
+    @IBAction func transactionButton(_ sender: UIButton)
 }
 
 extension UIView {
