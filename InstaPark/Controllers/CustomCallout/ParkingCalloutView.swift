@@ -58,7 +58,7 @@ class ParkingCalloutView: CalloutView {
         let parkingSpace = annotation as! ParkingSpaceMapAnnotation
         
         //title customization
-        let name = parkingSpace.name!
+        let name = parkingSpace.name
         let name_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 19), NSAttributedString.Key.foregroundColor : UIColor.black]
         let title = NSMutableAttributedString(string:name, attributes:name_attrs)
         

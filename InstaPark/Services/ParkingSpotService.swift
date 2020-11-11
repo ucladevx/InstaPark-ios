@@ -27,6 +27,11 @@ class ParkingSpotService {
         geoFire.setLocation(CLLocation(latitude: spot.coordinates.lat, longitude: spot.coordinates.long), forKey: spot.id)
         
     }
+    //Gets parking spots near you, takes in region as an argument
+    static func getParkingSpotQuery(region: MKCoordinateRegion) -> GFRegionQuery{
+        let regionQuery = geoFire.query(with: region)
+        return regionQuery
+    }
     //Gets all parking spots from the ParkingSpot collection
     static func getAllParkingSpots(completion: @escaping ([ParkingSpot]?, Error?) -> Void){
         print("Getting all parking spaces")
