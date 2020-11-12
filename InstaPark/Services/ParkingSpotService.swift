@@ -16,9 +16,11 @@ class ParkingSpotService {
     static func createParkingSpotIn(lat: Double, long: Double) {
         print("Creating parking spot")
         let docRef = db.collection("ParkingSpot").document()
-        let spot = ParkingSpot(id: docRef.documentID, address: Address(city: "LA", state: "CA", street: "Street1", zip: "90024"), startTime: 0, endTime: 0, coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", firstName: "Bob", lastName: "Steve", lastEndTime: 0)
+        let spot = ParkingSpot(id: docRef.documentID, address: Address(city: "LA", state: "CA", street: "Street1", zip: "90024"), times: [ParkingTimeInterval(start: 0, end: 0)], coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], firstName: "Bob", lastName: "Steve", lastEndTime: 0)
         docRef.setData(spot.dictionary)
     }
+    
+    // saves new parking spot
     static func saveParkingSpot(_ parkingSpot: ParkingSpot) {
         let docRef = db.collection("ParkingSpot").document()
         var spot = parkingSpot
