@@ -17,11 +17,12 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
     var startTime: NSDate
     var endTime: NSDate
     var address: String
+    var time: String
     var tags: [String]
     var comments: String
 
-    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, startTime: NSDate, endTime: NSDate address: String/*, tags: [String], comments: String*/) {
-        self.id= id
+    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, startTime: NSDate, endTime: NSDate, address: String) {
+        self.id = id
         self.coordinate = coordinate
         self.price = price
         self.startTime = startTime
@@ -35,9 +36,10 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         formatter2.dateFormat = "h:00 a"
         let endString = formatter2.string(from: endTime as Date)
     
-        self.time = startString + "-" + endString */
+        self.time = startString + "-" + endString 
         
         self.address = "124 Glenrock Ave, Los Angeles, CA 90024"
+        
         self.tags = ["Tandem", "Hourly", "Covered"]
         self.comments = "Parking space with room for a large vehicle! \nMessage me for more details."
         

@@ -10,13 +10,15 @@ import Foundation
 struct ParkingSpot: Codable {
     var id: String
     var address: Address
-    //Epoch time of when parking becomes available (set by provider)
-    var startTime: Int
-    //Epoch time of when parking no longer is available (set by provider)
-    var endTime: Int
+    
+    var times: [ParkingTimeInterval] // Stores list of time intervals
+                                     // Query date
+//    var times: [String: [ParkingTimeInterval]] // Key - "11-16-20"
     var coordinates: Coordinate
     var pricePerHour: Double
     var provider: String
+    var comments: String
+    var tags: [String]
     
     //Fields below are properties of provider but stored here to minimize data costs
     var firstName: String
@@ -34,6 +36,11 @@ struct Address: Codable {
 struct Coordinate: Codable {
     var lat: Double
     var long: Double
+}
+struct ParkingTimeInterval: Codable {
+    //epoch time
+    var start: Int
+    var end: Int
 }
 extension ParkingSpot {
     var isAvailable: Bool {

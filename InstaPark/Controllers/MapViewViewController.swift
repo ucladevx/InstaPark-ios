@@ -44,11 +44,11 @@ class MapViewViewController: ViewController {
         super.hideNavBar(false)
         mapView.delegate = self
         //transaction button shadow
-        transactionsButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
-        transactionsButton.layer.shadowOffset = CGSize(width: 4.0, height: 3.0)
-        transactionsButton.layer.shadowOpacity = 0.5
-        transactionsButton.layer.shadowRadius = 3.0
-        transactionsButton.layer.masksToBounds = false
+//        transactionsButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
+//        transactionsButton.layer.shadowOffset = CGSize(width: 4.0, height: 3.0)
+//        transactionsButton.layer.shadowOpacity = 0.5
+//        transactionsButton.layer.shadowRadius = 3.0
+//        transactionsButton.layer.masksToBounds = false
         
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
@@ -62,7 +62,7 @@ class MapViewViewController: ViewController {
             if let parkingSpots = parkingSpots {
                 for parking in parkingSpots {
                     if parking.isAvailable {
-                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
+                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: ""))
                 }
                 print("Adding annotations")
                 self.mapView.addAnnotations(self.annotations)
@@ -175,7 +175,7 @@ class MapViewViewController: ViewController {
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
                         if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
-                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init()))
+                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "test"))
                         }
                     }
                 }
@@ -191,7 +191,7 @@ class MapViewViewController: ViewController {
     func updateMapView() {
     }
     //transaction button, for later use
-    @IBAction func transactionButton(_ sender: UIButton)
+    @IBAction func transactionButton(_ sender: UIButton){}
 }
 
 extension UIView {
