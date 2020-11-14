@@ -62,7 +62,7 @@ class MapViewViewController: ViewController {
             if let parkingSpots = parkingSpots {
                 for parking in parkingSpots {
                     if parking.isAvailable {
-                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: ""))
+                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details." ))
                 }
                 print("Adding annotations")
                 self.mapView.addAnnotations(self.annotations)
@@ -175,7 +175,7 @@ class MapViewViewController: ViewController {
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
                         if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
-                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "test"))
+                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details."))
                         }
                     }
                 }
@@ -246,7 +246,7 @@ extension MapViewViewController: MKMapViewDelegate {
              annotationView?.annotation = annotation
          }
         annotationView?.image = UIImage(named: "mapAnnotation")
-        let label = UILabel(frame: CGRect(x: 7, y: -4, width: 40, height: 30))
+        let label = UILabel(frame: CGRect(x: 10, y: 0, width: 40, height: 30))
         label.textColor = .white
         
         let dollar = "$"
@@ -263,9 +263,21 @@ extension MapViewViewController: MKMapViewDelegate {
         
         return annotationView
     }
+    
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        let parkingSpace = view.annotation as! ParkingSpaceMapAnnotation
+        let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+        mapView.setRegion(region, animated: true)
+        //view.image = UIImage(named: "mapAnnotation")
+    }
    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         let parkingSpace = view.annotation as! ParkingSpaceMapAnnotation
+        
+        // view.image = UIImage(named: "mapAnnotationSelected")
+         let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004))
+         
+         mapView.setRegion(region, animated: true)
         
         SlideUpView.isHidden = false
         totalDistance = 0

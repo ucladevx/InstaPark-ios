@@ -31,7 +31,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var reserveButton: UIButton!
     
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "id", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, startTime: NSDate.init(), endTime: NSDate.init(), address: "test")
+    var info = ParkingSpaceMapAnnotation(id: "id", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, startTime: NSDate.init(), endTime: NSDate.init(), address: "test", tags: ["test"], comments: "test")
     var total = 0.0
     var startDate: Date? = nil
     var startTime: NSDate? = nil
