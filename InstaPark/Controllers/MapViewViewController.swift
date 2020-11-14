@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import GeoFire
 
-class MapViewViewController: ViewController {
+class MapViewViewController: ViewController{
     
     let locationManager = CLLocationManager()
    
@@ -27,6 +27,7 @@ class MapViewViewController: ViewController {
     @IBOutlet weak var tag3: UIButton!
     @IBOutlet weak var tag4: UIButton!
     
+    @IBOutlet weak var mapSearch: UISearchBar!
     
     var selectedAnnotation: ParkingSpaceMapAnnotation?
     let blackView = UIView()
@@ -43,12 +44,11 @@ class MapViewViewController: ViewController {
         super.viewDidLoad()
         super.hideNavBar(false)
         mapView.delegate = self
-        //transaction button shadow
-//        transactionsButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 1.0).cgColor
-//        transactionsButton.layer.shadowOffset = CGSize(width: 4.0, height: 3.0)
-//        transactionsButton.layer.shadowOpacity = 0.5
-//        transactionsButton.layer.shadowRadius = 3.0
-//        transactionsButton.layer.masksToBounds = false
+        
+        //set up search bar
+        //mapSearch.backgroundView = UIView()
+        mapSearch.delegate = self
+        mapSearch.addDropShadow(scale: true, cornerRadius: 20)
         
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
@@ -88,6 +88,7 @@ class MapViewViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
     
     @IBAction func reserveBtn(_ sender: UIButton) {
         let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
@@ -344,7 +345,7 @@ extension MapViewViewController: MKMapViewDelegate {
 extension MapViewViewController: ParkingCalloutViewDelegate {
     func mapView(_ mapView: MKMapView, didTapDetailsButton button: UIButton, for annotation: MKAnnotation) {
         let parkingSpace = annotation as! ParkingSpaceMapAnnotation
-        let name = parkingSpace.name ?? "Unknown"
+        let name = parkingSpace.name
         let coordinates = String(parkingSpace.coordinate.latitude) + ", " + String(parkingSpace.coordinate.longitude)
         let price = parkingSpace.price
         print(name)
@@ -358,5 +359,40 @@ private extension MKMapView {
     func centerToLocation(_ location: CLLocation, regionRadius: CLLocationDistance = 1000) {
         let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         setRegion(coordinateRegion, animated: true)
+    }
+}
+
+extension MapViewViewController : UISearchBarDelegate
+{
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        //view.isUserInteractionEnabled = false
+        let activityIndicator = UIActivityIndicatorView()
+        activityIndicator.color = .gray
+        activityIndicator.hidesWhenStopped = true
+        activityIndicator.startAnimating()
+        
+        self.view.addSubview(activityIndicator)
+        searchBar.resignFirstResponder()
+        dismiss(animated: true, completion: nil)
+        
+        let searchRequest = MKLocalSearch.Request()
+        searchRequest.naturalLanguageQuery = searchBar.text
+        SlideUpView.isHidden = true
+        
+        activityIndicator.stopAnimating()
+        //view.isUserInteractionEnabled = true
+        
+        let activeSearch = MKLocalSearch(request: searchRequest)
+        activeSearch.start { (response, error) in
+            if response == nil {
+                print("ERROR")
+            }
+            else {
+                let lat = response?.boundingRegion.center.latitude
+                let long = response?.boundingRegion.center.longitude
+                let region: MKCoordinateRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat ?? 0, longitude: long ?? 0), span: MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004))
+                self.mapView.setRegion(region, animated: true)
+            }
+        }
     }
 }

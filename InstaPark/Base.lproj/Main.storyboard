@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -180,6 +181,14 @@
                                     <constraint firstItem="Ckk-Da-crf" firstAttribute="leading" secondItem="Yzw-oZ-U85" secondAttribute="leading" constant="32" id="x25-RK-3ci"/>
                                 </constraints>
                             </view>
+                            <searchBar contentMode="redraw" placeholder="Search by address..." showsSearchResultsButton="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1C-nk-oNz">
+                                <rect key="frame" x="10" y="58" width="394" height="56"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="56" id="78H-PI-jts"/>
+                                </constraints>
+                                <color key="tintColor" name="AccentColor"/>
+                                <textInputTraits key="textInputTraits" textContentType="location"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YIb-ms-dvT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -189,7 +198,10 @@
                             <constraint firstItem="j3k-4t-CT2" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="KYB-Jk-kjr"/>
                             <constraint firstItem="j3k-4t-CT2" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" id="Qc6-Wf-2zr"/>
                             <constraint firstAttribute="bottom" secondItem="Yzw-oZ-U85" secondAttribute="bottom" id="ea8-lU-P0X"/>
+                            <constraint firstItem="n1C-nk-oNz" firstAttribute="top" secondItem="0tu-wt-Jpv" secondAttribute="top" constant="58" id="qBH-ry-a6w"/>
+                            <constraint firstItem="n1C-nk-oNz" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" constant="10" id="svg-r7-2Ny"/>
                             <constraint firstItem="Yzw-oZ-U85" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" id="vz1-ak-SCP"/>
+                            <constraint firstItem="YIb-ms-dvT" firstAttribute="trailing" secondItem="n1C-nk-oNz" secondAttribute="trailing" constant="10" id="wya-my-4li"/>
                             <constraint firstItem="Yzw-oZ-U85" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="yyR-bk-QLd"/>
                         </constraints>
                     </view>
@@ -198,6 +210,7 @@
                         <outlet property="SlideUpView" destination="Yzw-oZ-U85" id="9Qy-pg-sK2"/>
                         <outlet property="addressLabel" destination="rl1-MR-HBw" id="6Sg-EG-6Ic"/>
                         <outlet property="availableLabel" destination="KU9-WG-CNt" id="ObI-zq-sp6"/>
+                        <outlet property="mapSearch" destination="n1C-nk-oNz" id="qtm-nj-VL1"/>
                         <outlet property="mapView" destination="j3k-4t-CT2" id="joe-eP-ejC"/>
                         <outlet property="nameLabel" destination="tYY-HL-OWo" id="YH1-qS-jVs"/>
                         <outlet property="priceLabel" destination="Jto-NA-GkR" id="n95-Fg-bOV"/>
@@ -1205,6 +1218,9 @@
         <image name="Arrow 1" width="36" height="8"/>
         <image name="applelogo" catalog="system" width="103" height="128"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
