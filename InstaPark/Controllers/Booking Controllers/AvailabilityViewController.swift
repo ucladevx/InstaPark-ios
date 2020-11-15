@@ -16,23 +16,38 @@ class AvailabilityViewController: UIViewController {
     @IBOutlet weak var startPicker: UIDatePicker!
     @IBOutlet weak var endPicker: UIDatePicker!
     
-    var startTime:NSDate = NSDate.init()
-    var endTime:NSDate = Calendar.current.date(byAdding: .hour, value: 1, to: Date())! as NSDate
-    var invalidDates:[String] = ["2020-11-14",
+    var startTime:Date? = nil
+    var endTime:Date? = nil
+    var invalidDates:[String] = ["2020-11-17",
                                  "2020-11-15",
                                  "2020-11-16",
                                  "2020-11-21"]
     var selectedDate = Date.init()
+    var times = [[ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //calendar setup
         calendar.delegate = self
         calendar.placeholderType = .none
         calendar.select(selectedDate as Date)
+        calendar.reloadData()
+        calendar.appearance.titleFont = .boldSystemFont(ofSize: 16)
+        calendar.appearance.headerTitleFont = .boldSystemFont(ofSize: 16)
+        calendar.dataSource = self
+        calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "CELL")
         
-        startPicker.setDate(startTime as Date, animated: false)
+        //picker setup
+        if (startTime == nil || endTime == nil)
+        {
+            let weekDay = Calendar.current.component(.weekday, from: selectedDate)
+            startTime = times[weekDay-1][0].start
+            let length = times[weekDay-1].count
+            endTime = times[weekDay-1][length-1].end
+        }
+        startPicker.setDate(startTime!, animated: false)
+        endPicker.setDate(endTime!, animated: false)
         
-        endPicker.setDate(endTime as Date, animated: false)
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -69,14 +84,21 @@ class AvailabilityViewController: UIViewController {
     }*/
     
     override func viewWillDisappear(_ animated: Bool) {
-        delegate?.pass(start: startPicker.date as NSDate, end: endPicker.date as NSDate, date: selectedDate)
+        delegate?.pass(start: startPicker.date, end: endPicker.date, date: selectedDate)
     }
 
 }
 
-extension AvailabilityViewController: FSCalendarDelegate {
+extension AvailabilityViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDate = date
+        let weekDay = Calendar.current.component(.weekday, from: selectedDate)
+        print(weekDay-1)
+        startTime = times[weekDay-1][0].start
+        let length = times[weekDay-1].count
+        endTime = times[weekDay-1][length-1].end
+        self.startPicker.setDate(startTime!, animated: true)
+        self.endPicker.setDate(endTime!, animated: true)
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
@@ -86,14 +108,24 @@ extension AvailabilityViewController: FSCalendarDelegate {
         }
         return true
     }
-
-    //for blocked off dates
-    func calendar(_ calendar: FSCalendar, appearance: FSCalendarDelegateAppearance, titleDefaultColorFor date: Date) -> UIColor {
-        let dateString : String = dateFormatter1.string(from: date)
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        let dateString = self.dateFormatter1.string(from: date)
         if self.invalidDates.contains(dateString){
-            return .purple
+            return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         } else {
             return .black
         }
     }
+    
+    /*
+    //fill background of unavailible dates too if needed
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillDefaultColorFor date: Date) -> UIColor? {
+        let dateString = self.dateFormatter1.string(from: date)
+        if self.invalidDates.contains(dateString) {
+            return .systemGray2
+        }
+        return nil
+    }
+    */
 }

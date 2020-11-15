@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 protocol isAbleToReceiveData {
-    func pass(start: NSDate, end: NSDate, date: Date)
+    func pass(start: Date, end: Date, date: Date)
 }
 
 class BookingViewController: UIViewController, isAbleToReceiveData {
@@ -34,8 +34,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var info = ParkingSpaceMapAnnotation(id: "id", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, startTime: NSDate.init(), endTime: NSDate.init(), address: "test", tags: ["test"], comments: "test")
     var total = 0.0
     var startDate: Date? = nil
-    var startTime: NSDate? = nil
-    var endTime: NSDate? = nil
+    var startTime: Date? = nil
+    var endTime: Date? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +82,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
         self.mapView.setRegion(region, animated: false)
         self.mapView.addAnnotation(info)
+        
+        reserveButton.isEnabled = false
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -93,6 +95,14 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
+        ParkingSpotService.getParkingSpotById(info.id) { (parkingSpot, error) in
+            if let spot = parkingSpot {
+                if spot.isAvailable {
+                    TransactionService.saveTransaction(id: self.info.id, customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), priceRatePerHour: self.info.price, spot: spot)
+                }
+            }
+        }
+        dismiss(animated: true)
     }
     
     // MARK: - Navigation
@@ -106,18 +116,18 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 vc.selectedDate = startDate!
                 vc.startTime = startTime!
                 vc.endTime = endTime!
+                vc.times = info.times
             }
             else
             {
-                //need to find some way to pass in all the availble times. For now, this is only
-                //here to make sure we cant pass info to the VC
-                vc.startTime = NSDate.init(timeInterval: 1000, since: Date.init())
-                vc.endTime = NSDate.init(timeInterval: 5000, since: Date.init())
+                //vc.startTime = NSDate.init(timeInterval: 1000, since: Date.init())
+                //vc.endTime = NSDate.init(timeInterval: 5000, since: Date.init())
+                vc.times = info.times
             }
         }
     }
     
-    func pass(start: NSDate, end: NSDate, date: Date) {
+    func pass(start: Date, end: Date, date: Date) {
         startTime = start
         endTime = end
         startDate = date
@@ -146,6 +156,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
         reserveButton.setTitleColor(.white, for: .normal)
         reserveButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        
+        reserveButton.isEnabled = true
     }
 }
 
