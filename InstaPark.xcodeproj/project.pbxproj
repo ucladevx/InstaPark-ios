@@ -15,7 +15,6 @@
 		0410B1262548D8EB001C4D27 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0410B1242548D8EB001C4D27 /* LaunchScreen.storyboard */; };
 		0410B1312548D8EB001C4D27 /* InstaParkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B1302548D8EB001C4D27 /* InstaParkTests.swift */; };
 		0410B13C2548D8EB001C4D27 /* InstaParkUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B13B2548D8EB001C4D27 /* InstaParkUITests.swift */; };
-		0410B1512548EACC001C4D27 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0410B1502548EACC001C4D27 /* GoogleService-Info.plist */; };
 		0410B1702548F860001C4D27 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B16F2548F860001C4D27 /* AuthService.swift */; };
 		0410B190254A49F7001C4D27 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B18F254A49F7001C4D27 /* LoginViewController.swift */; };
 		0410B195254A4A08001C4D27 /* SignupViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B194254A4A08001C4D27 /* SignupViewController.swift */; };
@@ -41,6 +40,8 @@
 		943131302556391D002221F4 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431312F2556391D002221F4 /* BookingViewController.swift */; };
 		94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */; };
 		B077A1B195D83D092DCED7A6 /* Pods_InstaParkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */; };
+		B49FB6B825608C2400D1DB45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0410B1502548EACC001C4D27 /* GoogleService-Info.plist */; };
+		B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -104,6 +105,7 @@
 		94313124255627BE002221F4 /* smallOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = smallOverlayView.swift; sourceTree = "<group>"; };
 		9431312F2556391D002221F4 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
 		94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityViewController.swift; sourceTree = "<group>"; };
+		B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableTextField.swift; sourceTree = "<group>"; };
 		BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB3BEB0DBAF3EBA683DD6B0 /* Pods-InstaParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.debug.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.debug.xcconfig"; sourceTree = "<group>"; };
 		F2A1EA382BF589B312F96A2D /* Pods-InstaParkTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.release.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.release.xcconfig"; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				0482FE9C255CB2A8002F522E /* google-icon.svg */,
 				0410B1242548D8EB001C4D27 /* LaunchScreen.storyboard */,
 				0410B1272548D8EB001C4D27 /* Info.plist */,
+				B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -401,9 +404,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B49FB6B825608C2400D1DB45 /* GoogleService-Info.plist in Resources */,
 				0410B1262548D8EB001C4D27 /* LaunchScreen.storyboard in Resources */,
 				0482FE97255CB297002F522E /* fonts in Resources */,
-				0410B1512548EACC001C4D27 /* GoogleService-Info.plist in Resources */,
 				0482FE9D255CB2A8002F522E /* google-icon.ico in Resources */,
 				0410B1232548D8EB001C4D27 /* Assets.xcassets in Resources */,
 				0410B1212548D8E9001C4D27 /* Main.storyboard in Resources */,
@@ -538,6 +541,7 @@
 				0410B190254A49F7001C4D27 /* LoginViewController.swift in Sources */,
 				0410B195254A4A08001C4D27 /* SignupViewController.swift in Sources */,
 				9431304E254E4E83002221F4 /* CalloutView.swift in Sources */,
+				B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */,
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
 				9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */,
 				0410B11A2548D8E9001C4D27 /* AppDelegate.swift in Sources */,
