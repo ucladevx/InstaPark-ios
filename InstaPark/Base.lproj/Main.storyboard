@@ -181,7 +181,7 @@
                                     <constraint firstItem="Ckk-Da-crf" firstAttribute="leading" secondItem="Yzw-oZ-U85" secondAttribute="leading" constant="32" id="x25-RK-3ci"/>
                                 </constraints>
                             </view>
-                            <searchBar contentMode="redraw" placeholder="Search by address..." showsSearchResultsButton="YES" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1C-nk-oNz">
+                            <searchBar contentMode="redraw" placeholder="Search by address..." translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n1C-nk-oNz">
                                 <rect key="frame" x="10" y="58" width="394" height="56"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="56" id="78H-PI-jts"/>
@@ -1218,7 +1218,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Td1-91-LwN"/>
+        <segue reference="3tF-LG-iLn"/>
         <segue reference="Rbn-wf-iCA"/>
     </inferredMetricsTieBreakers>
     <resources>

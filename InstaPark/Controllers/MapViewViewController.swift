@@ -45,10 +45,8 @@ class MapViewViewController: ViewController{
         super.hideNavBar(false)
         mapView.delegate = self
         
-        //set up search bar
-        //mapSearch.backgroundView = UIView()
+        //set up search bar (still need to work on UI and possibly table view)
         mapSearch.delegate = self
-        mapSearch.addDropShadow(scale: true, cornerRadius: 20)
         
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
