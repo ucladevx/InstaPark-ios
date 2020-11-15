@@ -19,18 +19,24 @@
 	<key>STORAGE_BUCKET</key>
 	<string>instapark-8f2cd.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_ANALYTICS_ENABLED</key>
-	<false></false>
+	<false/>
 	<key>IS_APPINVITE_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_GCM_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>IS_SIGNIN_ENABLED</key>
-	<true></true>
+	<true/>
 	<key>GOOGLE_APP_ID</key>
 	<string>1:420854058856:ios:1219794f86c943ab7190dd</string>
 	<key>DATABASE_URL</key>
 	<string>https://instapark-8f2cd.firebaseio.com</string>
+	<key>UIAppFonts</key>
+	<array>
+		<string>DIN-Condensed-Bold.tff</string>
+		<string>BebasNeue-Regular.ttf</string>
+		<string>Roboto-Regular.ttf</string>
+	</array>
 </dict>
 </plist>
