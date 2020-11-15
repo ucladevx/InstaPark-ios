@@ -42,8 +42,8 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
             [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 16053800100)),
              ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605380400), end: Date.init(timeIntervalSince1970: 1605405570))],
             [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605347900), end: Date.init(timeIntervalSince1970: 1605380500))],
-            [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605337200), end: Date.init(timeIntervalSince1970: 1605380900))],
-            [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605337500), end: Date.init(timeIntervalSince1970: 1605390400))],
+            [],
+            [],
             [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348200), end: Date.init(timeIntervalSince1970: 1605380700))],
             [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605346900), end: Date.init(timeIntervalSince1970: 1605390200))],
             [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605373200))]]

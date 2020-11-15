@@ -18,10 +18,11 @@ class AvailabilityViewController: UIViewController {
     
     var startTime:Date? = nil
     var endTime:Date? = nil
-    var invalidDates:[String] = ["2020-11-17",
-                                 "2020-11-15",
-                                 "2020-11-16",
-                                 "2020-11-21"]
+//    var invalidDates:[String] = ["2020-11-17",
+//                                 "2020-11-15",
+//                                 "2020-11-16",
+//                                 "2020-11-21"]
+    var invalid = [Int]()
     var selectedDate = Date.init()
     var times = [[ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
     
@@ -38,12 +39,17 @@ class AvailabilityViewController: UIViewController {
         calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "CELL")
         
         //picker setup
-        if (startTime == nil || endTime == nil)
-        {
+        if (startTime == nil || endTime == nil) {
             let weekDay = Calendar.current.component(.weekday, from: selectedDate)
-            startTime = times[weekDay-1][0].start
-            let length = times[weekDay-1].count
-            endTime = times[weekDay-1][length-1].end
+            if(times[weekDay-1].isEmpty) {
+                invalid.append(weekDay)
+            }
+            else
+            {
+                startTime = times[weekDay-1][0].start
+                let length = times[weekDay-1].count
+                endTime = times[weekDay-1][length-1].end
+            }
         }
         startPicker.setDate(startTime!, animated: false)
         endPicker.setDate(endTime!, animated: false)
@@ -102,16 +108,19 @@ extension AvailabilityViewController: FSCalendarDelegate, FSCalendarDataSource, 
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        let dateString : String = dateFormatter1.string(from:date)
-        if self.invalidDates.contains(dateString) {
+        //let dateString : String = dateFormatter1.string(from:date)
+        let weekDay = Calendar.current.component(.weekday, from: date)
+        
+        if date < Date() || self.times[weekDay-1].isEmpty {
             return false
         }
         return true
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        let dateString = self.dateFormatter1.string(from: date)
-        if self.invalidDates.contains(dateString){
+        //let dateString = self.dateFormatter1.string(from: date)
+        let weekDay = Calendar.current.component(.weekday, from: date)
+        if date < Date() || self.times[weekDay-1].isEmpty{
             return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         } else {
             return .black
