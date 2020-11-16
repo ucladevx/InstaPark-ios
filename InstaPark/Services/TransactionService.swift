@@ -52,7 +52,7 @@ class TransactionService {
             let transaction = Transaction(id: user.email!, customer: customer, startTime: startTime, endTime: endTime, fromParkingSpot: spot)
             
             docRef.setData(transaction.dictionary)
-            db.collection("User").document(user.email!).updateData(["transactions": FieldValue.arrayUnion([transaction.dictionary])])
+            db.collection("User").document(user.uid).updateData(["transactions": FieldValue.arrayUnion([transaction.dictionary])])
         }
         
     }

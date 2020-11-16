@@ -24,7 +24,7 @@ class AvailabilityViewController: UIViewController {
 //                                 "2020-11-21"]
     var invalid = [Int]()
     var selectedDate = Date.init()
-    var times = [[ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
+    var times = [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -41,14 +41,14 @@ class AvailabilityViewController: UIViewController {
         //picker setup
         if (startTime == nil || endTime == nil) {
             let weekDay = Calendar.current.component(.weekday, from: selectedDate)
-            if(times[weekDay-1].isEmpty) {
+            if(times[weekDay-1]!.isEmpty) {
                 invalid.append(weekDay)
             }
             else
             {
-                startTime = times[weekDay-1][0].start
-                let length = times[weekDay-1].count
-                endTime = times[weekDay-1][length-1].end
+                startTime = times[weekDay-1]![0].start
+                let length = times[weekDay-1]!.count
+                endTime = times[weekDay-1]![length-1].end
             }
         }
         startPicker.setDate(startTime!, animated: false)
@@ -99,10 +99,10 @@ extension AvailabilityViewController: FSCalendarDelegate, FSCalendarDataSource, 
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDate = date
         let weekDay = Calendar.current.component(.weekday, from: selectedDate)
-        print(weekDay-1)
-        startTime = times[weekDay-1][0].start
-        let length = times[weekDay-1].count
-        endTime = times[weekDay-1][length-1].end
+        //print(weekDay-1)
+        startTime = times[weekDay-1]![0].start
+        let length = times[weekDay-1]!.count
+        endTime = times[weekDay-1]![length-1].end
         self.startPicker.setDate(startTime!, animated: true)
         self.endPicker.setDate(endTime!, animated: true)
     }
@@ -111,7 +111,7 @@ extension AvailabilityViewController: FSCalendarDelegate, FSCalendarDataSource, 
         //let dateString : String = dateFormatter1.string(from:date)
         let weekDay = Calendar.current.component(.weekday, from: date)
         
-        if date < Date() || self.times[weekDay-1].isEmpty {
+        if date < Date() || self.times[weekDay-1]!.isEmpty {
             return false
         }
         return true
@@ -120,7 +120,7 @@ extension AvailabilityViewController: FSCalendarDelegate, FSCalendarDataSource, 
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         //let dateString = self.dateFormatter1.string(from: date)
         let weekDay = Calendar.current.component(.weekday, from: date)
-        if date < Date() || self.times[weekDay-1].isEmpty{
+        if date < Date() || self.times[weekDay-1]!.isEmpty{
             return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         } else {
             return .black

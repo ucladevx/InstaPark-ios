@@ -98,11 +98,50 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         ParkingSpotService.getParkingSpotById(info.id) { (parkingSpot, error) in
             if let spot = parkingSpot {
                 if spot.isAvailable {
+                    /* switch this to ParkingSpot after there are times in the data structure
+                     will need to convert all variables to unix time */
+                    let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
+                    let startUnix = Int(self.startTime!.timeIntervalSince1970)
+                    let endUnix = Int(self.endTime!.timeIntervalSince1970)
+                    var count = 0
+                    
+                    for interval in self.info.times[weekDay-1] ?? [] {
+                        
+                        let startInt = Int(interval.start.timeIntervalSince1970)
+                        let endInt =  Int(interval.end.timeIntervalSince1970)
+                        
+                        if startUnix >= startInt && startUnix < endInt &&
+                           endUnix <= endInt && endUnix > startInt{
+                            if startUnix == startInt && endUnix == endInt {
+                                self.info.times[weekDay-1]!.remove(at: count)
+                                print("deleted index \(count)")
+                            }
+                            else if startUnix == startInt && endUnix < endInt {
+                                self.info.times[weekDay-1]![count].start = self.endTime! //endUnix
+                                print("changed index \(count)'s start to \(self.endTime!.timeIntervalSince1970)")
+                            }
+                            else if startUnix > startInt && endUnix == endInt {
+                                self.info.times[weekDay-1]![count].end = self.startTime! //startUnix
+                                print("changed index \(count)'s end to \(self.startTime!.timeIntervalSince1970)")
+                            }
+                            else if startUnix > startInt && endUnix < endInt {
+                                let end = interval.end
+                                self.info.times[weekDay-1]![count].end = self.startTime! //startUnix
+                                self.info.times[weekDay-1]!.insert(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.endTime!, end: end), at: count+1)
+                                print("changed index \(count)'s end to \(self.startTime!.timeIntervalSince1970)")
+                                print("create new interval at \(count) from \(self.endTime!.timeIntervalSince1970) to \(interval.end.timeIntervalSince1970)")
+                            }
+                            self.dismiss(animated: true)
+                            break;
+                        }
+                        count += 1
+                    }
+                    
                     TransactionService.saveTransaction(id: self.info.id, customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), priceRatePerHour: self.info.price, spot: spot)
+                    
                 }
             }
         }
-        dismiss(animated: true)
     }
     
     // MARK: - Navigation
@@ -146,7 +185,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let startMin = Calendar.current.component(.minute, from: startTime! as Date)
         let endHour = Calendar.current.component(.hour, from: endTime! as Date)
         let endMin = Calendar.current.component(.minute, from: endTime! as Date)
-        let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60) ///should we round up the price by hour or charge to the exact minute?
+        let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60)
         print(totalTime)
         total = totalTime * info.price
         totalLabel.text = "$" + String(format: "%.2f", total)
