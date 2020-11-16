@@ -31,8 +31,10 @@
 		0482FE9E255CB2A8002F522E /* google-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE9C255CB2A8002F522E /* google-icon.svg */; };
 		0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */; };
 		0482FEA8255CB2D6002F522E /* ReservationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */; };
-		048D7E50254FDA49009B6AE3 /* Codable+Dicionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E4F254FDA49009B6AE3 /* Codable+Dicionary.swift */; };
+		048D7E50254FDA49009B6AE3 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E4F254FDA49009B6AE3 /* Codable+Dictionary.swift */; };
 		048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E542550D739009B6AE3 /* ParkingSpotService.swift */; };
+		04AB7897255DCA280090B6E7 /* ShortTermParkingSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AB7896255DCA280090B6E7 /* ShortTermParkingSpot.swift */; };
+		04AB789C255DCA320090B6E7 /* LongTermParking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AB789B255DCA320090B6E7 /* LongTermParking.swift */; };
 		5EC37271123F868AC4006BD5 /* Pods_InstaPark_InstaParkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */; };
 		6780CFAC78BE57EC1A46239B /* Pods_InstaPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */; };
 		9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */; };
@@ -91,8 +93,10 @@
 		0482FE9C255CB2A8002F522E /* google-icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "google-icon.svg"; sourceTree = "<group>"; };
 		0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupPaymentViewController.swift; sourceTree = "<group>"; };
 		0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationModalViewController.swift; sourceTree = "<group>"; };
-		048D7E4F254FDA49009B6AE3 /* Codable+Dicionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dicionary.swift"; sourceTree = "<group>"; };
+		048D7E4F254FDA49009B6AE3 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
 		048D7E542550D739009B6AE3 /* ParkingSpotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpotService.swift; sourceTree = "<group>"; };
+		04AB7896255DCA280090B6E7 /* ShortTermParkingSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortTermParkingSpot.swift; sourceTree = "<group>"; };
+		04AB789B255DCA320090B6E7 /* LongTermParking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTermParking.swift; sourceTree = "<group>"; };
 		0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark_InstaParkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		30CB94D117C221B132D1BCFA /* Pods-InstaPark-InstaParkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.release.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4798B55AD2CA44F01FBFAD9A /* Pods-InstaPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.release.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.release.xcconfig"; sourceTree = "<group>"; };
@@ -219,7 +223,9 @@
 				044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */,
 				0482FE7F255CB13A002F522E /* User.swift */,
 				044A3FE7254EA07A00B5F19C /* Transaction.swift */,
-				048D7E4F254FDA49009B6AE3 /* Codable+Dicionary.swift */,
+				048D7E4F254FDA49009B6AE3 /* Codable+Dictionary.swift */,
+				04AB7896255DCA280090B6E7 /* ShortTermParkingSpot.swift */,
+				04AB789B255DCA320090B6E7 /* LongTermParking.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -546,7 +552,8 @@
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,
 				0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */,
 				943131302556391D002221F4 /* BookingViewController.swift in Sources */,
-				048D7E50254FDA49009B6AE3 /* Codable+Dicionary.swift in Sources */,
+				04AB7897255DCA280090B6E7 /* ShortTermParkingSpot.swift in Sources */,
+				048D7E50254FDA49009B6AE3 /* Codable+Dictionary.swift in Sources */,
 				0410B11C2548D8E9001C4D27 /* SceneDelegate.swift in Sources */,
 				94313125255627BE002221F4 /* smallOverlayView.swift in Sources */,
 				0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */,
@@ -554,6 +561,7 @@
 				0410B1702548F860001C4D27 /* AuthService.swift in Sources */,
 				0482FE92255CB276002F522E /* UserService.swift in Sources */,
 				94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */,
+				04AB789C255DCA320090B6E7 /* LongTermParking.swift in Sources */,
 				0482FE85255CB157002F522E /* ParkingCalloutView.swift in Sources */,
 				0482FE80255CB13A002F522E /* User.swift in Sources */,
 				0482FEA8255CB2D6002F522E /* ReservationModalViewController.swift in Sources */,
@@ -734,6 +742,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -754,6 +763,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (

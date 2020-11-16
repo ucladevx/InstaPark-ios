@@ -63,10 +63,10 @@ class MapViewViewController: ViewController {
                 for parking in parkingSpots {
                     if parking.isAvailable {
                         self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: ""))
+                    }
                 }
                 print("Adding annotations")
                 self.mapView.addAnnotations(self.annotations)
-                }
             }
         }
         //test annotations until set up with firebase

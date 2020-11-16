@@ -8,26 +8,33 @@
 import Foundation
 import Firebase
 import FirebaseAuth
+import FirebaseFirestoreSwift
 import GeoFire
 class ParkingSpotService {
     static let db = Firestore.firestore()
     static let geoFire = GeoFire(firebaseRef: Database.database().reference())
+    static var parkingType: ParkingType = .short
+    static func setParkingType(_ parkingType: ParkingType) {
+        self.parkingType = parkingType
+    }
     //Temporary function for creating dummy parking spots
     static func createParkingSpotIn(lat: Double, long: Double) {
         print("Creating parking spot")
-        let docRef = db.collection("ParkingSpot").document()
-        let spot = ParkingSpot(id: docRef.documentID, address: Address(city: "LA", state: "CA", street: "Street1", zip: "90024"), times: [ParkingTimeInterval(start: 0, end: 0)], coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], firstName: "Bob", lastName: "Steve", lastEndTime: 0)
-        docRef.setData(spot.dictionary)
-    }
-    
-    // saves new parking spot
-    static func saveParkingSpot(_ parkingSpot: ParkingSpot) {
-        let docRef = db.collection("ParkingSpot").document()
-        var spot = parkingSpot
+        let spot = ShortTermParkingSpot(id: "", address: Address(city: "LA", state: "CA", street: "Street1", zip: "90024"), coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], firstName: "Bob", lastName: "Steve", lastEndTime: 0, fromFullDays: [0,1,2,3,4,5,6])
+        let docRef = db.collection("ShortTermParkingSpot").document()
         spot.id = docRef.documentID
-        docRef.setData(spot.dictionary)
-        geoFire.setLocation(CLLocation(latitude: spot.coordinates.lat, longitude: spot.coordinates.long), forKey: spot.id)
-        
+        do {
+            try docRef.setData(from: spot)
+        } catch {
+            print("ERROR")
+        }
+    }
+    static func saveShortTermParkingSpot(_ shortTerm: ShortTermParkingSpot) {
+        let docRef = db.collection("ShortTermParkingSpot").document()
+        var newShortTerm = shortTerm
+        newShortTerm.id = docRef.documentID
+        docRef.setData(newShortTerm.dictionary)
+        geoFire.setLocation(CLLocation(latitude: newShortTerm.coordinates.lat, longitude: newShortTerm.coordinates.long), forKey: newShortTerm.id)
     }
     //Gets parking spots near you, takes in region as an argument
     static func getParkingSpotQuery(region: MKCoordinateRegion) -> GFRegionQuery{
@@ -37,15 +44,34 @@ class ParkingSpotService {
     //Gets all parking spots from the ParkingSpot collection
     static func getAllParkingSpots(completion: @escaping ([ParkingSpot]?, Error?) -> Void){
         print("Getting all parking spaces")
-        db.collection("ParkingSpot").getDocuments() { querySnapshot, error in
+        var collection: CollectionReference
+        switch parkingType {
+        case .long:
+            collection = db.collection("LongTermParkingSpot")
+        case .short:
+            collection = db.collection("ShortTermParkingSpot")
+        }
+        collection.getDocuments() { querySnapshot, error in
             if let error = error {
                 completion(nil, error)
             } else {
                 var parkingSpots = [ParkingSpot]()
+                print(querySnapshot!.documents.count)
                 for document in querySnapshot!.documents {
-                    if let parkingSpot = try? ParkingSpot.init(from: document.data()) {
-                        parkingSpots.append(parkingSpot)
+                    switch parkingType {
+                    case .long:
+                        if let parkingSpot = try? ShortTermParkingSpot.init(from: document.data()) {
+                            parkingSpots.append(parkingSpot)
+                        }
+                    case .short:
+                        if let parkingSpot = try? ShortTermParkingSpot.init(from: document.data()) {
+                            parkingSpots.append(parkingSpot)
+                            print("Parking Spot appended")
+                        }
                     }
+//                    if let parkingSpot = try? ParkingSpot.init(from: document.data()) {
+//                        parkingSpots.append(parkingSpot)
+//                    }
                 }
                 completion(parkingSpots, nil)
             }
@@ -98,4 +124,8 @@ class ParkingSpotService {
             docRef.setData(transaction.dictionary)
         }
     }
+}
+enum ParkingType {
+    case short
+    case long
 }
