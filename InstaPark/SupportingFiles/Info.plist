@@ -67,5 +67,7 @@
 		<string>Roboto-Regular.ttf</string>
 		<string>BebasNeue-Regular.ttf</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow us to know your location to find parking spots.</string>
 </dict>
 </plist>
