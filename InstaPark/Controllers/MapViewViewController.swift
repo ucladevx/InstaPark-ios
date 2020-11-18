@@ -60,7 +60,6 @@ class MapViewViewController: ViewController{
                 }
                 print("Adding annotations")
                 self.mapView.addAnnotations(self.annotations)
-                }
             }
         }
         //test annotations until set up with firebase

@@ -6,14 +6,23 @@
 //
 
 import Foundation
-
-struct ParkingSpot: Codable {
+//Don't directly instantiate this class, use either Short Term Parking or Long Term Parking
+class ParkingSpot: Codable {
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], firstName: String, lastName: String, lastEndTime: Int) {
+        self.id = id
+        self.address = address
+        self.coordinates = coordinates
+        self.pricePerHour = pricePerHour
+        self.provider = provider
+        self.comments = comments
+        self.tags = tags
+        self.firstName = firstName
+        self.lastName = lastName
+        self.lastEndTime = lastEndTime
+    }
+    
     var id: String
     var address: Address
-    
-    var times: [ParkingTimeInterval] // Stores list of time intervals
-                                     // Query date
-//    var times: [String: [ParkingTimeInterval]] // Key - "11-16-20"
     var coordinates: Coordinate
     var pricePerHour: Double
     var provider: String
@@ -37,11 +46,7 @@ struct Coordinate: Codable {
     var lat: Double
     var long: Double
 }
-struct ParkingTimeInterval: Codable {
-    //epoch time
-    var start: Int
-    var end: Int
-}
+
 extension ParkingSpot {
     var isAvailable: Bool {
         return lastEndTime < Int(NSDate.now.timeIntervalSince1970)
