@@ -49,7 +49,7 @@ class TransactionService {
     static func saveTransaction(id: String, customer: String, provider: String, startTime: Int, endTime: Int, priceRatePerHour: Double, spot: ParkingSpot) {
         if let user = Auth.auth().currentUser {
             let docRef = db.collection("Transaction").document(id)
-            let transaction = Transaction(id: user.email!, customer: customer, startTime: startTime, endTime: endTime, fromParkingSpot: spot)
+            let transaction = Transaction(id: user.uid, customer: customer, startTime: startTime, endTime: endTime, fromParkingSpot: spot)
             
             docRef.setData(transaction.dictionary)
             db.collection("User").document(user.uid).updateData(["transactions": FieldValue.arrayUnion([transaction.dictionary])])

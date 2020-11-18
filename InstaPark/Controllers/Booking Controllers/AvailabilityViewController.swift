@@ -41,15 +41,16 @@ class AvailabilityViewController: UIViewController {
         //picker setup
         if (startTime == nil || endTime == nil) {
             let weekDay = Calendar.current.component(.weekday, from: selectedDate)
-            if(times[weekDay-1]!.isEmpty) {
+            var i = -1
+            while times[weekDay+i]!.isEmpty {
                 invalid.append(weekDay)
+                i += 1
             }
-            else
-            {
-                startTime = times[weekDay-1]![0].start
-                let length = times[weekDay-1]!.count
-                endTime = times[weekDay-1]![length-1].end
-            }
+            startTime = times[weekDay+i]![0].start
+            let length = times[weekDay+i]!.count
+            endTime = times[weekDay+i]![length-1].end
+            selectedDate = Calendar.current.date(byAdding: .day, value: i+1, to: selectedDate)!
+            calendar.select(selectedDate as Date)
         }
         startPicker.setDate(startTime!, animated: false)
         endPicker.setDate(endTime!, animated: false)
@@ -110,8 +111,8 @@ extension AvailabilityViewController: FSCalendarDelegate, FSCalendarDataSource, 
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         //let dateString : String = dateFormatter1.string(from:date)
         let weekDay = Calendar.current.component(.weekday, from: date)
-        
-        if date < Date() || self.times[weekDay-1]!.isEmpty {
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        if date < yesterday || self.times[weekDay-1]!.isEmpty {
             return false
         }
         return true
@@ -120,7 +121,8 @@ extension AvailabilityViewController: FSCalendarDelegate, FSCalendarDataSource, 
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         //let dateString = self.dateFormatter1.string(from: date)
         let weekDay = Calendar.current.component(.weekday, from: date)
-        if date < Date() || self.times[weekDay-1]!.isEmpty{
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        if date < yesterday || self.times[weekDay-1]!.isEmpty{
             return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         } else {
             return .black
