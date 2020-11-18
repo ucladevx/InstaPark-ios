@@ -314,6 +314,7 @@
 				0410B1132548D8E9001C4D27 /* Frameworks */,
 				0410B1142548D8E9001C4D27 /* Resources */,
 				58F2A3232EAFF9699280F6A1 /* [CP] Embed Pods Frameworks */,
+				0D7B66A6D135F6ACC6701CCD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -352,6 +353,7 @@
 				0410B1342548D8EB001C4D27 /* Frameworks */,
 				0410B1352548D8EB001C4D27 /* Resources */,
 				B07C574BF1089015175DC99D /* [CP] Embed Pods Frameworks */,
+				3C9588874832BB5E191DFB05 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -437,6 +439,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0D7B66A6D135F6ACC6701CCD /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InstaPark/Pods-InstaPark-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InstaPark/Pods-InstaPark-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InstaPark/Pods-InstaPark-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		1E331267B983709FBCE88A49 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -457,6 +476,23 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		3C9588874832BB5E191DFB05 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		58F2A3232EAFF9699280F6A1 /* [CP] Embed Pods Frameworks */ = {

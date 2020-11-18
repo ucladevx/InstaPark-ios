@@ -16,7 +16,7 @@
         <!--Map View View Controller-->
         <scene sceneID="V1Z-3d-FuR">
             <objects>
-                <viewController id="7w2-uL-iKy" customClass="MapViewViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapViewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7w2-uL-iKy" customClass="MapViewViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0tu-wt-Jpv">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -50,8 +50,8 @@
                                             <action selector="reserveBtn:" destination="7w2-uL-iKy" eventType="touchUpInside" id="br5-cw-ywF"/>
                                         </connections>
                                     </button>
-                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="top" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="aoM-5p-umu">
-                                        <rect key="frame" x="25" y="8" width="364" height="125"/>
+                                    <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="aoM-5p-umu">
+                                        <rect key="frame" x="25" y="17" width="364" height="125"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9G0-e4-Zc1">
                                                 <rect key="frame" x="0.0" y="0.0" width="350" height="26.5"/>
@@ -905,7 +905,7 @@
         <!--Login View Controller-->
         <scene sceneID="uUo-Zb-HUC">
             <objects>
-                <viewController title="Login View Controller" id="7Q7-6C-KDG" customClass="LoginViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="LoginVC" title="Login View Controller" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7Q7-6C-KDG" customClass="LoginViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NMc-aS-Kjd">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -919,8 +919,8 @@
                                         <color key="textColor" red="0.51909604730000003" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xhv-Dx-Y88" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="23" y="127" width="265" height="18"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xhv-Dx-Y88" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="127" width="274" height="19"/>
                                         <color key="textColor" red="0.1919073164" green="0.1768682003" blue="0.15685972570000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" textContentType="email"/>
@@ -942,8 +942,8 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </textField>
-                                    <textField opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gS3-7a-9Dd" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="23" y="244" width="265" height="18"/>
+                                    <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gS3-7a-9Dd" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
+                                        <rect key="frame" x="20" y="191" width="274" height="18"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                         <userDefinedRuntimeAttributes>
@@ -980,8 +980,8 @@
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hi-CY-YtO">
-                                        <rect key="frame" x="77" y="276" width="161" height="32"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hi-CY-YtO">
+                                        <rect key="frame" x="57" y="260" width="200" height="40"/>
                                         <color key="backgroundColor" red="0.56206446889999995" green="0.0" blue="0.98829454179999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="0mn-hJ-cmt"/>
@@ -1020,11 +1020,11 @@
                                     <constraint firstItem="Xhv-Dx-Y88" firstAttribute="top" secondItem="29q-77-eos" secondAttribute="bottom" constant="42" id="yGQ-2d-Auo"/>
                                 </constraints>
                             </view>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uGg-83-gTR">
-                                <rect key="frame" x="50" y="571" width="300" height="200"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uGg-83-gTR">
+                                <rect key="frame" x="50" y="606" width="314" height="194"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJ5-h7-UJ1">
-                                        <rect key="frame" x="38" y="36" width="225" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lJ5-h7-UJ1">
+                                        <rect key="frame" x="40" y="25" width="234" height="52"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                         <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -1038,9 +1038,12 @@
                                                 <integer key="value" value="25"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="googleLoginAction:" destination="7Q7-6C-KDG" eventType="touchDown" id="z2K-Wz-JFv"/>
+                                        </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPU-nJ-Q20">
-                                        <rect key="frame" x="38" y="114" width="225" height="50"/>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="GPU-nJ-Q20">
+                                        <rect key="frame" x="40" y="102" width="234" height="52"/>
                                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="16"/>
                                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1114,12 +1117,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0E-g5-ahn">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                                <connections>
-                                    <outlet property="delegate" destination="t4r-UE-izf" id="WUr-Fw-FiY"/>
-                                </connections>
-                            </mapView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lKN-OP-Xle">
                                 <rect key="frame" x="246" y="810" width="148" height="39"/>
                                 <color key="backgroundColor" red="0.38145515320000001" green="0.00025814626129999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1140,6 +1137,12 @@
                                     <action selector="transactionButton:" destination="t4r-UE-izf" eventType="touchUpInside" id="LRD-W5-RaF"/>
                                 </connections>
                             </button>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c0E-g5-ahn">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <connections>
+                                    <outlet property="delegate" destination="t4r-UE-izf" id="WUr-Fw-FiY"/>
+                                </connections>
+                            </mapView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="qZg-BM-A5b"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1230,8 +1233,8 @@
                                     <segue destination="7w2-uL-iKy" kind="show" id="mRR-hx-hC5"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="ENTER A PAYMENT METHOD FOR QUICK AND EASY TRANSACTIONS." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9g-aI-sad">
-                                <rect key="frame" x="60" y="131" width="334" height="146"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ENTER A PAYMENT METHOD FOR QUICK AND EASY TRANSACTIONS." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9g-aI-sad">
+                                <rect key="frame" x="50" y="131" width="719" height="146"/>
                                 <fontDescription key="fontDescription" name="DINCondensed-Bold" family="DIN Condensed" pointSize="36"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.066666666669999999" blue="0.41960784309999999" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>

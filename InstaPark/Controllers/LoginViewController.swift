@@ -7,12 +7,24 @@
 
 import UIKit
 
+import Firebase
+import GoogleSignIn
+
 class LoginViewController: ViewController {
     
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password: UITextField!
     @IBOutlet weak var loginButton: UIButton!
+    
     @IBOutlet weak var googleLoginButton: UIButton!
+    @IBAction func googleLoginAction(_ sender: Any) {
+        print("google button pressed")
+        GIDSignIn.sharedInstance()?.presentingViewController = self
+//        GIDSignIn.sharedInstance().uiDelegate = self
+        GIDSignIn.sharedInstance().signIn()
+        
+    }
+    
     @IBOutlet weak var appleLoginButton: UIButton!
     
     @IBAction func loginAction(_ sender: Any) {
@@ -38,7 +50,7 @@ class LoginViewController: ViewController {
         googleLoginButton.setImage(UIImage(named: "google-icon.ico"), for: .normal)
         googleLoginButton.imageView?.contentMode = .scaleAspectFit
         googleLoginButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
-        
+
         googleLoginButton.contentEdgeInsets = UIEdgeInsets(
             top: 0,
             left: 10,
@@ -47,7 +59,6 @@ class LoginViewController: ViewController {
         )
         
         //Apple Login Button
-//        appleLoginButton.setImage(UIImage(named: "applelogo"), for: .normal)
         appleLoginButton.imageView?.contentMode = .scaleAspectFit
         appleLoginButton.imageEdgeInsets = UIEdgeInsets(top: 0, left: -20, bottom: 0, right: 0)
         appleLoginButton.contentEdgeInsets = UIEdgeInsets(

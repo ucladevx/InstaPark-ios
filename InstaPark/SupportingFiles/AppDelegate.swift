@@ -7,22 +7,14 @@
 
 import UIKit
 import Firebase
+import GoogleSignIn
+
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
-    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        // Use Firebase library to configure APIs
         FirebaseApp.configure()
-//        for family in UIFont.familyNames.sorted() {
-//            let names = UIFont.fontNames(forFamilyName: family)
-//            print("Family: \(family) Font names: \(names)")
-//        }//        ParkingSpotService.createParkingSpotIn(lat: 34.0703, long: -118.4398)
-//        for _ in 0..<50 {
-//            ParkingSpotService.createParkingSpotIn(lat: Double.random(in: 34..<34.5), long: Double.random(in: -118.8 ..< -118.3))
-//        }
-//        ParkingSpotService.getAllParkingSpots() { parkingSpaces, error in
-//            
-//        }
-        // Override point for customization after application launch.
+        
         return true
     }
 
@@ -40,6 +32,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release any resources that were specific to the discarded scenes, as they will not return.
     }
 
-
+    //For Google sign in
+    @available(iOS 9.0, *)
+    func application(_ application: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any])
+      -> Bool {
+      return GIDSignIn.sharedInstance().handle(url)
+    }
+    //Depreciated
+    func application(_ application: UIApplication, open url: URL, sourceApplication: String?, annotation: Any) -> Bool {
+        return GIDSignIn.sharedInstance().handle(url)
+    }
+    
 }
-
