@@ -27,7 +27,6 @@ class MapViewViewController: ViewController{
     @IBOutlet weak var tag3: UIButton!
     @IBOutlet weak var tag4: UIButton!
     
-    @IBOutlet weak var mapSearch: UISearchBar!
     
     var selectedAnnotation: ParkingSpaceMapAnnotation?
     let blackView = UIView()
@@ -44,9 +43,6 @@ class MapViewViewController: ViewController{
         super.viewDidLoad()
         super.hideNavBar(false)
         mapView.delegate = self
-        
-        //set up search bar (still need to work on UI and possibly table view)
-        mapSearch.delegate = self
         
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
@@ -360,37 +356,3 @@ private extension MKMapView {
     }
 }
 
-extension MapViewViewController : UISearchBarDelegate
-{
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        //view.isUserInteractionEnabled = false
-        let activityIndicator = UIActivityIndicatorView()
-        activityIndicator.color = .gray
-        activityIndicator.hidesWhenStopped = true
-        activityIndicator.startAnimating()
-        
-        self.view.addSubview(activityIndicator)
-        searchBar.resignFirstResponder()
-        dismiss(animated: true, completion: nil)
-        
-        let searchRequest = MKLocalSearch.Request()
-        searchRequest.naturalLanguageQuery = searchBar.text
-        SlideUpView.isHidden = true
-        
-        activityIndicator.stopAnimating()
-        //view.isUserInteractionEnabled = true
-        
-        let activeSearch = MKLocalSearch(request: searchRequest)
-        activeSearch.start { (response, error) in
-            if response == nil {
-                print("ERROR")
-            }
-            else {
-                let lat = response?.boundingRegion.center.latitude
-                let long = response?.boundingRegion.center.longitude
-                let region: MKCoordinateRegion =  MKCoordinateRegion(center: CLLocationCoordinate2D(latitude: lat ?? 0, longitude: long ?? 0), span: MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004))
-                self.mapView.setRegion(region, animated: true)
-            }
-        }
-    }
-}
