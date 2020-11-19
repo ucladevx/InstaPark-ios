@@ -39,8 +39,7 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         self.tags = tags
         self.comments = comments
         self.times = [
-            0: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605380010)),
-                ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605380400), end: Date.init(timeIntervalSince1970: 1605405570))],
+            0: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605380010))],
             1: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605347900), end: Date.init(timeIntervalSince1970: 1605380500))],
             2: [], 
             3: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605390500))],

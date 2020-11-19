@@ -770,6 +770,14 @@
                                     <action selector="doneButton:" destination="rFJ-au-qAy" eventType="touchUpInside" id="99E-mV-XFK"/>
                                 </connections>
                             </button>
+                            <pickerView tag="1" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="nqk-7w-hio">
+                                <rect key="frame" x="33" y="602" width="148" height="129"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
+                            <pickerView tag="2" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="PcR-jc-8jd">
+                                <rect key="frame" x="237" y="602" width="144" height="129"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </pickerView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="Quq-f3-AOg"/>
                         <color key="backgroundColor" systemColor="systemGray6Color"/>
@@ -791,13 +799,15 @@
                         <outlet property="calendar" destination="asc-23-RbE" id="qc2-9e-LQt"/>
                         <outlet property="doneButton" destination="Gh5-Fa-Ndj" id="Fol-BU-TLl"/>
                         <outlet property="endPicker" destination="5Nc-Mf-RRP" id="xQK-Fy-G4w"/>
+                        <outlet property="endScroller" destination="PcR-jc-8jd" id="ya5-ca-4Mi"/>
                         <outlet property="startPicker" destination="shk-vo-5c5" id="XPV-OX-FPo"/>
+                        <outlet property="startScroller" destination="nqk-7w-hio" id="PaO-Jl-vq3"/>
                         <segue destination="IQf-1d-RDz" kind="presentation" identifier="BookingVC" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Td1-91-LwN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EJn-vu-VXJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3499" y="81"/>
+            <point key="canvasLocation" x="3498.5507246376815" y="80.357142857142847"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="B6t-GZ-TTi">
@@ -1205,7 +1215,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3tF-LG-iLn"/>
+        <segue reference="Td1-91-LwN"/>
         <segue reference="Rbn-wf-iCA"/>
     </inferredMetricsTieBreakers>
     <resources>
