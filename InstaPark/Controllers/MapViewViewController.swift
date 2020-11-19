@@ -62,6 +62,7 @@ class MapViewViewController: ViewController{
                 self.mapView.addAnnotations(self.annotations)
             }
         }
+        }
         //test annotations until set up with firebase
 //        let annotation1 = ParkingSpaceMapAnnotation(name: "Joe Bruin", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 4.00, time: "3:00-4:00")
 //        let annotation2 = ParkingSpaceMapAnnotation(name: "FIRST LAST ", coordinate: CLLocationCoordinate2DMake(34.072, -118.43), price: 7.0, time: "5:00-8:00")
