@@ -9,9 +9,15 @@ import UIKit
 
 class ReservationConfirmationViewController: UIViewController {
 
+    @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var addressLabel: UILabel!
+    
+    var time = ""
+    var address = ""
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        timeLabel.text = time
+        addressLabel.text = address
         // Do any additional setup after loading the view.
     }
     

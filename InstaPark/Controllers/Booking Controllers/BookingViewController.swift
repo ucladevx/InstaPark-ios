@@ -95,6 +95,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
+        /*
         ParkingSpotService.getParkingSpotById(info.id) { (parkingSpot, error) in
             if let spot = parkingSpot {
                 if spot.isAvailable {
@@ -141,7 +142,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                     
                 }
             }
-        }
+        }*/
     }
     
     // MARK: - Navigation
@@ -165,6 +166,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 vc.times = info.times
                 vc.bookedTimes = info.bookedTimes
             }
+        }
+        
+        if let vc = segue.destination as? ReservationConfirmationViewController {
+            vc.address = addressLabel.text!
+            vc.time = availabilityLabel.titleLabel!.text!
         }
     }
     
