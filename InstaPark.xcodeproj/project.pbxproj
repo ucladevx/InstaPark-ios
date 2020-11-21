@@ -37,6 +37,7 @@
 		5EC37271123F868AC4006BD5 /* Pods_InstaPark_InstaParkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */; };
 		6780CFAC78BE57EC1A46239B /* Pods_InstaPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */; };
 		9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */; };
+		94158B3C2568A359002F5B51 /* ReservationConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94158B3B2568A359002F5B51 /* ReservationConfirmationViewController.swift */; };
 		9431304E254E4E83002221F4 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431304D254E4E83002221F4 /* CalloutView.swift */; };
 		94313125255627BE002221F4 /* smallOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94313124255627BE002221F4 /* smallOverlayView.swift */; };
 		943131302556391D002221F4 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431312F2556391D002221F4 /* BookingViewController.swift */; };
@@ -105,6 +106,7 @@
 		8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaParkTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		93BBE7307C025EDEF69CB82A /* Pods-InstaPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.debug.xcconfig"; sourceTree = "<group>"; };
 		9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceMapAnnotation.swift; sourceTree = "<group>"; };
+		94158B3B2568A359002F5B51 /* ReservationConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationConfirmationViewController.swift; sourceTree = "<group>"; };
 		9431304D254E4E83002221F4 /* CalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		94313124255627BE002221F4 /* smallOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = smallOverlayView.swift; sourceTree = "<group>"; };
 		9431312F2556391D002221F4 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
@@ -298,6 +300,7 @@
 				94313124255627BE002221F4 /* smallOverlayView.swift */,
 				9431312F2556391D002221F4 /* BookingViewController.swift */,
 				94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */,
+				94158B3B2568A359002F5B51 /* ReservationConfirmationViewController.swift */,
 			);
 			path = "Booking Controllers";
 			sourceTree = "<group>";
@@ -598,6 +601,7 @@
 				94313125255627BE002221F4 /* smallOverlayView.swift in Sources */,
 				0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */,
 				044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */,
+				94158B3C2568A359002F5B51 /* ReservationConfirmationViewController.swift in Sources */,
 				0410B1702548F860001C4D27 /* AuthService.swift in Sources */,
 				0482FE92255CB276002F522E /* UserService.swift in Sources */,
 				94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */,

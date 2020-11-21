@@ -103,7 +103,6 @@ class AvailabilityViewController: UIViewController {
         let calendarString = dateFormatter1.string(from: calendar.selectedDate!)
         let todayString = dateFormatter1.string(from: Date())
         if todayString == calendarString {
-            
             if !timeData.contains(todayString) {
                 calendar.select(Calendar.current.date(byAdding: .day, value: 1, to: Date()))
                 start = 0
