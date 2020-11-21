@@ -21,6 +21,7 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
     var times: [Int: [ParkingTimeInterval]]
     var tags: [String]
     var comments: String
+    var bookedTimes: [Int: [ParkingTimeInterval]]
     
     struct ParkingTimeInterval {
         //epoch time
@@ -39,15 +40,24 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         self.tags = tags
         self.comments = comments
         self.times = [
-            0: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605380010)),
-                ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605380400), end: Date.init(timeIntervalSince1970: 1605405570))],
+            0: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605380010))],
             1: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605347900), end: Date.init(timeIntervalSince1970: 1605380500))],
             2: [], 
             3: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605390500))],
             4: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348200), end: Date.init(timeIntervalSince1970: 1605380700))],
             5: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605346900), end: Date.init(timeIntervalSince1970: 1605390200))],
             6: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605373200))]]
+        self.bookedTimes = [
+            0: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605367900), end: Date.init(timeIntervalSince1970: 1605370200))],
+            1: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605369900), end: Date.init(timeIntervalSince1970: 1605370200))],
+            2: [],
+            3: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605362900), end: Date.init(timeIntervalSince1970: 1605370200))],
+            4: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605363900), end: Date.init(timeIntervalSince1970: 1605370200))],
+            5: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605366900), end: Date.init(timeIntervalSince1970: 1605379200)),
+                ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605356900), end: Date.init(timeIntervalSince1970: 1605360200))],
+            6: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605366900), end: Date.init(timeIntervalSince1970: 1605370200))]]
     }
+    
     /*[ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605390500))],*/
 }
 

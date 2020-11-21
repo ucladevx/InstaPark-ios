@@ -709,29 +709,23 @@
                                     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="BW0-Ec-m8U">
                                         <rect key="frame" x="0.0" y="360.5" width="348" height="130"/>
                                         <subviews>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="shk-vo-5c5">
+                                            <pickerView tag="1" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nqk-7w-hio">
                                                 <rect key="frame" x="0.0" y="0.0" width="145" height="130"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="130" id="K5J-TK-ywA"/>
-                                                    <constraint firstAttribute="width" constant="145" id="que-Q9-R6X"/>
+                                                    <constraint firstAttribute="width" constant="145" id="dF1-8m-tkv"/>
+                                                    <constraint firstAttribute="height" constant="130" id="msf-jT-k3g"/>
                                                 </constraints>
-                                                <connections>
-                                                    <action selector="startPicker:" destination="rFJ-au-qAy" eventType="valueChanged" id="reV-u9-bcy"/>
-                                                </connections>
-                                            </datePicker>
+                                            </pickerView>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Arrow 1" translatesAutoresizingMaskIntoConstraints="NO" id="w8a-uU-xkF">
                                                 <rect key="frame" x="156" y="61" width="36" height="8"/>
                                             </imageView>
-                                            <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="time" minuteInterval="15" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="5Nc-Mf-RRP">
+                                            <pickerView tag="2" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="nX6-NS-udo">
                                                 <rect key="frame" x="203" y="0.0" width="145" height="130"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="130" id="GWF-6u-UuK"/>
-                                                    <constraint firstAttribute="width" constant="145" id="fmS-gO-7cE"/>
+                                                    <constraint firstAttribute="width" constant="145" id="fEO-a4-k15"/>
+                                                    <constraint firstAttribute="height" constant="130" id="lIJ-nD-lwc"/>
                                                 </constraints>
-                                                <connections>
-                                                    <action selector="endPicker:" destination="rFJ-au-qAy" eventType="valueChanged" id="apg-wd-avM"/>
-                                                </connections>
-                                            </datePicker>
+                                            </pickerView>
                                         </subviews>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="130" id="pMZ-TB-ZTN"/>
@@ -790,14 +784,29 @@
                     <connections>
                         <outlet property="calendar" destination="asc-23-RbE" id="qc2-9e-LQt"/>
                         <outlet property="doneButton" destination="Gh5-Fa-Ndj" id="Fol-BU-TLl"/>
-                        <outlet property="endPicker" destination="5Nc-Mf-RRP" id="xQK-Fy-G4w"/>
-                        <outlet property="startPicker" destination="shk-vo-5c5" id="XPV-OX-FPo"/>
+                        <outlet property="endScroller" destination="nX6-NS-udo" id="FYd-Or-j1A"/>
+                        <outlet property="startScroller" destination="nqk-7w-hio" id="dxw-yQ-8SW"/>
                         <segue destination="IQf-1d-RDz" kind="presentation" identifier="BookingVC" modalPresentationStyle="fullScreen" modalTransitionStyle="crossDissolve" id="Td1-91-LwN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="EJn-vu-VXJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3499" y="81"/>
+            <point key="canvasLocation" x="3498.5507246376815" y="80.357142857142847"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="x2d-gN-zso">
+            <objects>
+                <viewController id="IGB-7k-VAN" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="tNN-qm-Vr6">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="DxF-Kl-azI"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="CHY-vC-cq5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2719" y="761"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="B6t-GZ-TTi">
@@ -1205,7 +1214,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="3tF-LG-iLn"/>
+        <segue reference="Td1-91-LwN"/>
         <segue reference="Rbn-wf-iCA"/>
     </inferredMetricsTieBreakers>
     <resources>

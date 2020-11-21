@@ -153,15 +153,17 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             if (startTime != nil && endTime != nil && startDate != nil)
             {
                 vc.selectedDate = startDate!
-                vc.startTime = startTime!
-                vc.endTime = endTime!
+                vc.selectedStart = startTime!
+                vc.selectedEnd = endTime!
                 vc.times = info.times
+                vc.bookedTimes = info.bookedTimes
             }
             else
             {
                 //vc.startTime = NSDate.init(timeInterval: 1000, since: Date.init())
                 //vc.endTime = NSDate.init(timeInterval: 5000, since: Date.init())
                 vc.times = info.times
+                vc.bookedTimes = info.bookedTimes
             }
         }
     }
