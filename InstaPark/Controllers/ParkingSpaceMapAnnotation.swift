@@ -51,7 +51,7 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
             3: [ParkingTimeInterval(start: setTime(hour: 7, minute: 00), end: setTime(hour: 21, minute: 24))],
             4: [ParkingTimeInterval(start: setTime(hour: 9, minute: 45), end: setTime(hour: 22, minute: 15))],
             5: [ParkingTimeInterval(start: setTime(hour: 10, minute: 00), end: setTime(hour: 23, minute: 30))],
-            6: [ParkingTimeInterval(start: setTime(hour: 8, minute: 00), end: setTime(hour: 20, minute: 00))]]
+            6: [ParkingTimeInterval(start: setTime(hour: 8, minute: 00), end: setTime(hour: 23, minute: 00))]]
         self.bookedTimes = [
             0: [ParkingTimeInterval(start: setTime(hour: 9, minute: 00), end: setTime(hour: 12, minute: 00)),
                 ParkingTimeInterval(start: setTime(hour: 15, minute: 30), end: setTime(hour: 19, minute: 15))],

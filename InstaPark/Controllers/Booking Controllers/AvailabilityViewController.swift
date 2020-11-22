@@ -22,9 +22,11 @@ class AvailabilityViewController: UIViewController {
     var selectedEnd:Date? = nil
     var selectedDate = Date.init()
     var invalidDates = [String]()
+    var todayTime = Date.init()
     var times = [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
     var bookedTimes = [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
     var weekDay = Calendar.current.component(.weekday, from: Date())
+    var cancel = false
     
     var timeData = [String]()
     var bookedData = [String]()
@@ -71,6 +73,7 @@ class AvailabilityViewController: UIViewController {
     }
     
     @IBAction func backButton(_ sender: Any) {
+        cancel = true
         dismiss(animated: true)
     }
     
@@ -119,6 +122,14 @@ class AvailabilityViewController: UIViewController {
                 let nextDiff = 15 - Calendar.current.component(.minute, from: Date()) % 15
                 let todayDate = Calendar.current.date(byAdding: .minute, value: nextDiff, to: Date()) 
                 start = timeData.firstIndex(of: timeFormatter1.string(from: todayDate!))!
+                var startDataTime = times[weekDay-1]![0].start
+                var row = 0
+                while startDataTime < todayDate! {
+                    startDataTime = times[weekDay-1]![0].start.addingTimeInterval(TimeInterval(900*row))
+                    let timeString = timeFormatter1.string(from: startDataTime)
+                    bookedData.append(timeString)
+                    row += 1
+                }
             }
         }
         var end = 0
@@ -184,7 +195,7 @@ class AvailabilityViewController: UIViewController {
         let startInt: Date = timeFormatter1.date(from: timeData[startScroller.selectedRow(inComponent: 0)])!
         let endInt : Date = timeFormatter1.date(from: timeData[endScroller.selectedRow(inComponent: 0)])!
         
-        delegate?.pass(start: startInt, end: endInt, date: selectedDate)
+        delegate?.pass(start: startInt, end: endInt, date: selectedDate, cancel: cancel)
     }
 
 }
@@ -245,7 +256,6 @@ extension AvailabilityViewController: UIPickerViewDelegate {
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
-        print("selected row \(row)")
        
         //if the user selects an invalid date
         if self.bookedData.contains(self.timeData[row]) {

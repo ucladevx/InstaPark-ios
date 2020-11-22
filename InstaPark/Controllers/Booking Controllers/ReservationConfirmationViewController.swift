@@ -11,6 +11,7 @@ class ReservationConfirmationViewController: UIViewController {
 
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
+    @IBOutlet weak var infoView: UIView!
     
     var time = ""
     var address = ""
@@ -18,6 +19,11 @@ class ReservationConfirmationViewController: UIViewController {
         super.viewDidLoad()
         timeLabel.text = time
         addressLabel.text = address
+        infoView.layer.shadowRadius = 10
+        infoView.layer.shadowColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: 1)
+        infoView.layer.shadowOpacity = 0.2
+        infoView.layer.shadowOffset = .init(width: 5, height: 5)
+        
         // Do any additional setup after loading the view.
     }
     

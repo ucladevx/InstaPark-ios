@@ -862,7 +862,7 @@
                                         </constraints>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="12"/>
+                                                <integer key="value" value="17"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                     </view>
@@ -946,6 +946,7 @@
                     </view>
                     <connections>
                         <outlet property="addressLabel" destination="Xvw-YS-7Kc" id="9kF-w7-Y3r"/>
+                        <outlet property="infoView" destination="XK7-tM-Rxy" id="EIR-nw-8Z3"/>
                         <outlet property="timeLabel" destination="brf-tp-v5S" id="aah-Re-Lga"/>
                     </connections>
                 </viewController>
