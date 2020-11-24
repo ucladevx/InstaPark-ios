@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 protocol isAbleToReceiveData {
-    func pass(start: NSDate, end: NSDate, date: Date)
+    func pass(start: Date, end: Date, date: Date)
 }
 
 class BookingViewController: UIViewController, isAbleToReceiveData {
@@ -31,11 +31,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var reserveButton: UIButton!
     
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "id", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, startTime: NSDate.init(), endTime: NSDate.init(), address: "test")
+    var info = ParkingSpaceMapAnnotation(id: "id", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, startTime: NSDate.init(), endTime: NSDate.init(), address: "test", tags: ["test"], comments: "test")
     var total = 0.0
     var startDate: Date? = nil
-    var startTime: NSDate? = nil
-    var endTime: NSDate? = nil
+    var startTime: Date? = nil
+    var endTime: Date? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +82,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
         self.mapView.setRegion(region, animated: false)
         self.mapView.addAnnotation(info)
+        
+        reserveButton.isEnabled = false
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -93,6 +95,53 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
+        ParkingSpotService.getParkingSpotById(info.id) { (parkingSpot, error) in
+            if let spot = parkingSpot {
+                if spot.isAvailable {
+                    /* switch this to ParkingSpot after there are times in the data structure
+                     will need to convert all variables to unix time */
+                    let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
+                    let startUnix = Int(self.startTime!.timeIntervalSince1970)
+                    let endUnix = Int(self.endTime!.timeIntervalSince1970)
+                    var count = 0
+                    
+                    for interval in self.info.times[weekDay-1] ?? [] {
+                        
+                        let startInt = Int(interval.start.timeIntervalSince1970)
+                        let endInt =  Int(interval.end.timeIntervalSince1970)
+                        
+                        if startUnix >= startInt && startUnix < endInt &&
+                           endUnix <= endInt && endUnix > startInt{
+                            if startUnix == startInt && endUnix == endInt {
+                                self.info.times[weekDay-1]!.remove(at: count)
+                                print("deleted index \(count)")
+                            }
+                            else if startUnix == startInt && endUnix < endInt {
+                                self.info.times[weekDay-1]![count].start = self.endTime! //endUnix
+                                print("changed index \(count)'s start to \(self.endTime!.timeIntervalSince1970)")
+                            }
+                            else if startUnix > startInt && endUnix == endInt {
+                                self.info.times[weekDay-1]![count].end = self.startTime! //startUnix
+                                print("changed index \(count)'s end to \(self.startTime!.timeIntervalSince1970)")
+                            }
+                            else if startUnix > startInt && endUnix < endInt {
+                                let end = interval.end
+                                self.info.times[weekDay-1]![count].end = self.startTime! //startUnix
+                                self.info.times[weekDay-1]!.insert(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.endTime!, end: end), at: count+1)
+                                print("changed index \(count)'s end to \(self.startTime!.timeIntervalSince1970)")
+                                print("create new interval at \(count) from \(self.endTime!.timeIntervalSince1970) to \(interval.end.timeIntervalSince1970)")
+                            }
+                            self.dismiss(animated: true)
+                            break;
+                        }
+                        count += 1
+                    }
+                    
+                    TransactionService.saveTransaction(id: self.info.id, customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), priceRatePerHour: self.info.price, spot: spot)
+                    
+                }
+            }
+        }
     }
     
     // MARK: - Navigation
@@ -104,20 +153,22 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             if (startTime != nil && endTime != nil && startDate != nil)
             {
                 vc.selectedDate = startDate!
-                vc.startTime = startTime!
-                vc.endTime = endTime!
+                vc.selectedStart = startTime!
+                vc.selectedEnd = endTime!
+                vc.times = info.times
+                vc.bookedTimes = info.bookedTimes
             }
             else
             {
-                //need to find some way to pass in all the availble times. For now, this is only
-                //here to make sure we cant pass info to the VC
-                vc.startTime = NSDate.init(timeInterval: 1000, since: Date.init())
-                vc.endTime = NSDate.init(timeInterval: 5000, since: Date.init())
+                //vc.startTime = NSDate.init(timeInterval: 1000, since: Date.init())
+                //vc.endTime = NSDate.init(timeInterval: 5000, since: Date.init())
+                vc.times = info.times
+                vc.bookedTimes = info.bookedTimes
             }
         }
     }
     
-    func pass(start: NSDate, end: NSDate, date: Date) {
+    func pass(start: Date, end: Date, date: Date) {
         startTime = start
         endTime = end
         startDate = date
@@ -136,7 +187,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let startMin = Calendar.current.component(.minute, from: startTime! as Date)
         let endHour = Calendar.current.component(.hour, from: endTime! as Date)
         let endMin = Calendar.current.component(.minute, from: endTime! as Date)
-        let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60) ///should we round up the price by hour or charge to the exact minute?
+        let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60)
         print(totalTime)
         total = totalTime * info.price
         totalLabel.text = "$" + String(format: "%.2f", total)
@@ -146,6 +197,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
         reserveButton.setTitleColor(.white, for: .normal)
         reserveButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+        
+        reserveButton.isEnabled = true
     }
 }
 

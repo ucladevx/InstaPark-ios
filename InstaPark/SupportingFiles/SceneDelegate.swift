@@ -6,17 +6,63 @@
 //
 
 import UIKit
+import GoogleSignIn
+import Firebase
 
-class SceneDelegate: UIResponder, UIWindowSceneDelegate {
+class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
 
-
+    //Launch
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        // Use this method to optionally configure and attach the UIWindow `window` to the provided UIWindowScene `scene`.
-        // If using a storyboard, the `window` property will automatically be initialized and attached to the scene.
-        // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
-        guard let _ = (scene as? UIWindowScene) else { return }
+        print("Scene launched")
+        let storyboard =  UIStoryboard(name: "Main", bundle: nil)
+        if let windowScene = scene as? UIWindowScene {
+            self.window = UIWindow(windowScene: windowScene)
+            if Auth.auth().currentUser != nil {
+                // direct to map
+                self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "MapViewVC")
+                self.window!.makeKeyAndVisible()
+            } else {
+                // direct to login
+                self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginVC")
+                self.window!.makeKeyAndVisible()
+            }
+        }
+        GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
+        GIDSignIn.sharedInstance().delegate = self
+    }
+
+    // handle the sign in to direct to the home controller
+    func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
+        print("Handle Google login")
+
+        if error != nil {
+            print("Google sign in failed. Error: \(error.debugDescription)")
+            return
+        }
+
+        guard let authentication = user.authentication else { return }
+        let credential = GoogleAuthProvider.credential(withIDToken: authentication.idToken, accessToken: authentication.accessToken)
+        Auth.auth().signIn(with: credential) { (authResult, error) in
+            if let error = error {
+                print(error.localizedDescription)
+            } else {
+                print("Login success")
+                let storyboard =  UIStoryboard(name: "Main", bundle: nil)
+                self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "MapViewVC")
+                self.window!.makeKeyAndVisible()
+            }
+        }
+    }
+
+    func sign(_ signIn: GIDSignIn!, didDisconnectWith user: GIDGoogleUser!, withError error: Error!) {
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+        } catch let signOutError as NSError {
+            print ("Error signing out: %@", signOutError)
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

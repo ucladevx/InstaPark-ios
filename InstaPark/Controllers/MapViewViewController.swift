@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import GeoFire
 
-class MapViewViewController: ViewController {
+class MapViewViewController: ViewController{
     
     let locationManager = CLLocationManager()
     
@@ -68,13 +68,23 @@ class MapViewViewController: ViewController {
             if let parkingSpots = parkingSpots {
                 for parking in parkingSpots {
                     if parking.isAvailable {
-                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: ""))
-                    }
+                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details." ))
                 }
                 print("Adding annotations")
                 self.mapView.addAnnotations(self.annotations)
             }
-        }
+         }
+        
+        //test annotations until set up with firebase
+//        let annotation1 = ParkingSpaceMapAnnotation(name: "Joe Bruin", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 4.00, time: "3:00-4:00")
+//        let annotation2 = ParkingSpaceMapAnnotation(name: "FIRST LAST ", coordinate: CLLocationCoordinate2DMake(34.072, -118.43), price: 7.0, time: "5:00-8:00")
+//        let annotation3 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.071, -118.439), price: 8.0, time: "7:00-9:00")
+//        let annotation4 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.073, -118.449), price: 5.0, time: "2:30-4:00")
+//        let annotation5 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.08, -118.4381), price: 6.0, time: "11:00-12:00")
+        
+//        annotations.append(contentsOf: [annotation1, annotation2, annotation3, annotation4, annotation5])
+//
+//        self.mapView.addAnnotations(annotations)
         setupView()
         SlideUpView.isHidden = true
         
@@ -83,6 +93,7 @@ class MapViewViewController: ViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
     }
+    
     
     @IBAction func reserveBtn(_ sender: UIButton) {
         let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
@@ -170,7 +181,7 @@ class MapViewViewController: ViewController {
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
                         if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
-                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "test"))
+                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details."))
                         }
                     }
                 }
@@ -233,14 +244,12 @@ extension MapViewViewController: MKMapViewDelegate {
         if let parkingSpace = annotation as? ParkingSpaceMapAnnotation {
             print("Parking Space Map Annotation")
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-
-             if annotationView == nil {
-                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-                 annotationView?.canShowCallout = false
-
-             } else {
-                 annotationView?.annotation = annotation
-             }
+            if annotationView == nil {
+                annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+                annotationView?.canShowCallout = false
+            } else {
+                annotationView?.annotation = annotation
+            }
             annotationView?.image = UIImage(named: "mapAnnotation")
             let label = UILabel(frame: CGRect(x: 7, y: -4, width: 40, height: 30))
             label.textColor = .white
@@ -289,9 +298,22 @@ extension MapViewViewController: MKMapViewDelegate {
 //        return annotationView
     }
     
+
+    func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
+        let parkingSpace = view.annotation as! ParkingSpaceMapAnnotation
+        let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+        mapView.setRegion(region, animated: true)
+        //view.image = UIImage(named: "mapAnnotation")
+    }
+   
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
         let parkingSpace = view.annotation as! ParkingSpaceMapAnnotation
+        
+        // view.image = UIImage(named: "mapAnnotationSelected")
+         let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004))
+         
+         mapView.setRegion(region, animated: true)
         
         SlideUpView.isHidden = false
         totalDistance = 0
@@ -358,7 +380,7 @@ extension MapViewViewController: MKMapViewDelegate {
 extension MapViewViewController: ParkingCalloutViewDelegate {
     func mapView(_ mapView: MKMapView, didTapDetailsButton button: UIButton, for annotation: MKAnnotation) {
         let parkingSpace = annotation as! ParkingSpaceMapAnnotation
-        let name = parkingSpace.name ?? "Unknown"
+        let name = parkingSpace.name
         let coordinates = String(parkingSpace.coordinate.latitude) + ", " + String(parkingSpace.coordinate.longitude)
         let price = parkingSpace.price
         print(name)
@@ -487,3 +509,4 @@ private extension MKMapView {
         setRegion(coordinateRegion, animated: true)
     }
 }
+

@@ -8,6 +8,7 @@
 import MapKit
 import UIKit
 
+
 //class for MapView to pass data into annotations 
 class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
     var id: String
@@ -17,34 +18,46 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
     var startTime: NSDate
     var endTime: NSDate
     var address: String
-    var time: String
+    var times: [Int: [ParkingTimeInterval]]
     var tags: [String]
     var comments: String
+    var bookedTimes: [Int: [ParkingTimeInterval]]
+    
+    struct ParkingTimeInterval {
+        //epoch time
+        var start: Date
+        var end: Date
+    } 
 
-    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, startTime: NSDate, endTime: NSDate, address: String) {
+    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, startTime: NSDate, endTime: NSDate, address: String, tags: [String], comments: String) {
         self.id = id
         self.coordinate = coordinate
         self.price = price
         self.startTime = startTime
         self.endTime = endTime
         self.name = name
-        //convert NSDate to String
-        let formatter1 = DateFormatter()
-        formatter1.dateFormat = "h:00"
-        let startString = formatter1.string(from: startTime as Date)
-        let formatter2 = DateFormatter()
-        formatter2.dateFormat = "h:00 a"
-        let endString = formatter2.string(from: endTime as Date)
-    
-        self.time = startString + "-" + endString 
-        
-        self.address = "124 Glenrock Ave, Los Angeles, CA 90024"
-        
-        self.tags = ["Tandem", "Hourly", "Covered"]
-        self.comments = "Parking space with room for a large vehicle! \nMessage me for more details."
-        
-        self.time = startString + "-" + endString
+        self.address = address
+        self.tags = tags
+        self.comments = comments
+        self.times = [
+            0: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605380010))],
+            1: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605347900), end: Date.init(timeIntervalSince1970: 1605380500))],
+            2: [], 
+            3: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605390500))],
+            4: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348200), end: Date.init(timeIntervalSince1970: 1605380700))],
+            5: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605346900), end: Date.init(timeIntervalSince1970: 1605390200))],
+            6: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605373200))]]
+        self.bookedTimes = [
+            0: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605367900), end: Date.init(timeIntervalSince1970: 1605370200))],
+            1: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605369900), end: Date.init(timeIntervalSince1970: 1605370200))],
+            2: [],
+            3: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605362900), end: Date.init(timeIntervalSince1970: 1605370200))],
+            4: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605363900), end: Date.init(timeIntervalSince1970: 1605370200))],
+            5: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605366900), end: Date.init(timeIntervalSince1970: 1605379200)),
+                ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605356900), end: Date.init(timeIntervalSince1970: 1605360200))],
+            6: [ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605366900), end: Date.init(timeIntervalSince1970: 1605370200))]]
     }
+    
+    /*[ParkingTimeInterval(start: Date.init(timeIntervalSince1970: 1605348000), end: Date.init(timeIntervalSince1970: 1605390500))],*/
 }
-
 

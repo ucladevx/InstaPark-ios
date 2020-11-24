@@ -6,6 +6,7 @@ target 'InstaPark' do
   use_frameworks!
 
   pod 'FSCalendar'
+  pod 'PickerViewKit'
 
   # Pods for InstaPark
   pod 'Firebase/Analytics'
@@ -13,6 +14,8 @@ target 'InstaPark' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
+  # Sign in
+  pod 'GoogleSignIn'
   pod ‘GeoFire’, :git => ‘https://github.com/firebase/geofire-objc.git'
   target 'InstaParkTests' do
     inherit! :search_paths
@@ -23,4 +26,10 @@ target 'InstaPark' do
     # Pods for testing
   end
 
+end
+post_install do |installer|
+    installer.pods_project.build_configurations.each do |config|
+        config.build_settings.delete('CODE_SIGNING_ALLOWED')
+        config.build_settings.delete('CODE_SIGNING_REQUIRED')
+    end
 end

@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 import Firebase
+
 class AuthService {
     enum AuthenticationError: Error {
         case invalidEmail
