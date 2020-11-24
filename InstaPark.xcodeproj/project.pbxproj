@@ -21,7 +21,6 @@
 		0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B199254A4A7E001C4D27 /* MapViewViewController.swift */; };
 		044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */; };
 		044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE7254EA07A00B5F19C /* Transaction.swift */; };
-		046C40202563A77700BD5E85 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C401F2563A77700BD5E85 /* SearchViewController.swift */; };
 		046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */; };
 		0482FE80255CB13A002F522E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE7F255CB13A002F522E /* User.swift */; };
 		0482FE85255CB157002F522E /* ParkingCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE84255CB157002F522E /* ParkingCalloutView.swift */; };
@@ -87,7 +86,6 @@
 		0410B199254A4A7E001C4D27 /* MapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewController.swift; sourceTree = "<group>"; };
 		044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpot.swift; sourceTree = "<group>"; };
 		044A3FE7254EA07A00B5F19C /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
-		046C401F2563A77700BD5E85 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		0482FE7F255CB13A002F522E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0482FE84255CB157002F522E /* ParkingCalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkingCalloutView.swift; sourceTree = "<group>"; };
@@ -210,7 +208,6 @@
 				0410B199254A4A7E001C4D27 /* MapViewViewController.swift */,
 				0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */,
 				9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */,
-				046C401F2563A77700BD5E85 /* SearchViewController.swift */,
 				046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */,
 				9460B9B72558A8720016697A /* Booking Controllers */,
 				9431304C254E4E47002221F4 /* CustomCallout */,
@@ -558,7 +555,6 @@
 				9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */,
 				0410B11A2548D8E9001C4D27 /* AppDelegate.swift in Sources */,
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,
-				046C40202563A77700BD5E85 /* SearchViewController.swift in Sources */,
 				0482FE8D255CB26F002F522E /* TransactionService.swift in Sources */,
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,
 				0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */,

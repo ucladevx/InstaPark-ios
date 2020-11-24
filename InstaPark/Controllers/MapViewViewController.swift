@@ -32,28 +32,30 @@ class MapViewViewController: ViewController {
     let animationTime = SlideViewConstant.animationTime
     var originalCenterOfslideUpView = CGFloat()
     var totalDistance = CGFloat()
+    var currentSearchAnnotation: MKPointAnnotation?
     
     private var geoFire = GeoFire(firebaseRef: Database.database().reference())
     private var regionQuery: GFRegionQuery?
     
     private var annotations = [ParkingSpaceMapAnnotation]()
     
-    private var overlay: UITableView = UITableView()
+    @IBOutlet var overlay: UITableView!
     private var matchingItems = [MKMapItem]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-//        super.hideNavBar(false)
-        searchBar.delegate = self
+        super.hideNavBar(false)
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
-        overlay = UITableView.init(frame: CGRect(x: 0, y: 100, width: self.view.frame.width, height: self.view.frame.height-50))
+        searchBar.delegate = self
+        searchBar.backgroundImage = UIImage()
+        overlay.frame = CGRect(x: 0, y: 100, width: self.view.bounds.width, height: self.view.bounds.height-50)
         overlay.tag = 100
         overlay.dataSource = self
-        overlay.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        overlay.delegate = self
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(34.0703, -118.4441)
@@ -229,23 +231,24 @@ extension MapViewViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseIdentifier = "pin"
         if let parkingSpace = annotation as? ParkingSpaceMapAnnotation {
+            print("Parking Space Map Annotation")
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
 
              if annotationView == nil {
                  annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
                  annotationView?.canShowCallout = false
-                
+
              } else {
                  annotationView?.annotation = annotation
              }
             annotationView?.image = UIImage(named: "mapAnnotation")
             let label = UILabel(frame: CGRect(x: 7, y: -4, width: 40, height: 30))
             label.textColor = .white
-            
+
             let dollar = "$"
             let dollar_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 9)]
             let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs)
-            
+
             let price = String(format: "%.2f", parkingSpace.price)
             let price_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]
             let price_string = NSMutableAttributedString(string:price, attributes:price_attrs)
@@ -257,9 +260,37 @@ extension MapViewViewController: MKMapViewDelegate {
         } else {
             return nil
         }
+//        let parkingSpace = annotation as! ParkingSpaceMapAnnotation
+//        print("Parking Space Map Annotation")
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+//
+//         if annotationView == nil {
+//             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+//             annotationView?.canShowCallout = false
+//
+//         } else {
+//             annotationView?.annotation = annotation
+//         }
+//        annotationView?.image = UIImage(named: "mapAnnotation")
+//        let label = UILabel(frame: CGRect(x: 7, y: -4, width: 40, height: 30))
+//        label.textColor = .white
+//
+//        let dollar = "$"
+//        let dollar_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 9)]
+//        let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs)
+//
+//        let price = String(format: "%.2f", parkingSpace.price)
+//        let price_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]
+//        let price_string = NSMutableAttributedString(string:price, attributes:price_attrs)
+//        cost.append(price_string)
+//        label.attributedText = cost
+//
+//        annotationView?.addSubview(label)
+//        return annotationView
     }
-   
+    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
+        print("Annotation selected")
         let parkingSpace = view.annotation as! ParkingSpaceMapAnnotation
         
         SlideUpView.isHidden = false
@@ -353,7 +384,30 @@ extension MapViewViewController: CLLocationManagerDelegate {
         print(error)
     }
 }
-extension MapViewViewController: UITableViewDataSource {
+extension MapViewViewController: UITableViewDataSource, UITableViewDelegate {
+    func parseAddress(selectedItem: MKPlacemark) -> String{
+        // put a space between "4" and "Melrose Place"
+        let firstSpace = (selectedItem.subThoroughfare != nil && selectedItem.thoroughfare != nil) ? " " : ""
+        // put a comma between street and city/state
+        let comma = (selectedItem.subThoroughfare != nil || selectedItem.thoroughfare != nil) && (selectedItem.subAdministrativeArea != nil || selectedItem.administrativeArea != nil) ? ", " : ""
+        // put a space between "Washington" and "DC"
+        let secondSpace = (selectedItem.subAdministrativeArea != nil && selectedItem.administrativeArea != nil) ? " " : ""
+        let addressLine = String(
+            format:"%@%@%@%@%@%@%@",
+            // street number
+            selectedItem.subThoroughfare ?? "",
+            firstSpace,
+            // street name
+            selectedItem.thoroughfare ?? "",
+            comma,
+            // city
+            selectedItem.locality ?? "",
+            secondSpace,
+            // state
+            selectedItem.administrativeArea ?? ""
+        )
+        return addressLine
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return matchingItems.count
     }
@@ -361,15 +415,41 @@ extension MapViewViewController: UITableViewDataSource {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell")!
         let selectedItem = matchingItems[indexPath.row].placemark
         cell.textLabel?.text = selectedItem.name
-        cell.detailTextLabel?.text = ""
+        cell.detailTextLabel?.text = parseAddress(selectedItem: selectedItem)
         return cell
+    }
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let selectedItem = matchingItems[indexPath.row].placemark
+        dropPinZoomIn(placemark: selectedItem)
+        if let overlay = self.view.viewWithTag(100) {
+            overlay.removeFromSuperview()
+        }
+        searchBar.text = selectedItem.title
+        searchBar.setShowsCancelButton(false, animated: true)
+        searchBar.endEditing(true)
+    }
+    func dropPinZoomIn(placemark: MKPlacemark) {
+        let annotation = MKPointAnnotation()
+        annotation.coordinate = placemark.coordinate
+        annotation.title = placemark.title
+        if let city = placemark.locality, let state = placemark.administrativeArea {
+            annotation.subtitle = "\(city) \(state)"
+        }
+        if let currentSearchAnnotation = currentSearchAnnotation {
+            mapView.removeAnnotation(currentSearchAnnotation)
+        }
+        currentSearchAnnotation = annotation
+        mapView.addAnnotation(annotation)
+        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        mapView.setRegion(region, animated: true)
     }
 }
 extension MapViewViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText
-        request.region = MKCoordinateRegion(center: mapView.centerCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1))
+        request.region = MKCoordinateRegion(center: mapView.centerCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
         let search = MKLocalSearch(request: request)
         search.start() { response, error in
             if let response = response {
