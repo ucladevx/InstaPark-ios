@@ -15,6 +15,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
         
+
+//        for family in UIFont.familyNames.sorted() {
+//            let names = UIFont.fontNames(forFamilyName: family)
+//            print("Family: \(family) Font names: \(names)")
+//        }//        ParkingSpotService.createParkingSpotIn(lat: 34.0703, long: -118.4398)
+//        for _ in 0..<50 {
+//            ParkingSpotService.createParkingSpotIn(lat: Double.random(in: 34..<34.5), long: Double.random(in: -118.8 ..< -118.3))
+//        }
+//        ParkingSpotService.getAllParkingSpots() { parkingSpaces, error in
+//            
+//        }
+        // Override point for customization after application launch.
         return true
     }
 

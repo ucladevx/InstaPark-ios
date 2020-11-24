@@ -21,7 +21,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" translatesAutoresizingMaskIntoConstraints="NO" id="j3k-4t-CT2">
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3k-4t-CT2">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <connections>
                                     <outlet property="delegate" destination="7w2-uL-iKy" id="hat-xM-dO6"/>
@@ -180,6 +180,11 @@
                                     <constraint firstItem="Ckk-Da-crf" firstAttribute="leading" secondItem="Yzw-oZ-U85" secondAttribute="leading" constant="32" id="x25-RK-3ci"/>
                                 </constraints>
                             </view>
+                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwu-FT-YUQ">
+                                <rect key="frame" x="0.0" y="44" width="414" height="50"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </searchBar>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="YIb-ms-dvT"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -193,15 +198,17 @@
                             <constraint firstItem="Yzw-oZ-U85" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="yyR-bk-QLd"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="ZGE-ID-3WN"/>
+                    <navigationItem key="navigationItem" id="cFu-If-GhV"/>
                     <connections>
                         <outlet property="SlideUpView" destination="Yzw-oZ-U85" id="9Qy-pg-sK2"/>
                         <outlet property="addressLabel" destination="rl1-MR-HBw" id="6Sg-EG-6Ic"/>
                         <outlet property="availableLabel" destination="KU9-WG-CNt" id="ObI-zq-sp6"/>
                         <outlet property="mapView" destination="j3k-4t-CT2" id="joe-eP-ejC"/>
                         <outlet property="nameLabel" destination="tYY-HL-OWo" id="YH1-qS-jVs"/>
+                        <outlet property="overlay" destination="oR6-2T-8KI" id="fBz-w6-w3K"/>
                         <outlet property="priceLabel" destination="Jto-NA-GkR" id="n95-Fg-bOV"/>
                         <outlet property="reserveBtn" destination="Ckk-Da-crf" id="TRk-5G-uzd"/>
+                        <outlet property="searchBar" destination="bwu-FT-YUQ" id="QyH-cv-6ga"/>
                         <outlet property="tag1" destination="sLH-UT-weg" id="Bky-yI-9vH"/>
                         <outlet property="tag2" destination="dSU-jF-eyL" id="LgY-Sb-iz4"/>
                         <outlet property="tag3" destination="BNE-3I-84d" id="Ql4-t9-nep"/>
@@ -209,6 +216,37 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rs4-fz-PP7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="oR6-2T-8KI">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <prototypes>
+                        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="zMU-sa-RZT" detailTextLabel="Oc5-Xe-YeV" style="IBUITableViewCellStyleSubtitle" id="LCo-E3-oeS">
+                            <rect key="frame" x="0.0" y="28" width="240" height="55.5"/>
+                            <autoresizingMask key="autoresizingMask"/>
+                            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LCo-E3-oeS" id="a3Q-pD-3T7">
+                                <rect key="frame" x="0.0" y="0.0" width="240" height="55.5"/>
+                                <autoresizingMask key="autoresizingMask"/>
+                                <subviews>
+                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="zMU-sa-RZT">
+                                        <rect key="frame" x="16" y="10" width="33" height="20.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" insetsLayoutMarginsFromSafeArea="NO" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Oc5-Xe-YeV">
+                                        <rect key="frame" x="16" y="31.5" width="44" height="14.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </tableViewCellContentView>
+                        </tableViewCell>
+                    </prototypes>
+                </tableView>
             </objects>
             <point key="canvasLocation" x="1853.6231884057972" y="75"/>
         </scene>
@@ -1213,6 +1251,14 @@
             <point key="canvasLocation" x="-236" y="603"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="Xhv-Dx-Y88">
+            <size key="intrinsicContentSize" width="106.5" height="18"/>
+        </designable>
+        <designable name="gS3-7a-9Dd">
+            <size key="intrinsicContentSize" width="80.5" height="17"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="Td1-91-LwN"/>
         <segue reference="Rbn-wf-iCA"/>

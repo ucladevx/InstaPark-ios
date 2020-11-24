@@ -9,6 +9,7 @@ import Foundation
 class ShortTermParkingSpot: ParkingSpot {
     //protocol for setting times : let user set time interval for each day of the week. 0 is monday, 6 is sunday. Each day has a list of time intervals (in unix time) for the start and end time of the interval.
     var times: [Int: [ParkingTimeInterval]]
+    var occupied = [Int: [ParkingTimeInterval]]()
     init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], firstName: String, lastName: String, lastEndTime: Int, times: [Int: [ParkingTimeInterval]]) {
         self.times = times
         super.init(id: id, address: address, coordinates: coordinates, pricePerHour: pricePerHour, provider: provider, comments: comments, tags: tags, firstName: firstName, lastName: lastName, lastEndTime: lastEndTime)
@@ -41,9 +42,9 @@ class ShortTermParkingSpot: ParkingSpot {
         try super.encode(to: superencoder)
     }
     //Adds time slot for a certain day ( 0 -> Monday, 6 -> Sunday )
-//    func addTimeSlot(forDay: Int, start: Int, end: Int) {
-//        self.times[forDay].append(ParkingTimeInterval(start: start, end: end))
-//    }
+    func addTimeSlot(forDay: Int, start: Int, end: Int) {
+        self.times[forDay]!.append(ParkingTimeInterval(start: start, end: end))
+    }
     //checks if these two time slots are available for reservation, including if they span across night
 //    func validateTimeSlot(start: Int, end: Int) -> Bool {
 //        let startParking = Date.init(timeIntervalSince1970: Double(start))
