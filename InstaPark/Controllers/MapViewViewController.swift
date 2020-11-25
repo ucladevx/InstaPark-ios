@@ -75,6 +75,9 @@ class MapViewViewController: ViewController{
             }
          }
         
+            NotificationCenter.default.addObserver(self, selector: #selector(self.updateView), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+        
         //test annotations until set up with firebase
 //        let annotation1 = ParkingSpaceMapAnnotation(name: "Joe Bruin", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 4.00, time: "3:00-4:00")
 //        let annotation2 = ParkingSpaceMapAnnotation(name: "FIRST LAST ", coordinate: CLLocationCoordinate2DMake(34.072, -118.43), price: 7.0, time: "5:00-8:00")
@@ -94,6 +97,10 @@ class MapViewViewController: ViewController{
         super.viewDidAppear(animated)
     }
     
+    @objc func updateView() {
+        self.SlideUpView.isHidden = true
+        print("update View")
+    }
     
     @IBAction func reserveBtn(_ sender: UIButton) {
         let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
@@ -251,7 +258,7 @@ extension MapViewViewController: MKMapViewDelegate {
                 annotationView?.annotation = annotation
             }
             annotationView?.image = UIImage(named: "mapAnnotation")
-            let label = UILabel(frame: CGRect(x: 7, y: -4, width: 40, height: 30))
+            let label = UILabel(frame: CGRect(x: 10, y: 0, width: 40, height: 30))
             label.textColor = .white
 
             let dollar = "$"
@@ -298,78 +305,143 @@ extension MapViewViewController: MKMapViewDelegate {
 //        return annotationView
     }
     
+    
+    
+    
 
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
-        let parkingSpace = view.annotation as! ParkingSpaceMapAnnotation
-        let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
-        mapView.setRegion(region, animated: true)
-        //view.image = UIImage(named: "mapAnnotation")
+        if let parkingSpace = view.annotation as? ParkingSpaceMapAnnotation {
+            let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
+            mapView.setRegion(region, animated: true)
+            //view.image = UIImage(named: "mapAnnotation")
+        } else {
+            return
+        }
+    }
+    
+    func mapView(_ mapView: MKMapView, didAdd views: [MKAnnotationView]) {
+        let userLocation = mapView.view(for: mapView.userLocation)
+            userLocation?.isEnabled = false
     }
    
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
-        let parkingSpace = view.annotation as! ParkingSpaceMapAnnotation
-        
-        // view.image = UIImage(named: "mapAnnotationSelected")
-         let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004))
-         
-         mapView.setRegion(region, animated: true)
-        
-        SlideUpView.isHidden = false
-        totalDistance = 0
-        SlideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewHeight)
-        UIView.animate(withDuration: TimeInterval(animationTime), animations: {
-            self.blackView.alpha = 1
-            self.SlideUpView.backgroundColor = UIColor.white
-            self.SlideUpView.layer.cornerRadius = SlideViewConstant.cornerRadiusOfSlideView
-            self.SlideUpView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
-        }, completion: nil)
-        SlideUpView.slideUpShow(animationTime)
-        originalCenterOfslideUpView = SlideUpView.center.y
-      
-        nameLabel.text = parkingSpace.name
-        
-        //set up price label
-        let dollar = "$"
-        let dollar_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)]
-        let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs)
-        
-        let price = String(format: "%.2f", parkingSpace.price)
-        let price_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 19)]
-        let price_string = NSMutableAttributedString(string:price, attributes:price_attrs)
-        cost.append(price_string)
-        
-        let perHour = " per hour"
-        let hour_attrs = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .medium)]
-        let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs)
-        cost.append(hour_string)
-        
-        priceLabel.attributedText = cost
-        
-        //set up tags
-        let tags: [UIButton] = [tag1, tag2, tag3, tag4]
-        
-        for tag in tags {
-            tag.layer.borderWidth = 1.5
-            tag.layer.cornerRadius = 11
-            tag.layer.borderColor = CGColor.init(red: 0.796, green: 0.651, blue: 0.821, alpha: 1.0)
-            tag.isHidden = true
+        if let parkingSpace = view.annotation as? ParkingSpaceMapAnnotation {
+            // view.image = UIImage(named: "mapAnnotationSelected")
+             let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004))
+             
+             mapView.setRegion(region, animated: true)
+            
+            SlideUpView.isHidden = false
+            totalDistance = 0
+            SlideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewHeight)
+            UIView.animate(withDuration: TimeInterval(animationTime), animations: {
+                self.blackView.alpha = 1
+                self.SlideUpView.backgroundColor = UIColor.white
+                self.SlideUpView.layer.cornerRadius = SlideViewConstant.cornerRadiusOfSlideView
+                self.SlideUpView.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            }, completion: nil)
+            SlideUpView.slideUpShow(animationTime)
+            originalCenterOfslideUpView = SlideUpView.center.y
+          
+            nameLabel.text = parkingSpace.name
+            
+            //set up price label
+            let dollar = "$"
+            let dollar_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)]
+            let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs)
+            
+            let price = String(format: "%.2f", parkingSpace.price)
+            let price_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 19)]
+            let price_string = NSMutableAttributedString(string:price, attributes:price_attrs)
+            cost.append(price_string)
+            
+            let perHour = " per hour"
+            let hour_attrs = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .medium)]
+            let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs)
+            cost.append(hour_string)
+            
+            priceLabel.attributedText = cost
+            
+            //set up tags
+            let tags: [UIButton] = [tag1, tag2, tag3, tag4]
+            
+            for tag in tags {
+                tag.layer.borderWidth = 1.5
+                tag.layer.cornerRadius = 11
+                tag.layer.borderColor = CGColor.init(red: 0.796, green: 0.651, blue: 0.821, alpha: 1.0)
+                tag.isHidden = true
+            }
+            for n in 0...(parkingSpace.tags.count-1) {
+                tags[n].setTitle(parkingSpace.tags[n], for: .normal)
+                tags[n].isHidden = false
+            }
+            
+            //set up availability -- not done yet
+            let avail = "Available "
+            let avail_attrs = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]
+            let timeAvail = NSMutableAttributedString(string:avail, attributes:avail_attrs)
+            
+            var now = "NOW"
+            let weekDay = Calendar.current.component(.weekday, from: Date())
+            
+            func hourAsInt(date: Date) -> Int {
+                return Calendar.current.component(.hour, from: date)
+            }
+            func minAsInt(date: Date) -> Int {
+                return Calendar.current.component(.minute, from: date)
+            }
+            func compareTimes(h1: Int, h2: Int, m1: Int, m2: Int) -> Bool {
+                if h1 < h2 || (h1 == h2 && m1 < m2) {
+                    return true
+                }
+                return false
+            }
+            var i = -1
+            while parkingSpace.times[weekDay+i]!.isEmpty { //find most close unbooked day
+                i += 1
+            }
+            let booked = parkingSpace.bookedTimes[weekDay+i]
+            let timeRange = parkingSpace.times[weekDay+i]![0]
+            let endTime = timeRange.end
+            
+            if compareTimes(h1: hourAsInt(date: endTime), h2: hourAsInt(date: Date()), m1: minAsInt(date: endTime), m2: minAsInt(date: Date())) {
+                switch weekDay+1 {
+                    case 1:
+                        now = "SUNDAY"
+                    case 2:
+                        now = "MONDAY"
+                    case 3:
+                        now = "TUESDAY"
+                    case 4:
+                        now = "WEDNESDAY"
+                    case 5:
+                        now = "THURSDAY"
+                    case 6:
+                        now = "FRIDAY"
+                    case 7:
+                        now = "SATURDAY"
+                default:
+                    break
+                }
+            }
+            else {
+                for interval in booked ?? [] {
+                    if compareTimes(h1: hourAsInt(date: Date()), h2: hourAsInt(date: interval.end), m1: minAsInt(date: Date()), m2: minAsInt(date: interval.end)) && compareTimes(h1: hourAsInt(date: interval.start), h2: hourAsInt(date: Date()), m1: minAsInt(date: interval.start), m2: minAsInt(date: Date()))
+                    {
+                        now = "LATER TODAY"
+                    }
+                }
+            }
+            
+            let now_attrs =  [NSAttributedString.Key.font : UIFont.italicSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
+            let nowLabel = NSMutableAttributedString(string:now, attributes:now_attrs)
+            timeAvail.append(nowLabel)
+            availableLabel.attributedText = timeAvail
+        } else {
+            return
         }
-        for n in 0...(parkingSpace.tags.count-1) {
-            tags[n].setTitle(parkingSpace.tags[n], for: .normal)
-            tags[n].isHidden = false
-        }
         
-        //set up availability -- not done yet
-        let avail = "Available "
-        let avail_attrs = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]
-        let timeAvail = NSMutableAttributedString(string:avail, attributes:avail_attrs)
-        
-        let now = "NOW"
-        let now_attrs =  [NSAttributedString.Key.font : UIFont.italicSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
-        let nowLabel = NSMutableAttributedString(string:now, attributes:now_attrs)
-        timeAvail.append(nowLabel)
-        availableLabel.attributedText = timeAvail
     }
 
     
@@ -469,6 +541,7 @@ extension MapViewViewController: UITableViewDataSource, UITableViewDelegate {
 }
 extension MapViewViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        self.SlideUpView.isHidden = true
         let request = MKLocalSearch.Request()
         request.naturalLanguageQuery = searchText
         request.region = MKCoordinateRegion(center: mapView.centerCoordinate, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
@@ -483,6 +556,7 @@ extension MapViewViewController: UISearchBarDelegate {
     }
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBar.endEditing(true)
+        self.SlideUpView.isHidden = true
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         self.view.addSubview(overlay)
@@ -494,6 +568,7 @@ extension MapViewViewController: UISearchBarDelegate {
         }
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.endEditing(true)
+        self.SlideUpView.isHidden = true
     }
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         if let overlay = self.view.viewWithTag(100) {
@@ -501,6 +576,7 @@ extension MapViewViewController: UISearchBarDelegate {
         }
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.endEditing(true)
+        self.SlideUpView.isHidden = true
     }
 }
 private extension MKMapView {

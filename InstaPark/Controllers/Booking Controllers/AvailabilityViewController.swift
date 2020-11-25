@@ -59,7 +59,7 @@ class AvailabilityViewController: UIViewController {
         endTime = times[weekDay+i]![length-1].end
         selectedDate = Calendar.current.date(byAdding: .day, value: i+1, to: selectedDate)!
         calendar.select(selectedDate as Date)
-        updateBookedData()
+        updateBookedData(dayOfWeek: weekDay+i+1)
         updatePickerData()
         
         //if the user is revisiting the controller, select their last chosen times on picker
@@ -112,10 +112,15 @@ class AvailabilityViewController: UIViewController {
             let endMin = Calendar.current.component(.minute, from: endTime!)
             let curHour = Calendar.current.component(.hour, from: Date())
             let curMin = Calendar.current.component(.minute, from: Date())
-            if endHour <= curHour && endMin <= curMin {
-                calendar.select(Calendar.current.date(byAdding: .day, value: 1, to: Date()))
+            if endHour < curHour || (endHour == curHour && endMin < curMin) {
+                let nextDay = Calendar.current.date(byAdding: .day, value: 1, to: Date())
+                calendar.select(nextDay)
                 start = 0
                 invalidDates.append(todayString)
+                weekDay = Calendar.current.component(.weekday, from: nextDay!)
+                updateBookedData(dayOfWeek: weekDay)
+                startScroller.reloadAllComponents()
+                endScroller.reloadAllComponents()
             }
             //if not, put earliest start time as the first available index starting at user's current time (rounded up to the nearst 15 mins)
             else {
@@ -152,10 +157,10 @@ class AvailabilityViewController: UIViewController {
         }
     }
     
-    func updateBookedData() {
+    func updateBookedData(dayOfWeek: Int) {
         bookedData = []
     
-        for interval in bookedTimes[weekDay-1]! {
+        for interval in bookedTimes[dayOfWeek-1]! {
             var row = 0
             //let nextDiff = 15 - Calendar.current.component(.minute, from: interval.start) % 15
             //let rounded = Calendar.current.date(byAdding: .minute, value: nextDiff, to: interval.start) ?? Date()
@@ -207,7 +212,7 @@ extension AvailabilityViewController: FSCalendarDelegate, FSCalendarDataSource, 
         self.startTime = times[weekDay-1]![0].start
         let length = times[weekDay-1]!.count
         self.endTime = times[weekDay-1]![length-1].end
-        self.updateBookedData()
+        self.updateBookedData(dayOfWeek: weekDay)
         self.updatePickerData()
         self.updateSelectedDates()
     }
