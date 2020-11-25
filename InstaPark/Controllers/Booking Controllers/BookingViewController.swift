@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 protocol isAbleToReceiveData {
-    func pass(start: Date, end: Date, date: Date)
+    func pass(start: Date, end: Date, date: Date, cancel: Bool)
 }
 
 class BookingViewController: UIViewController, isAbleToReceiveData {
@@ -95,6 +95,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
+        let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
+        info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: startTime!, end: endTime!))
+        /*
         ParkingSpotService.getParkingSpotById(info.id) { (parkingSpot, error) in
             if let spot = parkingSpot {
                 if spot.isAvailable {
@@ -141,7 +144,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                     
                 }
             }
-        }
+        }*/
     }
     
     // MARK: - Navigation
@@ -166,39 +169,46 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 vc.bookedTimes = info.bookedTimes
             }
         }
+        
+        if let vc = segue.destination as? ReservationConfirmationViewController {
+            vc.address = addressLabel.text!
+            vc.time = availabilityLabel.titleLabel!.text!
+        }
     }
     
-    func pass(start: Date, end: Date, date: Date) {
-        startTime = start
-        endTime = end
-        startDate = date
-        let formatter1 = DateFormatter()
-        formatter1.dateFormat = "MMMM dth"
-        let day = formatter1.string(from: startDate ?? Date())
-        let formatter2 = DateFormatter()
-        formatter2.dateFormat = "h:mm a"
-        let startString = formatter2.string(from: startTime! as Date)
-        let endString = formatter2.string(from: endTime! as Date)
-        availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
-        availabilityLabel.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
-        
-        //calculate total cost (for now without tax/extra fees)
-        let startHour = Calendar.current.component(.hour, from: startTime! as Date)
-        let startMin = Calendar.current.component(.minute, from: startTime! as Date)
-        let endHour = Calendar.current.component(.hour, from: endTime! as Date)
-        let endMin = Calendar.current.component(.minute, from: endTime! as Date)
-        let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60)
-        print(totalTime)
-        total = totalTime * info.price
-        totalLabel.text = "$" + String(format: "%.2f", total)
-        totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-        totalLabel.font = .systemFont(ofSize: 20, weight: .medium)
-        
-        reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-        reserveButton.setTitleColor(.white, for: .normal)
-        reserveButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
-        
-        reserveButton.isEnabled = true
+    func pass(start: Date, end: Date, date: Date, cancel: Bool) {
+        if (cancel != true) {
+            startTime = start
+            endTime = end
+            startDate = date
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "MMMM dth"
+            let day = formatter1.string(from: startDate ?? Date())
+            let formatter2 = DateFormatter()
+            formatter2.dateFormat = "h:mm a"
+            let startString = formatter2.string(from: startTime! as Date)
+            let endString = formatter2.string(from: endTime! as Date)
+            availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
+            availabilityLabel.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+            
+            //calculate total cost (for now without tax/extra fees)
+            let startHour = Calendar.current.component(.hour, from: startTime! as Date)
+            let startMin = Calendar.current.component(.minute, from: startTime! as Date)
+            let endHour = Calendar.current.component(.hour, from: endTime! as Date)
+            let endMin = Calendar.current.component(.minute, from: endTime! as Date)
+            let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60)
+            print(totalTime)
+            total = totalTime * info.price
+            totalLabel.text = "$" + String(format: "%.2f", total)
+            totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            totalLabel.font = .systemFont(ofSize: 20, weight: .medium)
+            
+            reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            reserveButton.setTitleColor(.white, for: .normal)
+            reserveButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+            
+            reserveButton.isEnabled = true
+        }
     }
 }
 
