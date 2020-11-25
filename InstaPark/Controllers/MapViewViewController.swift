@@ -75,6 +75,9 @@ class MapViewViewController: ViewController{
             }
          }
         
+            NotificationCenter.default.addObserver(self, selector: #selector(self.updateView), name: UIApplication.didBecomeActiveNotification, object: nil)
+    }
+        
         //test annotations until set up with firebase
 //        let annotation1 = ParkingSpaceMapAnnotation(name: "Joe Bruin", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 4.00, time: "3:00-4:00")
 //        let annotation2 = ParkingSpaceMapAnnotation(name: "FIRST LAST ", coordinate: CLLocationCoordinate2DMake(34.072, -118.43), price: 7.0, time: "5:00-8:00")
@@ -92,6 +95,11 @@ class MapViewViewController: ViewController{
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+    }
+    
+    @objc func updateView() {
+        self.SlideUpView.isHidden = true
+        print("update View")
     }
     
     
@@ -251,7 +259,7 @@ extension MapViewViewController: MKMapViewDelegate {
                 annotationView?.annotation = annotation
             }
             annotationView?.image = UIImage(named: "mapAnnotation")
-            let label = UILabel(frame: CGRect(x: 7, y: -4, width: 40, height: 30))
+            let label = UILabel(frame: CGRect(x: 10, y: 0, width: 40, height: 30))
             label.textColor = .white
 
             let dollar = "$"
@@ -297,6 +305,9 @@ extension MapViewViewController: MKMapViewDelegate {
 //        annotationView?.addSubview(label)
 //        return annotationView
     }
+    
+    
+    
     
 
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
@@ -465,6 +476,7 @@ extension MapViewViewController: UITableViewDataSource, UITableViewDelegate {
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
+        self.SlideUpView.isHidden = true
     }
 }
 extension MapViewViewController: UISearchBarDelegate {
