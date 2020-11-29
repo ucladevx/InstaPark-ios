@@ -70,8 +70,14 @@ class LoginViewController: ViewController {
         super.hideNavBar(true)
         super.viewDidLoad()
         loginButton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
+        email.delegate = self
+        password.delegate = self
     }
     
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        email.resignFirstResponder()
+        password.resignFirstResponder()
+    }
 
     /*
     // MARK: - Navigation
@@ -83,4 +89,11 @@ class LoginViewController: ViewController {
     }
     */
 
+}
+
+extension LoginViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }
