@@ -121,16 +121,16 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                                 print("deleted index \(count)")
                             }
                             else if startUnix == startInt && endUnix < endInt {
-                                self.info.times[weekDay-1]![count].start = self.endTime! //endUnix
+                                self.info.times[weekDay-1]![count].start = self.endTime! endUnix
                                 print("changed index \(count)'s start to \(self.endTime!.timeIntervalSince1970)")
                             }
                             else if startUnix > startInt && endUnix == endInt {
-                                self.info.times[weekDay-1]![count].end = self.startTime! //startUnix
+                                self.info.times[weekDay-1]![count].end = self.startTime! startUnix
                                 print("changed index \(count)'s end to \(self.startTime!.timeIntervalSince1970)")
                             }
                             else if startUnix > startInt && endUnix < endInt {
                                 let end = interval.end
-                                self.info.times[weekDay-1]![count].end = self.startTime! //startUnix
+                                self.info.times[weekDay-1]![count].end = self.startTime! startUnix
                                 self.info.times[weekDay-1]!.insert(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.endTime!, end: end), at: count+1)
                                 print("changed index \(count)'s end to \(self.startTime!.timeIntervalSince1970)")
                                 print("create new interval at \(count) from \(self.endTime!.timeIntervalSince1970) to \(interval.end.timeIntervalSince1970)")
