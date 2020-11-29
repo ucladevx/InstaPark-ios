@@ -1081,7 +1081,7 @@
         <!--Navigation Controller-->
         <scene sceneID="0yl-rQ-boa">
             <objects>
-                <navigationController id="wqL-Pm-fmq" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="LoginVC" id="wqL-Pm-fmq" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="uIs-uj-LkS">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -1397,14 +1397,6 @@
             <point key="canvasLocation" x="-236" y="603"/>
         </scene>
     </scenes>
-    <designables>
-        <designable name="Xhv-Dx-Y88">
-            <size key="intrinsicContentSize" width="106.5" height="18"/>
-        </designable>
-        <designable name="gS3-7a-9Dd">
-            <size key="intrinsicContentSize" width="80.5" height="17"/>
-        </designable>
-    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="3tF-LG-iLn"/>
         <segue reference="tvo-lI-MU3"/>
