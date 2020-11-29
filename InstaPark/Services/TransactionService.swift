@@ -46,13 +46,13 @@ class TransactionService {
     }
     
     //TODO - saveTransaction
-    static func saveTransaction(id: String, customer: String, provider: String, startTime: Int, endTime: Int, priceRatePerHour: Double, spot: ParkingSpot) {
+    static func saveTransaction(customer: String, provider: String, startTime: Int, endTime: Int, priceRatePerHour: Double, spot: ParkingSpot) {
         if let user = Auth.auth().currentUser {
-            let docRef = db.collection("Transaction").document(id)
-            let transaction = Transaction(id: user.uid, customer: customer, startTime: startTime, endTime: endTime, fromParkingSpot: spot)
-            
+            print(user.uid)
+            let docRef = db.collection("Transaction").document()
+            let transaction = Transaction(id: docRef.documentID, customer: customer, startTime: startTime, endTime: endTime, fromParkingSpot: spot)
             docRef.setData(transaction.dictionary)
-            db.collection("User").document(user.uid).updateData(["transactions": FieldValue.arrayUnion([transaction.dictionary])])
+            db.collection("User").document(user.uid).updateData(["transactions": FieldValue.arrayUnion([transaction.id])])
         }
         
     }

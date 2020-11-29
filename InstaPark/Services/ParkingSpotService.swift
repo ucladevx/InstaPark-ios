@@ -79,15 +79,28 @@ class ParkingSpotService {
     }
     //Gets parking spot by id(The id is a string that is stored in User's parkingSpots array)
     static func getParkingSpotById(_ id: String, completion: @escaping(ParkingSpot?, Error?)->Void) {
-        let docRef = db.collection("ParkingSpot").document(id)
+        let docRef: DocumentReference
+        switch parkingType {
+        case .short:
+            docRef = db.collection("ShortTermParkingSpot").document(id)
+        case .long:
+            docRef = db.collection("ShortTermParkingSpot").document(id)
+        }
         docRef.getDocument() {document, error in
             if let error = error {
                 completion(nil, error)
                 return
             }else {
                 if let document = document {
-                    if let parkingSpot = try? ParkingSpot.init(from: document.data()!) {
-                        completion(parkingSpot, nil)
+                    switch parkingType {
+                    case .short:
+                        if let parkingSpot = try? ShortTermParkingSpot.init(from: document.data()!) {
+                            completion(parkingSpot, nil)
+                        }
+                    case .long:
+                        if let parkingSpot = try? ShortTermParkingSpot.init(from: document.data()!) {
+                            completion(parkingSpot, nil)
+                        }
                     }
                 }
             }

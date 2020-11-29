@@ -14,7 +14,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Use Firebase library to configure APIs
         FirebaseApp.configure()
-        
+        print("Starting Instapark App")
 
 //        for family in UIFont.familyNames.sorted() {
 //            let names = UIFont.fontNames(forFamilyName: family)

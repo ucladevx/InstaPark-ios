@@ -69,6 +69,7 @@ class MapViewViewController: ViewController{
                 for parking in parkingSpots {
                     if parking.isAvailable {
                         self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details." ))
+                    }
                 }
                 print("Adding annotations")
                 self.mapView.addAnnotations(self.annotations)
