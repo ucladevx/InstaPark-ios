@@ -101,12 +101,19 @@ class AuthService {
     }
     
     //creates user document
-    private static func createUserDocument(authResult: AuthDataResult) {
+    static func createUserDocument(authResult: AuthDataResult) {
         print("Creating user document")
-        let user = authResult.user
-        let data = user.providerData[0]
-        let db = Firestore.firestore()
-        let customer = User(uid: data.uid, displayName: data.displayName ?? "", phoneNumber: data.phoneNumber ?? "")
-        db.collection("User").document(data.uid).setData(customer.dictionary)
+        if let usr = Auth.auth().currentUser {
+            let id = usr.uid
+            print(id)
+            let user = authResult.user
+            let data = user.providerData[0]
+            let db = Firestore.firestore()
+            let customer = User(uid: id, displayName: data.displayName ?? "", phoneNumber: data.phoneNumber ?? "")
+            db.collection("User").document(id).setData(customer.dictionary)
+        } else {
+            print("Cannot create user document without signed in user")
+        }
+       
     }
 }

@@ -46,44 +46,45 @@ class ShortTermParkingSpot: ParkingSpot {
         self.times[forDay]!.append(ParkingTimeInterval(start: start, end: end))
     }
     //checks if these two time slots are available for reservation, including if they span across night
-//    func validateTimeSlot(start: Int, end: Int) -> Bool {
-//        let startParking = Date.init(timeIntervalSince1970: Double(start))
-//        var startWeekday = Calendar.current.component(.weekday, from: startParking)
-//        let endParking = Date.init(timeIntervalSince1970: Double(end))
-//        var endWeekday = Calendar.current.component(.weekday, from: endParking)
-//        startWeekday = (7+(startWeekday-2))%7
-//        endWeekday = (7+(endWeekday-2))%7
-//        if startWeekday == endWeekday &&  end - start < 86400 /*seconds in a day*/{
-//            for interval in times[startWeekday] {
-//                let startInterval = Date.init(timeIntervalSince1970: Double(interval.start))
-//                let endInterval = Date.init(timeIntervalSince1970: Double(interval.end))
-//                if(compareHourMinutes(startParking,startInterval) >= 0 && compareHourMinutes(endParking, endInterval)<=0) {
-//                    return true
-//                }
-//            }
-//        } else {
-//            for interval in times[startWeekday] {
-//                let endInterval = Date.init(timeIntervalSince1970: Double(interval.end))
-//                if isEndOfDay(endInterval) {
-//                    for i in 1...7 {
-//                        let k = (startWeekday + i)%7
-//                        if (k == endWeekday){
-//                            let finalEndInterval = Date.init(timeIntervalSince1970: Double(times[k][0].end))
-//                            if(compareHourMinutes(endParking, finalEndInterval)<=0) {
-//                                return true
-//                            }
-//                        } else {
-//                            if Calendar.current.component(.hour, from: Date(timeIntervalSince1970: Double(times[k][0].start))) == 0 && isEndOfDay(Date(timeIntervalSince1970: Double(times[k][0].end))){
-//                            }else {
-//                                break
-//                            }
-//                        }
-//                    }
-//                }
-//            }
-//        }
-//        return false
-//    }
+    func validateTimeSlot(start: Int, end: Int) -> Bool {
+        let startParking = Date.init(timeIntervalSince1970: Double(start))
+        var startWeekday = Calendar.current.component(.weekday, from: startParking)
+        let endParking = Date.init(timeIntervalSince1970: Double(end))
+        var endWeekday = Calendar.current.component(.weekday, from: endParking)
+        startWeekday = (7+(startWeekday-2))%7
+        endWeekday = (7+(endWeekday-2))%7
+        if startWeekday == endWeekday &&  end - start < 86400 /*seconds in a day*/{
+            for interval in times[startWeekday]! {
+                let startInterval = Date.init(timeIntervalSince1970: Double(interval.start))
+                let endInterval = Date.init(timeIntervalSince1970: Double(interval.end))
+                if(compareHourMinutes(startParking,startInterval) >= 0 && compareHourMinutes(endParking, endInterval)<=0) {
+                    return true
+                }
+            }
+        } else {
+            for interval in times[startWeekday]! {
+                let startInterval = Date.init(timeIntervalSince1970: Double(interval.start))
+                let endInterval = Date.init(timeIntervalSince1970: Double(interval.end))
+                if(compareHourMinutes(startParking, startInterval) >= 0 && isEndOfDay(endInterval)) {
+                    for i in 1...7 {
+                        let k = (startWeekday + i)%7
+                        if (k == endWeekday){
+                            let finalEndInterval = Date.init(timeIntervalSince1970: Double(times[k]![0].end))
+                            if(compareHourMinutes(endParking, finalEndInterval)<=0) {
+                                return true
+                            }
+                        } else {
+                            if Calendar.current.component(.hour, from: Date(timeIntervalSince1970: Double(times[k]![0].start))) == 0 && isEndOfDay(Date(timeIntervalSince1970: Double(times[k]![0].end))){
+                            }else {
+                                break
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        return false
+    }
 }
 extension ShortTermParkingSpot {
     //checks if the end time is 11:59
