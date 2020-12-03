@@ -42,7 +42,20 @@ class SignupViewController: ViewController {
 
         // Do any additional setup after loading the view.
         signupButton.addTarget(self, action: #selector(signupAction), for: .touchUpInside)
-
+        
+        email.delegate = self
+        firstname.delegate = self
+        lastname.delegate = self
+        password1.delegate = self
+        password2.delegate = self
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        email.resignFirstResponder()
+        firstname.resignFirstResponder()
+        lastname.resignFirstResponder()
+        password1.resignFirstResponder()
+        password2.resignFirstResponder()
     }
     
 
@@ -56,4 +69,11 @@ class SignupViewController: ViewController {
     }
     */
 
+}
+
+extension SignupViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
 }

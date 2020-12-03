@@ -31,7 +31,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var reserveButton: UIButton!
     
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, startTime: NSDate.init(), endTime: NSDate.init(), address: "test", tags: ["test"], comments: "test")
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: "test", tags: ["test"], comments: "test")
     var total = 0.0
     var startDate: Date? = nil
     var startTime: Date? = nil
@@ -95,57 +95,18 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
-        let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
-        info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: startTime!, end: endTime!))
-        /*
         ParkingSpotService.getParkingSpotById(info.id) { (parkingSpot, error) in
             if let spot = parkingSpot {
                 if spot.isAvailable {
                     print("Saving spot")
-                    /* switch this to ParkingSpot after there are times in the data structure
-                     will need to convert all variables to unix time */
                     let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
-                    let startUnix = Int(self.startTime!.timeIntervalSince1970)
-                    let endUnix = Int(self.endTime!.timeIntervalSince1970)
-                    var count = 0
-                    
-                    for interval in self.info.times[weekDay-1] ?? [] {
-                        
-                        let startInt = Int(interval.start.timeIntervalSince1970)
-                        let endInt =  Int(interval.end.timeIntervalSince1970)
-                        
-                        if startUnix >= startInt && startUnix < endInt &&
-                           endUnix <= endInt && endUnix > startInt{
-                            if startUnix == startInt && endUnix == endInt {
-                                self.info.times[weekDay-1]!.remove(at: count)
-                                print("deleted index \(count)")
-                            }
-                            else if startUnix == startInt && endUnix < endInt {
-                                self.info.times[weekDay-1]![count].start = self.endTime! endUnix
-                                print("changed index \(count)'s start to \(self.endTime!.timeIntervalSince1970)")
-                            }
-                            else if startUnix > startInt && endUnix == endInt {
-                                self.info.times[weekDay-1]![count].end = self.startTime! startUnix
-                                print("changed index \(count)'s end to \(self.startTime!.timeIntervalSince1970)")
-                            }
-                            else if startUnix > startInt && endUnix < endInt {
-                                let end = interval.end
-                                self.info.times[weekDay-1]![count].end = self.startTime! startUnix
-                                self.info.times[weekDay-1]!.insert(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.endTime!, end: end), at: count+1)
-                                print("changed index \(count)'s end to \(self.startTime!.timeIntervalSince1970)")
-                                print("create new interval at \(count) from \(self.endTime!.timeIntervalSince1970) to \(interval.end.timeIntervalSince1970)")
-                            }
-                            self.dismiss(animated: true)
-                            break;
-                        }
-                        count += 1
-                    }
-                    
+                    //need to switch from info.bookTimes to ShortTermParkingSpot later
+                    self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
                     TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), priceRatePerHour: self.info.price, spot: spot)
                     
                 }
             }
-        }*/
+        }
     }
     
     // MARK: - Navigation

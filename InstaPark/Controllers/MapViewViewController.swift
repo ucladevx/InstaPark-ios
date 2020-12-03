@@ -87,13 +87,14 @@ class MapViewViewController: ViewController{
             if let parkingSpots = parkingSpots {
                 for parking in parkingSpots {
                     if parking.isAvailable {
-                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details." ))
+                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details." ))
                     }
                 }
                 print("Adding annotations")
                 self.mapView.addAnnotations(self.annotations)
             }
          }
+    
         
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateView), name: UIApplication.didBecomeActiveNotification, object: nil)
         
@@ -207,7 +208,7 @@ class MapViewViewController: ViewController{
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
                         if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
-                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, startTime: NSDate.init(), endTime: NSDate.init(), address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details."))
+                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details."))
                         }
                     }
                 }
