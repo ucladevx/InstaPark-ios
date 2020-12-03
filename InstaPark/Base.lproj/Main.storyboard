@@ -920,7 +920,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email address" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Xhv-Dx-Y88" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="127" width="274" height="19"/>
+                                        <rect key="frame" x="20" y="127" width="274" height="18"/>
                                         <color key="textColor" red="0.1919073164" green="0.1768682003" blue="0.15685972570000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" textContentType="email"/>
@@ -943,7 +943,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gS3-7a-9Dd" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="20" y="191" width="274" height="18"/>
+                                        <rect key="frame" x="20" y="190" width="274" height="17"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                         <userDefinedRuntimeAttributes>
@@ -965,7 +965,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2PT-eS-7dS">
-                                        <rect key="frame" x="106.5" y="357" width="101" height="32"/>
+                                        <rect key="frame" x="106.5" y="355" width="101" height="32"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                         <state key="normal" title="Sign up here.">
                                             <color key="titleColor" red="0.3803921569" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -975,13 +975,13 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FNC-Ax-oaH">
-                                        <rect key="frame" x="66.5" y="336" width="181.5" height="20"/>
+                                        <rect key="frame" x="66.5" y="334" width="181.5" height="20"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1hi-CY-YtO">
-                                        <rect key="frame" x="57" y="260" width="200" height="40"/>
+                                        <rect key="frame" x="57" y="258" width="200" height="40"/>
                                         <color key="backgroundColor" red="0.56206446889999995" green="0.0" blue="0.98829454179999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="200" id="0mn-hJ-cmt"/>
@@ -1233,8 +1233,8 @@
                                     <segue destination="7w2-uL-iKy" kind="show" id="mRR-hx-hC5"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="ENTER A PAYMENT METHOD FOR QUICK AND EASY TRANSACTIONS." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9g-aI-sad">
-                                <rect key="frame" x="50" y="131" width="719" height="146"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="ENTER A PAYMENT METHOD FOR QUICK AND EASY TRANSACTIONS." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="K9g-aI-sad">
+                                <rect key="frame" x="50" y="131" width="302" height="146"/>
                                 <fontDescription key="fontDescription" name="DINCondensed-Bold" family="DIN Condensed" pointSize="36"/>
                                 <color key="textColor" red="0.20000000000000001" green="0.066666666669999999" blue="0.41960784309999999" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -1250,20 +1250,20 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Sm6-Fy-pU8" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-236" y="603"/>
+            <point key="canvasLocation" x="-236.23188405797103" y="602.67857142857144"/>
         </scene>
     </scenes>
     <designables>
         <designable name="Xhv-Dx-Y88">
-            <size key="intrinsicContentSize" width="87.5" height="19"/>
+            <size key="intrinsicContentSize" width="106.5" height="18"/>
         </designable>
         <designable name="gS3-7a-9Dd">
-            <size key="intrinsicContentSize" width="61.5" height="18"/>
+            <size key="intrinsicContentSize" width="80.5" height="17"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="Td1-91-LwN"/>
-        <segue reference="Rbn-wf-iCA"/>
+        <segue reference="mRR-hx-hC5"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow 1" width="36" height="8"/>
