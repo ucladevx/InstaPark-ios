@@ -26,7 +26,21 @@ class MapViewViewController: ViewController{
     @IBOutlet weak var tag2: UIButton!
     @IBOutlet weak var tag3: UIButton!
     @IBOutlet weak var tag4: UIButton!
+    @IBOutlet weak var menuButton: UIButton!
+    @IBAction func didTapMenuButton(_ sender: UIButton) {
+        toggleMenu()
+    }
+    @IBAction func didTapTransactionsButton(_ sender: Any) {
+        
+    }
+    @IBAction func didTapSlideoutBlackView(_ sender: Any) {
+        toggleMenu()
+    }
     
+    @IBOutlet weak var slideoutBlackView: UIView!
+    
+    @IBOutlet var slideOutBar: UIView!
+    var slideOutBarCollapsed = true
     var selectedAnnotation: ParkingSpaceMapAnnotation?
     let blackView = UIView()
     let animationTime = SlideViewConstant.animationTime
@@ -56,6 +70,11 @@ class MapViewViewController: ViewController{
         overlay.tag = 100
         overlay.dataSource = self
         overlay.delegate = self
+        self.view.addSubview(slideoutBlackView)
+        self.view.addSubview(menuButton)
+        self.view.addSubview(slideOutBar)
+        slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
+        self.view.addSubview(menuButton)
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(34.0703, -118.4441)
@@ -123,7 +142,7 @@ class MapViewViewController: ViewController{
         blackView.alpha = 0
         self.view.insertSubview(blackView, belowSubview: SlideUpView)
         blackView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleDismiss)))
-        
+//
         let downPan = UIPanGestureRecognizer(target: self, action: #selector(dismissslideUpView(_:)))
         SlideUpView.addGestureRecognizer(downPan)
     }
@@ -577,6 +596,32 @@ extension MapViewViewController: UISearchBarDelegate {
         searchBar.setShowsCancelButton(false, animated: true)
         searchBar.endEditing(true)
         self.SlideUpView.isHidden = true
+    }
+}
+extension MapViewViewController {
+    func toggleMenu() {
+        print("Toggle Menu")
+        if(slideOutBarCollapsed) {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                self.slideOutBar.frame.origin.x = 0
+                self.slideoutBlackView.isHidden = false
+                self.slideoutBlackView.alpha = 0.3
+            }, completion: { completed in
+                self.slideOutBarCollapsed = false
+            })
+        } else {
+            UIView.animate(withDuration: 0.5, delay: 0, usingSpringWithDamping: 0.8, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                self.slideOutBar.frame.origin.x = -self.view.bounds.width/2
+                self.slideoutBlackView.isHidden = true
+                self.slideoutBlackView.alpha = 0
+            }, completion: { completed in
+                self.slideOutBarCollapsed = true
+            })
+        }
+        
+//        slideOutBar.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width/2, height: self.view.bounds.height)
+        
+        
     }
 }
 private extension MKMapView {

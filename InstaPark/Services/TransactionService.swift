@@ -11,6 +11,7 @@ class TransactionService {
     static let db = Firestore.firestore()
     static func getTransactionById(_ id: String, completion: @escaping(Transaction?,Error?)->Void) {
         let docRef = db.collection("Transaction").document(id)
+        print(id)
         docRef.getDocument() { document, error in
             if let error = error {
                 completion(nil, error)
@@ -25,7 +26,9 @@ class TransactionService {
         }
     }
     static func getTransactionsByIds(_ ids: [String], completion: @escaping([Transaction]?, Error?)->Void) {
+        print("Getting transactions by ids")
         var transactions = [Transaction]()
+        print(ids)
         for s in ids {
             let docRef = db.collection("Transaction").document(s)
             docRef.getDocument() {document, error in
@@ -35,6 +38,7 @@ class TransactionService {
                 } else {
                     if let document = document {
                         if let transaction = try? Transaction.init(from: document.data()!) {
+                            print("Found transaction")
                             transactions.append(transaction)
                         }
                     }

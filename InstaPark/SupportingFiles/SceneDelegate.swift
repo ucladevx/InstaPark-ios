@@ -27,6 +27,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
             } else {
                 // direct to login
                 self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginVC")
+//                self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "MapViewVC")
                 self.window!.makeKeyAndVisible()
             }
         }
