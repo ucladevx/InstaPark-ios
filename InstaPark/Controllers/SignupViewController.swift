@@ -11,7 +11,6 @@ class SignupViewController: ViewController {
     
     
     @IBOutlet weak var firstname: UITextField!
-    @IBOutlet weak var lastname: UITextField!
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password1: UITextField!
     @IBOutlet weak var password2: UITextField!
@@ -39,13 +38,19 @@ class SignupViewController: ViewController {
     override func viewDidLoad() {
         super.showNavBar(true)
         super.viewDidLoad()
+        
+        //passwords
+        password1.isSecureTextEntry = true
+        password2.isSecureTextEntry = true
 
         // Do any additional setup after loading the view.
         signupButton.addTarget(self, action: #selector(signupAction), for: .touchUpInside)
-        
+        signupButton.layer.shadowRadius = 3.0
+        signupButton.layer.shadowOpacity = 0.3
+        signupButton.layer.shadowOffset = CGSize.init(width: 2, height: 2)
+        signupButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         email.delegate = self
         firstname.delegate = self
-        lastname.delegate = self
         password1.delegate = self
         password2.delegate = self
     }
@@ -53,7 +58,6 @@ class SignupViewController: ViewController {
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         email.resignFirstResponder()
         firstname.resignFirstResponder()
-        lastname.resignFirstResponder()
         password1.resignFirstResponder()
         password2.resignFirstResponder()
     }
