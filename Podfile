@@ -6,6 +6,7 @@ target 'InstaPark' do
   use_frameworks!
 
   pod 'FSCalendar'
+  pod 'PickerViewKit'
 
   # Pods for InstaPark
   pod 'Firebase/Analytics'

@@ -19,13 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
         let storyboard =  UIStoryboard(name: "Main", bundle: nil)
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-            if Auth.auth().currentUser != nil {
+//            if Auth.auth().currentUser != nil {
+            if false {
                 // direct to map
                 self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "MapViewVC")
                 self.window!.makeKeyAndVisible()
             } else {
                 // direct to login
                 self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginVC")
+//                self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "MapViewVC")
                 self.window!.makeKeyAndVisible()
             }
         }
@@ -48,6 +50,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
             if let error = error {
                 print(error.localizedDescription)
             } else {
+                AuthService.createUserDocument(authResult: authResult!)
                 print("Login success")
                 let storyboard =  UIStoryboard(name: "Main", bundle: nil)
                 self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "MapViewVC")

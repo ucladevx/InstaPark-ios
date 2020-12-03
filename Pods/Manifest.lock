@@ -356,6 +356,7 @@ PODS:
     - nanopb/encode (= 1.30906.0)
   - nanopb/decode (1.30906.0)
   - nanopb/encode (1.30906.0)
+  - PickerViewKit (2.1.0)
   - PromisesObjC (1.2.11)
 
 DEPENDENCIES:
@@ -367,6 +368,7 @@ DEPENDENCIES:
   - FSCalendar
   - GeoFire (from `https://github.com/firebase/geofire-objc.git`)
   - GoogleSignIn
+  - PickerViewKit
 
 SPEC REPOS:
   trunk:
@@ -393,6 +395,7 @@ SPEC REPOS:
     - GTMSessionFetcher
     - leveldb-library
     - nanopb
+    - PickerViewKit
     - PromisesObjC
 
 EXTERNAL SOURCES:
@@ -429,8 +432,9 @@ SPEC CHECKSUMS:
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
   nanopb: 59317e09cf1f1a0af72f12af412d54edf52603fc
+  PickerViewKit: 86b90e2e2e1b0ed9baf867c65aab2d12a7a59f28
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
 
-PODFILE CHECKSUM: a9615400be449135d71ce4776b903cfe69269c63
+PODFILE CHECKSUM: b88245f86a582835b3355f34146a7936e4e19645
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.9.1

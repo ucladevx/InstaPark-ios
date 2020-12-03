@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 
 protocol isAbleToReceiveData {
-    func pass(start: NSDate, end: NSDate, date: Date)
+    func pass(start: Date, end: Date, date: Date, cancel: Bool)
 }
 
 class BookingViewController: UIViewController, isAbleToReceiveData {
@@ -31,11 +31,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var reserveButton: UIButton!
     
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "id", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, startTime: NSDate.init(), endTime: NSDate.init(), address: "test")
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: "test", tags: ["test"], comments: "test")
     var total = 0.0
     var startDate: Date? = nil
-    var startTime: NSDate? = nil
-    var endTime: NSDate? = nil
+    var startTime: Date? = nil
+    var endTime: Date? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -82,6 +82,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
         self.mapView.setRegion(region, animated: false)
         self.mapView.addAnnotation(info)
+        
+        reserveButton.isEnabled = false
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -93,6 +95,18 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
+        ParkingSpotService.getParkingSpotById(info.id) { (parkingSpot, error) in
+            if let spot = parkingSpot {
+                if spot.isAvailable {
+                    print("Saving spot")
+                    let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
+                    //need to switch from info.bookTimes to ShortTermParkingSpot later
+                    self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
+                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), priceRatePerHour: self.info.price, spot: spot)
+                    
+                }
+            }
+        }
     }
     
     // MARK: - Navigation
@@ -104,48 +118,59 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             if (startTime != nil && endTime != nil && startDate != nil)
             {
                 vc.selectedDate = startDate!
-                vc.startTime = startTime!
-                vc.endTime = endTime!
+                vc.selectedStart = startTime!
+                vc.selectedEnd = endTime!
+                vc.times = info.times
+                vc.bookedTimes = info.bookedTimes
             }
             else
             {
-                //need to find some way to pass in all the availble times. For now, this is only
-                //here to make sure we cant pass info to the VC
-                vc.startTime = NSDate.init(timeInterval: 1000, since: Date.init())
-                vc.endTime = NSDate.init(timeInterval: 5000, since: Date.init())
+                //vc.startTime = NSDate.init(timeInterval: 1000, since: Date.init())
+                //vc.endTime = NSDate.init(timeInterval: 5000, since: Date.init())
+                vc.times = info.times
+                vc.bookedTimes = info.bookedTimes
             }
+        }
+        
+        if let vc = segue.destination as? ReservationConfirmationViewController {
+            vc.address = addressLabel.text!
+            vc.time = availabilityLabel.titleLabel!.text!
         }
     }
     
-    func pass(start: NSDate, end: NSDate, date: Date) {
-        startTime = start
-        endTime = end
-        startDate = date
-        let formatter1 = DateFormatter()
-        formatter1.dateFormat = "MMMM dth"
-        let day = formatter1.string(from: startDate ?? Date())
-        let formatter2 = DateFormatter()
-        formatter2.dateFormat = "h:mm a"
-        let startString = formatter2.string(from: startTime! as Date)
-        let endString = formatter2.string(from: endTime! as Date)
-        availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
-        availabilityLabel.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
-        
-        //calculate total cost (for now without tax/extra fees)
-        let startHour = Calendar.current.component(.hour, from: startTime! as Date)
-        let startMin = Calendar.current.component(.minute, from: startTime! as Date)
-        let endHour = Calendar.current.component(.hour, from: endTime! as Date)
-        let endMin = Calendar.current.component(.minute, from: endTime! as Date)
-        let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60) ///should we round up the price by hour or charge to the exact minute?
-        print(totalTime)
-        total = totalTime * info.price
-        totalLabel.text = "$" + String(format: "%.2f", total)
-        totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-        totalLabel.font = .systemFont(ofSize: 20, weight: .medium)
-        
-        reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-        reserveButton.setTitleColor(.white, for: .normal)
-        reserveButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+    func pass(start: Date, end: Date, date: Date, cancel: Bool) {
+        if (cancel != true) {
+            startTime = start
+            endTime = end
+            startDate = date
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "MMMM dth"
+            let day = formatter1.string(from: startDate ?? Date())
+            let formatter2 = DateFormatter()
+            formatter2.dateFormat = "h:mm a"
+            let startString = formatter2.string(from: startTime! as Date)
+            let endString = formatter2.string(from: endTime! as Date)
+            availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
+            availabilityLabel.titleLabel?.font = .systemFont(ofSize: 14, weight: .medium)
+            
+            //calculate total cost (for now without tax/extra fees)
+            let startHour = Calendar.current.component(.hour, from: startTime! as Date)
+            let startMin = Calendar.current.component(.minute, from: startTime! as Date)
+            let endHour = Calendar.current.component(.hour, from: endTime! as Date)
+            let endMin = Calendar.current.component(.minute, from: endTime! as Date)
+            let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60)
+            print(totalTime)
+            total = totalTime * info.price
+            totalLabel.text = "$" + String(format: "%.2f", total)
+            totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            totalLabel.font = .systemFont(ofSize: 20, weight: .medium)
+            
+            reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            reserveButton.setTitleColor(.white, for: .normal)
+            reserveButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+            
+            reserveButton.isEnabled = true
+        }
     }
 }
 
