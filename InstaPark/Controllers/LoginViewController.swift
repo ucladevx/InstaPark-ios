@@ -47,6 +47,7 @@ class LoginViewController: ViewController {
     }
     
     override func viewDidLoad() {
+        navigationController?.isNavigationBarHidden = false
         //G Login Button
         googleLoginButton.setImage(UIImage(named: "google-icon.ico"), for: .normal)
         googleLoginButton.imageView?.contentMode = .scaleAspectFit

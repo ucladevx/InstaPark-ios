@@ -48,17 +48,17 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         //set up price Attributed String
         let dollar = "$"
-        let dollar_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]
-        let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs)
+        let dollar_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Bold", size: 13)]
+        let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
         
         let price = String(format: "%.2f", info.price)
-        let price_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 23)]
-        let price_string = NSMutableAttributedString(string:price, attributes:price_attrs)
+        let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Medium", size: 23)]
+        let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
         cost.append(price_string)
         
         let perHour = " per hour"
-        let hour_attrs = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .medium)]
-        let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs)
+        let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Medium", size: 16)]
+        let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
         cost.append(hour_string)
         
         priceLabel.attributedText = cost
@@ -68,7 +68,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         for tag in tags {
             tag.layer.borderWidth = 1.5
-            tag.layer.borderColor = CGColor.init(red: 0.796, green: 0.651, blue: 0.821, alpha: 1.0)
+            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
             tag.isHidden = true
         }
         for n in 0...(info.tags.count-1) {
@@ -163,11 +163,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             total = totalTime * info.price
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-            totalLabel.font = .systemFont(ofSize: 20, weight: .medium)
-            
+            totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
-            reserveButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
+            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
             
             reserveButton.isEnabled = true
         }
