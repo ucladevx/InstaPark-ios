@@ -283,19 +283,8 @@
 			children = (
 				0410B1192548D8E9001C4D27 /* AppDelegate.swift */,
 				0410B11B2548D8E9001C4D27 /* SceneDelegate.swift */,
+				94C8ABA6257F0DA200D89060 /* Roboto */,
 				0410B1222548D8EB001C4D27 /* Assets.xcassets */,
-				94C8AB8B257C9F9E00D89060 /* Roboto-Black.ttf */,
-				94C8AB93257C9F9F00D89060 /* Roboto-BlackItalic.ttf */,
-				94C8AB94257C9F9F00D89060 /* Roboto-Bold.ttf */,
-				94C8AB8C257C9F9E00D89060 /* Roboto-BoldItalic.ttf */,
-				94C8AB90257C9F9E00D89060 /* Roboto-Italic.ttf */,
-				94C8AB8E257C9F9E00D89060 /* Roboto-Light.ttf */,
-				94C8AB95257C9F9F00D89060 /* Roboto-LightItalic.ttf */,
-				94C8AB8F257C9F9E00D89060 /* Roboto-Medium.ttf */,
-				94C8AB8D257C9F9E00D89060 /* Roboto-MediumItalic.ttf */,
-				94C8AB96257C9F9F00D89060 /* Roboto-Regular.ttf */,
-				94C8AB91257C9F9E00D89060 /* Roboto-Thin.ttf */,
-				94C8AB92257C9F9F00D89060 /* Roboto-ThinItalic.ttf */,
 				0482FE96255CB297002F522E /* fonts */,
 				0410B1502548EACC001C4D27 /* GoogleService-Info.plist */,
 				0482FE9B255CB2A7002F522E /* google-icon.ico */,
@@ -367,6 +356,25 @@
 				94158B3B2568A359002F5B51 /* ReservationConfirmationViewController.swift */,
 			);
 			path = "Booking Controllers";
+			sourceTree = "<group>";
+		};
+		94C8ABA6257F0DA200D89060 /* Roboto */ = {
+			isa = PBXGroup;
+			children = (
+				94C8AB8B257C9F9E00D89060 /* Roboto-Black.ttf */,
+				94C8AB93257C9F9F00D89060 /* Roboto-BlackItalic.ttf */,
+				94C8AB94257C9F9F00D89060 /* Roboto-Bold.ttf */,
+				94C8AB8C257C9F9E00D89060 /* Roboto-BoldItalic.ttf */,
+				94C8AB90257C9F9E00D89060 /* Roboto-Italic.ttf */,
+				94C8AB8E257C9F9E00D89060 /* Roboto-Light.ttf */,
+				94C8AB95257C9F9F00D89060 /* Roboto-LightItalic.ttf */,
+				94C8AB8F257C9F9E00D89060 /* Roboto-Medium.ttf */,
+				94C8AB8D257C9F9E00D89060 /* Roboto-MediumItalic.ttf */,
+				94C8AB96257C9F9F00D89060 /* Roboto-Regular.ttf */,
+				94C8AB91257C9F9E00D89060 /* Roboto-Thin.ttf */,
+				94C8AB92257C9F9F00D89060 /* Roboto-ThinItalic.ttf */,
+			);
+			path = Roboto;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -738,7 +738,7 @@
             <objects>
                 <tableViewController id="5d8-SZ-6xK" customClass="TransactionTableViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="Ljh-Tp-M3h">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <prototypes>
@@ -1376,7 +1376,7 @@
                                             <constraint firstAttribute="height" constant="17" id="33n-Ew-13I"/>
                                         </constraints>
                                         <color key="textColor" red="0.1919073164" green="0.1768682003" blue="0.15685972570000001" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
-                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="leadingImage" value="mail"/>
@@ -1398,7 +1398,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="17" id="6YL-3E-SWB"/>
                                         </constraints>
-                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="password"/>
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="image" keyPath="leadingImage" value="key"/>
@@ -1635,7 +1635,7 @@
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="Td1-91-LwN"/>
-        <segue reference="tvo-lI-MU3"/>
+        <segue reference="fcB-JE-CYm"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow 1" width="36" height="8"/>

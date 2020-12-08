@@ -88,48 +88,7 @@ class MapViewViewController: ViewController{
                 for parking in parkingSpots {
                     if parking.isAvailable {
                         let address = parking.address.street + ", " + parking.address.city + ", " + parking.address.state + " " + parking.address.zip
-                        var time =  [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
-                        time = [
-                            0: [],
-                            1: [],
-                            2: [],
-                            3: [],
-                            4: [],
-                            5: [],
-                            6: []
-                        ]
-                        /*
-                        let parkingType: ParkingType = .short
-                        switch parkingType {
-                        case .short:
-                            ParkingSpotService.getShortTermParkingSpotById(parking.id) { (parkingSpot, error) in
-                                if let spot = parkingSpot {
-                                    for i in 0...6 {
-                                        for times in spot.times[i] ?? [] {
-                                            time[i]!.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: Date.init(timeIntervalSince1970: Double(times.start)), end: Date.init(timeIntervalSince1970: Double(times.end))))
-                                            
-                                        }
-                                    }
-                                    print(time)
-                                    self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: parking.firstName + " " + parking.lastName, coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: address , tags: parking.tags, comments: parking.comments))
-                                }
-                            }
-                        case .long:
-                            print("longterm")
-                        }
-                        */
-                        ParkingSpotService.getShortTermParkingSpotById(parking.id) { (parkingSpot, error) in
-                            if let spot = parkingSpot {
-                                for i in 0...6 {
-                                    for times in spot.times[i] ?? [] {
-                                        time[i]!.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: Date.init(timeIntervalSince1970: Double(times.start)), end: Date.init(timeIntervalSince1970: Double(times.end))))
-                                        
-                                    }
-                                }
-                                print(time)
-                                
-                            }
-                        }
+                        
                         self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: parking.firstName + " " + parking.lastName, coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: address , tags: parking.tags, comments: parking.comments))
                         
                     }

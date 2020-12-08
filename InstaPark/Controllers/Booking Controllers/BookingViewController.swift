@@ -36,6 +36,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var startDate: Date? = nil
     var startTime: Date? = nil
     var endTime: Date? = nil
+    var parkingType: ParkingType = .short //update this later
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,6 +85,34 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         self.mapView.addAnnotation(info)
         
         reserveButton.isEnabled = false
+        
+        var time =  [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
+        time = [
+            0: [],
+            1: [],
+            2: [],
+            3: [],
+            4: [],
+            5: [],
+            6: []
+        ]
+        switch parkingType {
+        case .long:
+            print("long")
+        case .short:
+            ParkingSpotService.getShortTermParkingSpotById(info.id) { (parkingSpot, error) in
+                if let spot = parkingSpot {
+                    for i in 0...6 {
+                        for times in spot.times[i] ?? [] {
+                            time[i]!.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: Date.init(timeIntervalSince1970: Double(times.start)), end: Date.init(timeIntervalSince1970: Double(times.end))))
+                            
+                        }
+                    }
+                    self.info.times = time
+                }
+            }
+        }
+        
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -95,13 +124,25 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
-        ParkingSpotService.getParkingSpotById(info.id) { (parkingSpot, error) in
+        ParkingSpotService.getParkingSpotById(info.id) { [self] (parkingSpot, error) in
             if let spot = parkingSpot {
                 if spot.isAvailable {
                     print("Saving spot")
                     let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
                     //need to switch from info.bookTimes to ShortTermParkingSpot later
+                    switch parkingType {
+                    case .long:
+                        print("long")
+                    case .short:
+                        if let parkingSpot = spot as? ShortTermParkingSpot{
+                            
+                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
+                            ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
+                            print("Parking Spot appended")
+                        }
+                    }
                     self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
+                    
                     TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), priceRatePerHour: self.info.price, spot: spot)
                     
                 }
@@ -158,7 +199,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             let startMin = Calendar.current.component(.minute, from: startTime! as Date)
             let endHour = Calendar.current.component(.hour, from: endTime! as Date)
             let endMin = Calendar.current.component(.minute, from: endTime! as Date)
-            let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60)
+            //let totalTime:Double = Double(startEpoch - endEpoch)/3600
+            var totalTime: Double = abs(Double(endHour-startHour) + (Double(endMin - startMin)/60))
+            if(startTime == endTime){
+                totalTime = 24.0
+            }
             print(totalTime)
             total = totalTime * info.price
             totalLabel.text = "$" + String(format: "%.2f", total)

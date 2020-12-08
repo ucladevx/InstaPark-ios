@@ -148,6 +148,7 @@ class ParkingSpotService {
     static func reserveParkingSpot(parkingSpot: ParkingSpot, time: Int) {
         // update parking spot to set ended parking time
         db.collection("ParkingSpot").document(parkingSpot.id).updateData(["lastEndTime": time])
+        
         // save parking spot information as transaction
         let docRef = db.collection("Transaction").document()
         if let user = Auth.auth().currentUser {
