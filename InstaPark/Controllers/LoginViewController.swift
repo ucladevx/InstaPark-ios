@@ -106,6 +106,7 @@ class LoginViewController: ViewController {
         
         let gradient = getGradientLayer(bounds: instaparkLogo.bounds)
         instaparkLogo.textColor = gradientColor(bounds: instaparkLogo.bounds, gradientLayer: gradient)
+        instaparkLogo?.font = UIFont(name: "BebasNeue", size: 48)
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

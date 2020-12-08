@@ -624,13 +624,13 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ending in 1234" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vze-ok-bis">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ending in 1234" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vze-ok-bis">
                                                 <rect key="frame" x="255" y="0.0" width="90" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="17" id="U2d-Yl-UxI"/>
                                                     <constraint firstAttribute="width" constant="90" id="WaX-L7-bkD"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -658,7 +658,7 @@
                                                 <constraints>
                                                     <constraint firstAttribute="width" priority="250" constant="291" id="ggd-HK-cb1"/>
                                                 </constraints>
-                                                <fontDescription key="fontDescription" type="italicSystem" pointSize="12"/>
+                                                <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="13"/>
                                                 <color key="textColor" systemColor="systemGrayColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -1153,6 +1153,7 @@
                     <connections>
                         <outlet property="addressLabel" destination="Xvw-YS-7Kc" id="9kF-w7-Y3r"/>
                         <outlet property="infoView" destination="XK7-tM-Rxy" id="EIR-nw-8Z3"/>
+                        <outlet property="parkLabel" destination="smz-3v-efX" id="pY5-fS-Aan"/>
                         <outlet property="timeLabel" destination="brf-tp-v5S" id="aah-Re-Lga"/>
                     </connections>
                 </viewController>
@@ -1189,7 +1190,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="KJM-Vq-utu" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="981" y="1031"/>
+            <point key="canvasLocation" x="1549" y="1156"/>
         </scene>
         <!--Signup View Controller-->
         <scene sceneID="6jz-g4-7Q5">
@@ -1208,7 +1209,7 @@
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="LET'S GET STARTED." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="53l-P1-Ng3">
                                 <rect key="frame" x="50" y="191" width="281" height="47"/>
                                 <fontDescription key="fontDescription" name="DINCondensed-Bold" family="DIN Condensed" pointSize="47"/>
-                                <color key="textColor" red="0.20000000000000001" green="0.066666666669999999" blue="0.41960784309999999" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
+                                <color key="textColor" red="0.20000000000000001" green="0.066666666666666666" blue="0.41960784313725491" alpha="0.84705882352941175" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="g0k-bg-0Ve">
@@ -1255,6 +1256,9 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="rtl" value="NO"/>
                                             <userDefinedRuntimeAttribute type="image" keyPath="leadingImage" value="key"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="password1:" destination="atG-g0-hhS" eventType="editingDidEnd" id="ZXi-T4-Up9"/>
+                                        </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="  confirm password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-Nr-COX" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="198" width="334" height="18"/>
@@ -1269,6 +1273,9 @@
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="bottomLine" value="YES"/>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="rtl" value="NO"/>
                                         </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="password2:" destination="atG-g0-hhS" eventType="editingDidEnd" id="4F4-IS-oM3"/>
+                                        </connections>
                                     </textField>
                                 </subviews>
                             </stackView>
@@ -1312,12 +1319,14 @@
                         <outlet property="password1" destination="gC7-yf-06q" id="YhX-10-eIA"/>
                         <outlet property="password2" destination="nuh-Nr-COX" id="dyQ-W4-3u6"/>
                         <outlet property="signupButton" destination="ZzL-XM-cNH" id="E3H-Sh-vgF"/>
-                        <segue destination="KKz-5t-8ZF" kind="show" identifier="signupSuccess" id="Doz-sG-De3"/>
+                        <outlet property="startedLabel" destination="53l-P1-Ng3" id="Rna-0b-Q5c"/>
+                        <outlet property="welcomeLabel" destination="KYF-c4-hnp" id="XGH-Cp-IfX"/>
+                        <segue destination="7w2-uL-iKy" kind="presentation" identifier="signupSuccess" modalPresentationStyle="fullScreen" id="mXm-Gb-kR6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fl7-8I-8MG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1246.376811594203" y="602.67857142857144"/>
+            <point key="canvasLocation" x="-265" y="606"/>
         </scene>
         <!--Login View Controller-->
         <scene sceneID="xPz-Gq-QgC">
@@ -1342,7 +1351,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="20"/>
+                                        <integer key="value" value="22"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -1482,7 +1491,7 @@
                                 </state>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="20"/>
+                                        <integer key="value" value="22"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -1564,9 +1573,6 @@
                                         <integer key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="7w2-uL-iKy" kind="show" id="oLR-pa-KXs"/>
-                                </connections>
                             </button>
                             <textField opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="CVV" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UMB-2c-bWQ">
                                 <rect key="frame" x="224" y="413" width="97" height="34"/>
@@ -1588,9 +1594,6 @@
                                         <integer key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <segue destination="7w2-uL-iKy" kind="show" id="fI3-uq-NZp"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" misplaced="YES" text="ENTER A PAYMENT METHOD FOR QUICK AND EASY TRANSACTIONS." textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WW0-vM-Ci1">
                                 <rect key="frame" x="60" y="131" width="334" height="146"/>
@@ -1610,31 +1613,31 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="mK6-p9-8xc" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-236" y="603"/>
+            <point key="canvasLocation" x="746" y="1156"/>
         </scene>
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="119.5" height="18"/>
+            <size key="intrinsicContentSize" width="117" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="95" height="19"/>
+            <size key="intrinsicContentSize" width="93" height="19"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="69" height="18"/>
+            <size key="intrinsicContentSize" width="66.5" height="18"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="69" height="18"/>
+            <size key="intrinsicContentSize" width="66.5" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="41" height="18"/>
+            <size key="intrinsicContentSize" width="40.5" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="120.5" height="18"/>
+            <size key="intrinsicContentSize" width="117" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="Td1-91-LwN"/>
+        <segue reference="3tF-LG-iLn"/>
         <segue reference="fcB-JE-CYm"/>
     </inferredMetricsTieBreakers>
     <resources>
