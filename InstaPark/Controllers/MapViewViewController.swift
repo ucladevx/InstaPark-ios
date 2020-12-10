@@ -30,9 +30,7 @@ class MapViewViewController: ViewController{
     @IBAction func didTapMenuButton(_ sender: UIButton) {
         toggleMenu()
     }
-    @IBAction func didTapTransactionsButton(_ sender: Any) {
-        
-    }
+
     @IBAction func didTapSlideoutBlackView(_ sender: Any) {
         toggleMenu()
     }
@@ -55,10 +53,16 @@ class MapViewViewController: ViewController{
     
     @IBOutlet var overlay: UITableView!
     private var matchingItems = [MKMapItem]()
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
-        super.hideNavBar(false)
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -132,6 +136,13 @@ class MapViewViewController: ViewController{
         self.present(nextViewController, animated:true, completion:nil)
     }
     
+//    @IBAction func transactionsPressed(_ sender: UIButton) {
+//        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+//        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "transactionsTableView") as! TransactionTableViewController
+//        nextViewController.modalPresentationStyle = .fullScreen
+//        nextViewController.modalTransitionStyle = .crossDissolve
+//        self.present(nextViewController, animated: true, completion: nil)
+//    }
     private func setupView(){
         SlideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewHeight)
         SlideUpView.layoutIfNeeded()
