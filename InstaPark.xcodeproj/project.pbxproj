@@ -21,6 +21,7 @@
 		0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0410B199254A4A7E001C4D27 /* MapViewViewController.swift */; };
 		044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */; };
 		044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE7254EA07A00B5F19C /* Transaction.swift */; };
+		044AD5802581EE07000FE799 /* SlideOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AD57F2581EE07000FE799 /* SlideOutView.swift */; };
 		045FF1BE2573854A00DC7327 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */; };
 		046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */; };
 		0482FE80255CB13A002F522E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE7F255CB13A002F522E /* User.swift */; };
@@ -33,7 +34,6 @@
 		0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */; };
 		0482FEA8255CB2D6002F522E /* ReservationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */; };
 		048327192574794C00C92444 /* SlideOutPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048327182574794C00C92444 /* SlideOutPanelViewController.swift */; };
-		0483271E2574F37900C92444 /* SlidePanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0483271D2574F37900C92444 /* SlidePanelViewController.swift */; };
 		048D7E50254FDA49009B6AE3 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E4F254FDA49009B6AE3 /* Codable+Dictionary.swift */; };
 		048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E542550D739009B6AE3 /* ParkingSpotService.swift */; };
 		0498632C2578354F00C7F370 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */; };
@@ -92,6 +92,7 @@
 		0410B199254A4A7E001C4D27 /* MapViewViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewViewController.swift; sourceTree = "<group>"; };
 		044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpot.swift; sourceTree = "<group>"; };
 		044A3FE7254EA07A00B5F19C /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
+		044AD57F2581EE07000FE799 /* SlideOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutView.swift; sourceTree = "<group>"; };
 		045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		0482FE7F255CB13A002F522E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -104,7 +105,6 @@
 		0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupPaymentViewController.swift; sourceTree = "<group>"; };
 		0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationModalViewController.swift; sourceTree = "<group>"; };
 		048327182574794C00C92444 /* SlideOutPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutPanelViewController.swift; sourceTree = "<group>"; };
-		0483271D2574F37900C92444 /* SlidePanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlidePanelViewController.swift; sourceTree = "<group>"; };
 		048D7E4F254FDA49009B6AE3 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
 		048D7E542550D739009B6AE3 /* ParkingSpotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpotService.swift; sourceTree = "<group>"; };
 		0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
@@ -219,7 +219,6 @@
 				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
 				0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */,
 				0410B199254A4A7E001C4D27 /* MapViewViewController.swift */,
-				0483271D2574F37900C92444 /* SlidePanelViewController.swift */,
 				0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */,
 				9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */,
 				046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */,
@@ -235,6 +234,7 @@
 			isa = PBXGroup;
 			children = (
 				0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */,
+				044AD57F2581EE07000FE799 /* SlideOutView.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -617,7 +617,6 @@
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
 				9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */,
 				048327192574794C00C92444 /* SlideOutPanelViewController.swift in Sources */,
-				0483271E2574F37900C92444 /* SlidePanelViewController.swift in Sources */,
 				0410B11A2548D8E9001C4D27 /* AppDelegate.swift in Sources */,
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,
 				0482FE8D255CB26F002F522E /* TransactionService.swift in Sources */,
@@ -627,6 +626,7 @@
 				943131302556391D002221F4 /* BookingViewController.swift in Sources */,
 				046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */,
 				04AB7897255DCA280090B6E7 /* ShortTermParkingSpot.swift in Sources */,
+				044AD5802581EE07000FE799 /* SlideOutView.swift in Sources */,
 				048D7E50254FDA49009B6AE3 /* Codable+Dictionary.swift in Sources */,
 				0410B11C2548D8E9001C4D27 /* SceneDelegate.swift in Sources */,
 				94313125255627BE002221F4 /* smallOverlayView.swift in Sources */,
