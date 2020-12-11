@@ -108,7 +108,7 @@ extension ShortTermParkingSpot {
 //    }
 }
 
-struct ParkingTimeInterval: Codable {
+struct ParkingTimeInterval : Codable{
     //epoch time
     var start: Int
     var end: Int

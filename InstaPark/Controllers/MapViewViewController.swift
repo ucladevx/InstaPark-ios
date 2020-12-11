@@ -91,7 +91,10 @@ class MapViewViewController: ViewController{
             if let parkingSpots = parkingSpots {
                 for parking in parkingSpots {
                     if parking.isAvailable {
-                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details." ))
+                        let address = parking.address.street + ", " + parking.address.city + ", " + parking.address.state + " " + parking.address.zip
+                        
+                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: parking.firstName + " " + parking.lastName, coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: address , tags: parking.tags, comments: parking.comments))
+                        
                     }
                 }
                 print("Adding annotations")
@@ -219,7 +222,8 @@ class MapViewViewController: ViewController{
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
                         if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
-                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "Test Name", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: "125 Glenrock Ave, Los Angeles, CA 90024", tags: ["Tandem", "Hourly", "Covered"], comments: "Parking space with room for a large vehicle! \nMessage me for more details."))
+                            let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
+                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments))
                         }
                     }
                 }
@@ -293,12 +297,12 @@ extension MapViewViewController: MKMapViewDelegate {
             label.textColor = .white
 
             let dollar = "$"
-            let dollar_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 9)]
-            let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs)
+            let dollar_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Bold", size: 9)]
+            let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
 
             let price = String(format: "%.2f", parkingSpace.price)
-            let price_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]
-            let price_string = NSMutableAttributedString(string:price, attributes:price_attrs)
+            let price_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Bold", size: 13)]
+            let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
             cost.append(price_string)
             label.attributedText = cost
 
@@ -376,20 +380,21 @@ extension MapViewViewController: MKMapViewDelegate {
             originalCenterOfslideUpView = SlideUpView.center.y
           
             nameLabel.text = parkingSpace.name
+            addressLabel.text = parkingSpace.address
             
             //set up price label
             let dollar = "$"
-            let dollar_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 12)]
-            let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs)
+            let dollar_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Bold", size: 12)]
+            let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
             
             let price = String(format: "%.2f", parkingSpace.price)
-            let price_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 19)]
-            let price_string = NSMutableAttributedString(string:price, attributes:price_attrs)
+            let price_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Medium", size: 22)]
+            let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
             cost.append(price_string)
             
             let perHour = " per hour"
-            let hour_attrs = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 15, weight: .medium)]
-            let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs)
+            let hour_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Medium", size: 16)]
+            let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
             cost.append(hour_string)
             
             priceLabel.attributedText = cost
@@ -399,8 +404,8 @@ extension MapViewViewController: MKMapViewDelegate {
             
             for tag in tags {
                 tag.layer.borderWidth = 1.5
-                tag.layer.cornerRadius = 11
-                tag.layer.borderColor = CGColor.init(red: 0.796, green: 0.651, blue: 0.821, alpha: 1.0)
+                tag.layer.cornerRadius = 9
+                tag.layer.borderColor = CGColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
                 tag.isHidden = true
             }
             for n in 0...(parkingSpace.tags.count-1) {
@@ -409,11 +414,12 @@ extension MapViewViewController: MKMapViewDelegate {
             }
             
             //set up availability -- not done yet
-            let avail = "Available "
-            let avail_attrs = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 14)]
-            let timeAvail = NSMutableAttributedString(string:avail, attributes:avail_attrs)
+            let avail = "Available  "
+            let avail_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Regular", size: 14)]
+            let timeAvail = NSMutableAttributedString(string:avail, attributes:avail_attrs as [NSAttributedString.Key : Any])
             
             var now = "NOW"
+            /*
             let weekDay = Calendar.current.component(.weekday, from: Date())
             
             func hourAsInt(date: Date) -> Int {
@@ -463,10 +469,10 @@ extension MapViewViewController: MKMapViewDelegate {
                         now = "LATER TODAY"
                     }
                 }
-            }
+            }*/
             
-            let now_attrs =  [NSAttributedString.Key.font : UIFont.italicSystemFont(ofSize: 16), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
-            let nowLabel = NSMutableAttributedString(string:now, attributes:now_attrs)
+            let now_attrs =  [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-MediumItalic", size: 16), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
+            let nowLabel = NSMutableAttributedString(string:now, attributes:now_attrs as [NSAttributedString.Key : Any])
             timeAvail.append(nowLabel)
             availableLabel.attributedText = timeAvail
         } else {
