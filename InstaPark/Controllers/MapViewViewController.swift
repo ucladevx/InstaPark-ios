@@ -408,6 +408,7 @@ extension MapViewViewController: MKMapViewDelegate {
             let timeAvail = NSMutableAttributedString(string:avail, attributes:avail_attrs as [NSAttributedString.Key : Any])
             
             var now = "NOW"
+            /*
             let weekDay = Calendar.current.component(.weekday, from: Date())
             
             func hourAsInt(date: Date) -> Int {
@@ -457,7 +458,7 @@ extension MapViewViewController: MKMapViewDelegate {
                         now = "LATER TODAY"
                     }
                 }
-            }
+            }*/
             
             let now_attrs =  [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-MediumItalic", size: 16), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
             let nowLabel = NSMutableAttributedString(string:now, attributes:now_attrs as [NSAttributedString.Key : Any])
