@@ -36,7 +36,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var startDate: Date? = nil
     var startTime: Date? = nil
     var endTime: Date? = nil
-    var parkingType: ParkingType = .short //update this later
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -49,17 +48,17 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         //set up price Attributed String
         let dollar = "$"
-        let dollar_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Bold", size: 13)]
-        let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
+        let dollar_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 13)]
+        let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs)
         
         let price = String(format: "%.2f", info.price)
-        let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Medium", size: 23)]
-        let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
+        let price_attrs = [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 23)]
+        let price_string = NSMutableAttributedString(string:price, attributes:price_attrs)
         cost.append(price_string)
         
         let perHour = " per hour"
-        let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Medium", size: 16)]
-        let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
+        let hour_attrs = [NSAttributedString.Key.font : UIFont.systemFont(ofSize: 16, weight: .medium)]
+        let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs)
         cost.append(hour_string)
         
         priceLabel.attributedText = cost
@@ -69,7 +68,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         for tag in tags {
             tag.layer.borderWidth = 1.5
-            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
+            tag.layer.borderColor = CGColor.init(red: 0.796, green: 0.651, blue: 0.821, alpha: 1.0)
             tag.isHidden = true
         }
         for n in 0...(info.tags.count-1) {
@@ -85,34 +84,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         self.mapView.addAnnotation(info)
         
         reserveButton.isEnabled = false
-        
-        var time =  [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
-        time = [
-            0: [],
-            1: [],
-            2: [],
-            3: [],
-            4: [],
-            5: [],
-            6: []
-        ]
-        switch parkingType {
-        case .long:
-            print("long")
-        case .short:
-            ParkingSpotService.getShortTermParkingSpotById(info.id) { (parkingSpot, error) in
-                if let spot = parkingSpot {
-                    for i in 0...6 {
-                        for times in spot.times[i] ?? [] {
-                            time[i]!.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: Date.init(timeIntervalSince1970: Double(times.start)), end: Date.init(timeIntervalSince1970: Double(times.end))))
-                            
-                        }
-                    }
-                    self.info.times = time
-                }
-            }
-        }
-        
     }
     
     @IBAction func backButton(_ sender: Any) {
@@ -124,24 +95,13 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
-        ParkingSpotService.getParkingSpotById(info.id) { [self] (parkingSpot, error) in
+        ParkingSpotService.getParkingSpotById(info.id) { (parkingSpot, error) in
             if let spot = parkingSpot {
                 if spot.isAvailable {
                     print("Saving spot")
                     let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
                     //need to switch from info.bookTimes to ShortTermParkingSpot later
-                    switch parkingType {
-                    case .long:
-                        print("long")
-                    case .short:
-                        if let parkingSpot = spot as? ShortTermParkingSpot{
-                            
-                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
-                           // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
-                        }
-                    }
                     self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
-                    
                     TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), priceRatePerHour: self.info.price, spot: spot)
                     
                 }
@@ -198,19 +158,16 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             let startMin = Calendar.current.component(.minute, from: startTime! as Date)
             let endHour = Calendar.current.component(.hour, from: endTime! as Date)
             let endMin = Calendar.current.component(.minute, from: endTime! as Date)
-            //let totalTime:Double = Double(startEpoch - endEpoch)/3600
-            var totalTime: Double = abs(Double(endHour-startHour) + (Double(endMin - startMin)/60))
-            if(startTime == endTime){
-                totalTime = 24.0
-            }
+            let totalTime: Double = Double(endHour-startHour) + (Double(endMin - startMin)/60)
             print(totalTime)
             total = totalTime * info.price
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-            totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
+            totalLabel.font = .systemFont(ofSize: 20, weight: .medium)
+            
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
-            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+            reserveButton.titleLabel?.font = .systemFont(ofSize: 16, weight: .medium)
             
             reserveButton.isEnabled = true
         }

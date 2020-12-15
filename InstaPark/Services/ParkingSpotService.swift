@@ -106,24 +106,6 @@ class ParkingSpotService {
             }
         }
     }
-    
-    static func getShortTermParkingSpotById(_ id: String, completion: @escaping(ShortTermParkingSpot?, Error?)->Void) {
-        let docRef: DocumentReference
-        docRef = db.collection("ShortTermParkingSpot").document(id)
-        docRef.getDocument() {document, error in
-            if let error = error {
-                completion(nil, error)
-                return
-            }else {
-                if let document = document {
-                    if let parkingSpot = try? ShortTermParkingSpot.init(from: document.data()!) {
-                        completion(parkingSpot, nil)
-                    }
-                }
-            }
-        }
-    }
-    
     static func getParkingSpotsByIds(_ ids: [String], completion: @escaping([ParkingSpot]?, Error?)->Void) {
         var transactions = [ParkingSpot]()
         for s in ids {
@@ -148,7 +130,6 @@ class ParkingSpotService {
     static func reserveParkingSpot(parkingSpot: ParkingSpot, time: Int) {
         // update parking spot to set ended parking time
         db.collection("ParkingSpot").document(parkingSpot.id).updateData(["lastEndTime": time])
-        
         // save parking spot information as transaction
         let docRef = db.collection("Transaction").document()
         if let user = Auth.auth().currentUser {

@@ -9,7 +9,6 @@ import UIKit
 
 class ReservationConfirmationViewController: UIViewController {
 
-    @IBOutlet weak var parkLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var infoView: UIView!
@@ -24,7 +23,6 @@ class ReservationConfirmationViewController: UIViewController {
         infoView.layer.shadowColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: 1)
         infoView.layer.shadowOpacity = 0.2
         infoView.layer.shadowOffset = .init(width: 5, height: 5)
-        parkLabel?.font = UIFont(name: "BebasNeue", size: 40)
         
         // Do any additional setup after loading the view.
     }
