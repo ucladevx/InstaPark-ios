@@ -17,6 +17,9 @@ target 'InstaPark' do
   # Sign in
   pod 'GoogleSignIn'
   pod ‘GeoFire’, :git => ‘https://github.com/firebase/geofire-objc.git'
+  # Payment
+  pod 'Braintree'
+  pod 'BraintreeDropIn'
   target 'InstaParkTests' do
     inherit! :search_paths
     # Pods for testing
