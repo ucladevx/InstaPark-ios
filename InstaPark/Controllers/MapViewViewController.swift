@@ -8,6 +8,7 @@
 import UIKit
 import MapKit
 import GeoFire
+import CoreLocation
 
 class MapViewViewController: ViewController{
     
@@ -507,6 +508,7 @@ extension MapViewViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         if let location = locations.first {
             let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+            //print(location.coordinate)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
             mapView.setRegion(region, animated: true)
         }

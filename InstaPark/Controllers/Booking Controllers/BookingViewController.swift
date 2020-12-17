@@ -13,6 +13,7 @@ protocol isAbleToReceiveData {
 }
 
 class BookingViewController: UIViewController, isAbleToReceiveData {
+    @IBOutlet weak var userInfoView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
@@ -42,10 +43,21 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         super.viewDidLoad()
         mapView.delegate = self
         
+        
+        
         nameLabel.text = info.name
         addressLabel.text = info.address
         commentsLabel.text = info.comments
+        commentsLabel.sizeToFit()
         cardLabel.text = "ending in \(5678)" ///need to get this from user data structure
+        
+        //shadow for user info view
+        userInfoView.layer.shadowRadius = 5.0
+        userInfoView.layer.shadowOpacity = 0.25
+        userInfoView.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+        userInfoView.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        
+        
         
         //set up price Attributed String
         let dollar = "$"
@@ -57,7 +69,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
         cost.append(price_string)
         
-        let perHour = " per hour"
+        let perHour = "/hour"
         let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Medium", size: 16)]
         let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
         cost.append(hour_string)
@@ -69,6 +81,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         for tag in tags {
             tag.layer.borderWidth = 1.5
+            tag.layer.cornerRadius = 9
             tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
             tag.isHidden = true
         }
@@ -83,6 +96,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
         self.mapView.setRegion(region, animated: false)
         self.mapView.addAnnotation(info)
+//        let mask = UIView.init(frame: mapView.frame)
+//        mask.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
+//        self.mapView.addSubview(mask)
+        
+        
         
         reserveButton.isEnabled = false
         
@@ -202,6 +220,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             var totalTime: Double = abs(Double(endHour-startHour) + (Double(endMin - startMin)/60))
             if(startTime == endTime){
                 totalTime = 24.0
+            }else if startHour > endHour {
+                totalTime += 12.0
             }
             print(totalTime)
             total = totalTime * info.price
@@ -234,3 +254,4 @@ extension BookingViewController: MKMapViewDelegate {
         return annotationView
     }
 }
+
