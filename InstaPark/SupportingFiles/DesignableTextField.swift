@@ -43,24 +43,32 @@ class DesignableTextField: UITextField, UITextFieldDelegate {
 
     func updateView() {
         drawLines()
-    
+
         rightViewMode = UITextField.ViewMode.never
         rightView = nil
         leftViewMode = UITextField.ViewMode.never
         leftView = nil
 
         if let image = leadingImage {
-            let button = UIButton(type: .custom)
-            button.frame = CGRect(x: 0, y: 0, width: 20, height: 10)
-            button.setImage(image, for: .normal)
-
-            if rtl {
-                rightViewMode = UITextField.ViewMode.always
-                rightView = button
-            } else {
-                leftViewMode = UITextField.ViewMode.always
-                leftView = button
-            }
+            leftViewMode = .always
+            let imageView = UIImageView(frame: CGRect(x: 0, y: -3, width: 20, height: 20))
+            imageView.image = image
+            
+//            let button = UIButton(type: .custom)
+//            button.frame = CGRect(x: 0, y: 0, width: 20, height: 10)
+//            button.setImage(image, for: .normal)
+//
+//            if rtl {
+//                rightViewMode = UITextField.ViewMode.always
+//                rightView = imageView
+//            } else {
+//                leftViewMode = UITextField.ViewMode.always
+//                leftView = imageView
+//            }
+            
+            let view = UIView(frame: CGRect(x: 0, y: 0, width: 27, height: 10)) // has 5 point higher in width in imageView
+            view.addSubview(imageView)
+            leftView = view
         }
     }
 }
