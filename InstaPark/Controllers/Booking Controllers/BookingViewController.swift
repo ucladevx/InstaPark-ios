@@ -30,7 +30,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var cardLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var reserveButton: UIButton!
-    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
     //variables that are passed in from mapView
     var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: "test", tags: ["test"], comments: "test")
     var total = 0.0

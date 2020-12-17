@@ -19,15 +19,17 @@ class TransactionTableViewController: UITableViewController {
         self.tableView.rowHeight = 100
         UserService.getUserById(Auth.auth().currentUser!.uid) { user, error in
             if let user = user {
-                TransactionService.getTransactionById(user.transactions[0]) { transaction, error in
-                    if let transaction = transaction {
-                        self.transactions.append(transaction)
-                        print("Reloading data")
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
+                for id in user.transactions {
+                    TransactionService.getTransactionById(id) { transaction, error in
+                        if let transaction = transaction {
+                            self.transactions.append(transaction)
+                            print("Reloading data")
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
                         }
+                        
                     }
-                    
                 }
             }
         }

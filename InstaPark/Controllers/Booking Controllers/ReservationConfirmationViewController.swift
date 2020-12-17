@@ -14,6 +14,10 @@ class ReservationConfirmationViewController: UIViewController {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var infoView: UIView!
     
+    @IBAction func returnToHome(_ sender: Any) {
+        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+
+    }
     var time = ""
     var address = ""
     override func viewDidLoad() {

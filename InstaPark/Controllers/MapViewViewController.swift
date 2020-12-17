@@ -38,7 +38,8 @@ class MapViewViewController: ViewController{
     
     @IBOutlet weak var slideoutBlackView: UIView!
     
-    @IBOutlet var slideOutBar: UIView!
+    
+    @IBOutlet var slideOutBar: SlideOutView!
     var slideOutBarCollapsed = true
     var selectedAnnotation: ParkingSpaceMapAnnotation?
     let blackView = UIView()
@@ -64,6 +65,7 @@ class MapViewViewController: ViewController{
     }
     override func viewDidLoad() {
         super.viewDidLoad()
+        print("MapKit did load")
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -76,10 +78,8 @@ class MapViewViewController: ViewController{
         overlay.dataSource = self
         overlay.delegate = self
         self.view.addSubview(slideoutBlackView)
-        self.view.addSubview(menuButton)
         self.view.addSubview(slideOutBar)
         slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
-        self.view.addSubview(menuButton)
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(34.0703, -118.4441)
@@ -134,10 +134,12 @@ class MapViewViewController: ViewController{
         let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextViewController = storyBoard.instantiateViewController(withIdentifier: "bookingView") as! BookingViewController
+//        self.navigationController?.pushViewController(nextViewController, animated: true)
         nextViewController.modalPresentationStyle = .fullScreen
         nextViewController.modalTransitionStyle = .coverVertical
         nextViewController.info = parkingSpace[0]
-        self.present(nextViewController, animated:true, completion:nil)
+        
+        self.present(nextViewController, animated:true)
     }
     
 //    @IBAction func transactionsPressed(_ sender: UIButton) {

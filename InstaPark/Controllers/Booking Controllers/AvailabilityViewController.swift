@@ -9,6 +9,10 @@ import UIKit
 import FSCalendar
 
 class AvailabilityViewController: UIViewController {
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        navigationController?.setNavigationBarHidden(true, animated: animated)
+    }
     var delegate: isAbleToReceiveData?
 
     @IBOutlet weak var calendar: FSCalendar!
