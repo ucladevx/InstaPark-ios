@@ -1397,7 +1397,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="L4L-we-enc">
-                                        <rect key="frame" x="106.5" y="357" width="101" height="32"/>
+                                        <rect key="frame" x="108" y="355" width="98" height="32"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                         <state key="normal" title="Sign up here.">
                                             <color key="titleColor" red="0.3803921569" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
@@ -1407,7 +1407,7 @@
                                         </connections>
                                     </button>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Don't have an account?" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rSl-gc-yJp">
-                                        <rect key="frame" x="66.5" y="336" width="181.5" height="20"/>
+                                        <rect key="frame" x="70" y="334" width="174" height="20"/>
                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="17"/>
                                         <nil key="textColor"/>
                                         <nil key="highlightedColor"/>
@@ -1628,10 +1628,10 @@
     </scenes>
     <designables>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="87.5" height="19"/>
+            <size key="intrinsicContentSize" width="106.5" height="18"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="61.5" height="18"/>
+            <size key="intrinsicContentSize" width="80" height="17"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
