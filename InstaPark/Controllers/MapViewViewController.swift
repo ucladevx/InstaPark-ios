@@ -77,6 +77,12 @@ class MapViewViewController: ViewController{
         overlay.tag = 100
         overlay.dataSource = self
         overlay.delegate = self
+        menuButton.setBackgroundImage(UIImage.init(named: "purple-circle"), for: .normal)
+        menuButton.isHidden = false
+        menuButton.layer.shadowRadius = 3.0
+        menuButton.layer.shadowOpacity = 0.3
+        menuButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+        menuButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         self.view.addSubview(slideoutBlackView)
         self.view.addSubview(slideOutBar)
         slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
@@ -295,6 +301,7 @@ extension MapViewViewController: MKMapViewDelegate {
             } else {
                 annotationView?.annotation = annotation
             }
+            
             annotationView?.image = UIImage(named: "mapAnnotation")
             let label = UILabel(frame: CGRect(x: 10, y: 0, width: 40, height: 30))
             label.textColor = .white
@@ -351,6 +358,7 @@ extension MapViewViewController: MKMapViewDelegate {
         if let parkingSpace = view.annotation as? ParkingSpaceMapAnnotation {
             let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
             mapView.setRegion(region, animated: true)
+            menuButton.isHidden = false
             //view.image = UIImage(named: "mapAnnotation")
         } else {
             return
@@ -369,7 +377,7 @@ extension MapViewViewController: MKMapViewDelegate {
              let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004))
              
              mapView.setRegion(region, animated: true)
-            
+            menuButton.isHidden = true
             SlideUpView.isHidden = false
             totalDistance = 0
             SlideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewHeight)
