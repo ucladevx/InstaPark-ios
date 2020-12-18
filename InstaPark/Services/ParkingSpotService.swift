@@ -19,8 +19,7 @@ class ParkingSpotService {
     }
     //Temporary function for creating dummy parking spots
     static func createParkingSpotIn(lat: Double, long: Double) {
-        print("Creating parking spot")
-        let spot = ShortTermParkingSpot(id: "", address: Address(city: "LA", state: "CA", street: "Street1", zip: "90024"), coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], firstName: "Bob", lastName: "Steve", lastEndTime: 0, fromFullDays: [0,1,2,3,4,5,6])
+        let spot = ShortTermParkingSpot(id: "", address: Address(city: "Los Angeles", state: "CA", street: generateRandomStreet(), zip: String(Int.random(in: 10000..<99999))), coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], firstName: "Bob", lastName: "Steve", lastEndTime: 0, fromFullDays: [0,1,2,3,4,5,6])
         let docRef = db.collection("ShortTermParkingSpot").document()
         spot.id = docRef.documentID
         do {
@@ -152,7 +151,7 @@ class ParkingSpotService {
         // save parking spot information as transaction
         let docRef = db.collection("Transaction").document()
         if let user = Auth.auth().currentUser {
-            let transaction = Transaction.init(id: docRef.documentID, customer: user.uid, startTime: Int(NSDate.now.timeIntervalSince1970), endTime: time, fromParkingSpot: parkingSpot)
+            let transaction = Transaction.init(id: docRef.documentID, customer: user.uid, startTime: Int(NSDate.now.timeIntervalSince1970), endTime: time, address: parkingSpot.address, fromParkingSpot: parkingSpot)
             docRef.setData(transaction.dictionary)
         }
     }
@@ -160,4 +159,14 @@ class ParkingSpotService {
 enum ParkingType {
     case short
     case long
+}
+extension ParkingSpotService {
+    static func generateRandomStreet() -> String{
+        var randStreet = ["Glenwood Drive", "Canterbury Court", "8th Avenue", "East Street", "Marshall Street", "Cypress Court", "Wall Street", "Hilltop Road", "Buttonwood Drive", "Grove Street", "Willow Lane", "Oxford Court", "Bridle Lane"]
+        var streetNumbers = ["10443", "10399", "10322", "10244", "15443", "15355", "12553", "12443", "11953"]
+        let n1 = Int.random(in: 0..<randStreet.count)
+        let n2 = Int.random(in: 0..<streetNumbers.count)
+        return streetNumbers[n2] + " " + randStreet[n1]
+    }
+    
 }

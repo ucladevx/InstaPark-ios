@@ -59,11 +59,12 @@ class TransactionTableViewController: UITableViewController {
             fatalError("Dequeued cell not an instance of TransactionTableViewCell")
         }
         let dateFormatter = DateFormatter()
-        dateFormatter.dateStyle = .short
+        dateFormatter.dateFormat = "MM-dd-yyyy"
         let transaction = transactions[indexPath.row]
         cell.dateTimeLabel.text = dateFormatter.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
-        cell.providerName.text = "Provider"
-        cell.addressLabel.text = "Address"
+        cell.addressLabel.text = transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip
+//        cell.addressLabel.text = "Addressss"
+        cell.providerName.text = "Bob Steve"
         cell.priceLabel.text = "$"+String(transaction.priceRatePerHour)
         print(cell.priceLabel.text)
         return cell
