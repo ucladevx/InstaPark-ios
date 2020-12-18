@@ -264,7 +264,7 @@ extension UIView {
                         self.center.y -= self.bounds.height
                         self.layoutIfNeeded()
         }, completion: nil)
-        //self.isHidden = false
+        self.isHidden = false
     }
     func slideDownHide(_ duration: CGFloat){
         
@@ -274,11 +274,15 @@ extension UIView {
                         self.layoutIfNeeded()
                         
         },  completion: {(_ completed: Bool) -> Void in
-            //self.isHidden = true
+            self.isHidden = true
         })
     }
     
-    
+    func dismiss() {
+        self.center.y += self.bounds.height
+        self.layoutIfNeeded()
+        self.isHidden = true
+    }
     
 }
 

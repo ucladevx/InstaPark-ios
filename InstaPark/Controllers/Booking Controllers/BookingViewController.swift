@@ -41,7 +41,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var startTime: Date? = nil
     var endTime: Date? = nil
     var parkingType: ParkingType = .short //update this later
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -147,6 +146,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBAction func reserveButton(_ sender: Any) {
         ParkingSpotService.getParkingSpotById(info.id) { [self] (parkingSpot, error) in
             if let spot = parkingSpot {
+                print(spot)
                 if spot.isAvailable {
                     print("Saving spot")
                     let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
@@ -163,7 +163,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                     }
                     self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
                     
-                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), priceRatePerHour: self.info.price, spot: spot)
+                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
                     
                 }
             }
