@@ -84,7 +84,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         for tag in tags {
             tag.layer.borderWidth = 1.5
-            tag.layer.cornerRadius = 9
+            tag.layer.cornerRadius = 8
             tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
             tag.isHidden = true
         }

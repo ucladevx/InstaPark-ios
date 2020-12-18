@@ -415,7 +415,7 @@ extension MapViewViewController: MKMapViewDelegate {
             
             for tag in tags {
                 tag.layer.borderWidth = 1.5
-                tag.layer.cornerRadius = 9
+                tag.layer.cornerRadius = 8
                 tag.layer.borderColor = CGColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
                 tag.isHidden = true
             }
@@ -636,6 +636,7 @@ extension MapViewViewController {
                 self.slideOutBar.frame.origin.x = 0
                 self.slideoutBlackView.isHidden = false
                 self.slideoutBlackView.alpha = 0.3
+                self.menuButton.frame.origin.x = self.view.bounds.width/2 + 30
             }, completion: { completed in
                 self.slideOutBarCollapsed = false
             })
@@ -644,6 +645,7 @@ extension MapViewViewController {
                 self.slideOutBar.frame.origin.x = -self.view.bounds.width/2
                 self.slideoutBlackView.isHidden = true
                 self.slideoutBlackView.alpha = 0
+                self.menuButton.frame.origin.x = 30
             }, completion: { completed in
                 self.slideOutBarCollapsed = true
             })
