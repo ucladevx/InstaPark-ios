@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqL-Pm-fmq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqL-Pm-fmq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17505"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -533,13 +533,13 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="(310) 123-4567" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sgs-NJ-Xax">
-                                                <rect key="frame" x="0.0" y="41" width="81" height="18"/>
+                                                <rect key="frame" x="0.0" y="41" width="82" height="17.5"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="bobsteve@mail.com" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="woo-SC-xpg">
-                                                <rect key="frame" x="0.0" y="61" width="108.5" height="14"/>
+                                                <rect key="frame" x="0.0" y="60.5" width="109.5" height="14.5"/>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
@@ -730,7 +730,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zec-z5-JN6">
-                                        <rect key="frame" x="0.0" y="133" width="176" height="20"/>
+                                        <rect key="frame" x="0.0" y="133" width="170" height="20"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="55o-jw-9Cl">
                                                 <rect key="frame" x="0.0" y="0.0" width="15" height="20"/>
@@ -743,7 +743,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fxY-MY-tmK">
-                                                <rect key="frame" x="15" y="0.0" width="161" height="20"/>
+                                                <rect key="frame" x="15" y="0.0" width="155" height="20"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="20" id="05n-Ni-c65"/>
                                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="155" id="fcL-vp-r6T"/>
@@ -1135,36 +1135,36 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="xVS-aR-sca">
-                                <rect key="frame" x="19" y="110" width="377" height="500"/>
+                                <rect key="frame" x="19" y="110" width="377" height="520"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOU'RE READY TO PARK!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smz-3v-efX">
-                                        <rect key="frame" x="40.5" y="0.0" width="296" height="38.5"/>
+                                        <rect key="frame" x="40.5" y="0.0" width="296" height="39"/>
                                         <fontDescription key="fontDescription" name="DINCondensed-Bold" family="DIN Condensed" pointSize="40"/>
                                         <color key="textColor" red="0.38" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2bY-nd-K40">
-                                        <rect key="frame" x="68" y="68" width="241" height="198"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reservation-pic" translatesAutoresizingMaskIntoConstraints="NO" id="2bY-nd-K40">
+                                        <rect key="frame" x="38.5" y="67" width="300" height="220"/>
                                         <color key="tintColor" red="0.38" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="241" id="6iS-Yr-qVc"/>
-                                            <constraint firstAttribute="height" constant="200.5" id="It1-UO-SPc"/>
+                                            <constraint firstAttribute="width" constant="300" id="6iS-Yr-qVc"/>
+                                            <constraint firstAttribute="height" constant="220" id="It1-UO-SPc"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XK7-tM-Rxy">
-                                        <rect key="frame" x="20" y="295" width="337" height="110"/>
+                                        <rect key="frame" x="20" y="315" width="337" height="110"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="DGN-eq-HsX">
                                                 <rect key="frame" x="0.0" y="30" width="337" height="50.5"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="November 11th, 3:00 PM to 7:15 PM" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="brf-tp-v5S">
-                                                        <rect key="frame" x="0.0" y="0.0" width="337" height="21"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="337" height="20.5"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="17"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
                                                     </label>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="123 Glenrock Ave, Los Angeles, CA 90024" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xvw-YS-7Kc">
-                                                        <rect key="frame" x="0.0" y="33" width="337" height="17.5"/>
+                                                        <rect key="frame" x="0.0" y="32.5" width="337" height="18"/>
                                                         <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="15"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1192,7 +1192,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A confirmation has been sent to your email! Check the My Transactions tab for additional details regarding your reservation. " lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wpn-6Q-Fnk">
-                                        <rect key="frame" x="58.5" y="433" width="260" height="67"/>
+                                        <rect key="frame" x="58.5" y="453" width="260" height="67"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="260" id="KcM-M9-qfd"/>
                                             <constraint firstAttribute="height" constant="67" id="W66-nk-maC"/>
@@ -1204,7 +1204,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Wpn-6Q-Fnk" firstAttribute="top" secondItem="XK7-tM-Rxy" secondAttribute="bottom" constant="28" id="Pim-RL-jRi"/>
-                                    <constraint firstAttribute="height" constant="500" id="T9h-Bg-j7c"/>
+                                    <constraint firstAttribute="height" constant="520" id="T9h-Bg-j7c"/>
                                     <constraint firstAttribute="width" constant="377" id="nmX-q0-uqo"/>
                                     <constraint firstAttribute="bottom" secondItem="Wpn-6Q-Fnk" secondAttribute="bottom" id="sPK-Uf-xom"/>
                                     <constraint firstItem="XK7-tM-Rxy" firstAttribute="top" secondItem="2bY-nd-K40" secondAttribute="bottom" constant="28" id="vEy-tK-U6T"/>
@@ -1731,22 +1731,22 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="145.5" height="18"/>
+            <size key="intrinsicContentSize" width="115.5" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="110.5" height="18"/>
+            <size key="intrinsicContentSize" width="91.5" height="19"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="80.5" height="17"/>
+            <size key="intrinsicContentSize" width="61.5" height="18"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="91.5" height="18"/>
+            <size key="intrinsicContentSize" width="61.5" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="63.5" height="18"/>
+            <size key="intrinsicContentSize" width="33.5" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="139" height="18"/>
+            <size key="intrinsicContentSize" width="109" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
@@ -1757,7 +1757,6 @@
         <image name="Arrow 1" width="36" height="8"/>
         <image name="Profile_avatar_placeholder_large" width="360" height="360"/>
         <image name="applelogo" catalog="system" width="103" height="128"/>
-        <image name="car" catalog="system" width="128" height="93"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="google-icon.ico" width="31" height="32"/>
@@ -1766,6 +1765,7 @@
         <image name="menu-icon-white" width="24" height="24"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <image name="profile " width="16" height="16"/>
+        <image name="reservation-pic" width="1144" height="782"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
