@@ -19,14 +19,15 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
         let storyboard =  UIStoryboard(name: "Main", bundle: nil)
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-//            if Auth.auth().currentUser != nil {
-            if false {
+            if Auth.auth().currentUser != nil {
                 // direct to map
-                self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "MapViewVC")
+                let MapViewVC = storyboard.instantiateViewController(withIdentifier: "MapViewVC")
+                let navigationController = UINavigationController.init(rootViewController: MapViewVC)
+                self.window?.rootViewController = navigationController
                 self.window!.makeKeyAndVisible()
             } else {
                 // direct to login
-                self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginVC")
+                self.window?.rootViewController = storyboard.instantiateViewController(withIdentifier: "LoginVC")
 //                self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "MapViewVC")
                 self.window!.makeKeyAndVisible()
             }
