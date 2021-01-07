@@ -109,29 +109,12 @@ class MapViewViewController: ViewController{
                         }
                     }
                     print("Adding annotations")
-                    self.mapView.addAnnotations(self.annotations)
+                    DispatchQueue.main.async {
+                        self.mapView.addAnnotations(self.annotations)
+                    }
                 }
              }
         }
-        
-        /*
-        ParkingSpotService.getAllParkingSpots() { parkingSpots, error in
-            print("Rendering parking spots on map")
-            if let parkingSpots = parkingSpots {
-                for parking in parkingSpots {
-                    if parking.isAvailable {
-                        let address = parking.address.street + ", " + parking.address.city + ", " + parking.address.state + " " + parking.address.zip
-                        
-                        self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: parking.firstName + " " + parking.lastName, coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: address , tags: parking.tags, comments: parking.comments))
-                        
-                    }
-                }
-                print("Adding annotations")
-                self.mapView.addAnnotations(self.annotations)
-            }
-         }*/
-    
-        
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateView), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         //test annotations until set up with firebase

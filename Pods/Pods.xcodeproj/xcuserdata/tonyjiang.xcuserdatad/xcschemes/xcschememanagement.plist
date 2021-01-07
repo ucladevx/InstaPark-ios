@@ -12,7 +12,7 @@
 		<key>AppAuth.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>31</integer>
+			<integer>25</integer>
 		</dict>
 		<key>BoringSSL-GRPC.xcscheme</key>
 		<dict>
@@ -29,7 +29,7 @@
 		<key>Braintree-Braintree-Drop-In-Localization.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>29</integer>
+			<integer>24</integer>
 		</dict>
 		<key>Braintree-Braintree-UI-Localization.xcscheme</key>
 		<dict>
@@ -39,7 +39,7 @@
 		<key>Braintree-Braintree-UI-Localization.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>32</integer>
+			<integer>29</integer>
 		</dict>
 		<key>Braintree.xcscheme</key>
 		<dict>
@@ -49,7 +49,7 @@
 		<key>Braintree.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>28</integer>
+			<integer>31</integer>
 		</dict>
 		<key>BraintreeDropIn-Braintree-UIKit-Localization.xcscheme</key>
 		<dict>
@@ -59,7 +59,7 @@
 		<key>BraintreeDropIn-Braintree-UIKit-Localization.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>30</integer>
+			<integer>32</integer>
 		</dict>
 		<key>BraintreeDropIn.xcscheme</key>
 		<dict>
@@ -69,7 +69,7 @@
 		<key>BraintreeDropIn.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>27</integer>
+			<integer>28</integer>
 		</dict>
 		<key>FSCalendar.xcscheme</key>
 		<dict>
@@ -79,7 +79,7 @@
 		<key>FSCalendar.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>35</integer>
+			<integer>27</integer>
 		</dict>
 		<key>Firebase.xcscheme</key>
 		<dict>
@@ -124,7 +124,7 @@
 		<key>FirebaseDatabase.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>33</integer>
+			<integer>35</integer>
 		</dict>
 		<key>FirebaseFirestore.xcscheme</key>
 		<dict>
@@ -155,7 +155,7 @@
 		<key>GTMAppAuth.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>26</integer>
+			<integer>33</integer>
 		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
@@ -172,7 +172,7 @@
 		<key>GeoFire.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>34</integer>
+			<integer>30</integer>
 		</dict>
 		<key>GoogleAppMeasurement.xcscheme</key>
 		<dict>
@@ -196,7 +196,7 @@
 		<key>GoogleSignIn.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>25</integer>
+			<integer>26</integer>
 		</dict>
 		<key>GoogleUtilities.xcscheme</key>
 		<dict>
@@ -213,7 +213,7 @@
 		<key>PickerViewKit.xcscheme_^#shared#^_</key>
 		<dict>
 			<key>orderHint</key>
-			<integer>24</integer>
+			<integer>34</integer>
 		</dict>
 		<key>Pods-InstaPark-InstaParkUITests.xcscheme</key>
 		<dict>
