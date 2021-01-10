@@ -314,8 +314,8 @@
                                     <rect key="frame" x="21" y="10" width="74" height="68"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Tony" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtr-6N-9Ou">
-                                    <rect key="frame" x="131" y="34" width="37" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtr-6N-9Ou">
+                                    <rect key="frame" x="131" y="34" width="42" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
@@ -1135,24 +1135,24 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="28" translatesAutoresizingMaskIntoConstraints="NO" id="xVS-aR-sca">
-                                <rect key="frame" x="19" y="110" width="377" height="500"/>
+                                <rect key="frame" x="19" y="110" width="377" height="520"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="YOU'RE READY TO PARK!" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="smz-3v-efX">
-                                        <rect key="frame" x="40.5" y="0.0" width="296" height="38.5"/>
+                                        <rect key="frame" x="40.5" y="0.0" width="296" height="39"/>
                                         <fontDescription key="fontDescription" name="DINCondensed-Bold" family="DIN Condensed" pointSize="40"/>
                                         <color key="textColor" red="0.38" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="car" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="2bY-nd-K40">
-                                        <rect key="frame" x="68" y="68" width="241" height="198"/>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="reservation-pic" translatesAutoresizingMaskIntoConstraints="NO" id="2bY-nd-K40">
+                                        <rect key="frame" x="38.5" y="67" width="300" height="220"/>
                                         <color key="tintColor" red="0.38" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="241" id="6iS-Yr-qVc"/>
-                                            <constraint firstAttribute="height" constant="200.5" id="It1-UO-SPc"/>
+                                            <constraint firstAttribute="width" constant="300" id="6iS-Yr-qVc"/>
+                                            <constraint firstAttribute="height" constant="220" id="It1-UO-SPc"/>
                                         </constraints>
                                     </imageView>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XK7-tM-Rxy">
-                                        <rect key="frame" x="20" y="295" width="337" height="110"/>
+                                        <rect key="frame" x="20" y="315" width="337" height="110"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="12" translatesAutoresizingMaskIntoConstraints="NO" id="DGN-eq-HsX">
                                                 <rect key="frame" x="0.0" y="30" width="337" height="50.5"/>
@@ -1192,7 +1192,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </view>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="A confirmation has been sent to your email! Check the My Transactions tab for additional details regarding your reservation. " lineBreakMode="tailTruncation" numberOfLines="6" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wpn-6Q-Fnk">
-                                        <rect key="frame" x="58.5" y="433" width="260" height="67"/>
+                                        <rect key="frame" x="58.5" y="453" width="260" height="67"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="260" id="KcM-M9-qfd"/>
                                             <constraint firstAttribute="height" constant="67" id="W66-nk-maC"/>
@@ -1204,7 +1204,7 @@
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="Wpn-6Q-Fnk" firstAttribute="top" secondItem="XK7-tM-Rxy" secondAttribute="bottom" constant="28" id="Pim-RL-jRi"/>
-                                    <constraint firstAttribute="height" constant="500" id="T9h-Bg-j7c"/>
+                                    <constraint firstAttribute="height" constant="520" id="T9h-Bg-j7c"/>
                                     <constraint firstAttribute="width" constant="377" id="nmX-q0-uqo"/>
                                     <constraint firstAttribute="bottom" secondItem="Wpn-6Q-Fnk" secondAttribute="bottom" id="sPK-Uf-xom"/>
                                     <constraint firstItem="XK7-tM-Rxy" firstAttribute="top" secondItem="2bY-nd-K40" secondAttribute="bottom" constant="28" id="vEy-tK-U6T"/>
@@ -1434,7 +1434,7 @@
                         <outlet property="signupButton" destination="ZzL-XM-cNH" id="E3H-Sh-vgF"/>
                         <outlet property="startedLabel" destination="53l-P1-Ng3" id="Rna-0b-Q5c"/>
                         <outlet property="welcomeLabel" destination="KYF-c4-hnp" id="XGH-Cp-IfX"/>
-                        <segue destination="7w2-uL-iKy" kind="show" identifier="signupSuccess" id="mXm-Gb-kR6"/>
+                        <segue destination="7w2-uL-iKy" kind="presentation" identifier="signupSuccess" modalPresentationStyle="fullScreen" id="mXm-Gb-kR6"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fl7-8I-8MG" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1731,33 +1731,32 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="142.5" height="18"/>
+            <size key="intrinsicContentSize" width="115.5" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="119.5" height="18"/>
+            <size key="intrinsicContentSize" width="91.5" height="19"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="89.5" height="17"/>
+            <size key="intrinsicContentSize" width="61.5" height="18"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="88.5" height="18"/>
+            <size key="intrinsicContentSize" width="61.5" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="60.5" height="18"/>
+            <size key="intrinsicContentSize" width="33.5" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="136" height="18"/>
+            <size key="intrinsicContentSize" width="109" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="Td1-91-LwN"/>
-        <segue reference="mXm-Gb-kR6"/>
+        <segue reference="fcB-JE-CYm"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow 1" width="36" height="8"/>
         <image name="Profile_avatar_placeholder_large" width="360" height="360"/>
         <image name="applelogo" catalog="system" width="103" height="128"/>
-        <image name="car" catalog="system" width="128" height="93"/>
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
         <image name="google-icon.ico" width="31" height="32"/>
@@ -1766,6 +1765,7 @@
         <image name="menu-icon-white" width="24" height="24"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <image name="profile " width="16" height="16"/>
+        <image name="reservation-pic" width="1144" height="782"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

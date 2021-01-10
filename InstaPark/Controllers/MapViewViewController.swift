@@ -50,6 +50,7 @@ class MapViewViewController: ViewController{
     
     private var geoFire = GeoFire(firebaseRef: Database.database().reference())
     private var regionQuery: GFRegionQuery?
+    private var circleQuery: GFCircleQuery? // test variable
     
     private var annotations = [ParkingSpaceMapAnnotation]()
     
@@ -92,25 +93,50 @@ class MapViewViewController: ViewController{
         let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
         
         self.mapView.setRegion(region, animated: false)
-        regionQuery = geoFire.query(with: region)
-        DispatchQueue.global(qos: .userInitiated).async {
-            ParkingSpotService.getAllParkingSpots() { parkingSpots, error in
-                print("Rendering parking spots on map")
-                if let parkingSpots = parkingSpots {
-                    for parking in parkingSpots {
-                        if parking.isAvailable {
-                            let address = parking.address.street + ", " + parking.address.city + ", " + parking.address.state + " " + parking.address.zip
-                            
-                            self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: parking.firstName + " " + parking.lastName, coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: address , tags: parking.tags, comments: parking.comments))
+        regionQuery = geoFire.query(with: region) // for some reason geoFire isn't working with regionQuery???
+        
+        // get all parking spaces within a 20000 km radius from the db
+        circleQuery = geoFire.query(at: CLLocation.init(latitude: location.latitude, longitude: location.longitude), withRadius: 20)
+        
+        _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
+            print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
+            ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
+                DispatchQueue.global(qos: .userInteractive).async {
+                    ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
+                        if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+                            print("Query by location")
+                            let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
+                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments)
+                            self.annotations.append(annotation)
+                            mapView.addAnnotation(annotation)
                         }
                     }
-                    print("Adding annotations")
-                    DispatchQueue.main.async {
-                        self.mapView.addAnnotations(self.annotations)
-                    }
                 }
-             }
-        }
+            }
+        })
+        
+        
+//        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+//          guard let self = self else {
+//            return
+//          }
+//            ParkingSpotService.getAllParkingSpots() { parkingSpots, error in
+//                print("Rendering parking spots on map")
+//                if let parkingSpots = parkingSpots {
+//                    for parking in parkingSpots {
+//                        if parking.isAvailable {
+//                            let address = parking.address.street + ", " + parking.address.city + ", " + parking.address.state + " " + parking.address.zip
+//
+//                            self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: parking.firstName + " " + parking.lastName, coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: address , tags: parking.tags, comments: parking.comments))
+//                        }
+//                    }
+//                    print("Adding annotations")
+//                    DispatchQueue.main.async {
+//                        self.mapView.addAnnotations(self.annotations)
+//                    }
+//                }
+//             }
+//        }
         NotificationCenter.default.addObserver(self, selector: #selector(self.updateView), name: UIApplication.didBecomeActiveNotification, object: nil)
         
         //test annotations until set up with firebase
@@ -228,10 +254,13 @@ class MapViewViewController: ViewController{
     }
     func initializeQueryObservers() {
         if let regionQuery = regionQuery {
-            regionQuery.observe(.keyEntered, with: { key, location in
+            regionQuery.observe(.keyMoved, with: { key, location in
+                
+                    print("Key: " + key + "entered the search radius.")
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
                         if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+                            print("Query by location")
                             let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
                             self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments))
                         }
@@ -240,9 +269,7 @@ class MapViewViewController: ViewController{
             })
             //currently no behavior when parking spot leaves the view
 //            regionQuery.observe(.keyExited, with: { key, location in
-//                DispatchQueue.global(qos: .userInteractive).async {
-//
-//                }
+//                self.mapView.addAnnotations(self.annotations)
 //            })
         }
     }
@@ -355,8 +382,37 @@ extension MapViewViewController: MKMapViewDelegate {
 //        return annotationView
     }
     
-    
-    
+    //not the optimal solution yet
+    func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
+        //calculate meters in latitude of current map span
+        let span = mapView.region.span
+        let center = mapView.region.center
+        let loc1 = CLLocation(latitude: center.latitude - span.latitudeDelta * 0.5, longitude: center.longitude)
+        let loc2 = CLLocation(latitude: center.latitude + span.latitudeDelta * 0.5, longitude: center.longitude)
+        let queryRadius = loc1.distance(from: loc2)
+        print(queryRadius)
+        
+        if (circleQuery?.radius) ?? 0 < queryRadius {
+            circleQuery = geoFire.query(at: CLLocation.init(latitude: center.latitude, longitude: center.longitude), withRadius: queryRadius/1000)
+            
+            _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
+                print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
+                ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
+                    DispatchQueue.global(qos: .userInteractive).async {
+                        ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
+                            if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+                                print("Query with change")
+                                let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
+                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments)
+                                annotations.append(annotation)
+                                mapView.addAnnotation(annotation)
+                            }
+                        }
+                    }
+                }
+            })
+        }
+    }
     
 
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {

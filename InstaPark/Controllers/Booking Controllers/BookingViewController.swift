@@ -120,15 +120,21 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         case .long:
             print("long")
         case .short:
-            ParkingSpotService.getShortTermParkingSpotById(info.id) { (parkingSpot, error) in
-                if let spot = parkingSpot {
-                    for i in 0...6 {
-                        for times in spot.times[i] ?? [] {
-                            time[i]!.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: Date.init(timeIntervalSince1970: Double(times.start)), end: Date.init(timeIntervalSince1970: Double(times.end))))
-                            
+            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+                guard let self = self else {
+                    return
+                }
+                ParkingSpotService.getShortTermParkingSpotById(self.info.id) { (parkingSpot, error) in
+                    if let spot = parkingSpot {
+                        for i in 0...6 {
+                            for times in spot.times[i] ?? [] {
+                                time[i]!.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: Date.init(timeIntervalSince1970: Double(times.start)), end: Date.init(timeIntervalSince1970: Double(times.end))))
+                            }
+                        }
+                        DispatchQueue.main.async {
+                            self.info.times = time
                         }
                     }
-                    self.info.times = time
                 }
             }
         }
