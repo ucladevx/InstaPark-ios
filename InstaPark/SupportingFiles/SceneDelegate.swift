@@ -8,7 +8,7 @@
 import UIKit
 import GoogleSignIn
 import Firebase
-
+import Braintree
 class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
 
     var window: UIWindow?
@@ -35,7 +35,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
         GIDSignIn.sharedInstance().clientID = FirebaseApp.app()?.options.clientID
         GIDSignIn.sharedInstance().delegate = self
     }
-
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        URLContexts.forEach { context in
+            if context.url.scheme?.localizedCaseInsensitiveCompare("com.my-app.your-app.payments") == .orderedSame {
+                BTAppSwitch.handleOpenURLContext(context)
+            }
+        }
+    }
     // handle the sign in to direct to the home controller
     func sign(_ signIn: GIDSignIn!, didSignInFor user: GIDGoogleUser!, withError error: Error?) {
         print("Handle Google login")
@@ -96,7 +102,21 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
         // Use this method to save data, release shared resources, and store enough scene-specific state information
         // to restore the scene back to its current state.
     }
-
+    //Implement this when need to store user payment data
+//    func fetchClientToken() {
+//        // TODO: Switch this URL to your own authenticated API
+//        let clientTokenURL = NSURL(string: "https://braintree-sample-merchant.herokuapp.com/client_token")!
+//        let clientTokenRequest = NSMutableURLRequest(url: clientTokenURL as URL)
+//        clientTokenRequest.setValue("text/plain", forHTTPHeaderField: "Accept")
+//
+//        URLSession.shared.dataTask(with: clientTokenRequest as URLRequest) { (data, response, error) -> Void in
+//            // TODO: Handle errors
+//            let clientToken = String(data: data!, encoding: String.Encoding.utf8)
+//
+//            // As an example, you may wish to present Drop-in at this point.
+//            // Continue to the next section to learn more...
+//            }.resume()
+//    }
 
 }
 

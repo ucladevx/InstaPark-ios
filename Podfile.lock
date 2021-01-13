@@ -228,6 +228,8 @@ PODS:
     - Braintree/Core (= 4.36.1)
     - Braintree/PayPal (= 4.36.1)
     - Braintree/UI (= 4.36.1)
+  - Braintree/Apple-Pay (4.36.1):
+    - Braintree/Core
   - Braintree/Card (4.36.1):
     - Braintree/Core
   - Braintree/Core (4.36.1)
@@ -252,6 +254,9 @@ PODS:
   - Braintree/UnionPay (4.36.1):
     - Braintree/Card
     - Braintree/Core
+  - Braintree/Venmo (4.36.1):
+    - Braintree/Core
+    - Braintree/PayPalDataCollector
   - BraintreeDropIn (8.1.2):
     - BraintreeDropIn/DropIn (= 8.1.2)
   - BraintreeDropIn/DropIn (8.1.2):
@@ -400,6 +405,9 @@ PODS:
 
 DEPENDENCIES:
   - Braintree
+  - Braintree/Apple-Pay
+  - Braintree/PayPal
+  - Braintree/Venmo
   - BraintreeDropIn
   - Firebase/Analytics
   - Firebase/Auth
@@ -480,6 +488,6 @@ SPEC CHECKSUMS:
   PickerViewKit: 86b90e2e2e1b0ed9baf867c65aab2d12a7a59f28
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
 
-PODFILE CHECKSUM: 4ebee580835367df2046210ece032ceaabdf5923
+PODFILE CHECKSUM: 9a8126d26b2956062d59680ff2b2ca763c669d46
 
 COCOAPODS: 1.9.1

@@ -20,6 +20,9 @@ target 'InstaPark' do
   # Payment
   pod 'Braintree'
   pod 'BraintreeDropIn'
+  pod 'Braintree/PayPal'
+  pod 'Braintree/Venmo'
+  pod 'Braintree/Apple-Pay'
   target 'InstaParkTests' do
     inherit! :search_paths
     # Pods for testing
