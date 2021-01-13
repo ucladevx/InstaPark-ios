@@ -48,6 +48,9 @@
 		9431304E254E4E83002221F4 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431304D254E4E83002221F4 /* CalloutView.swift */; };
 		94313125255627BE002221F4 /* smallOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94313124255627BE002221F4 /* smallOverlayView.swift */; };
 		943131302556391D002221F4 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431312F2556391D002221F4 /* BookingViewController.swift */; };
+		945167CD25AE96BC00939551 /* landingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945167CC25AE96BC00939551 /* landingPageViewController.swift */; };
+		945167D225AE96CF00939551 /* hourlyTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945167D125AE96CF00939551 /* hourlyTimeViewController.swift */; };
+		945167D725AE96E800939551 /* monthlyTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945167D625AE96E800939551 /* monthlyTimeViewController.swift */; };
 		94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */; };
 		94C8AB5D257C972A00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
 		94C8AB61257C972B00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
@@ -139,6 +142,9 @@
 		9431304D254E4E83002221F4 /* CalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		94313124255627BE002221F4 /* smallOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = smallOverlayView.swift; sourceTree = "<group>"; };
 		9431312F2556391D002221F4 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
+		945167CC25AE96BC00939551 /* landingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = landingPageViewController.swift; sourceTree = "<group>"; };
+		945167D125AE96CF00939551 /* hourlyTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hourlyTimeViewController.swift; sourceTree = "<group>"; };
+		945167D625AE96E800939551 /* monthlyTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monthlyTimeViewController.swift; sourceTree = "<group>"; };
 		94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityViewController.swift; sourceTree = "<group>"; };
 		94C8AB8B257C9F9E00D89060 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		94C8AB8C257C9F9E00D89060 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -245,6 +251,7 @@
 		0410B14C2548DC1F001C4D27 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				945167CB25AE96A400939551 /* TimeViewControllers */,
 				0410B18F254A49F7001C4D27 /* LoginViewController.swift */,
 				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
 				0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */,
@@ -351,6 +358,16 @@
 				0482FE84255CB157002F522E /* ParkingCalloutView.swift */,
 			);
 			path = CustomCallout;
+			sourceTree = "<group>";
+		};
+		945167CB25AE96A400939551 /* TimeViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				945167CC25AE96BC00939551 /* landingPageViewController.swift */,
+				945167D125AE96CF00939551 /* hourlyTimeViewController.swift */,
+				945167D625AE96E800939551 /* monthlyTimeViewController.swift */,
+			);
+			path = TimeViewControllers;
 			sourceTree = "<group>";
 		};
 		9460B9B72558A8720016697A /* Booking Controllers */ = {
@@ -691,6 +708,7 @@
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,
 				0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */,
 				943131302556391D002221F4 /* BookingViewController.swift in Sources */,
+				945167CD25AE96BC00939551 /* landingPageViewController.swift in Sources */,
 				046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */,
 				04AB7897255DCA280090B6E7 /* ShortTermParkingSpot.swift in Sources */,
 				044AD5802581EE07000FE799 /* SlideOutView.swift in Sources */,
@@ -698,6 +716,8 @@
 				0410B11C2548D8E9001C4D27 /* SceneDelegate.swift in Sources */,
 				94313125255627BE002221F4 /* smallOverlayView.swift in Sources */,
 				0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */,
+				945167D725AE96E800939551 /* monthlyTimeViewController.swift in Sources */,
+				945167D225AE96CF00939551 /* hourlyTimeViewController.swift in Sources */,
 				044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */,
 				94158B3C2568A359002F5B51 /* ReservationConfirmationViewController.swift in Sources */,
 				0410B1702548F860001C4D27 /* AuthService.swift in Sources */,

@@ -381,7 +381,7 @@ extension MapViewViewController: MKMapViewDelegate {
 //        annotationView?.addSubview(label)
 //        return annotationView
     }
-    
+    /*
     //not the optimal solution yet
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         //calculate meters in latitude of current map span
@@ -412,7 +412,7 @@ extension MapViewViewController: MKMapViewDelegate {
                 }
             })
         }
-    }
+    }*/
     
 
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
