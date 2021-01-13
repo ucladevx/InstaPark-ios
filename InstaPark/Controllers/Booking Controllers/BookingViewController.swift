@@ -7,7 +7,8 @@
 
 import UIKit
 import MapKit
-
+import Braintree
+import BraintreeDropIn
 protocol isAbleToReceiveData {
     func pass(start: Date, end: Date, date: Date, cancel: Bool)
 }
@@ -19,6 +20,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var availabilityLabel: UIButton!
+    @IBOutlet weak var paymentMethodLabel: UILabel!
+    @IBOutlet weak var paymentCardLabel: UILabel!
+    @IBOutlet weak var paymentStack: UIStackView!
     
     @IBOutlet weak var tag1: UIButton!
     @IBOutlet weak var tag2: UIButton!
@@ -27,9 +31,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     
     
     @IBOutlet weak var commentsLabel: UILabel!
-    @IBOutlet weak var cardLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var reserveButton: UIButton!
+    var totalPrice: Double?
+    var paymentResult: BTDropInResult?
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
@@ -51,15 +56,15 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         addressLabel.text = info.address
         commentsLabel.text = info.comments
         commentsLabel.sizeToFit()
-        cardLabel.text = "ending in \(5678)" ///need to get this from user data structure
         
         //shadow for user info view
         userInfoView.layer.shadowRadius = 5.0
         userInfoView.layer.shadowOpacity = 0.25
         userInfoView.layer.shadowOffset = CGSize.init(width: 1, height: 2)
         userInfoView.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        
-        
+        let paymentTap = UITapGestureRecognizer(target:self, action: #selector(self.paymentTapped(_:)))
+        self.paymentStack.isUserInteractionEnabled = true
+        self.paymentStack.addGestureRecognizer(paymentTap)
         
         //set up price Attributed String
         let dollar = "$"
@@ -144,29 +149,44 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
-        ParkingSpotService.getParkingSpotById(info.id) { [self] (parkingSpot, error) in
-            if let spot = parkingSpot {
-                print(spot)
-                if spot.isAvailable {
-                    print("Saving spot")
-                    let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
-                    //need to switch from info.bookTimes to ShortTermParkingSpot later
-                    switch parkingType {
-                    case .long:
-                        print("long")
-                    case .short:
-                        if let parkingSpot = spot as? ShortTermParkingSpot{
-                            
-                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
-                           // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
+        if let paymentResult = paymentResult{
+            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
+                print("Sending payment to server");
+                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
+                    if error == nil {
+                        print("Payment Success!")
+                        ParkingSpotService.getParkingSpotById(self.info.id) { [self] (parkingSpot, error) in
+                            if let spot = parkingSpot {
+                                print(spot)
+                                if spot.isAvailable {
+                                    print("Saving spot")
+                                    let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
+                                    //need to switch from info.bookTimes to ShortTermParkingSpot later
+                                    switch parkingType {
+                                    case .long:
+                                        print("long")
+                                    case .short:
+                                        if let parkingSpot = spot as? ShortTermParkingSpot{
+                                            
+                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
+                                           // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
+                                        }
+                                    }
+                                    self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
+                                    
+                                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
+                                    
+                                }
+                            }
                         }
+                    } else {
+                        print(error!.errorMessage())
                     }
-                    self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
-                    
-                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
-                    
                 }
             }
+        }else {
+            print("Payment has not been selected yet.")
+            //payment has not been selected
         }
     }
     
@@ -228,6 +248,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             }
             print(totalTime)
             total = totalTime * info.price
+            self.totalPrice = total
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
@@ -239,7 +260,51 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         }
     }
 }
-
+extension BookingViewController {
+    @objc func paymentTapped(_ send: UITapGestureRecognizer) {
+        print("Payment Tapped");
+        var key = "sandbox_ndnbmg78_77yb2gxcsdwv5spd"
+        showDropIn(clientTokenOrTokenizationKey: key)
+    }
+    func showDropIn(clientTokenOrTokenizationKey: String) {
+        let request =  BTDropInRequest()
+        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
+        { (controller, result, error) in
+            if (error != nil) {
+                print("ERROR")
+            } else if (result?.isCancelled == true) {
+                print("CANCELLED")
+            } else if let result = result {
+                self.paymentResult = result
+                // Use the BTDropInResult properties to update your UI
+                // result.paymentOptionType
+                // result.paymentMethod
+                // result.paymentIcon
+                // result.paymentDescription
+            }
+            controller.dismiss(animated: true, completion: nil)
+        }
+        self.present(dropIn!, animated: true, completion: nil)
+    }
+    //function not currently being used
+    func processPayment() {
+        //payment has been selected
+        if let paymentResult = paymentResult{
+            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
+                print("Sending payment to server");
+                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
+                    if error == nil {
+                        print("Payment Success!")
+                    } else {
+                        print(error!.errorMessage())
+                    }
+                }
+            }
+        }else {
+            //payment has not been selected
+        }
+    }
+}
 extension BookingViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseIdentifier = "pin1"

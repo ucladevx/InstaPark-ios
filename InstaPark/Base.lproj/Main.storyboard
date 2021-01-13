@@ -441,7 +441,7 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ending in 1234" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vze-ok-bis">
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vze-ok-bis">
                                                 <rect key="frame" x="255" y="0.0" width="90" height="17"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="17" id="U2d-Yl-UxI"/>
@@ -828,10 +828,12 @@
                     <connections>
                         <outlet property="addressLabel" destination="Il7-fp-ZaZ" id="rAQ-Xn-ICi"/>
                         <outlet property="availabilityLabel" destination="fxY-MY-tmK" id="hF0-Nq-G3R"/>
-                        <outlet property="cardLabel" destination="vze-ok-bis" id="IRB-QU-Tkg"/>
                         <outlet property="commentsLabel" destination="wSZ-8B-Ubh" id="5vM-HX-G8d"/>
                         <outlet property="mapView" destination="ixj-76-AXt" id="Pv5-Lb-QpF"/>
                         <outlet property="nameLabel" destination="AqB-Hz-RBe" id="JN7-5O-9Yj"/>
+                        <outlet property="paymentCardLabel" destination="vze-ok-bis" id="FnG-wn-2qe"/>
+                        <outlet property="paymentMethodLabel" destination="PCa-fD-Tev" id="5sb-HS-LxZ"/>
+                        <outlet property="paymentStack" destination="ZZ9-Mq-paA" id="AD3-zM-i8Q"/>
                         <outlet property="priceLabel" destination="LOW-kU-rNx" id="DA0-C5-ztk"/>
                         <outlet property="reserveButton" destination="UDb-V5-5Po" id="rZs-oL-4jM"/>
                         <outlet property="tag1" destination="FMD-I6-vU9" id="3wD-Uk-dZU"/>
@@ -1750,7 +1752,7 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="Td1-91-LwN"/>
+        <segue reference="3tF-LG-iLn"/>
         <segue reference="mXm-Gb-kR6"/>
     </inferredMetricsTieBreakers>
     <resources>
