@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqL-Pm-fmq">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
@@ -1443,6 +1444,21 @@
             </objects>
             <point key="canvasLocation" x="-265" y="606"/>
         </scene>
+        <!--Hourly Time View Controller-->
+        <scene sceneID="pp4-U0-v7h">
+            <objects>
+                <viewController id="kZV-pf-Ao9" customClass="hourlyTimeViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RoS-er-smk">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="hd2-3r-afc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="jwY-uL-VXr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-258" y="-956"/>
+        </scene>
         <!--Login View Controller-->
         <scene sceneID="xPz-Gq-QgC">
             <objects>
@@ -1730,25 +1746,55 @@
             </objects>
             <point key="canvasLocation" x="746" y="1156"/>
         </scene>
+        <!--Landing Page View Controller-->
+        <scene sceneID="WLB-6c-juR">
+            <objects>
+                <viewController id="4o7-Of-aVG" customClass="landingPageViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="Rhv-El-yGa">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="zhB-Sd-7Nb"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hhn-lI-vNh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1138" y="-956"/>
+        </scene>
+        <!--Monthly Time View Controller-->
+        <scene sceneID="ufL-3Y-nuZ">
+            <objects>
+                <viewController id="U3r-sH-xJV" customClass="monthlyTimeViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="enY-hh-iJS">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <viewLayoutGuide key="safeArea" id="hvD-w1-ds1"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="mFi-A7-fYd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="607" y="-956"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="115.5" height="18"/>
+            <size key="intrinsicContentSize" width="142.5" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="91.5" height="19"/>
+            <size key="intrinsicContentSize" width="119.5" height="18"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="61.5" height="18"/>
+            <size key="intrinsicContentSize" width="89.5" height="17"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="61.5" height="18"/>
+            <size key="intrinsicContentSize" width="88.5" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="33.5" height="18"/>
+            <size key="intrinsicContentSize" width="60.5" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="109" height="18"/>
+            <size key="intrinsicContentSize" width="136" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
