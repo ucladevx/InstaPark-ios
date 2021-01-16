@@ -14,6 +14,11 @@ class MapViewViewController: ViewController{
     
     let locationManager = CLLocationManager()
     
+    //passed variable from hourlyTimeViewController
+    var shortTermStartTime: Date!
+    var shortTermEndTime: Date!
+    var shortTermDate: Date!
+    
     @IBOutlet weak var SlideUpView: SlideView!
     @IBOutlet weak var searchBar: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
@@ -87,6 +92,15 @@ class MapViewViewController: ViewController{
         self.view.addSubview(slideoutBlackView)
         self.view.addSubview(slideOutBar)
         slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
+        
+        // if segued from hourlyTimeViewController, search/setup in here
+        if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
+            print(shortTermStartTime!)
+            print(shortTermEndTime!)
+            print(shortTermDate!)
+        }
+        
+        
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(34.0703, -118.4441)
