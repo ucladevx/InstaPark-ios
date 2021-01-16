@@ -18,6 +18,7 @@ class MapViewViewController: ViewController{
     var shortTermStartTime: Date!
     var shortTermEndTime: Date!
     var shortTermDate: Date!
+    @IBOutlet weak var timeFrameButton: UIButton!
     
     @IBOutlet weak var SlideUpView: SlideView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -93,13 +94,31 @@ class MapViewViewController: ViewController{
         self.view.addSubview(slideOutBar)
         slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
         
+        //time frame button
+        timeFrameButton.layer.shadowRadius = 4.0
+        timeFrameButton.layer.shadowOpacity = 0.4
+        timeFrameButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+        timeFrameButton.layer.shadowColor = CGColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+        
         // if segued from hourlyTimeViewController, search/setup in here
         if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
             print(shortTermStartTime!)
             print(shortTermEndTime!)
             print(shortTermDate!)
+            
+            //time frame button
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "MMMM dth"
+            let day = formatter1.string(from: shortTermDate ?? Date())
+            let formatter2 = DateFormatter()
+            formatter2.dateFormat = "h:mm a"
+            let startString = formatter2.string(from: shortTermStartTime! as Date)
+            let endString = formatter2.string(from: shortTermEndTime! as Date)
+            timeFrameButton.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
         }
-        
+        else {
+            timeFrameButton.setTitle("Select a specific time frame", for: . normal)
+        }
         
         //set up of map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
@@ -120,7 +139,12 @@ class MapViewViewController: ViewController{
                         if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
                             print("Query by location")
                             let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
-                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments)
+                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: Date(), endTime: Date(), date: Date())
+                            if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+                                annotation.startTime = self.shortTermStartTime
+                                annotation.endTime = self.shortTermEndTime
+                                annotation.date = self.shortTermDate
+                            }
                             self.annotations.append(annotation)
                             mapView.addAnnotation(annotation)
                         }
@@ -177,6 +201,9 @@ class MapViewViewController: ViewController{
         print("update View")
     }
     
+    @IBAction func timeFrameBtn(_ sender: Any) {
+        dismiss(animated: true)
+    }
     @IBAction func reserveBtn(_ sender: UIButton) {
         let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
@@ -276,7 +303,12 @@ class MapViewViewController: ViewController{
                         if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
                             print("Query by location")
                             let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
-                            self.annotations.append(ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments))
+                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: Date(), endTime: Date(), date: Date())
+                            if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+                                annotation.startTime = self.shortTermStartTime
+                                annotation.endTime = self.shortTermEndTime
+                                annotation.date = self.shortTermDate
+                            }
                         }
                     }
                 }

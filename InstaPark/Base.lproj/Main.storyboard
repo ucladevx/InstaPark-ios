@@ -31,11 +31,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbx-F9-Sil">
-                                <rect key="frame" x="82" y="110" width="250" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="November 18th, 3:00 PM to 7:00 PM"/>
-                            </button>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" rotateEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3k-4t-CT2">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <connections>
@@ -68,6 +63,26 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbx-F9-Sil">
+                                <rect key="frame" x="87" y="114" width="240" height="30"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="8TC-YG-d8X"/>
+                                    <constraint firstAttribute="height" constant="30" id="f2Q-5V-3ZZ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="13"/>
+                                <state key="normal" title="November 18th, 3:00 PM to 7:00 PM">
+                                    <color key="titleColor" red="0.38" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="11"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <action selector="timeFrameBtn:" destination="7w2-uL-iKy" eventType="touchUpInside" id="w9u-e9-Ti0"/>
+                                </connections>
+                            </button>
                             <view hidden="YES" alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7k6-gW-eKd" userLabel="View Black">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -239,6 +254,7 @@
                             <constraint firstAttribute="bottom" secondItem="j3k-4t-CT2" secondAttribute="bottom" id="60Y-8J-kK4"/>
                             <constraint firstItem="7k6-gW-eKd" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="6ac-Tw-2gU"/>
                             <constraint firstItem="7k6-gW-eKd" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" id="CwZ-Kf-qDE"/>
+                            <constraint firstItem="Jbx-F9-Sil" firstAttribute="centerX" secondItem="0tu-wt-Jpv" secondAttribute="centerX" id="FOn-MK-NjH"/>
                             <constraint firstItem="j3k-4t-CT2" firstAttribute="top" secondItem="0tu-wt-Jpv" secondAttribute="top" id="IAw-5g-x65"/>
                             <constraint firstItem="YIb-ms-dvT" firstAttribute="bottom" secondItem="kHw-2e-c0X" secondAttribute="bottom" constant="20" id="J1S-D0-UUo"/>
                             <constraint firstItem="j3k-4t-CT2" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="KYB-Jk-kjr"/>
@@ -246,6 +262,7 @@
                             <constraint firstItem="j3k-4t-CT2" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" id="Qc6-Wf-2zr"/>
                             <constraint firstAttribute="bottom" secondItem="Yzw-oZ-U85" secondAttribute="bottom" id="ea8-lU-P0X"/>
                             <constraint firstItem="7k6-gW-eKd" firstAttribute="top" secondItem="0tu-wt-Jpv" secondAttribute="top" id="qdL-cV-e7z"/>
+                            <constraint firstItem="Jbx-F9-Sil" firstAttribute="top" secondItem="YIb-ms-dvT" secondAttribute="top" constant="70" id="tEG-jJ-TFY"/>
                             <constraint firstItem="Yzw-oZ-U85" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" id="vz1-ak-SCP"/>
                             <constraint firstItem="Yzw-oZ-U85" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="yyR-bk-QLd"/>
                         </constraints>
@@ -268,6 +285,7 @@
                         <outlet property="tag2" destination="dSU-jF-eyL" id="LgY-Sb-iz4"/>
                         <outlet property="tag3" destination="BNE-3I-84d" id="Ql4-t9-nep"/>
                         <outlet property="tag4" destination="bje-6w-Gdq" id="hn6-9o-NTW"/>
+                        <outlet property="timeFrameButton" destination="Jbx-F9-Sil" id="i56-jk-rn8"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Rs4-fz-PP7" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2169,22 +2187,22 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="114" height="18"/>
+            <size key="intrinsicContentSize" width="115.5" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="89.5" height="19"/>
+            <size key="intrinsicContentSize" width="91.5" height="19"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="60" height="18"/>
+            <size key="intrinsicContentSize" width="61.5" height="18"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="60" height="18"/>
+            <size key="intrinsicContentSize" width="61.5" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
             <size key="intrinsicContentSize" width="33.5" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="106.5" height="18"/>
+            <size key="intrinsicContentSize" width="109" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>

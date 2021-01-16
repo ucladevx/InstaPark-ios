@@ -20,6 +20,9 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
     var tags: [String]
     var comments: String
     var bookedTimes: [Int: [ParkingTimeInterval]]
+    var startTime: Date?
+    var endTime: Date?
+    var date: Date?
     
     
     struct ParkingTimeInterval {
@@ -28,7 +31,7 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         var end: Date
     }
     
-    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, address: String, tags: [String], comments: String/*, times: [Int: [ParkingTimeInterval]]*/) {
+    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, address: String, tags: [String], comments: String, startTime: Date?, endTime: Date?, date: Date?/*, times: [Int: [ParkingTimeInterval]]*/) {
         self.id = id
         self.coordinate = coordinate
         self.price = price
@@ -36,6 +39,9 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         self.address = address
         self.tags = tags
         self.comments = comments
+        self.startTime = startTime
+        self.endTime = endTime
+        self.date = date
         
         func setTime(hour: Int, minute: Int) -> Date {
             return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date())!

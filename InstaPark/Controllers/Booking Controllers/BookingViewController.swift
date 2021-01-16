@@ -40,7 +40,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: "test", tags: ["test"], comments: "test")
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: "test", tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date())
     var total = 0.0
     var startDate: Date? = nil
     var startTime: Date? = nil
@@ -107,10 +107,47 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
 //        mask.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
 //        self.mapView.addSubview(mask)
         
+        //time frame
+        startTime = info.startTime
+        endTime = info.endTime
+        startDate = info.date
+        let formatter1 = DateFormatter()
+        formatter1.dateFormat = "MMMM dth"
+        let day = formatter1.string(from: startDate ?? Date())
+        let formatter2 = DateFormatter()
+        formatter2.dateFormat = "h:mm a"
+        let startString = formatter2.string(from: startTime! as Date)
+        let endString = formatter2.string(from: endTime! as Date)
+        availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
+        availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
+        availabilityLabel.isEnabled = false
+        
+        //calculate total cost (for now without tax/extra fees)
+        let startHour = Calendar.current.component(.hour, from: startTime! as Date)
+        let startMin = Calendar.current.component(.minute, from: startTime! as Date)
+        let endHour = Calendar.current.component(.hour, from: endTime! as Date)
+        let endMin = Calendar.current.component(.minute, from: endTime! as Date)
+        //let totalTime:Double = Double(startEpoch - endEpoch)/3600
+        var totalTime: Double = abs(Double(endHour-startHour) + (Double(endMin - startMin)/60))
+        if(startTime == endTime){
+            totalTime = 24.0
+        }else if startHour > endHour {
+            totalTime += 12.0
+        }
+        print(totalTime)
+        total = totalTime * info.price
+        self.totalPrice = total
+        totalLabel.text = "$" + String(format: "%.2f", total)
+        totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+        totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
+        reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+        reserveButton.setTitleColor(.white, for: .normal)
+        reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
         
         
-        reserveButton.isEnabled = false
         
+        reserveButton.isEnabled = true
+        /*
         var time =  [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
         time = [
             0: [],
@@ -142,7 +179,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                     }
                 }
             }
-        }
+        }*/
         
     }
     
