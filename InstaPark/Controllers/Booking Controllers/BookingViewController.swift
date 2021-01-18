@@ -14,6 +14,8 @@ protocol isAbleToReceiveData {
 }
 
 class BookingViewController: UIViewController, isAbleToReceiveData {
+    var transationDate: String! // only not nil when view came from transactions view
+    
     @IBOutlet weak var userInfoView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -21,8 +23,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var availabilityLabel: UIButton!
     @IBOutlet weak var paymentMethodLabel: UILabel!
+    @IBOutlet weak var timeFrameTitleLabel: UILabel!
     @IBOutlet weak var paymentCardLabel: UILabel!
     @IBOutlet weak var paymentStack: UIStackView!
+    @IBOutlet weak var bookmarkButton: UIButton!
     
     @IBOutlet weak var tag1: UIButton!
     @IBOutlet weak var tag2: UIButton!
@@ -40,7 +44,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: "test", tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date())
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: "test", tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date())
     var total = 0.0
     var startDate: Date? = nil
     var startTime: Date? = nil
@@ -51,7 +55,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         mapView.delegate = self
         
         
-        
+        bookmarkButton.isHidden = true
         nameLabel.text = info.name
         addressLabel.text = info.address
         commentsLabel.text = info.comments
@@ -107,46 +111,84 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
 //        mask.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
 //        self.mapView.addSubview(mask)
         
-        //time frame
-        startTime = info.startTime
-        endTime = info.endTime
-        startDate = info.date
-        let formatter1 = DateFormatter()
-        formatter1.dateFormat = "MMMM dth"
-        let day = formatter1.string(from: startDate ?? Date())
-        let formatter2 = DateFormatter()
-        formatter2.dateFormat = "h:mm a"
-        let startString = formatter2.string(from: startTime! as Date)
-        let endString = formatter2.string(from: endTime! as Date)
-        availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
-        availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
-        availabilityLabel.isEnabled = false
-        
-        //calculate total cost (for now without tax/extra fees)
-        let startHour = Calendar.current.component(.hour, from: startTime! as Date)
-        let startMin = Calendar.current.component(.minute, from: startTime! as Date)
-        let endHour = Calendar.current.component(.hour, from: endTime! as Date)
-        let endMin = Calendar.current.component(.minute, from: endTime! as Date)
-        //let totalTime:Double = Double(startEpoch - endEpoch)/3600
-        var totalTime: Double = abs(Double(endHour-startHour) + (Double(endMin - startMin)/60))
-        if(startTime == endTime){
-            totalTime = 24.0
-        }else if startHour > endHour {
-            totalTime += 12.0
+        // short term
+        if(info.startTime != nil && info.endTime != nil && info.date != nil) {
+            //time frame
+            startTime = info.startTime
+            endTime = info.endTime
+            startDate = info.date
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "MMMM dth"
+            let day = formatter1.string(from: startDate ?? Date())
+            let formatter2 = DateFormatter()
+            formatter2.dateFormat = "h:mm a"
+            let startString = formatter2.string(from: startTime! as Date)
+            let endString = formatter2.string(from: endTime! as Date)
+            availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
+            availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
+            availabilityLabel.isEnabled = false
+            
+            //calculate total cost (for now without tax/extra fees)
+            let startHour = Calendar.current.component(.hour, from: startTime! as Date)
+            let startMin = Calendar.current.component(.minute, from: startTime! as Date)
+            let endHour = Calendar.current.component(.hour, from: endTime! as Date)
+            let endMin = Calendar.current.component(.minute, from: endTime! as Date)
+            //let totalTime:Double = Double(startEpoch - endEpoch)/3600
+            var totalTime: Double = abs(Double(endHour-startHour) + (Double(endMin - startMin)/60))
+            if(startTime == endTime){
+                totalTime = 24.0
+            }else if startHour > endHour {
+                totalTime += 12.0
+            }
+            print(totalTime)
+            total = totalTime * info.price
+            self.totalPrice = total
+            totalLabel.text = "$" + String(format: "%.2f", total)
+            totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
+            reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            reserveButton.setTitleColor(.white, for: .normal)
+            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+            
+
+            reserveButton.isEnabled = true
         }
-        print(totalTime)
-        total = totalTime * info.price
-        self.totalPrice = total
-        totalLabel.text = "$" + String(format: "%.2f", total)
-        totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-        totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
-        reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-        reserveButton.setTitleColor(.white, for: .normal)
-        reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+        // long term
+        else if (info.startDate != nil && info.endDate != nil) {
+            availabilityLabel.isEnabled = false
+            reserveButton.isEnabled = true
+            
+        }
+        // transaction reciept
+        else if (transationDate != nil) {
+            availabilityLabel.setTitle(transationDate, for: .normal)
+            availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
+            availabilityLabel.isEnabled = false
+            
+            timeFrameTitleLabel.text = "LAST BOOKED"
+            bookmarkButton.isHidden = false
+            bookmarkButton.layer.shadowRadius = 2.0
+            bookmarkButton.layer.shadowOpacity = 0.3
+            bookmarkButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+            bookmarkButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+            
+            totalLabel.text = "$" + String(format: "%.2f", total)
+            totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
+            
+            reserveButton.isEnabled = false
+            reserveButton.setTitle("Book Again", for: .normal)
+            reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            reserveButton.setTitleColor(.white, for: .normal)
+            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+        }
+        // just browsing
+        else {
+            availabilityLabel.setTitle("To book, go back to select a specific time frame!", for: .normal)
+            reserveButton.isEnabled = false
+            availabilityLabel.isEnabled = false
+        }
         
-        
-        
-        reserveButton.isEnabled = true
         /*
         var time =  [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
         time = [

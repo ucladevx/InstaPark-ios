@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseAuth
+import MapKit
 class TransactionTableViewController: UITableViewController {
     @IBOutlet var transactionTable: UITableView!
     var transactions = [Transaction]() {
@@ -41,6 +42,10 @@ class TransactionTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+    @IBAction func backBtn(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -58,17 +63,52 @@ class TransactionTableViewController: UITableViewController {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "TransactionTableViewCell", for: indexPath) as? TransactionTableViewCell else {
             fatalError("Dequeued cell not an instance of TransactionTableViewCell")
         }
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "MM-dd-yyyy"
+        let dateFormatter1 = DateFormatter()
+        dateFormatter1.dateFormat = "MMMM d"
+        let dateFormatter2 = DateFormatter()
+        dateFormatter2.dateFormat = "h:mm a"
         let transaction = transactions[indexPath.row]
-        cell.dateTimeLabel.text = dateFormatter.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
+        cell.dateTimeLabel.text = dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime)))
+            + ", " +  dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime)))
+            + " to " +  dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
         cell.addressLabel.text = transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip
 //        cell.addressLabel.text = "Addressss"
         cell.providerName.text = "Bob Steve"
-        cell.priceLabel.text = "$"+String(transaction.priceRatePerHour)
-        print(cell.priceLabel.text)
+        cell.priceLabel.text = "$"+String(format: "%.2f", transaction.total)
+        //print(cell.priceLabel.text ?? "")
         return cell
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let transaction = transactions[indexPath.row]
+        ParkingSpotService.getParkingSpotById(transaction.parkingSpot) { [self] parkingSpot, error in
+            if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+                let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
+                let parkingSpace = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
+                
+                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "bookingView") as! BookingViewController
+                nextViewController.modalPresentationStyle = .fullScreen
+                nextViewController.modalTransitionStyle = .coverVertical
+                nextViewController.info = parkingSpace
+                nextViewController.total = transaction.total
+                
+                let dateFormatter1 = DateFormatter()
+                dateFormatter1.dateFormat = "MMMM d"
+                let dateFormatter2 = DateFormatter()
+                dateFormatter2.dateFormat = "h:mm a"
+                let transaction = transactions[indexPath.row]
+                nextViewController.transationDate = dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime)))
+                    + ", " +  dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime)))
+                    + " to " +  dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
+                
+                self.present(nextViewController, animated:true)
+            }
+        }
+        
+    }
+    
+    
 
     /*
     // Override to support conditional editing of the table view.
