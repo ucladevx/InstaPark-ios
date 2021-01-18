@@ -20,10 +20,17 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
     var tags: [String]
     var comments: String
     var bookedTimes: [Int: [ParkingTimeInterval]]
+    
+    // MARK: Optional Args
+    
+    // for short term parking
     var startTime: Date?
     var endTime: Date?
     var date: Date?
     
+    // for long term parking
+    var startDate: Date?
+    var endDate: Date?
     
     struct ParkingTimeInterval {
         //epoch time
@@ -31,7 +38,7 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         var end: Date
     }
     
-    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, address: String, tags: [String], comments: String, startTime: Date?, endTime: Date?, date: Date?/*, times: [Int: [ParkingTimeInterval]]*/) {
+    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, address: String, tags: [String], comments: String, startTime: Date?, endTime: Date?, date: Date?, startDate: Date?, endDate: Date?) {
         self.id = id
         self.coordinate = coordinate
         self.price = price
@@ -39,19 +46,24 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         self.address = address
         self.tags = tags
         self.comments = comments
+        
         self.startTime = startTime
         self.endTime = endTime
         self.date = date
         
+        self.startDate = startDate
+        self.endDate = endDate
+        
+        
+        //MARK: Dummy data for testing purposes 
         func setTime(hour: Int, minute: Int) -> Date {
             return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date())!
         }
-        //self.times = times
-        //dummy data
+
         self.times = [
             0: [ParkingTimeInterval(start: setTime(hour: 7, minute: 30), end: setTime(hour: 21, minute: 00))],
             1: [ParkingTimeInterval(start: setTime(hour: 8, minute: 15), end: setTime(hour: 20, minute: 30))],
-            2: [], 
+            2: [],
             3: [ParkingTimeInterval(start: setTime(hour: 7, minute: 00), end: setTime(hour: 21, minute: 24))],
             4: [ParkingTimeInterval(start: setTime(hour: 9, minute: 45), end: setTime(hour: 22, minute: 15))],
             5: [ParkingTimeInterval(start: setTime(hour: 10, minute: 00), end: setTime(hour: 23, minute: 30))],
