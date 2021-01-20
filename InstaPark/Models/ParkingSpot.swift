@@ -8,7 +8,7 @@
 import Foundation
 //Don't directly instantiate this class, use either Short Term Parking or Long Term Parking
 class ParkingSpot: Codable {
-    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], firstName: String, lastName: String, lastEndTime: Int) {
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], firstName: String, lastName: String, reservations: [String]) {
         self.id = id
         self.address = address
         self.coordinates = coordinates
@@ -18,7 +18,7 @@ class ParkingSpot: Codable {
         self.tags = tags
         self.firstName = firstName
         self.lastName = lastName
-        self.lastEndTime = lastEndTime
+        self.reservations = reservations
     }
     
     var id: String
@@ -33,8 +33,8 @@ class ParkingSpot: Codable {
     var firstName: String
     var lastName: String
     
-    //Epoch time when last order ended
-    var lastEndTime: Int
+    //List of IDs for all transactions
+    var reservations: [String]
 }
 struct Address: Codable {
     var city: String
