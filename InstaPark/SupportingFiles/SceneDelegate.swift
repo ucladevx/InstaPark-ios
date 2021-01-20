@@ -19,7 +19,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
         let storyboard =  UIStoryboard(name: "Main", bundle: nil)
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
-            if Auth.auth().currentUser != nil {
+            /*if Auth.auth().currentUser != nil*/ if false /*skips log in*/{
                 // direct to times landing page
                 let landingVC = storyboard.instantiateViewController(withIdentifier: "landingVC")
                 let navigationController = UINavigationController.init(rootViewController: landingVC)
