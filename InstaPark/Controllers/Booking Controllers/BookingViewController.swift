@@ -27,6 +27,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentCardLabel: UILabel!
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
+    var bookmarkFlag = false
     
     @IBOutlet weak var tag1: UIButton!
     @IBOutlet weak var tag2: UIButton!
@@ -223,6 +224,18 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             }
         }*/
         
+    }
+    
+    @IBAction func bookmarkButton(_ sender: Any) {
+        if bookmarkFlag {
+            bookmarkButton.backgroundColor = UIColor.init(red: 0.820, green: 0.788, blue: 0.847, alpha: 1.0)
+            bookmarkButton.tintColor = UIColor.init(red: 0.577, green: 0.531, blue: 0.643, alpha: 1.0)
+            bookmarkFlag = false
+        } else {
+            bookmarkButton.backgroundColor = UIColor.init(red: 0.565, green: 0.0, blue: 1.0, alpha: 1.0)
+            bookmarkButton.tintColor = .white
+            bookmarkFlag = true
+        }
     }
     
     @IBAction func backButton(_ sender: Any) {
