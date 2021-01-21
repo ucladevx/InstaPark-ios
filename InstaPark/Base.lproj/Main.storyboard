@@ -2282,10 +2282,10 @@
             </objects>
             <point key="canvasLocation" x="883" y="1523"/>
         </scene>
-        <!--View Controller-->
+        <!--Listing Address View Controller-->
         <scene sceneID="CSG-YE-fiO">
             <objects>
-                <viewController id="xfK-up-MuI" sceneMemberID="viewController">
+                <viewController id="xfK-up-MuI" customClass="ListingAddressViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="eAt-q7-6Sn">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -2322,6 +2322,9 @@
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="W8s-zF-cYh"/>
+                    <connections>
+                        <outlet property="mapView" destination="fgR-1y-cRO" id="eNK-Zh-faa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="v5r-0T-mB9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
