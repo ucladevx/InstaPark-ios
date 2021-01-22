@@ -41,6 +41,10 @@
 		049863312578466300C7F370 /* TransactionTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 049863302578466300C7F370 /* TransactionTableViewController.swift */; };
 		04AB7897255DCA280090B6E7 /* ShortTermParkingSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AB7896255DCA280090B6E7 /* ShortTermParkingSpot.swift */; };
 		04AB789C255DCA320090B6E7 /* LongTermParking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AB789B255DCA320090B6E7 /* LongTermParking.swift */; };
+		2B0F2C1925BA307F008430FF /* PictureUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F2C1825BA307F008430FF /* PictureUploadViewController.swift */; };
+		2B0F2C1E25BA4D9D008430FF /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F2C1D25BA4D9D008430FF /* CommentsViewController.swift */; };
+		2B633EA825B92F9A003448A4 /* SelectListingTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B633EA725B92F9A003448A4 /* SelectListingTypeViewController.swift */; };
+		2B633EB025B93745003448A4 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B633EAF25B93745003448A4 /* BebasNeue-Regular.ttf */; };
 		5EC37271123F868AC4006BD5 /* Pods_InstaPark_InstaParkUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */; };
 		6780CFAC78BE57EC1A46239B /* Pods_InstaPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */; };
 		9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */; };
@@ -66,7 +70,6 @@
 		94C8ABA0257C9F9F00D89060 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C8AB94257C9F9F00D89060 /* Roboto-Bold.ttf */; };
 		94C8ABA1257C9F9F00D89060 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C8AB95257C9F9F00D89060 /* Roboto-LightItalic.ttf */; };
 		94C8ABA2257C9F9F00D89060 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C8AB96257C9F9F00D89060 /* Roboto-Regular.ttf */; };
-		94C8ABAE257F2C5D00D89060 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C8ABAD257F2C5C00D89060 /* BebasNeue-Regular.ttf */; };
 		B077A1B195D83D092DCED7A6 /* Pods_InstaParkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */; };
 		B49FB6B825608C2400D1DB45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0410B1502548EACC001C4D27 /* GoogleService-Info.plist */; };
 		B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */; };
@@ -132,6 +135,10 @@
 		04AB7896255DCA280090B6E7 /* ShortTermParkingSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShortTermParkingSpot.swift; sourceTree = "<group>"; };
 		04AB789B255DCA320090B6E7 /* LongTermParking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LongTermParking.swift; sourceTree = "<group>"; };
 		0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark_InstaParkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B0F2C1825BA307F008430FF /* PictureUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureUploadViewController.swift; sourceTree = "<group>"; };
+		2B0F2C1D25BA4D9D008430FF /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		2B633EA725B92F9A003448A4 /* SelectListingTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListingTypeViewController.swift; sourceTree = "<group>"; };
+		2B633EAF25B93745003448A4 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		30CB94D117C221B132D1BCFA /* Pods-InstaPark-InstaParkUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.release.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.release.xcconfig"; sourceTree = "<group>"; };
 		4798B55AD2CA44F01FBFAD9A /* Pods-InstaPark.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.release.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.release.xcconfig"; sourceTree = "<group>"; };
 		62C5430310CECA7E1F1E1A83 /* Pods-InstaPark-InstaParkUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark-InstaParkUITests.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark-InstaParkUITests/Pods-InstaPark-InstaParkUITests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -158,7 +165,6 @@
 		94C8AB94257C9F9F00D89060 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		94C8AB95257C9F9F00D89060 /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
 		94C8AB96257C9F9F00D89060 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
-		94C8ABAD257F2C5C00D89060 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableTextField.swift; sourceTree = "<group>"; };
 		BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB3BEB0DBAF3EBA683DD6B0 /* Pods-InstaParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.debug.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -263,6 +269,9 @@
 				9431304C254E4E47002221F4 /* CustomCallout */,
 				048327182574794C00C92444 /* SlideOutPanelViewController.swift */,
 				049863302578466300C7F370 /* TransactionTableViewController.swift */,
+				2B633EA725B92F9A003448A4 /* SelectListingTypeViewController.swift */,
+				2B0F2C1D25BA4D9D008430FF /* CommentsViewController.swift */,
+				2B0F2C1825BA307F008430FF /* PictureUploadViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -296,7 +305,7 @@
 				0410B11B2548D8E9001C4D27 /* SceneDelegate.swift */,
 				94C8ABA6257F0DA200D89060 /* Roboto */,
 				0410B1222548D8EB001C4D27 /* Assets.xcassets */,
-				94C8ABAD257F2C5C00D89060 /* BebasNeue-Regular.ttf */,
+				2B633EAF25B93745003448A4 /* BebasNeue-Regular.ttf */,
 				0482FE96255CB297002F522E /* fonts */,
 				0410B1502548EACC001C4D27 /* GoogleService-Info.plist */,
 				0482FE9B255CB2A7002F522E /* google-icon.ico */,
@@ -520,7 +529,7 @@
 				0482FE97255CB297002F522E /* fonts in Resources */,
 				94C8AB9F257C9F9F00D89060 /* Roboto-BlackItalic.ttf in Resources */,
 				94C8AB9C257C9F9F00D89060 /* Roboto-Italic.ttf in Resources */,
-				94C8ABAE257F2C5D00D89060 /* BebasNeue-Regular.ttf in Resources */,
+				2B633EB025B93745003448A4 /* BebasNeue-Regular.ttf in Resources */,
 				94C8AB97257C9F9F00D89060 /* Roboto-Black.ttf in Resources */,
 				0482FE9D255CB2A8002F522E /* google-icon.ico in Resources */,
 				94C8AB99257C9F9F00D89060 /* Roboto-MediumItalic.ttf in Resources */,
@@ -705,7 +714,9 @@
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,
 				0482FE8D255CB26F002F522E /* TransactionService.swift in Sources */,
 				049863312578466300C7F370 /* TransactionTableViewController.swift in Sources */,
+				2B0F2C1925BA307F008430FF /* PictureUploadViewController.swift in Sources */,
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,
+				2B0F2C1E25BA4D9D008430FF /* CommentsViewController.swift in Sources */,
 				0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */,
 				943131302556391D002221F4 /* BookingViewController.swift in Sources */,
 				945167CD25AE96BC00939551 /* landingPageViewController.swift in Sources */,
@@ -716,6 +727,7 @@
 				0410B11C2548D8E9001C4D27 /* SceneDelegate.swift in Sources */,
 				94313125255627BE002221F4 /* smallOverlayView.swift in Sources */,
 				0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */,
+				2B633EA825B92F9A003448A4 /* SelectListingTypeViewController.swift in Sources */,
 				945167D725AE96E800939551 /* monthlyTimeViewController.swift in Sources */,
 				945167D225AE96CF00939551 /* hourlyTimeViewController.swift in Sources */,
 				044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */,
