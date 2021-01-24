@@ -34,7 +34,6 @@
 		0482FE9E255CB2A8002F522E /* google-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE9C255CB2A8002F522E /* google-icon.svg */; };
 		0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */; };
 		0482FEA8255CB2D6002F522E /* ReservationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */; };
-		048327192574794C00C92444 /* SlideOutPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048327182574794C00C92444 /* SlideOutPanelViewController.swift */; };
 		048D7E50254FDA49009B6AE3 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E4F254FDA49009B6AE3 /* Codable+Dictionary.swift */; };
 		048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E542550D739009B6AE3 /* ParkingSpotService.swift */; };
 		0498632C2578354F00C7F370 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */; };
@@ -126,7 +125,6 @@
 		0482FE9C255CB2A8002F522E /* google-icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "google-icon.svg"; sourceTree = "<group>"; };
 		0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupPaymentViewController.swift; sourceTree = "<group>"; };
 		0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationModalViewController.swift; sourceTree = "<group>"; };
-		048327182574794C00C92444 /* SlideOutPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutPanelViewController.swift; sourceTree = "<group>"; };
 		048D7E4F254FDA49009B6AE3 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
 		048D7E542550D739009B6AE3 /* ParkingSpotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpotService.swift; sourceTree = "<group>"; };
 		0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
@@ -265,7 +263,6 @@
 				046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */,
 				9460B9B72558A8720016697A /* Booking Controllers */,
 				9431304C254E4E47002221F4 /* CustomCallout */,
-				048327182574794C00C92444 /* SlideOutPanelViewController.swift */,
 				049863302578466300C7F370 /* TransactionTableViewController.swift */,
 				9451680D25B91A6000939551 /* ListingTimesViewController.swift */,
 				9451681225B932FE00939551 /* ListingAddressViewController.swift */,
@@ -706,7 +703,6 @@
 				B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */,
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
 				9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */,
-				048327192574794C00C92444 /* SlideOutPanelViewController.swift in Sources */,
 				9451680E25B91A6000939551 /* ListingTimesViewController.swift in Sources */,
 				0410B11A2548D8E9001C4D27 /* AppDelegate.swift in Sources */,
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,

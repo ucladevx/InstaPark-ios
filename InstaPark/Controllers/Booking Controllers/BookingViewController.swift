@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import Braintree
 import BraintreeDropIn
+
 protocol isAbleToReceiveData {
     func pass(start: Date, end: Date, date: Date, cancel: Bool)
 }
@@ -28,6 +29,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
     var bookmarkFlag = false
+    
+    @IBOutlet var listingPopup: UIView!
+
+    
     
     @IBOutlet weak var tag1: UIButton!
     @IBOutlet weak var tag2: UIButton!
@@ -162,6 +167,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         }
         // transaction reciept
         else if (transationDate != nil) {
+            //setupPopup()
             availabilityLabel.setTitle(transationDate, for: .normal)
             availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
             availabilityLabel.isEnabled = false
@@ -225,6 +231,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         }*/
         
     }
+    
     
     @IBAction func bookmarkButton(_ sender: Any) {
         if bookmarkFlag {
