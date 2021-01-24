@@ -9,6 +9,7 @@ import UIKit
 import MapKit
 import Braintree
 import BraintreeDropIn
+
 protocol isAbleToReceiveData {
     func pass(start: Date, end: Date, date: Date, cancel: Bool)
 }
@@ -16,6 +17,8 @@ protocol isAbleToReceiveData {
 class BookingViewController: UIViewController, isAbleToReceiveData {
     var transationDate: String! // only not nil when view came from transactions view
     
+    @IBOutlet weak var popupTitle: UILabel!
+    @IBOutlet var popupView: UIView!
     @IBOutlet weak var userInfoView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -27,6 +30,12 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentCardLabel: UILabel!
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
+    var bookmarkFlag = false
+ 
+    @IBOutlet var blackScreen: UIView!
+    //  @IBOutlet var listingPopup: UIView!
+
+    
     
     @IBOutlet weak var tag1: UIButton!
     @IBOutlet weak var tag2: UIButton!
@@ -161,6 +170,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         }
         // transaction reciept
         else if (transationDate != nil) {
+            // MARK: this
+            setupPopup()
             availabilityLabel.setTitle(transationDate, for: .normal)
             availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
             availabilityLabel.isEnabled = false
@@ -223,6 +234,34 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             }
         }*/
         
+    }
+    
+    func setupPopup() {
+        blackScreen.alpha = 0.35
+        blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.view.addSubview(blackScreen)
+        popupTitle.font =  UIFont(name: "BebasNeue", size: 30)
+        popupView.frame = CGRect(x: self.view.frame.midX , y: self.view.frame.midY , width: 325, height: 300)
+        self.view.addSubview(popupView)
+        popupView.center = self.view.center
+        popupView.isHidden = false
+    }
+    
+    @IBAction func dismissPopup(_ sender: Any) {
+        popupView.removeFromSuperview()
+        blackScreen.removeFromSuperview()
+    }
+    
+    @IBAction func bookmarkButton(_ sender: Any) {
+        if bookmarkFlag {
+            bookmarkButton.backgroundColor = UIColor.init(red: 0.820, green: 0.788, blue: 0.847, alpha: 1.0)
+            bookmarkButton.tintColor = UIColor.init(red: 0.577, green: 0.531, blue: 0.643, alpha: 1.0)
+            bookmarkFlag = false
+        } else {
+            bookmarkButton.backgroundColor = UIColor.init(red: 0.565, green: 0.0, blue: 1.0, alpha: 1.0)
+            bookmarkButton.tintColor = .white
+            bookmarkFlag = true
+        }
     }
     
     @IBAction func backButton(_ sender: Any) {

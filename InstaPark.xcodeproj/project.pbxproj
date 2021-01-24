@@ -34,7 +34,6 @@
 		0482FE9E255CB2A8002F522E /* google-icon.svg in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE9C255CB2A8002F522E /* google-icon.svg */; };
 		0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */; };
 		0482FEA8255CB2D6002F522E /* ReservationModalViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */; };
-		048327192574794C00C92444 /* SlideOutPanelViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048327182574794C00C92444 /* SlideOutPanelViewController.swift */; };
 		048D7E50254FDA49009B6AE3 /* Codable+Dictionary.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E4F254FDA49009B6AE3 /* Codable+Dictionary.swift */; };
 		048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 048D7E542550D739009B6AE3 /* ParkingSpotService.swift */; };
 		0498632C2578354F00C7F370 /* TransactionTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */; };
@@ -51,6 +50,8 @@
 		945167CD25AE96BC00939551 /* landingPageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945167CC25AE96BC00939551 /* landingPageViewController.swift */; };
 		945167D225AE96CF00939551 /* hourlyTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945167D125AE96CF00939551 /* hourlyTimeViewController.swift */; };
 		945167D725AE96E800939551 /* monthlyTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945167D625AE96E800939551 /* monthlyTimeViewController.swift */; };
+		9451680E25B91A6000939551 /* ListingTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9451680D25B91A6000939551 /* ListingTimesViewController.swift */; };
+		9451681325B932FE00939551 /* ListingAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9451681225B932FE00939551 /* ListingAddressViewController.swift */; };
 		94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */; };
 		94C8AB5D257C972A00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
 		94C8AB61257C972B00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
@@ -124,7 +125,6 @@
 		0482FE9C255CB2A8002F522E /* google-icon.svg */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = "google-icon.svg"; sourceTree = "<group>"; };
 		0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SignupPaymentViewController.swift; sourceTree = "<group>"; };
 		0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReservationModalViewController.swift; sourceTree = "<group>"; };
-		048327182574794C00C92444 /* SlideOutPanelViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutPanelViewController.swift; sourceTree = "<group>"; };
 		048D7E4F254FDA49009B6AE3 /* Codable+Dictionary.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Codable+Dictionary.swift"; sourceTree = "<group>"; };
 		048D7E542550D739009B6AE3 /* ParkingSpotService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpotService.swift; sourceTree = "<group>"; };
 		0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionTableViewCell.swift; sourceTree = "<group>"; };
@@ -145,6 +145,8 @@
 		945167CC25AE96BC00939551 /* landingPageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = landingPageViewController.swift; sourceTree = "<group>"; };
 		945167D125AE96CF00939551 /* hourlyTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = hourlyTimeViewController.swift; sourceTree = "<group>"; };
 		945167D625AE96E800939551 /* monthlyTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monthlyTimeViewController.swift; sourceTree = "<group>"; };
+		9451680D25B91A6000939551 /* ListingTimesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTimesViewController.swift; sourceTree = "<group>"; };
+		9451681225B932FE00939551 /* ListingAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingAddressViewController.swift; sourceTree = "<group>"; };
 		94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityViewController.swift; sourceTree = "<group>"; };
 		94C8AB8B257C9F9E00D89060 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		94C8AB8C257C9F9E00D89060 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -261,8 +263,9 @@
 				046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */,
 				9460B9B72558A8720016697A /* Booking Controllers */,
 				9431304C254E4E47002221F4 /* CustomCallout */,
-				048327182574794C00C92444 /* SlideOutPanelViewController.swift */,
 				049863302578466300C7F370 /* TransactionTableViewController.swift */,
+				9451680D25B91A6000939551 /* ListingTimesViewController.swift */,
+				9451681225B932FE00939551 /* ListingAddressViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -700,7 +703,7 @@
 				B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */,
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
 				9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */,
-				048327192574794C00C92444 /* SlideOutPanelViewController.swift in Sources */,
+				9451680E25B91A6000939551 /* ListingTimesViewController.swift in Sources */,
 				0410B11A2548D8E9001C4D27 /* AppDelegate.swift in Sources */,
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,
 				0482FE8D255CB26F002F522E /* TransactionService.swift in Sources */,
@@ -724,6 +727,7 @@
 				0482FE92255CB276002F522E /* UserService.swift in Sources */,
 				94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */,
 				04AB789C255DCA320090B6E7 /* LongTermParking.swift in Sources */,
+				9451681325B932FE00939551 /* ListingAddressViewController.swift in Sources */,
 				0482FE85255CB157002F522E /* ParkingCalloutView.swift in Sources */,
 				045FF1BE2573854A00DC7327 /* UIButtonExtension.swift in Sources */,
 				0482FE80255CB13A002F522E /* User.swift in Sources */,
@@ -906,7 +910,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9Z5ZS6QY3G;
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -927,7 +931,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9Z5ZS6QY3G;
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
