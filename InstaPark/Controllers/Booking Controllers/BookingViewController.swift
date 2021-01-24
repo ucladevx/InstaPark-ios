@@ -17,6 +17,8 @@ protocol isAbleToReceiveData {
 class BookingViewController: UIViewController, isAbleToReceiveData {
     var transationDate: String! // only not nil when view came from transactions view
     
+    @IBOutlet weak var popupTitle: UILabel!
+    @IBOutlet var popupView: UIView!
     @IBOutlet weak var userInfoView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
@@ -29,8 +31,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
     var bookmarkFlag = false
-    
-    @IBOutlet var listingPopup: UIView!
+ 
+    @IBOutlet var blackScreen: UIView!
+    //  @IBOutlet var listingPopup: UIView!
 
     
     
@@ -167,7 +170,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         }
         // transaction reciept
         else if (transationDate != nil) {
-            //setupPopup()
+            // MARK: this
+            setupPopup()
             availabilityLabel.setTitle(transationDate, for: .normal)
             availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
             availabilityLabel.isEnabled = false
@@ -232,6 +236,21 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
     }
     
+    func setupPopup() {
+        blackScreen.alpha = 0.35
+        blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.view.addSubview(blackScreen)
+        popupTitle.font =  UIFont(name: "BebasNeue", size: 30)
+        popupView.frame = CGRect(x: self.view.frame.midX , y: self.view.frame.midY , width: 325, height: 300)
+        self.view.addSubview(popupView)
+        popupView.center = self.view.center
+        popupView.isHidden = false
+    }
+    
+    @IBAction func dismissPopup(_ sender: Any) {
+        popupView.removeFromSuperview()
+        blackScreen.removeFromSuperview()
+    }
     
     @IBAction func bookmarkButton(_ sender: Any) {
         if bookmarkFlag {

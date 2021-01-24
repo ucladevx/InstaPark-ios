@@ -9,7 +9,9 @@ import UIKit
 import FSCalendar
 
 class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
-
+    @IBOutlet var infoPopup: UIView!
+    @IBOutlet var blackScreen: UIView!
+    
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var weekdaysBtn: UIButton!
     @IBOutlet weak var weekendsBtn: UIButton!
@@ -94,6 +96,18 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             endTime = timeFormatter1.date(from: timeRange[endScroller.selectedRow(inComponent: 0)])!
         }
         selectedDate = calendar.selectedDate!
+    }
+    
+    @IBAction func infoBtn(_ sender: Any) {
+        blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.view.addSubview(blackScreen)
+        self.view.addSubview(infoPopup)
+        infoPopup.center = self.view.center
+    }
+    
+    @IBAction func removeInfoPopup(_ sender: Any) {
+        blackScreen.removeFromSuperview()
+        infoPopup.removeFromSuperview()
     }
     
     @IBAction func weekdaysBtn(_ sender: Any) {

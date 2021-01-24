@@ -877,6 +877,7 @@
                     <connections>
                         <outlet property="addressLabel" destination="Il7-fp-ZaZ" id="rAQ-Xn-ICi"/>
                         <outlet property="availabilityLabel" destination="fxY-MY-tmK" id="hF0-Nq-G3R"/>
+                        <outlet property="blackScreen" destination="NRB-jN-7oN" id="fmr-3S-05B"/>
                         <outlet property="bookmarkButton" destination="d4b-uc-yCj" id="CGk-45-bON"/>
                         <outlet property="commentsLabel" destination="wSZ-8B-Ubh" id="5vM-HX-G8d"/>
                         <outlet property="mapView" destination="ixj-76-AXt" id="Pv5-Lb-QpF"/>
@@ -884,6 +885,8 @@
                         <outlet property="paymentCardLabel" destination="vze-ok-bis" id="FnG-wn-2qe"/>
                         <outlet property="paymentMethodLabel" destination="PCa-fD-Tev" id="5sb-HS-LxZ"/>
                         <outlet property="paymentStack" destination="ZZ9-Mq-paA" id="AD3-zM-i8Q"/>
+                        <outlet property="popupTitle" destination="uSz-90-nhh" id="FH4-tP-Uaw"/>
+                        <outlet property="popupView" destination="wou-Ps-Yfc" id="WP5-9w-QQO"/>
                         <outlet property="priceLabel" destination="LOW-kU-rNx" id="DA0-C5-ztk"/>
                         <outlet property="reserveButton" destination="UDb-V5-5Po" id="rZs-oL-4jM"/>
                         <outlet property="tag1" destination="FMD-I6-vU9" id="3wD-Uk-dZU"/>
@@ -897,6 +900,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIH-D0-LWr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="YNe-Xw-a2I"/>
+                <view alpha="0.20000000000000001" contentMode="scaleToFill" id="NRB-jN-7oN">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <viewLayoutGuide key="safeArea" id="QtL-Kf-J2X"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
                 <view contentMode="scaleToFill" id="wou-Ps-Yfc">
                     <rect key="frame" x="0.0" y="0.0" width="325" height="300"/>
                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -927,7 +936,7 @@
                                 </label>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Ja-dR-jB7">
                                     <rect key="frame" x="72.5" y="161" width="117" height="33"/>
-                                    <color key="backgroundColor" red="0.56078431370000004" green="0.0" blue="0.94117647059999998" alpha="1" colorSpace="calibratedRGB"/>
+                                    <color key="backgroundColor" red="0.38" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                     <constraints>
                                         <constraint firstAttribute="height" constant="33" id="JSV-TQ-aRD"/>
                                         <constraint firstAttribute="width" constant="117" id="jZx-op-Id4"/>
@@ -938,9 +947,12 @@
                                     </state>
                                     <userDefinedRuntimeAttributes>
                                         <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                            <integer key="value" value="12"/>
+                                            <integer key="value" value="17"/>
                                         </userDefinedRuntimeAttribute>
                                     </userDefinedRuntimeAttributes>
+                                    <connections>
+                                        <action selector="dismissPopup:" destination="IQf-1d-RDz" eventType="touchUpInside" id="8lF-K2-e1j"/>
+                                    </connections>
                                 </button>
                             </subviews>
                             <constraints>
@@ -2557,6 +2569,9 @@
                                                                 <rect key="frame" x="98" y="0.0" width="20" height="26"/>
                                                                 <color key="tintColor" systemColor="systemGrayColor"/>
                                                                 <state key="normal" image="info.circle" catalog="system"/>
+                                                                <connections>
+                                                                    <action selector="infoBtn:" destination="mT9-jA-zZe" eventType="touchUpInside" id="iqB-3H-cmz"/>
+                                                                </connections>
                                                             </button>
                                                         </subviews>
                                                         <constraints>
@@ -2669,9 +2684,11 @@
                     <size key="freeformSize" width="414" height="900"/>
                     <connections>
                         <outlet property="arrow" destination="Qqq-8v-hoy" id="Dwh-Q3-Jdr"/>
+                        <outlet property="blackScreen" destination="NyK-SZ-DNG" id="PtO-eX-Mgw"/>
                         <outlet property="calendarView" destination="9op-XJ-r5w" id="PcI-3Q-lEZ"/>
                         <outlet property="endScroller" destination="2el-PN-PAt" id="wvc-Kb-fuQ"/>
                         <outlet property="headerLabel" destination="c4Z-or-UzW" id="dyk-ee-J07"/>
+                        <outlet property="infoPopup" destination="kVw-cv-Dnd" id="4Kc-bD-Ukb"/>
                         <outlet property="startEndLabels" destination="mW3-45-pr7" id="yuq-ls-sUS"/>
                         <outlet property="startScroller" destination="5XN-8l-Byh" id="R6M-rA-PBD"/>
                         <outlet property="weekdaysBtn" destination="poO-mC-Dqf" id="YiG-jF-1xY"/>
@@ -2679,6 +2696,76 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Dy-oa-u3C" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="kVw-cv-Dnd">
+                    <rect key="frame" x="0.0" y="0.0" width="325" height="125"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Iq2-Hl-YRD">
+                            <rect key="frame" x="12" y="11" width="18" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="18" id="bEg-LL-1Kc"/>
+                                <constraint firstAttribute="height" constant="22" id="zyx-4W-XaY"/>
+                            </constraints>
+                            <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <state key="normal" image="xmark" catalog="system"/>
+                            <connections>
+                                <action selector="removeInfoPopup:" destination="mT9-jA-zZe" eventType="touchUpInside" id="ocg-SL-X97"/>
+                            </connections>
+                        </button>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Information" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mLQ-Ch-ufx">
+                            <rect key="frame" x="115" y="16" width="95" height="22"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="95" id="7kg-xI-eR3"/>
+                                <constraint firstAttribute="height" constant="22" id="J1j-y1-PcL"/>
+                            </constraints>
+                            <fontDescription key="fontDescription" name="Roboto-Medium" family="Roboto" pointSize="18"/>
+                            <color key="textColor" red="0.51100000000000001" green="0.094148986039999993" blue="0.96084004639999998" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="info.circle" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Wtv-jO-RMX">
+                            <rect key="frame" x="218" y="18.5" width="22" height="18"/>
+                            <color key="tintColor" systemColor="systemGray2Color"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="22" id="2GH-oL-hSa"/>
+                                <constraint firstAttribute="height" constant="19" id="gNf-R6-0B3"/>
+                            </constraints>
+                        </imageView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RmM-0h-IC0">
+                            <rect key="frame" x="38" y="47" width="249" height="58"/>
+                            <constraints>
+                                <constraint firstAttribute="width" constant="249" id="b8k-6S-gbM"/>
+                                <constraint firstAttribute="height" constant="58" id="wcV-3K-mcE"/>
+                            </constraints>
+                            <string key="text">24/7 access means your spot is available at all hours of the day. This usually means you have an accessible spot that buyers can enter without your help.</string>
+                            <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="12"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="jbL-lK-moN"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                    <constraints>
+                        <constraint firstItem="RmM-0h-IC0" firstAttribute="centerX" secondItem="kVw-cv-Dnd" secondAttribute="centerX" id="2wc-RX-AcI"/>
+                        <constraint firstItem="mLQ-Ch-ufx" firstAttribute="top" secondItem="kVw-cv-Dnd" secondAttribute="top" constant="16" id="9kr-mY-AIA"/>
+                        <constraint firstItem="Iq2-Hl-YRD" firstAttribute="top" secondItem="kVw-cv-Dnd" secondAttribute="top" constant="11" id="I6B-wT-oEM"/>
+                        <constraint firstItem="Wtv-jO-RMX" firstAttribute="top" secondItem="kVw-cv-Dnd" secondAttribute="top" constant="18" id="MTu-3K-UT0"/>
+                        <constraint firstItem="Iq2-Hl-YRD" firstAttribute="leading" secondItem="kVw-cv-Dnd" secondAttribute="leading" constant="12" id="gHV-3F-dKn"/>
+                        <constraint firstItem="jbL-lK-moN" firstAttribute="bottom" secondItem="RmM-0h-IC0" secondAttribute="bottom" constant="20" id="lsv-ee-NHA"/>
+                        <constraint firstItem="mLQ-Ch-ufx" firstAttribute="centerX" secondItem="kVw-cv-Dnd" secondAttribute="centerX" id="pGY-IX-W1X"/>
+                        <constraint firstItem="Wtv-jO-RMX" firstAttribute="leading" secondItem="mLQ-Ch-ufx" secondAttribute="trailing" constant="8" id="q0U-6t-b4t"/>
+                    </constraints>
+                    <userDefinedRuntimeAttributes>
+                        <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                            <integer key="value" value="19"/>
+                        </userDefinedRuntimeAttribute>
+                    </userDefinedRuntimeAttributes>
+                </view>
+                <view alpha="0.34999999999999998" contentMode="scaleToFill" id="NyK-SZ-DNG">
+                    <rect key="frame" x="0.0" y="0.0" width="240" height="128"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <viewLayoutGuide key="safeArea" id="8zc-Xv-4MP"/>
+                    <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                </view>
             </objects>
             <point key="canvasLocation" x="2450.7246376811595" y="1522.7678571428571"/>
         </scene>
@@ -2868,6 +2955,7 @@
         <image name="reservation-pic" width="1144" height="782"/>
         <image name="square" catalog="system" width="128" height="114"/>
         <image name="watch" width="512" height="833"/>
+        <image name="xmark" catalog="system" width="128" height="113"/>
         <systemColor name="labelColor">
             <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
