@@ -36,6 +36,8 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
         comments.delegate = self
         comments.text = "Start typing here..."
         comments.textColor = UIColor.lightGray
+        comments.textContainerInset.left = 10
+        comments.textContainerInset.right = 10
     }
     
 
