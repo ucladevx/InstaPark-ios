@@ -243,7 +243,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                         ParkingSpotService.getParkingSpotById(self.info.id) { [self] (parkingSpot, error) in
                             if let spot = parkingSpot {
                                 print(spot)
-                                if spot.isAvailable {
+                                //REPLACE WITH IF PARKING SPOT IS AVAILABLE
+                                if true {
                                     print("Saving spot")
                                     let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
                                     //need to switch from info.bookTimes to ShortTermParkingSpot later

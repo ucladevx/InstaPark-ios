@@ -82,7 +82,8 @@ class TransactionTableViewController: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let transaction = transactions[indexPath.row]
         ParkingSpotService.getParkingSpotById(transaction.parkingSpot) { [self] parkingSpot, error in
-            if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+            if let parkingSpot = parkingSpot{
+                //IF PARKING SPOT IS AVAILABLE
                 let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
                 let parkingSpace = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
                 

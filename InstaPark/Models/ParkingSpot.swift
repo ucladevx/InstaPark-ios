@@ -46,9 +46,3 @@ struct Coordinate: Codable {
     var lat: Double
     var long: Double
 }
-
-extension ParkingSpot {
-    var isAvailable: Bool {
-        return lastEndTime < Int(NSDate.now.timeIntervalSince1970)
-    }
-}

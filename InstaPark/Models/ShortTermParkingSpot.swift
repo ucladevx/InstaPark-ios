@@ -45,6 +45,13 @@ class ShortTermParkingSpot: ParkingSpot {
     func addTimeSlot(forDay: Int, start: Int, end: Int) {
         self.times[forDay]!.append(ParkingTimeInterval(start: start, end: end))
     }
+    func validateTimeSlot(start: Int, end: Int, completion: @escaping(Bool)->Void) {
+        if validateTimeSlot(start: start, end: end) {
+            validateTimeSlotWithReserved(start: start, end: end) { success in
+                completion(success)
+            }
+        }
+    }
     //checks if time slot is available for reservation, including if they span across night (takes into account provider time-ranges. All times are in epoch
     func validateTimeSlotWithProvider(start: Int, end: Int) -> Bool {
         //first, make sure valid with provider time intervals
@@ -66,12 +73,48 @@ class ShortTermParkingSpot: ParkingSpot {
                 }
             }
         } else {
-            
+            for interval in times[startWeekday]! {
+                let startInterval = Date.init(timeIntervalSince1970: Double(interval.start))
+                let endInterval = Date.init(timeIntervalSince1970: Double(interval.end))
+                if(compareHourMinutes(startParking, startInterval) >= 0 && isEndOfDay(endInterval)) {
+                    for i in 1...7 {
+                        let k = (startWeekday + i)%7
+                        if (k == endWeekday){
+                            let finalEndInterval = Date.init(timeIntervalSince1970: Double(times[k]![0].end))
+                            if(compareHourMinutes(endParking, finalEndInterval)<=0) {
+                                return true
+                            }
+                        } else {
+                            if Calendar.current.component(.hour, from: Date(timeIntervalSince1970: Double(times[k]![0].start))) == 0 && isEndOfDay(Date(timeIntervalSince1970: Double(times[k]![0].end))){
+                            } else {
+                                break
+                            }
+                        }
+                    }
+                }
+            }
         }
+        return false
     }
     //checks if time slot is available for reservation taking into account current reservations for the spot. MUST DO validateTimeSlotWithProvider first
     func validateTimeSlotWithReserved(start: Int, end: Int, completion: @escaping (Bool) -> Void) {
-        
+        TransactionService.getTransactionsByIds(reservations) { transactions, error  in
+            if let transactions = transactions {
+                for transaction in transactions {
+                    if(transaction.startTime > start && transaction.startTime < end) {
+                        //invalid
+                        completion(false);
+                        return;
+                    }
+                    if(transaction.endTime > start && transaction.endTime < end) {
+                        completion(false);
+                        return;
+                    }
+                }
+                completion(true);
+                return;
+            }
+        }
     }
     //checks if these two time slots are available for reservation, including if they span across night
     func validateTimeSlot(start: Int, end: Int) -> Bool {

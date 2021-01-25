@@ -136,7 +136,9 @@ class MapViewViewController: ViewController{
             ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
-                        if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+                        if let parkingSpot = parkingSpot{
+                            //IF PARKING SPOT IS AVAILABLE
+                            
                             print("Query by location")
                             let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
                             let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
@@ -301,7 +303,8 @@ class MapViewViewController: ViewController{
                     print("Key: " + key + "entered the search radius.")
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
-                        if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+                        if let parkingSpot = parkingSpot{
+                            //IF PARKING SPOT IS AVAILABLEx
                             print("Query by location")
                             let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
                             let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
