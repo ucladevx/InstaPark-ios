@@ -72,6 +72,7 @@
 		94C8ABA0257C9F9F00D89060 /* Roboto-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C8AB94257C9F9F00D89060 /* Roboto-Bold.ttf */; };
 		94C8ABA1257C9F9F00D89060 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C8AB95257C9F9F00D89060 /* Roboto-LightItalic.ttf */; };
 		94C8ABA2257C9F9F00D89060 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C8AB96257C9F9F00D89060 /* Roboto-Regular.ttf */; };
+		94DFA7AC25C1204800A371E8 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DFA7AB25C1204800A371E8 /* ImageService.swift */; };
 		B077A1B195D83D092DCED7A6 /* Pods_InstaParkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */; };
 		B49FB6B825608C2400D1DB45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0410B1502548EACC001C4D27 /* GoogleService-Info.plist */; };
 		B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */; };
@@ -169,6 +170,7 @@
 		94C8AB94257C9F9F00D89060 /* Roboto-Bold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Bold.ttf"; sourceTree = "<group>"; };
 		94C8AB95257C9F9F00D89060 /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
 		94C8AB96257C9F9F00D89060 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
+		94DFA7AB25C1204800A371E8 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
 		B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableTextField.swift; sourceTree = "<group>"; };
 		BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB3BEB0DBAF3EBA683DD6B0 /* Pods-InstaParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.debug.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -331,6 +333,7 @@
 				0482FE91255CB276002F522E /* UserService.swift */,
 				0482FE8C255CB26F002F522E /* TransactionService.swift */,
 				048D7E542550D739009B6AE3 /* ParkingSpotService.swift */,
+				94DFA7AB25C1204800A371E8 /* ImageService.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -749,6 +752,7 @@
 				0482FE80255CB13A002F522E /* User.swift in Sources */,
 				0449E5A125AD6F3D00F0EED9 /* PaymentService.swift in Sources */,
 				0482FEA8255CB2D6002F522E /* ReservationModalViewController.swift in Sources */,
+				94DFA7AC25C1204800A371E8 /* ImageService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

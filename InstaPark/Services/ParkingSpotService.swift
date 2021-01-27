@@ -155,6 +155,7 @@ class ParkingSpotService {
             docRef.setData(transaction.dictionary)
         }
     }
+    
 }
 enum ParkingType {
     case short
