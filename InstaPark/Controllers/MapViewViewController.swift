@@ -73,6 +73,8 @@ class MapViewViewController: ViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("MapKit did load")
+        print(shortTermStartTime!)
+        print(shortTermEndTime!)
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -137,19 +139,29 @@ class MapViewViewController: ViewController{
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
                         if let parkingSpot = parkingSpot{
-                            //IF PARKING SPOT IS AVAILABLE
-                            
-                            print("Query by location")
-                            let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
-                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
-                            // short-term parking
-                            if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
-                                annotation.startTime = self.shortTermStartTime
-                                annotation.endTime = self.shortTermEndTime
-                                annotation.date = self.shortTermDate
+                            parkingSpot.validateTimeSlot(startTime: Int(shortTermStartTime.timeIntervalSince1970), endTime: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+                                if (success) {
+                                    if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+                                        parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+                                            if(success){
+                                                //IF PARKING SPOT IS AVAILABLE
+                                                print("Parking Spot is available")
+                                                print("Query by location")
+                                                let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
+                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
+                                                // short-term parking
+                                                if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+                                                    annotation.startTime = self.shortTermStartTime
+                                                    annotation.endTime = self.shortTermEndTime
+                                                    annotation.date = self.shortTermDate
+                                                }
+                                                self.annotations.append(annotation)
+                                                mapView.addAnnotation(annotation)
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                            self.annotations.append(annotation)
-                            mapView.addAnnotation(annotation)
                         }
                     }
                 }

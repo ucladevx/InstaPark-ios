@@ -57,7 +57,10 @@ class TransactionService {
             let transaction = Transaction(id: docRef.documentID, customer: customer, startTime: startTime, endTime: endTime, address: address, fromParkingSpot: spot)
             docRef.setData(transaction.dictionary)
             db.collection("User").document(user.uid).updateData(["transactions": FieldValue.arrayUnion([transaction.id])])
-            db.collection(ParkingSpotService.parkingDBName).document(spot.id).updateData(["reservations": FieldValue.arrayUnion([docRef.documentID])])
+            print("Transaction information: ")
+            print("Parking Spot ID " + spot.id)
+            print("Transaction ID " + transaction.id)
+            db.collection(ParkingSpotService.parkingDBName).document(spot.id).updateData(["super.reservations": FieldValue.arrayUnion([docRef.documentID])])
         }
         
     }

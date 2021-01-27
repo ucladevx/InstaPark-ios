@@ -35,6 +35,9 @@ class ParkingSpot: Codable {
     
     //List of IDs for all transactions
     var reservations: [String]
+    func validateTimeSlot(startTime: Int, endTime: Int, completion: @escaping(Bool)->Void) {
+        completion(true);
+    }
 }
 struct Address: Codable {
     var city: String

@@ -253,14 +253,14 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                                         print("long")
                                     case .short:
                                         if let parkingSpot = spot as? ShortTermParkingSpot{
-                                            
-                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
+                                            TransactionService.saveTransaction(customer: "", provider:self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
+//                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
                                            // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
                                         }
                                     }
-                                    self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
-                                    
-                                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
+//                                    self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
+//
+//                                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
                                     
                                 }
                             }
