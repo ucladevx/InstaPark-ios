@@ -31,9 +31,14 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     var startTime = Date() //daily start time
     var endTime = Date.init(timeIntervalSinceNow: 60*60) //daily end time
     var selectedDate = Date() //selected date
+    var parkingType: ParkingType = .short
+    var ShortTermParking: ShortTermParkingSpot!
+    //var LongTermParking : LongTermParkingSpot!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        print(ShortTermParking.address)
+        print(ShortTermParking.coordinates)
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 340, height: 240))
         calendar.dataSource = self
         calendar.delegate = self
@@ -165,15 +170,60 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         return formatter1
     }()
     
-    /*
+    func setTime(hour: Int, minute: Int) -> Date {
+        return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date())!
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if weekdaysOnly && weekendsOnly {
+            let alert = UIAlertController(title: "Error", message: "Please select at least one valid date.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        var times = [0: [ParkingTimeInterval](), 1: [ParkingTimeInterval](), 2: [ParkingTimeInterval](), 3:[ParkingTimeInterval](), 4:[ParkingTimeInterval](), 5:[ParkingTimeInterval](), 6:[ParkingTimeInterval]()]
+        if parkingType == .short {
+            if twentyFourHourAccess {
+                startTime = setTime(hour: 0, minute: 00)
+                endTime = setTime(hour: 23, minute: 45)
+            }
+            if weekendsOnly {
+                times[5] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+                times[6] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+            }
+            else if weekdaysOnly {
+                for i in 0...4 {
+                    times[i] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+                }
+            }
+            else {
+                for i in 0...6 {
+                    times[i] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+                }
+            }
+            ShortTermParking.times = times
+            //need to fix this when I figure out how to select a range of dates on the calendar
+            ShortTermParking.lastEndTime = Int(selectedDate.timeIntervalSince1970)
+            print(ShortTermParking.times)
+            print(ShortTermParking.lastEndTime)
+        }
+        else { //LONGTERM parking
+            
+        }
+        /*
+        if let vc = segue.destination as? NAMEOFNEXTCONTROLLERHERE {
+            vc.parkingType = parkingType
+            if(parkingType == .short) {
+                vc.ShortTermParking = ShortTermParking
+            } else {
+                // pass in long term parking when ready
+            }
+        }*/
     }
-    */
+    
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         //selectedDate = date

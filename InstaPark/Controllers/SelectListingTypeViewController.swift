@@ -8,13 +8,17 @@
 import UIKit
 
 class SelectListingTypeViewController: UIViewController {
-
-    
+    var parkingType: ParkingType = .long
+    let ShortTermParking = ShortTermParkingSpot.init(id: "", address: Address(city: "", state: "", street: "", zip: ""), coordinates: Coordinate(lat: 0.0, long: 0.0), pricePerHour: 0.0, provider: "", comments: "", tags: [String](), firstName: "", lastName: "", lastEndTime: 0, fromFullDays: [Int](), images: [String]())
+   
     @IBAction func monthlyAction(_ sender: Any) {
+        //do the same as short term parking here but with long term parking if clicked
+        parkingType = .long
         performSegue(withIdentifier: "toPage2", sender: nil)
     }
     @IBAction func hourlyAction(_ sender: Any) {
         isHourly = true
+        parkingType = .short
         performSegue(withIdentifier: "toPage2", sender: nil)
     }
     @IBAction func CloseButton(_ sender: Any) {
@@ -75,6 +79,15 @@ class SelectListingTypeViewController: UIViewController {
         monthlyParking.attributedText = m_attributed_b
     }
     
-
-
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ListingAddressViewController {
+            vc.parkingType = parkingType
+            if(parkingType == .short) {
+                vc.ShortTermParking = ShortTermParking
+            } else {
+                // pass in long term parking when ready 
+            }
+        }
+    }
+    
 }

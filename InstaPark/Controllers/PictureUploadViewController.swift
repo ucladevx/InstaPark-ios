@@ -8,6 +8,10 @@
 import UIKit
 
 class PictureUploadViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+    var parkingType: ParkingType = .short
+    var ShortTermParking: ShortTermParkingSpot!
+    //var LongTermParking : LongTermParkingSpot!
+    
     @IBAction func uploadAction(_ sender: Any) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
             let imag = UIImagePickerController()
@@ -46,5 +50,30 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
                 }
             }
         }
+    }
+    
+    // MARK: - Navigation
+
+    // In a storyboard-based application, you will often want to do a little preparation before navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        /*
+        //UNCOMMENT this when all the listing controllers are connected
+        if imageIDs.count != 0 {
+            if parkingType == .short {
+                ShortTermParking.images = imageIDs
+                print(ShortTermParking.images)
+            } else { //longterm parking when finished
+                
+            }
+            
+        }
+        if let vc = segue.destination as? CommentsViewController {
+            vc.parkingType = parkingType
+            if(parkingType == .short) {
+                vc.ShortTermParking = ShortTermParking
+            } else {
+                // pass in long term parking when ready
+            }
+        }*/
     }
 }

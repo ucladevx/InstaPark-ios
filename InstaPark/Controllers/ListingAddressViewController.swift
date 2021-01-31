@@ -9,8 +9,6 @@ import UIKit
 import MapKit
 import CoreLocation
 
-
-
 class ListingAddressViewController: UIViewController {
     let locationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
@@ -25,6 +23,9 @@ class ListingAddressViewController: UIViewController {
     //variables to save
     var coordinates: CLLocationCoordinate2D! // stores user's coordinates
     var address: String! // stores address entered in the search bar
+    var parkingType: ParkingType = .short
+    var ShortTermParking: ShortTermParkingSpot!
+    //var LongTermParking : LongTermParkingSpot!
    
     enum CardState {
         case collapsed
@@ -41,6 +42,11 @@ class ListingAddressViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        if(parkingType == .short){
+            print("shortterm parking")
+        } else {
+            print("longterm parking")
+        }
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -181,21 +187,64 @@ class ListingAddressViewController: UIViewController {
                         if pm.postalCode != nil {
                             addressString = addressString + pm.postalCode! + " "
                         }
-                        self.address = addressString
+                        //self.address = addressString
+                        //self.searchBar.text = addressString
                   }
             })
         }
     
 
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if coordinates == nil {
+            let alert = UIAlertController(title: "Error", message: "Please choose a valid location on the map. You can drag the annotation or use the search bar.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        if address == nil || address.count == 0 {
+            let alert = UIAlertController(title: "Error", message: "Please enter a valid address in the search bar to continue.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+        if parkingType == .short  {
+            ShortTermParking.coordinates = Coordinate(lat: coordinates.latitude, long: coordinates.longitude)
+            let addressArray = address.components(separatedBy: ", ")
+            var stateAndZip = [String]()
+            //if there is an extra street addresss line
+            if addressArray.count == 5 {
+                stateAndZip = addressArray[3].components(separatedBy: " ")
+                ShortTermParking.address = Address(city: addressArray[2], state: stateAndZip[0], street: addressArray[0] + ", " +  addressArray[1], zip: stateAndZip[1])
+                print(ShortTermParking.address)
+            }
+            else if addressArray.count == 4 {
+                stateAndZip = addressArray[2].components(separatedBy: "  ")
+                ShortTermParking.address = Address(city: addressArray[1], state: stateAndZip[0], street: addressArray[0], zip: stateAndZip[1])
+                print(ShortTermParking.address)
+            }
+            else {
+                let alert = UIAlertController(title: "Error", message: "The address you entered is invalid. Please enter a valid address in form 'Street Address, City, State, Zip' to continue.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                self.present(alert, animated: true, completion: nil)
+                return
+            }
+        } else { // LONGTERM -- do same thing as shortterm
+            
+        }
+        
+       
+        if let vc = segue.destination as? ListingTimesViewController {
+            vc.parkingType = parkingType
+            if(parkingType == .short) {
+                vc.ShortTermParking = ShortTermParking
+            } else {
+                // pass in long term parking when ready
+            }
+        }
     }
-    */
 
 }
 
@@ -244,6 +293,8 @@ extension ListingAddressViewController: CLLocationManagerDelegate {
             annotation.coordinate = location.coordinate
             currentSearchAnnotation = annotation
             self.getAddressFromLatLon(pdblLatitude: annotation.coordinate.latitude, withLongitude: annotation.coordinate.longitude)
+            coordinates = location.coordinate
+            
             mapView.addAnnotation(currentSearchAnnotation!)
         }
     }
@@ -317,9 +368,10 @@ extension ListingAddressViewController: UITableViewDataSource, UITableViewDelega
 //        if let currentSearchAnnotation = currentSearchAnnotation {
 //            mapView.removeAnnotation(currentSearchAnnotation)
 //        }
+        coordinates = placemark.coordinate
         currentSearchAnnotation = annotation
         mapView.addAnnotation(annotation)
-        let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
+        let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
     }
@@ -349,7 +401,6 @@ extension ListingAddressViewController: UISearchBarDelegate {
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         animateTransitionIfNeeded(state: .expanded, duration: 0.9)
-        print(address!)
         searchBar.setShowsCancelButton(true, animated: true)
     }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {

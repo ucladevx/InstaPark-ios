@@ -895,6 +895,7 @@
                         <outlet property="tag4" destination="xcd-dj-vLs" id="lb5-PO-akS"/>
                         <outlet property="timeFrameTitleLabel" destination="q5Z-Z7-vA2" id="zzu-Gj-qjR"/>
                         <outlet property="totalLabel" destination="A7T-ls-PRk" id="7hs-Ok-fiP"/>
+                        <outlet property="totalTitleLabel" destination="XSv-aw-HBZ" id="ID1-Ix-ib8"/>
                         <outlet property="userInfoView" destination="cCB-Qv-sJg" id="b5n-WZ-742"/>
                     </connections>
                 </viewController>
@@ -1429,6 +1430,7 @@
                     <connections>
                         <outlet property="addressLabel" destination="Xvw-YS-7Kc" id="9kF-w7-Y3r"/>
                         <outlet property="infoView" destination="XK7-tM-Rxy" id="EIR-nw-8Z3"/>
+                        <outlet property="instructionsLabel" destination="Wpn-6Q-Fnk" id="ep6-12-G9q"/>
                         <outlet property="parkLabel" destination="smz-3v-efX" id="pY5-fS-Aan"/>
                         <outlet property="timeLabel" destination="brf-tp-v5S" id="aah-Re-Lga"/>
                     </connections>
@@ -3150,6 +3152,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" scale="large"/>
                                 </state>
                                 <connections>
+                                    <action selector="nextBtn:" destination="pRO-Iv-cIs" eventType="touchUpInside" id="vY0-6N-8ag"/>
                                     <segue destination="k2n-eN-xV7" kind="show" id="MVm-y1-Dg5"/>
                                 </connections>
                             </button>
@@ -3252,6 +3255,26 @@
             <point key="canvasLocation" x="6690" y="1523"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="5BM-Ge-xJm">
+            <size key="intrinsicContentSize" width="142.5" height="18"/>
+        </designable>
+        <designable name="GdT-8Y-CMn">
+            <size key="intrinsicContentSize" width="119.5" height="18"/>
+        </designable>
+        <designable name="JCk-ea-L3P">
+            <size key="intrinsicContentSize" width="89.5" height="17"/>
+        </designable>
+        <designable name="gC7-yf-06q">
+            <size key="intrinsicContentSize" width="88.5" height="18"/>
+        </designable>
+        <designable name="iZN-Zh-8A7">
+            <size key="intrinsicContentSize" width="60.5" height="18"/>
+        </designable>
+        <designable name="nuh-Nr-COX">
+            <size key="intrinsicContentSize" width="136" height="18"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="mXm-Gb-kR6"/>
     </inferredMetricsTieBreakers>
