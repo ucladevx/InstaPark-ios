@@ -49,6 +49,7 @@
 		6780CFAC78BE57EC1A46239B /* Pods_InstaPark.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */; };
 		9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */; };
 		94158B3C2568A359002F5B51 /* ReservationConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94158B3B2568A359002F5B51 /* ReservationConfirmationViewController.swift */; };
+		942F122A25C65A8B00D04F39 /* calendarCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 942F122925C65A8B00D04F39 /* calendarCell.swift */; };
 		9431304E254E4E83002221F4 /* CalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431304D254E4E83002221F4 /* CalloutView.swift */; };
 		94313125255627BE002221F4 /* smallOverlayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94313124255627BE002221F4 /* smallOverlayView.swift */; };
 		943131302556391D002221F4 /* BookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9431312F2556391D002221F4 /* BookingViewController.swift */; };
@@ -149,6 +150,7 @@
 		93BBE7307C025EDEF69CB82A /* Pods-InstaPark.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaPark.debug.xcconfig"; path = "Target Support Files/Pods-InstaPark/Pods-InstaPark.debug.xcconfig"; sourceTree = "<group>"; };
 		9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpaceMapAnnotation.swift; sourceTree = "<group>"; };
 		94158B3B2568A359002F5B51 /* ReservationConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ReservationConfirmationViewController.swift; sourceTree = "<group>"; };
+		942F122925C65A8B00D04F39 /* calendarCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = calendarCell.swift; sourceTree = "<group>"; };
 		9431304D254E4E83002221F4 /* CalloutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CalloutView.swift; sourceTree = "<group>"; };
 		94313124255627BE002221F4 /* smallOverlayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = smallOverlayView.swift; sourceTree = "<group>"; };
 		9431312F2556391D002221F4 /* BookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingViewController.swift; sourceTree = "<group>"; };
@@ -289,6 +291,7 @@
 				0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */,
 				044AD57F2581EE07000FE799 /* SlideOutView.swift */,
 				2B29F77025BE3BC300E897E7 /* ParkingInfoView.swift */,
+				942F122925C65A8B00D04F39 /* calendarCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -722,6 +725,7 @@
 				0410B11A2548D8E9001C4D27 /* AppDelegate.swift in Sources */,
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,
 				0482FE8D255CB26F002F522E /* TransactionService.swift in Sources */,
+				942F122A25C65A8B00D04F39 /* calendarCell.swift in Sources */,
 				049863312578466300C7F370 /* TransactionTableViewController.swift in Sources */,
 				2B0F2C1925BA307F008430FF /* PictureUploadViewController.swift in Sources */,
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,
