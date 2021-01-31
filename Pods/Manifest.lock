@@ -283,6 +283,9 @@ PODS:
   - Firebase/Firestore (6.34.0):
     - Firebase/CoreOnly
     - FirebaseFirestore (~> 1.19.0)
+  - Firebase/Storage (6.34.0):
+    - Firebase/CoreOnly
+    - FirebaseStorage (~> 3.9.1)
   - FirebaseAnalytics (6.9.0):
     - FirebaseCore (~> 6.10)
     - FirebaseInstallations (~> 1.7)
@@ -328,6 +331,9 @@ PODS:
     - GoogleUtilities/Environment (~> 6.7)
     - GoogleUtilities/UserDefaults (~> 6.7)
     - PromisesObjC (~> 1.2)
+  - FirebaseStorage (3.9.1):
+    - FirebaseCore (~> 6.10)
+    - GTMSessionFetcher/Core (~> 1.1)
   - FSCalendar (2.8.1)
   - GeoFire (4.0.1):
     - Firebase/Database (~> 6.0)
@@ -413,6 +419,7 @@ DEPENDENCIES:
   - Firebase/Auth
   - Firebase/Core
   - Firebase/Firestore
+  - Firebase/Storage
   - FirebaseFirestoreSwift
   - FSCalendar
   - GeoFire (from `https://github.com/firebase/geofire-objc.git`)
@@ -435,6 +442,7 @@ SPEC REPOS:
     - FirebaseFirestore
     - FirebaseFirestoreSwift
     - FirebaseInstallations
+    - FirebaseStorage
     - FSCalendar
     - GoogleAppMeasurement
     - GoogleDataTransport
@@ -473,6 +481,7 @@ SPEC CHECKSUMS:
   FirebaseFirestore: 9b2f1b9b9a6f2f0b6fb7484b9e32ab7e39243554
   FirebaseFirestoreSwift: 2c46dbc1156db97dc4f6dd798d4f5b57b9c7fab6
   FirebaseInstallations: 466c7b4d1f58fe16707693091da253726a731ed2
+  FirebaseStorage: 15e0f15ef3c7fec3d1899d68623e47d4447066b4
   FSCalendar: 5245140456fcbcac5824c203b98bd8068bdfee1a
   GeoFire: 67b5276c561434b4e4c7ea567c2c4d64e711339c
   GoogleAppMeasurement: a6a3a066369828db64eda428cb2856dc1cdc7c4e
@@ -488,6 +497,6 @@ SPEC CHECKSUMS:
   PickerViewKit: 86b90e2e2e1b0ed9baf867c65aab2d12a7a59f28
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
 
-PODFILE CHECKSUM: 9a8126d26b2956062d59680ff2b2ca763c669d46
+PODFILE CHECKSUM: 2ce2aeb1148a9ded2bc9ce5dee98b95111c9c8d6
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

@@ -1,3 +1,4 @@
+# coding: utf-8
 # Uncomment the next line to define a global platform for your project
 # platform :ios, '9.0'
 
@@ -14,6 +15,7 @@ target 'InstaPark' do
   pod 'Firebase/Core'
   pod 'Firebase/Firestore'
   pod 'FirebaseFirestoreSwift'
+  pod 'Firebase/Storage'
   # Sign in
   pod 'GoogleSignIn'
   pod ‘GeoFire’, :git => ‘https://github.com/firebase/geofire-objc.git'

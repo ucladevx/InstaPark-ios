@@ -19,7 +19,7 @@ class ParkingSpotService {
     }
     //Temporary function for creating dummy parking spots
     static func createParkingSpotIn(lat: Double, long: Double) {
-        let spot = ShortTermParkingSpot(id: "", address: Address(city: "Los Angeles", state: "CA", street: generateRandomStreet(), zip: String(Int.random(in: 10000..<99999))), coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], firstName: "Bob", lastName: "Steve", lastEndTime: 0, fromFullDays: [0,1,2,3,4,5,6])
+        let spot = ShortTermParkingSpot(id: "", address: Address(city: "Los Angeles", state: "CA", street: generateRandomStreet(), zip: String(Int.random(in: 10000..<99999))), coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], firstName: "Bob", lastName: "Steve", lastEndTime: 0, fromFullDays: [0,1,2,3,4,5,6], images: [String]())
         let docRef = db.collection("ShortTermParkingSpot").document()
         spot.id = docRef.documentID
         do {
@@ -155,6 +155,7 @@ class ParkingSpotService {
             docRef.setData(transaction.dictionary)
         }
     }
+    
 }
 enum ParkingType {
     case short

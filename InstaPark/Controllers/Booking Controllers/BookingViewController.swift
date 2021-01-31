@@ -30,6 +30,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentCardLabel: UILabel!
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
+    @IBOutlet weak var totalTitleLabel: UILabel!
     var bookmarkFlag = false
  
     @IBOutlet var blackScreen: UIView!
@@ -54,11 +55,14 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     //variables that are passed in from mapView
     var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: "test", tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date())
+    var ShortTermParking: ShortTermParkingSpot!
+    //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
     var startDate: Date? = nil
     var startTime: Date? = nil
     var endTime: Date? = nil
     var parkingType: ParkingType = .short //update this later
+    var listing = false // only true if this is listing model
     override func viewDidLoad() {
         super.viewDidLoad()
         mapView.delegate = self
@@ -120,8 +124,33 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
 //        mask.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
 //        self.mapView.addSubview(mask)
         
+        if listing {
+            setupPopup()
+            paymentMethodLabel.isHidden = true
+            totalTitleLabel.isHidden = true
+            priceLabel.isHidden = true
+            startTime = info.startTime
+            endTime = info.endTime
+            startDate = info.date
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "MMMM dth"
+            let day = formatter1.string(from: startDate ?? Date())
+            let formatter2 = DateFormatter()
+            formatter2.dateFormat = "h:mm a"
+            let startString = formatter2.string(from: startTime! as Date)
+            let endString = formatter2.string(from: endTime! as Date)
+            availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
+            availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
+            availabilityLabel.isEnabled = false
+            
+            reserveButton.isEnabled = true
+            reserveButton.setTitle("Create Listing", for: .normal)
+            reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            reserveButton.setTitleColor(.white, for: .normal)
+            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+        }
         // short term
-        if(info.startTime != nil && info.endTime != nil && info.date != nil) {
+        else if(info.startTime != nil && info.endTime != nil && info.date != nil) {
             //time frame
             startTime = info.startTime
             endTime = info.endTime
@@ -170,8 +199,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         }
         // transaction reciept
         else if (transationDate != nil) {
-            // MARK: this
-            setupPopup()
             availabilityLabel.setTitle(transationDate, for: .normal)
             availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
             availabilityLabel.isEnabled = false
@@ -273,7 +300,16 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func reserveButton(_ sender: Any) {
-        if let paymentResult = paymentResult{
+        if listing {
+            //UNCOMMENT when entire listing process is finished
+            /*
+            if parkingType == .short {
+                ParkingSpotService.saveShortTermParkingSpot(ShortTermParking)
+            } else {
+                // set up saving of long term parking spot here
+            }*/
+        }
+        else if let paymentResult = paymentResult{
             if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
                 print("Sending payment to server");
                 PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
@@ -340,6 +376,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         if let vc = segue.destination as? ReservationConfirmationViewController {
             vc.address = addressLabel.text!
             vc.time = availabilityLabel.titleLabel!.text!
+            vc.listing = listing
         }
     }
     
