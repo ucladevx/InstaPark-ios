@@ -3860,22 +3860,22 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="141" height="18"/>
+            <size key="intrinsicContentSize" width="142.5" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="117.5" height="18"/>
+            <size key="intrinsicContentSize" width="119.5" height="18"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="88" height="17"/>
+            <size key="intrinsicContentSize" width="89.5" height="17"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="87" height="18"/>
+            <size key="intrinsicContentSize" width="88.5" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
             <size key="intrinsicContentSize" width="60.5" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="133.5" height="18"/>
+            <size key="intrinsicContentSize" width="136" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
