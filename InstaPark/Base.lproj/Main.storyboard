@@ -2198,7 +2198,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="showAllButton:" destination="4o7-Of-aVG" eventType="touchUpInside" id="gq7-gQ-NGI"/>
-                                    <segue destination="7w2-uL-iKy" kind="presentation" modalPresentationStyle="fullScreen" id="peJ-Vk-4Dd"/>
+                                    <segue destination="7w2-uL-iKy" kind="presentation" identifier="showAllAvailableSpotsSegue" modalPresentationStyle="fullScreen" id="peJ-Vk-4Dd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -2245,26 +2245,26 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="142.5" height="18"/>
+            <size key="intrinsicContentSize" width="115.5" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="119.5" height="18"/>
+            <size key="intrinsicContentSize" width="91.5" height="19"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="89.5" height="17"/>
+            <size key="intrinsicContentSize" width="61.5" height="18"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="88.5" height="18"/>
+            <size key="intrinsicContentSize" width="61.5" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="60.5" height="18"/>
+            <size key="intrinsicContentSize" width="33.5" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="136" height="18"/>
+            <size key="intrinsicContentSize" width="109" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="mXm-Gb-kR6"/>
+        <segue reference="peJ-Vk-4Dd"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow 1" width="36" height="8"/>

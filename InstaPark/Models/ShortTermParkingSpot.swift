@@ -107,12 +107,12 @@ class ShortTermParkingSpot: ParkingSpot {
         TransactionService.getTransactionsByIds(reservations) { transactions, error  in
             if let transactions = transactions {
                 for transaction in transactions {
-                    if(transaction.startTime > start && transaction.startTime < end) {
+                    if(transaction.startTime >= start && transaction.startTime <= end) {
                         //invalid
                         completion(false);
                         return;
                     }
-                    if(transaction.endTime > start && transaction.endTime < end) {
+                    if(transaction.endTime >= start && transaction.endTime <= end) {
                         completion(false);
                         return;
                     }
