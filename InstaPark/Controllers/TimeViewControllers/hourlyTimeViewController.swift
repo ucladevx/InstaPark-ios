@@ -115,6 +115,16 @@ extension hourlyTimeViewController: FSCalendarDelegate, FSCalendarDataSource, FS
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDate = date
     }
+    
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        if date < yesterday{
+            return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+        }
+        else {
+            return .black
+        }
+    }
     /*
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         

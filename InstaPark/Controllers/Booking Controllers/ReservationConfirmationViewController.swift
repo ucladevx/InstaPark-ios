@@ -13,6 +13,8 @@ class ReservationConfirmationViewController: UIViewController {
     @IBOutlet weak var timeLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var infoView: UIView!
+    @IBOutlet weak var instructionsLabel: UILabel!
+    var listing = false // only true if new listing is created
     
     @IBAction func returnToHome(_ sender: Any) {
         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
@@ -22,6 +24,10 @@ class ReservationConfirmationViewController: UIViewController {
     var address = ""
     override func viewDidLoad() {
         super.viewDidLoad()
+        if listing {
+            parkLabel.text = "YOUR LISTING IS UP!"
+            instructionsLabel.text = "Your listing is live for buyers to view!\nYou'll get a notification if anyone purchases your spot."
+        }
         timeLabel.text = time
         addressLabel.text = address
         infoView.layer.shadowRadius = 10
