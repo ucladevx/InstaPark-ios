@@ -7,7 +7,7 @@
 
 import UIKit
 import FSCalendar
-
+//NOTE - CURRENT IMPLEMENTATION ONLY WORKS FOR NON-OVERNIGHT PARKING
 class hourlyTimeViewController: UIViewController {
 
     @IBOutlet weak var calendar: FSCalendar!
@@ -91,13 +91,20 @@ class hourlyTimeViewController: UIViewController {
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    //CURRENT IMPLEMENTATION ONLY WORKS FOR NON-OVERNIGHT PARKING
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //converts string Hour:Minutes into a date;
         startTime = timeFormatter1.date(from: timeRange[startScroller.selectedRow(inComponent: 0)])!
         endTime = timeFormatter1.date(from: timeRange[endScroller.selectedRow(inComponent: 0)])!
+        var actualStartDate = Calendar.current.startOfDay(for: selectedDate); // beginning of day
+        var actualStartTime = Date(timeIntervalSince1970: actualStartDate.timeIntervalSince1970 + startTime.timeIntervalSince1970 - Calendar.current.startOfDay(for:startTime).timeIntervalSince1970) // calculates actual start time from beginning of day from actualStartDate plus hours+minutes from startTime (previously from year 2000)
+        var actualEndTime = Date(timeIntervalSince1970: actualStartDate.timeIntervalSince1970+endTime.timeIntervalSince1970-Calendar.current.startOfDay(for: endTime).timeIntervalSince1970) // calculates actual start end from beginning of day from actualStartDate plus hours+minutes from endTime (previously from year 2000)
+        print("ID:1 - " + String(startTime.timeIntervalSince1970))
+        print("ID:1 - " + String(endTime.timeIntervalSince1970))
         if let vc = segue.destination as? MapViewViewController {
-            vc.shortTermStartTime = startTime
-            vc.shortTermEndTime = endTime
-            vc.shortTermDate = selectedDate
+            vc.shortTermStartTime = actualStartTime
+            vc.shortTermEndTime = actualEndTime
+            vc.shortTermDate = actualStartDate
         }
     }
     

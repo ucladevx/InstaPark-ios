@@ -73,8 +73,6 @@ class MapViewViewController: ViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("MapKit did load")
-        print(shortTermStartTime!)
-        print(shortTermEndTime!)
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -104,10 +102,12 @@ class MapViewViewController: ViewController{
         
         // if segued from hourlyTimeViewController, search/setup in here
         if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
+            print("ID:2")
             print(shortTermStartTime!)
             print(shortTermEndTime!)
+            print("ID:3")
             print(shortTermDate!)
-            
+            print("ID:4")
             //time frame button
             let formatter1 = DateFormatter()
             formatter1.dateFormat = "MMMM dth"

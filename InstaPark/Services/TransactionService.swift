@@ -29,24 +29,21 @@ class TransactionService {
         print("Getting transactions by ids")
         var transactions = [Transaction]()
         print(ids)
-        for s in ids {
-            let docRef = db.collection("Transaction").document(s)
-            docRef.getDocument() {document, error in
-                if let error = error {
-                    completion(nil, error)
-                    return
-                } else {
-                    if let document = document {
-                        if let transaction = try? Transaction.init(from: document.data()!) {
-                            print("Found transaction")
-                            transactions.append(transaction)
-                        }
+        let query = db.collection("Transaction").whereField("id", in: ids).getDocuments() { querySnapshot, err in
+            if let err = err {
+                completion(nil, err)
+            } else {
+                for document in querySnapshot!.documents {
+                    print(document.data())
+                    let transaction = try? Transaction.init(from: document.data());
+                    if let transaction = transaction {
+                        transactions.append(transaction)
                     }
                 }
+                completion(transactions,nil)
             }
+            
         }
-        completion(transactions, nil)
-        return
     }
     
     //TODO - saveTransaction
