@@ -102,10 +102,12 @@ class MapViewViewController: ViewController{
         
         // if segued from hourlyTimeViewController, search/setup in here
         if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
+            print("ID:2")
             print(shortTermStartTime!)
             print(shortTermEndTime!)
+            print("ID:3")
             print(shortTermDate!)
-            
+            print("ID:4")
             //time frame button
             let formatter1 = DateFormatter()
             formatter1.dateFormat = "MMMM dth"
@@ -136,18 +138,30 @@ class MapViewViewController: ViewController{
             ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
-                        if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
-                            print("Query by location")
-                            let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
-                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
-                            // short-term parking
-                            if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
-                                annotation.startTime = self.shortTermStartTime
-                                annotation.endTime = self.shortTermEndTime
-                                annotation.date = self.shortTermDate
+                        if let parkingSpot = parkingSpot{
+                            parkingSpot.validateTimeSlot(startTime: Int(shortTermStartTime.timeIntervalSince1970), endTime: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+                                if (success) {
+                                    if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+                                        parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+                                            if(success){
+                                                //IF PARKING SPOT IS AVAILABLE
+                                                print("Parking Spot is available")
+                                                print("Query by location")
+                                                let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
+                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
+                                                // short-term parking
+                                                if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+                                                    annotation.startTime = self.shortTermStartTime
+                                                    annotation.endTime = self.shortTermEndTime
+                                                    annotation.date = self.shortTermDate
+                                                }
+                                                self.annotations.append(annotation)
+                                                mapView.addAnnotation(annotation)
+                                            }
+                                        }
+                                    }
+                                }
                             }
-                            self.annotations.append(annotation)
-                            mapView.addAnnotation(annotation)
                         }
                     }
                 }
@@ -301,7 +315,8 @@ class MapViewViewController: ViewController{
                     print("Key: " + key + "entered the search radius.")
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
-                        if let parkingSpot = parkingSpot, parkingSpot.isAvailable{
+                        if let parkingSpot = parkingSpot{
+                            //IF PARKING SPOT IS AVAILABLEx
                             print("Query by location")
                             let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
                             let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)

@@ -45,7 +45,16 @@ class landingPageViewController: UIViewController {
         
         // Do any additional setup after loading the view.
     }
-    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if(segue.identifier == "showAllAvailableSpotsSegue") {
+            if let destination = segue.destination as? MapViewViewController {
+                var now = Date()
+                destination.shortTermStartTime = now
+                destination.shortTermEndTime = Date(timeInterval: TimeInterval(3600), since: now)
+                destination.shortTermDate = Date()
+            }
+        }
+    }
     @IBAction func hourlyButton(_ sender: Any) {
     }
     

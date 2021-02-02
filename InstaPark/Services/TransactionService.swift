@@ -29,24 +29,21 @@ class TransactionService {
         print("Getting transactions by ids")
         var transactions = [Transaction]()
         print(ids)
-        for s in ids {
-            let docRef = db.collection("Transaction").document(s)
-            docRef.getDocument() {document, error in
-                if let error = error {
-                    completion(nil, error)
-                    return
-                } else {
-                    if let document = document {
-                        if let transaction = try? Transaction.init(from: document.data()!) {
-                            print("Found transaction")
-                            transactions.append(transaction)
-                        }
+        let query = db.collection("Transaction").whereField("id", in: ids).getDocuments() { querySnapshot, err in
+            if let err = err {
+                completion(nil, err)
+            } else {
+                for document in querySnapshot!.documents {
+                    print(document.data())
+                    let transaction = try? Transaction.init(from: document.data());
+                    if let transaction = transaction {
+                        transactions.append(transaction)
                     }
                 }
+                completion(transactions,nil)
             }
+            
         }
-        completion(transactions, nil)
-        return
     }
     
     //TODO - saveTransaction
@@ -57,6 +54,10 @@ class TransactionService {
             let transaction = Transaction(id: docRef.documentID, customer: customer, startTime: startTime, endTime: endTime, address: address, fromParkingSpot: spot)
             docRef.setData(transaction.dictionary)
             db.collection("User").document(user.uid).updateData(["transactions": FieldValue.arrayUnion([transaction.id])])
+            print("Transaction information: ")
+            print("Parking Spot ID " + spot.id)
+            print("Transaction ID " + transaction.id)
+            db.collection(ParkingSpotService.parkingDBName).document(spot.id).updateData(["super.reservations": FieldValue.arrayUnion([docRef.documentID])])
         }
         
     }

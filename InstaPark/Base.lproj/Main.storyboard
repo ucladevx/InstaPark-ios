@@ -2288,7 +2288,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="showAllButton:" destination="4o7-Of-aVG" eventType="touchUpInside" id="gq7-gQ-NGI"/>
-                                    <segue destination="7w2-uL-iKy" kind="presentation" modalPresentationStyle="fullScreen" id="peJ-Vk-4Dd"/>
+                                    <segue destination="7w2-uL-iKy" kind="presentation" identifier="showAllAvailableSpotsSegue" modalPresentationStyle="fullScreen" id="peJ-Vk-4Dd"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -3023,21 +3023,21 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SYk-b2-HQQ">
-                                <rect key="frame" x="35" y="174" width="325" height="33"/>
+                                <rect key="frame" x="35" y="174" width="325" height="33.5"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="325" id="Pu9-Fk-vK0"/>
                                 </constraints>
                                 <attributedString key="attributedText">
                                     <fragment content="Enter your price. This will be charged on an hourly basis to buyers.">
                                         <attributes>
-                                            <font key="NSFont" size="14" name="Roboto-Regular"/>
+                                            <font key="NSFont" metaFont="menu" size="14"/>
                                         </attributes>
                                     </fragment>
                                 </attributedString>
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" alignment="bottom" spacing="1" translatesAutoresizingMaskIntoConstraints="NO" id="8PO-rN-bXb">
-                                <rect key="frame" x="104" y="382" width="206.5" height="42.5"/>
+                                <rect key="frame" x="104" y="382.5" width="206.5" height="42.5"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DQM-Fd-ge7">
                                         <rect key="frame" x="0.0" y="0.0" width="20.5" height="42.5"/>
@@ -3576,7 +3576,7 @@
                             </subviews>
                         </stackView>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3CQ-YX-3IB">
-                            <rect key="frame" x="37.5" y="60" width="250" height="28.5"/>
+                            <rect key="frame" x="37.5" y="60" width="250" height="29"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="250" id="aQu-gd-7Ms"/>
                             </constraints>
@@ -3584,14 +3584,14 @@
                                 <fragment content="Blah blah blah will be implemented in ParkingTypeViewController">
                                     <attributes>
                                         <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <font key="NSFont" size="12" name="Roboto-Regular"/>
+                                        <font key="NSFont" metaFont="cellTitle"/>
                                     </attributes>
                                 </fragment>
                             </attributedString>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DGV-Hi-9XP">
-                            <rect key="frame" x="37.5" y="98.5" width="250" height="28.5"/>
+                            <rect key="frame" x="37.5" y="99" width="250" height="29"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="250" id="Nnw-qM-5rp"/>
                             </constraints>
@@ -3599,14 +3599,14 @@
                                 <fragment content="Blah blah blah will be implemented in ParkingTypeViewController">
                                     <attributes>
                                         <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <font key="NSFont" size="12" name="Roboto-Regular"/>
+                                        <font key="NSFont" metaFont="cellTitle"/>
                                     </attributes>
                                 </fragment>
                             </attributedString>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lyD-55-uru">
-                            <rect key="frame" x="37.5" y="137" width="250" height="28.5"/>
+                            <rect key="frame" x="37.5" y="138" width="250" height="29"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="250" id="9X7-DV-bh0"/>
                             </constraints>
@@ -3614,14 +3614,14 @@
                                 <fragment content="Blah blah blah will be implemented in ParkingTypeViewController">
                                     <attributes>
                                         <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <font key="NSFont" size="12" name="Roboto-Regular"/>
+                                        <font key="NSFont" metaFont="cellTitle"/>
                                     </attributes>
                                 </fragment>
                             </attributedString>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vvC-ve-Kcy">
-                            <rect key="frame" x="37.5" y="175.5" width="250" height="28.5"/>
+                            <rect key="frame" x="37.5" y="177" width="250" height="29"/>
                             <constraints>
                                 <constraint firstAttribute="width" constant="250" id="Y9b-Ce-RPC"/>
                             </constraints>
@@ -3629,7 +3629,7 @@
                                 <fragment content="Blah blah blah will be implemented in ParkingTypeViewController">
                                     <attributes>
                                         <color key="NSColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <font key="NSFont" size="12" name="Roboto-Regular"/>
+                                        <font key="NSFont" metaFont="cellTitle"/>
                                     </attributes>
                                 </fragment>
                             </attributedString>
@@ -3856,22 +3856,22 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="142.5" height="18"/>
+            <size key="intrinsicContentSize" width="114" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="119.5" height="18"/>
+            <size key="intrinsicContentSize" width="89.5" height="19"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="89.5" height="17"/>
+            <size key="intrinsicContentSize" width="60" height="18"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="88.5" height="18"/>
+            <size key="intrinsicContentSize" width="60" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="60.5" height="18"/>
+            <size key="intrinsicContentSize" width="33.5" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="136" height="18"/>
+            <size key="intrinsicContentSize" width="106.5" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
