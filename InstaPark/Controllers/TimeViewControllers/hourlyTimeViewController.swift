@@ -20,18 +20,25 @@ class hourlyTimeViewController: UIViewController {
     var selectedDate = Date()
     
     var timeRange = [String]()
+    var selectedStartDate: Date! //holds selected start date -- use this if you need it to be passed to next view
+    var selectedEndDate: Date! //holds selected end date
+    var datesRange: [Date]?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         //set up calendar
         calendar.delegate = self
+        calendar.allowsMultipleSelection = true
         calendar.placeholderType = .none
-        calendar.select(Date())
+        //calendar.select(Date())
         calendar.reloadData()
         calendar.appearance.titleFont = UIFont.init(name: "Roboto-Medium", size: 16)
         calendar.appearance.headerTitleFont = UIFont.init(name: "Roboto-Medium", size: 16)
         calendar.dataSource = self
-        calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "CELL")
+        calendar.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
+        calendar.swipeToChooseGesture.isEnabled = true
+        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
+                calendar.addGestureRecognizer(scopeGesture)
             
         //create time range from picker from 12:00 am -> 11:45 pm
         for row in 0...95 {
@@ -88,6 +95,67 @@ class hourlyTimeViewController: UIViewController {
         return formatter1
     }()
     
+    private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
+          
+          let diyCell = (cell as! DIYCalendarCell)
+          // Custom today circle
+          diyCell.circleImageView.isHidden = true//!self.gregorian.isDateInToday(date)
+          // Configure selection layer
+          if position == .current {
+              
+              var selectionType = SelectionType.none
+              
+              if calendar.selectedDates.contains(date) {
+                  let previousDate = self.gregorian.date(byAdding: .day, value: -1, to: date)!
+                  let nextDate = self.gregorian.date(byAdding: .day, value: 1, to: date)!
+                  if calendar.selectedDates.contains(date) {
+                      if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(nextDate) {
+                          selectionType = .middle
+                      }
+                      else if calendar.selectedDates.contains(previousDate) && calendar.selectedDates.contains(date) {
+                          selectionType = .rightBorder
+                      }
+                      else if calendar.selectedDates.contains(nextDate) {
+                          selectionType = .leftBorder
+                      }
+                      else {
+                          selectionType = .single
+                      }
+                  }
+              }
+              else {
+                  selectionType = .none
+              }
+              if selectionType == .none {
+                  diyCell.selectionLayer.isHidden = true
+                  return
+              }
+              diyCell.selectionLayer.isHidden = false
+              diyCell.selectionType = selectionType
+              
+          } else {
+              diyCell.circleImageView.isHidden = true
+              diyCell.selectionLayer.isHidden = true
+          }
+      }
+    
+    
+    func datesRange(from: Date, to: Date) -> [Date] {
+        // in case of the "from" date is more than "to" date,
+        // it should returns an empty array:
+        if from > to { return [Date]() }
+
+        var tempDate = from
+        var array = [tempDate]
+
+        while tempDate < to {
+            tempDate = Calendar.current.date(byAdding: .day, value: 1, to: tempDate)!
+            array.append(tempDate)
+        }
+
+        return array
+    }
+    
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
@@ -112,8 +180,69 @@ class hourlyTimeViewController: UIViewController {
 }
 
 extension hourlyTimeViewController: FSCalendarDelegate, FSCalendarDataSource, FSCalendarDelegateAppearance {
+    func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
+            let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
+            return cell
+    }
+    func calendar(_ calendar: FSCalendar, willDisplay cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
+            self.configure(cell: cell, for: date, at: position)
+    }
+    func calendar(_ calendar: FSCalendar, boundingRectWillChange bounds: CGRect, animated: Bool) {
+           self.calendar.frame.size.height = bounds.height
+          
+    }
+    func calendar(_ calendar: FSCalendar, shouldDeselect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+           return monthPosition == .current
+    }
+    
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDate = date
+        // nothing selected:
+        if selectedStartDate == nil {
+            selectedStartDate = date
+            datesRange = [selectedStartDate]
+            self.configureVisibleCells()
+            return
+        }
+        if selectedStartDate != nil && selectedEndDate == nil {
+            if date <= selectedStartDate! {
+                calendar.deselect(selectedStartDate!)
+                selectedStartDate = date
+                datesRange = [selectedStartDate!]
+                self.configureVisibleCells()
+                return
+            }
+            let range = datesRange(from: selectedStartDate!, to: date)
+            selectedEndDate = range.last
+            for d in range {
+                calendar.select(d)
+            }
+            datesRange = range
+            self.configureVisibleCells()
+            return
+        }
+        // both are selected:
+        if selectedStartDate != nil && selectedEndDate != nil {
+            for d in calendar.selectedDates {
+                calendar.deselect(d)
+            }
+            selectedEndDate = nil
+            selectedStartDate = nil
+            datesRange = []
+            self.configureVisibleCells()
+        }
+    }
+    
+    func calendar(_ calendar: FSCalendar, didDeselect date: Date, at monthPosition: FSCalendarMonthPosition) {
+        if selectedStartDate != nil && selectedEndDate != nil {
+            for d in calendar.selectedDates {
+                calendar.deselect(d)
+            }
+            selectedEndDate = nil
+            selectedStartDate = nil
+            datesRange = []
+        }
+        self.configureVisibleCells()
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
@@ -125,6 +254,22 @@ extension hourlyTimeViewController: FSCalendarDelegate, FSCalendarDataSource, FS
             return .black
         }
     }
+    
+//    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+//        monthPosition == .current
+//        return true
+//    }
+    
+    private func configureVisibleCells() {
+            calendar.visibleCells().forEach { (cell) in
+                let date = calendar.date(for: cell)
+                let position = calendar.monthPosition(for: cell)
+                self.configure(cell: cell, for: date!, at: position)
+            }
+        
+        
+        }
+    
     /*
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         
