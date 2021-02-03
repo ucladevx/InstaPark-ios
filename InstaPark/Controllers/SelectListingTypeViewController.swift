@@ -9,7 +9,7 @@ import UIKit
 
 class SelectListingTypeViewController: UIViewController {
     var parkingType: ParkingType = .long
-    let ShortTermParking = ShortTermParkingSpot.init(id: "", address: Address(city: "", state: "", street: "", zip: ""), coordinates: Coordinate(lat: 0.0, long: 0.0), pricePerHour: 0.0, provider: "", comments: "", tags: [String](), firstName: "", lastName: "", lastEndTime: 0, fromFullDays: [Int](), images: [String]())
+    let ShortTermParking = ShortTermParkingSpot.init(id: "", address: Address(city: "", state: "", street: "", zip: ""), coordinates: Coordinate(lat: 0.0, long: 0.0), pricePerHour: 0.0, provider: "", comments: "", tags: [String](), firstName: "", lastName: "", reservations: [String](), fromFullDays: [Int](), images: [String]())
    
     @IBAction func monthlyAction(_ sender: Any) {
         //do the same as short term parking here but with long term parking if clicked

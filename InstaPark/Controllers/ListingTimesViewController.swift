@@ -214,9 +214,9 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             }
             ShortTermParking.times = times
             //need to fix this when I figure out how to select a range of dates on the calendar
-            ShortTermParking.lastEndTime = Int(selectedEndDate.timeIntervalSince1970)
+            //ShortTermParking.lastEndTime = Int(selectedEndDate.timeIntervalSince1970)
             print(ShortTermParking.times)
-            print(ShortTermParking.lastEndTime)
+            //print(ShortTermParking.lastEndTime)
         }
         else { //LONGTERM parking
             

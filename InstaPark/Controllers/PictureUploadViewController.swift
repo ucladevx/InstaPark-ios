@@ -7,23 +7,22 @@
 
 import UIKit
 
-<<<<<<< HEAD
-class PictureUploadViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
-    var parkingType: ParkingType = .short
-    var ShortTermParking: ShortTermParkingSpot!
-    //var LongTermParking : LongTermParkingSpot!
-=======
+
+
 class PictureUploadViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
     
     @IBOutlet var pageControl: UIPageControl!
     @IBOutlet var scrollView: UIScrollView!
+    var parkingType: ParkingType = .short
+    var ShortTermParking: ShortTermParkingSpot!
+    //var LongTermParking : LongTermParkingSpot!
     let scrollWidth = 300
     let scrollHeight = 200
     var page = 0
     //Must also change width and height of UploadSlideView if changing scrollWidth/Height
     var images = [UIImage]()
     let uploadSlide = Bundle.main.loadNibNamed("UploadSlideView", owner: self, options: nil)?.first as! UploadSlideView
->>>>>>> Nathan
+
     
     @objc func buttonAct(_ sender: UIButton!) {
         if UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.photoLibrary){
@@ -42,11 +41,10 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
         self.dismiss(animated: true, completion: {() in self.setUpSlides()})
     }
     
-<<<<<<< HEAD
-    var images = [UIImage]()
+
+   //var images = [UIImage]()
     var imageIDs = [String]()
     @IBOutlet var upload: UIButton!
-=======
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
          page = Int(round(scrollView.contentOffset.x / scrollView.frame.size.width))
          pageControl.currentPage = page
@@ -73,7 +71,6 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
         pageControl.currentPage = 0
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
     }
->>>>>>> Nathan
     
     override func viewDidLoad() {
         super.viewDidLoad()
