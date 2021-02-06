@@ -874,6 +874,7 @@
                             <constraint firstItem="rWx-8R-0LF" firstAttribute="trailing" secondItem="SFi-uh-GN9" secondAttribute="trailing" constant="35" id="reR-eq-wo2"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="cRQ-IU-Bfo"/>
                     <connections>
                         <outlet property="addressLabel" destination="Il7-fp-ZaZ" id="rAQ-Xn-ICi"/>
                         <outlet property="availabilityLabel" destination="fxY-MY-tmK" id="hF0-Nq-G3R"/>
@@ -1475,6 +1476,9 @@
             <objects>
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="fAa-vY-KUh" customClass="ListingViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Oyc-rp-Zex"/>
+                    <connections>
+                        <segue destination="IQf-1d-RDz" kind="show" identifier="toBooking" id="Crx-6U-hYe"/>
+                    </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ScB-fh-4lg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -3751,22 +3755,6 @@
             </objects>
             <point key="canvasLocation" x="6458" y="1522"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="PQ8-GN-oAY">
-            <objects>
-                <viewController storyboardIdentifier="Listing8" id="k2n-eN-xV7" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="0w0-QG-Lpr">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <viewLayoutGuide key="safeArea" id="P4j-V6-MfS"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="sZW-q4-bXM"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="FnS-Wb-S7h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="7277" y="1522"/>
-        </scene>
         <!--Directions View Controller-->
         <scene sceneID="53Z-aI-TfY">
             <objects>
@@ -3913,25 +3901,26 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="115.66666666666667" height="18"/>
+            <size key="intrinsicContentSize" width="143" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="91.333333333333329" height="19"/>
+            <size key="intrinsicContentSize" width="119.33333333333333" height="18"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="61.333333333333336" height="18"/>
+            <size key="intrinsicContentSize" width="89.333333333333329" height="17"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="61.333333333333336" height="18"/>
+            <size key="intrinsicContentSize" width="88.333333333333329" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="33.333333333333336" height="18"/>
+            <size key="intrinsicContentSize" width="60.333333333333336" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="108.66666666666667" height="18"/>
+            <size key="intrinsicContentSize" width="136" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
+        <segue reference="Crx-6U-hYe"/>
         <segue reference="mXm-Gb-kR6"/>
     </inferredMetricsTieBreakers>
     <resources>

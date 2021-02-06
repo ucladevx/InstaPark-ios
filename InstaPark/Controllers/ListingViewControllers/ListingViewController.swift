@@ -35,14 +35,8 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
             return nil
         }
         let nextIndex = viewControllerIndex + 1
-        let orderedViewControllersCount = orderedViewControllers.count
-        guard orderedViewControllersCount != nextIndex else {
-            return nil
-        }
-        guard orderedViewControllersCount > nextIndex else {
-            return nil
-        }
-        //MARK: Moving from Listing Address
+        
+        //MARK: Moving from ListingAddress
         if let addressController = viewController as? ListingAddressViewController {
             if let next = orderedViewControllers[nextIndex] as? ListingTimesViewController {
                 if !addressController.checkBeforeMovingPages() {
@@ -54,9 +48,33 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                 } else {
                     // pass in long term parking when ready
                 }
+                return next;
             }
         }
+        //MARK: Moving from Comments
+        if let commentsController = viewController as? CommentsViewController {
+            parkingType = commentsController.parkingType
+            if(commentsController.parkingType == .short) {
+                ShortTermParking = commentsController.ShortTermParking
+            } else {
+                // pass in long term parking when ready
+            }
+            performSegue(withIdentifier: "toBooking", sender: nil)
+            return nil
+        }
+        
         return orderedViewControllers[nextIndex]
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? BookingViewController {
+            vc.parkingType = parkingType
+            if(parkingType == .short) {
+                vc.ShortTermParking = ShortTermParking
+            } else {
+                // pass in long term parking when ready
+            }
+        }
     }
     
     func configurePageControl() {
@@ -76,8 +94,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                 self.newViewController(controller: "Listing4"),
                 self.newViewController(controller: "Listing5"),
                 self.newViewController(controller: "Listing6"),
-                self.newViewController(controller: "Listing7"),
-                self.newViewController(controller: "Listing8")]
+                self.newViewController(controller: "Listing7"),]
     }()
 
     private func newViewController(controller: String) -> UIViewController {
