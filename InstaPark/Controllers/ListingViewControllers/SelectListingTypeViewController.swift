@@ -14,12 +14,12 @@ class SelectListingTypeViewController: UIViewController {
     @IBAction func monthlyAction(_ sender: Any) {
         //do the same as short term parking here but with long term parking if clicked
         parkingType = .long
-        performSegue(withIdentifier: "toPage2", sender: nil)
+        performSegue(withIdentifier: "toListing1", sender: nil)
     }
     @IBAction func hourlyAction(_ sender: Any) {
         isHourly = true
         parkingType = .short
-        performSegue(withIdentifier: "toPage2", sender: nil)
+        performSegue(withIdentifier: "toListing1", sender: nil)
     }
     @IBAction func CloseButton(_ sender: Any) {
         UIView.animate(withDuration: 0.3, animations: {
@@ -80,7 +80,7 @@ class SelectListingTypeViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? ListingAddressViewController {
+        if let vc = segue.destination as? ListingViewController {
             vc.parkingType = parkingType
             if(parkingType == .short) {
                 vc.ShortTermParking = ShortTermParking

@@ -26,7 +26,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         if comments.textColor == UIColor.lightGray {
-            comments.text = nil
+            comments.text = ""
             comments.textColor = UIColor.black
         }
     }
@@ -80,6 +80,15 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
             // pass in long term parking when ready
         }
         self.present(nextViewController, animated:true)
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if comments.text == "" || comments.text == "Start typing here..." {
+            let alert = UIAlertController(title: "Error", message: "Please enter a comment", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
     }
 
 }

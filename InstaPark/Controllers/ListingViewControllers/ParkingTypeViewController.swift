@@ -124,4 +124,12 @@ class ParkingTypeViewController: UIViewController {
         LotInfo.attributedText = attributed_b
     }
     
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if chosenTypes.count == 0 && chosenFeatures.count == 0 {
+            let alert = UIAlertController(title: "Error", message: "Please select at least one parking type or feature for your spot.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
+    }
 }

@@ -102,6 +102,12 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if images.count == 0 {
+            let alert = UIAlertController(title: "Error", message: "Please upload at least one photo of your parking spot.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
         /*
         //UNCOMMENT this when all the listing controllers are connected
         if imageIDs.count != 0 {
