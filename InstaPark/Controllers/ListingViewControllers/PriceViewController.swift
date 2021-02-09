@@ -73,13 +73,12 @@ class PriceViewController: UIViewController, UITextFieldDelegate {
     }
     
     func checkBeforeMovingPages() -> Bool {
-        /*
         if price == 0 {
             let alert = UIAlertController(title: "Error", message: "Please input a price above $0.00.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return false
-        }*/
+        }
         ShortTermParking.pricePerHour = price
         
         return true

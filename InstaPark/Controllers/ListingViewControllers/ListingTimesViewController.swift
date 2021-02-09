@@ -12,7 +12,6 @@ protocol listingPass1 {
     func pass1(parkingType: ParkingType, ShortTermParking: ShortTermParkingSpot)
 }
 
-
 class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance{
     var delegate: listingPass2?
     @IBOutlet var infoPopup: UIView!
@@ -137,6 +136,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             weekdaysOnly = true
         }
         calendar.reloadData()
+        calendar.reloadData()
     }
     
     @IBAction func weekendsBtn(_ sender: Any) {
@@ -196,6 +196,12 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     func checkBeforeMovingPages() -> Bool {
         getAllValues()
+        if calendar.selectedDates.count == 0 {
+            let alert = UIAlertController(title: "Error", message: "Please select at least one day on the calendar.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
         if weekdaysOnly && weekendsOnly {
             let alert = UIAlertController(title: "Error", message: "Please select at least one valid date.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
@@ -315,9 +321,16 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
           
     }
     
-    func calendar(_ calendar: FSCalendar, shouldDeselect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-           return monthPosition == .current
-    }
+//    func calendar(_ calendar: FSCalendar, shouldDeselect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+//        let weekday = Calendar.current.component(.weekday, from: date)
+//        if weekdaysOnly && (weekday == 1 || weekday == 7){
+//            return true
+//        }
+//        else if weekendsOnly && (weekday == 2 || weekday == 3 || weekday == 4 || weekday == 5 || weekday == 6){
+//            return true
+//        }
+//        return true
+//    }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         // nothing selected:
@@ -368,6 +381,17 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         self.configureVisibleCells()
     }
     
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+//        let weekday = Calendar.current.component(.weekday, from: date)
+//        if weekdaysOnly && (weekday == 1 || weekday == 7){
+//            self.calendar.deselect(date)
+//        }
+//        else if weekendsOnly && (weekday == 2 || weekday == 3 || weekday == 4 || weekday == 5 || weekday == 6){
+//            self.calendar.deselect(date)
+//        }
+        return .black
+    }
+    
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         let weekday = Calendar.current.component(.weekday, from: date)
@@ -393,7 +417,6 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         let weekday = Calendar.current.component(.weekday, from: date)
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        monthPosition == .current
         if date < yesterday{
             return false
         }

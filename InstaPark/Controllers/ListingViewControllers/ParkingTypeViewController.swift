@@ -129,13 +129,12 @@ class ParkingTypeViewController: UIViewController {
     }
     
     func checkBeforeMovingPages() -> Bool {
-        /*
         if chosenTypes.count == 0 && chosenFeatures.count == 0 {
-            let alert = UIAlertController(title: "Error", message: "Please select at least one parking type or feature for your spot.", preferredStyle: .alert)
+            let alert = UIAlertController(title: "Error", message: "Please select at least one parking tag for your spot.", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
             self.present(alert, animated: true, completion: nil)
             return false
-        }*/
+        }
         var tags = [String]()
         tags.append(contentsOf: chosenTypes)
         tags.append(contentsOf: chosenFeatures)
