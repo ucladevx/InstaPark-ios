@@ -37,6 +37,7 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             images.append(selectedImage)
+            print(images.count)
         }
         self.dismiss(animated: true, completion: {() in self.setUpSlides()})
     }
@@ -98,8 +99,14 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
         }
     }
     
+    func checkBeforeMovingPages() -> Bool {
+        //should be fine to not check this view since it is fine to upload no pictures
+        print("check before moving, image size: \(images.count)")
+        return true
+    }
+    
     // MARK: - Navigation
-
+    /*
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if images.count == 0 {
@@ -108,24 +115,5 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
             self.present(alert, animated: true, completion: nil)
             return
         }
-        /*
-        //UNCOMMENT this when all the listing controllers are connected
-        if imageIDs.count != 0 {
-            if parkingType == .short {
-                ShortTermParking.images = imageIDs
-                print(ShortTermParking.images)
-            } else { //longterm parking when finished
-                
-            }
-            
-        }
-        if let vc = segue.destination as? CommentsViewController {
-            vc.parkingType = parkingType
-            if(parkingType == .short) {
-                vc.ShortTermParking = ShortTermParking
-            } else {
-                // pass in long term parking when ready
-            }
-        }*/
-    }
+    }*/
 }

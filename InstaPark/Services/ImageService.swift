@@ -10,8 +10,8 @@ import Firebase
 import FirebaseStorage
 
 class ImageService {
+    static let db = Firestore.firestore()
     static let storage = Storage.storage().reference()
-    
     //Upload image to Firebase Cloud Storage and return images id (to be stored in parking spot)
     static func uploadImage(image: UIImage, completion: @escaping (String?, Error?) -> Void) {
         guard let imageData = image.pngData() else {
@@ -29,6 +29,27 @@ class ImageService {
             print("upload sucessful")
             completion(id, nil)
         })
+    }
+    //Upload all images for a parking spot and update parking spot document with image id
+    static func uploadAllImages(images: [UIImage], spotID: String) {
+        for image in images {
+            guard let imageData = image.pngData() else {
+                 return
+            }
+            let uuid = UUID().uuidString
+            let id = "images/" + uuid
+            print(id)
+            storage.child(id).putData(imageData, metadata: nil, completion: { _, error in
+                guard error == nil else {
+                    print("FAILED TO UPLOAD")
+                    print(error)
+                    return
+                }
+                print("upload sucessful")
+                db.collection(ParkingSpotService.parkingDBName).document(spotID).updateData(["super.images" : FieldValue.arrayUnion([id])])
+                print("updated parking spot image field")
+            })
+        }
     }
     //Gets image from Firebase Storage base on image id string and returns it as a UIImage
     static func downloadImage(id: String, completion: @escaping (UIImage?, Error?) -> Void) {

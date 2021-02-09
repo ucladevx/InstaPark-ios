@@ -8,7 +8,7 @@
 import Foundation
 //Don't directly instantiate this class, use either Short Term Parking or Long Term Parking
 class ParkingSpot: Codable {
-    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], firstName: String, lastName: String, reservations: [String], images: [String]) {
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], firstName: String, lastName: String, reservations: [String], images: [String], directions: String) {
         self.id = id
         self.address = address
         self.coordinates = coordinates
@@ -20,6 +20,7 @@ class ParkingSpot: Codable {
         self.lastName = lastName
         self.reservations = reservations
         self.images = images
+        self.directions = directions
     }
     
     var id: String
@@ -30,6 +31,7 @@ class ParkingSpot: Codable {
     var comments: String
     var tags: [String]
     var images: [String]
+    var directions: String
     
     //Fields below are properties of provider but stored here to minimize data costs
     var firstName: String

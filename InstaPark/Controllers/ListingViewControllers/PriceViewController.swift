@@ -7,12 +7,20 @@
 
 import UIKit
 
+protocol listingPass2 {
+    func pass(parkingType: ParkingType, ShortTermParking: ShortTermParkingSpot)
+}
+
 class PriceViewController: UIViewController, UITextFieldDelegate {
 
     @IBOutlet var input2: UITextField!
     @IBOutlet var input1: UITextField!
     @IBOutlet var PriceDescrip: UILabel!
     var price:Double = 0;
+    
+    var parkingType: ParkingType = .short
+    var ShortTermParking: ShortTermParkingSpot!
+    //var LongTermParking : LongTermParkingSpot!
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         let currentCharacterCount = textField.text?.count ?? 0
@@ -64,6 +72,19 @@ class PriceViewController: UIViewController, UITextFieldDelegate {
         PriceDescrip.attributedText = h_attributed
     }
     
+    func checkBeforeMovingPages() -> Bool {
+        if price == 0 {
+            let alert = UIAlertController(title: "Error", message: "Please input a price above $0.00.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        ShortTermParking.pricePerHour = price
+        
+        return true
+    }
+    
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if price == 0 {
             let alert = UIAlertController(title: "Error", message: "Please input a price above $0.00.", preferredStyle: .alert)
@@ -71,7 +92,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate {
             self.present(alert, animated: true, completion: nil)
             return
         }
-    }
+    }*/
 
 
 }

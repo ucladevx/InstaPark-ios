@@ -8,7 +8,12 @@
 import UIKit
 import FSCalendar
 
-class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance {
+protocol listingPass1 {
+    func pass1(parkingType: ParkingType, ShortTermParking: ShortTermParkingSpot)
+}
+
+class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance{
+    var delegate: listingPass2?
     @IBOutlet var infoPopup: UIView!
     @IBOutlet var blackScreen: UIView!
     
@@ -39,8 +44,6 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        print(ShortTermParking.address)
-        print(ShortTermParking.coordinates)
         let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 340, height: 240))
         calendar.dataSource = self
         calendar.delegate = self
@@ -133,6 +136,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             weekdaysOnly = true
         }
         calendar.reloadData()
+        calendar.reloadData()
     }
     
     @IBAction func weekendsBtn(_ sender: Any) {
@@ -181,9 +185,63 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date())!
     }
     
+    
     // MARK: - Navigation
+    override func viewWillDisappear(_ animated: Bool) {
+        if checkBeforeMovingPages() == false {
+            return
+        }
+        delegate?.pass(parkingType: parkingType, ShortTermParking: ShortTermParking)
+    }
+    
+    func checkBeforeMovingPages() -> Bool {
+        getAllValues()
+        if calendar.selectedDates.count == 0 {
+            let alert = UIAlertController(title: "Error", message: "Please select at least one day on the calendar.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        if weekdaysOnly && weekendsOnly {
+            let alert = UIAlertController(title: "Error", message: "Please select at least one valid date.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        var times = [0: [ParkingTimeInterval](), 1: [ParkingTimeInterval](), 2: [ParkingTimeInterval](), 3:[ParkingTimeInterval](), 4:[ParkingTimeInterval](), 5:[ParkingTimeInterval](), 6:[ParkingTimeInterval]()]
+        if parkingType == .short {
+            if twentyFourHourAccess {
+                startTime = setTime(hour: 0, minute: 00)
+                endTime = setTime(hour: 23, minute: 45)
+            }
+            if weekendsOnly {
+                times[5] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+                times[6] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+            }
+            else if weekdaysOnly {
+                for i in 0...4 {
+                    times[i] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+                }
+            }
+            else {
+                for i in 0...6 {
+                    times[i] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+                }
+            }
+            ShortTermParking.times = times
+            //need to fix this when I figure out how to select a range of dates on the calendar
+            //ShortTermParking.lastEndTime = Int(selectedEndDate.timeIntervalSince1970)
+            print(ShortTermParking.times)
+            return true
+            //print(ShortTermParking.lastEndTime)
+        }
+        else { //LONGTERM parking
+            return true
+        }
+    }
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         getAllValues()
         if weekdaysOnly && weekendsOnly {
@@ -221,16 +279,16 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         else { //LONGTERM parking
             
         }
-        /*
-        if let vc = segue.destination as? NAMEOFNEXTCONTROLLERHERE {
+        
+        if let vc = segue.destination as? PriceViewController {
             vc.parkingType = parkingType
             if(parkingType == .short) {
                 vc.ShortTermParking = ShortTermParking
             } else {
                 // pass in long term parking when ready
             }
-        }*/
-    }
+        }
+    }*/
     
     func datesRange(from: Date, to: Date) -> [Date] {
         // in case of the "from" date is more than "to" date,
@@ -263,9 +321,16 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
           
     }
     
-    func calendar(_ calendar: FSCalendar, shouldDeselect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-           return monthPosition == .current
-    }
+//    func calendar(_ calendar: FSCalendar, shouldDeselect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+//        let weekday = Calendar.current.component(.weekday, from: date)
+//        if weekdaysOnly && (weekday == 1 || weekday == 7){
+//            return true
+//        }
+//        else if weekendsOnly && (weekday == 2 || weekday == 3 || weekday == 4 || weekday == 5 || weekday == 6){
+//            return true
+//        }
+//        return true
+//    }
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         // nothing selected:
@@ -316,6 +381,17 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         self.configureVisibleCells()
     }
     
+    func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleSelectionColorFor date: Date) -> UIColor? {
+//        let weekday = Calendar.current.component(.weekday, from: date)
+//        if weekdaysOnly && (weekday == 1 || weekday == 7){
+//            self.calendar.deselect(date)
+//        }
+//        else if weekendsOnly && (weekday == 2 || weekday == 3 || weekday == 4 || weekday == 5 || weekday == 6){
+//            self.calendar.deselect(date)
+//        }
+        return .black
+    }
+    
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         let weekday = Calendar.current.component(.weekday, from: date)
@@ -341,7 +417,6 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
         let weekday = Calendar.current.component(.weekday, from: date)
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        monthPosition == .current
         if date < yesterday{
             return false
         }
@@ -490,3 +565,13 @@ extension ListingTimesViewController: UIPickerViewDataSource {
     
 }
 
+extension ListingTimesViewController: listingPass1 {
+    // pass from address controller
+    func pass1(parkingType: ParkingType, ShortTermParking: ShortTermParkingSpot){
+        self.parkingType = parkingType
+        self.ShortTermParking = ShortTermParking
+        print("pass")
+        print(self.ShortTermParking.address)
+        print(self.ShortTermParking.coordinates)
+    }
+}

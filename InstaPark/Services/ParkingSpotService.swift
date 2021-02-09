@@ -20,7 +20,7 @@ class ParkingSpotService {
     }
     //Temporary function for creating dummy parking spots
     static func createParkingSpotIn(lat: Double, long: Double) {
-        let spot = ShortTermParkingSpot(id: "", address: Address(city: "Los Angeles", state: "CA", street: generateRandomStreet(), zip: String(Int.random(in: 10000..<99999))), coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], firstName: "Bob", lastName: "Steve", reservations: [String](), fromFullDays: [0,1,2,3,4,5,6], images: [String]())
+        let spot = ShortTermParkingSpot(id: "", address: Address(city: "Los Angeles", state: "CA", street: generateRandomStreet(), zip: String(Int.random(in: 10000..<99999))), coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], firstName: "Bob", lastName: "Steve", reservations: [String](), fromFullDays: [0,1,2,3,4,5,6], images: [String](), directions: "directions")
         let docRef = db.collection(parkingDBName).document()
         spot.id = docRef.documentID
         print("DOCUMENT ID:")
@@ -36,12 +36,13 @@ class ParkingSpotService {
             print("ERROR")
         }
     }
-    static func saveShortTermParkingSpot(_ shortTerm: ShortTermParkingSpot) {
+    static func saveShortTermParkingSpot(_ shortTerm: ShortTermParkingSpot, completion: @escaping (String?, Error?) -> Void) {
         let docRef = db.collection(parkingDBName).document()
         var newShortTerm = shortTerm
         newShortTerm.id = docRef.documentID
         docRef.setData(newShortTerm.dictionary)
         geoFire.setLocation(CLLocation(latitude: newShortTerm.coordinates.lat, longitude: newShortTerm.coordinates.long), forKey: newShortTerm.id)
+        completion(newShortTerm.id, nil)
     }
     //Gets parking spots near you, takes in region as an argument
     static func getParkingSpotQuery(region: MKCoordinateRegion) -> GFRegionQuery{

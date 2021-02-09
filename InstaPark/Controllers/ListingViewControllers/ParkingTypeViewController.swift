@@ -9,6 +9,9 @@ import UIKit
 
 class ParkingTypeViewController: UIViewController {
 
+    var parkingType: ParkingType = .short
+    var ShortTermParking: ShortTermParkingSpot!
+    //var LongTermParking : LongTermParkingSpot!
     
     @IBAction func featureAction(_ sender: UIButton) {
         if sender.backgroundColor != .clear {
@@ -73,6 +76,7 @@ class ParkingTypeViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //print(ShortTermParking.pricePerHour)
         //Runtime attributes must be done here b/c borderColor doesn't work on Storyboard
         for i in typeButtons {
         i.layer.cornerRadius = 10
@@ -124,6 +128,20 @@ class ParkingTypeViewController: UIViewController {
         LotInfo.attributedText = attributed_b
     }
     
+    func checkBeforeMovingPages() -> Bool {
+        if chosenTypes.count == 0 && chosenFeatures.count == 0 {
+            let alert = UIAlertController(title: "Error", message: "Please select at least one parking tag for your spot.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+            self.present(alert, animated: true, completion: nil)
+            return false
+        }
+        var tags = [String]()
+        tags.append(contentsOf: chosenTypes)
+        tags.append(contentsOf: chosenFeatures)
+        ShortTermParking.tags = tags
+        return true
+    }
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if chosenTypes.count == 0 && chosenFeatures.count == 0 {
             let alert = UIAlertController(title: "Error", message: "Please select at least one parking type or feature for your spot.", preferredStyle: .alert)
@@ -131,5 +149,5 @@ class ParkingTypeViewController: UIViewController {
             self.present(alert, animated: true, completion: nil)
             return
         }
-    }
+    }*/
 }

@@ -36,6 +36,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet var blackScreen: UIView!
     //  @IBOutlet var listingPopup: UIView!
 
+    var images = [UIImage]()
     
     
     @IBOutlet weak var tag1: UIButton!
@@ -87,13 +88,16 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let dollar = "$"
         let dollar_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Bold", size: 13)]
         let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
-        
+        print(info.price)
         let price = String(format: "%.2f", info.price)
         let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Medium", size: 23)]
         let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
         cost.append(price_string)
         
-        let perHour = "/hour"
+        var perHour = "/hour"
+        if price_string.length > 4 {
+            perHour = "/hr"
+        }
         let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Medium", size: 16)]
         let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
         cost.append(hour_string)
@@ -128,7 +132,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             setupPopup()
             paymentMethodLabel.isHidden = true
             totalTitleLabel.isHidden = true
-            priceLabel.isHidden = true
+            totalLabel.isHidden = true
             startTime = info.startTime
             endTime = info.endTime
             startDate = info.date
@@ -301,13 +305,16 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     
     @IBAction func reserveButton(_ sender: Any) {
         if listing {
-            //UNCOMMENT when entire listing process is finished
-            /*
             if parkingType == .short {
-                ParkingSpotService.saveShortTermParkingSpot(ShortTermParking)
+                ParkingSpotService.saveShortTermParkingSpot(self.ShortTermParking) { (id, error) in
+                    if let id = id, error == nil {
+                        print(id)
+                        ImageService.uploadAllImages(images: self.images, spotID: id)
+                    }
+                }
             } else {
                 // set up saving of long term parking spot here
-            }*/
+            }
         }
         else if let paymentResult = paymentResult{
             if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
