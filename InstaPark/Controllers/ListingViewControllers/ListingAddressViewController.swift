@@ -9,7 +9,10 @@ import UIKit
 import MapKit
 import CoreLocation
 
+
 class ListingAddressViewController: UIViewController {
+    var delegate: listingPass1?
+    
     let locationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var cardViewController: UIView!
@@ -193,8 +196,16 @@ class ListingAddressViewController: UIViewController {
             })
         }
     
+    
 
     // MARK: - Navigation
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        if checkBeforeMovingPages() == false {
+            return
+        }
+        delegate?.pass1(parkingType: parkingType, ShortTermParking: ShortTermParking)
+    }
 
     func checkBeforeMovingPages() -> Bool {
         if coordinates == nil {
@@ -415,6 +426,7 @@ extension ListingAddressViewController: UITableViewDataSource, UITableViewDelega
         let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
         mapView.setRegion(region, animated: true)
+
     }
 }
 extension ListingAddressViewController: UISearchBarDelegate {

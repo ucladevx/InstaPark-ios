@@ -8,6 +8,11 @@
 import UIKit
 
 class DirectionsViewController: UIViewController, UITextViewDelegate {
+    
+    var parkingType: ParkingType = .short
+    var ShortTermParking: ShortTermParkingSpot!
+    //var LongTermParking : LongTermParkingSpot!
+    var images = [UIImage]()
 
     @IBAction func recentDirectButtonAct(_ sender: UIButton) {
         if useRecent {
@@ -80,6 +85,15 @@ class DirectionsViewController: UIViewController, UITextViewDelegate {
         }
     }
     
+    func checkBeforeMovingPages() -> Bool {
+        //directions are also optional
+        if directionsText.text != "" && directionsText.text != "Start typing here..."{
+            ShortTermParking.directions = directionsText.text
+            print("in check before moving: \(ShortTermParking.directions)")
+        }
+        return true
+    }
+    /*
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if directions == "" {
             let alert = UIAlertController(title: "Error", message: "Please enter directions to your parking spot.", preferredStyle: .alert)
@@ -87,5 +101,5 @@ class DirectionsViewController: UIViewController, UITextViewDelegate {
             self.present(alert, animated: true, completion: nil)
             return
         }
-    }
+    }*/
 }
