@@ -15,7 +15,7 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
     var name: String
     var coordinate: CLLocationCoordinate2D
     var price: Double
-    var address: String
+    var address: Address
     var times: [Int: [ParkingTimeInterval]]
     var tags: [String]
     var comments: String
@@ -38,7 +38,7 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         var end: Date
     }
     
-    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, address: String, tags: [String], comments: String, startTime: Date?, endTime: Date?, date: Date?, startDate: Date?, endDate: Date?) {
+    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, address: Address, tags: [String], comments: String, startTime: Date?, endTime: Date?, date: Date?, startDate: Date?, endDate: Date?) {
         self.id = id
         self.coordinate = coordinate
         self.price = price

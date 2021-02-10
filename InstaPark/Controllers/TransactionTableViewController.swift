@@ -84,8 +84,7 @@ class TransactionTableViewController: UITableViewController {
         ParkingSpotService.getParkingSpotById(transaction.parkingSpot) { [self] parkingSpot, error in
             if let parkingSpot = parkingSpot{
                 //IF PARKING SPOT IS AVAILABLE
-                let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
-                let parkingSpace = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
+                let parkingSpace = ParkingSpaceMapAnnotation(id: parkingSpot.id,name: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
                 
                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier: "bookingView") as! BookingViewController

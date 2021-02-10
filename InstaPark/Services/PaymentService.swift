@@ -22,7 +22,7 @@ class PaymentService {
         let error_message: String
     }
     static func postNonceToServer(paymentMethodNonce: String, transactionAmount: Double, completion: @escaping(PaymentError?)->Void) {
-        let paymentURL = URL(string: "http://localhost:3000/checkout")!
+        let paymentURL = URL(string: "https://salty-river-57707.herokuapp.com/checkout")!
         var request = URLRequest(url: paymentURL)
         let body: [String: Any] = ["payment_method_nonce": paymentMethodNonce, "amount": transactionAmount]
 //        let body = "payment_method_nonce=\(paymentMethodNonce)&amount=\(transactionAmount)"

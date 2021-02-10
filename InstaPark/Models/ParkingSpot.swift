@@ -8,7 +8,7 @@
 import Foundation
 //Don't directly instantiate this class, use either Short Term Parking or Long Term Parking
 class ParkingSpot: Codable {
-    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], firstName: String, lastName: String, reservations: [String], images: [String], directions: String) {
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String) {
         self.id = id
         self.address = address
         self.coordinates = coordinates
@@ -16,8 +16,8 @@ class ParkingSpot: Codable {
         self.provider = provider
         self.comments = comments
         self.tags = tags
-        self.firstName = firstName
-        self.lastName = lastName
+        self.startDate = startDate
+        self.endDate = endDate
         self.reservations = reservations
         self.images = images
         self.directions = directions
@@ -33,13 +33,16 @@ class ParkingSpot: Codable {
     var images: [String]
     var directions: String
     
+    var startDate: Int
+    var endDate: Int
+    
     //Fields below are properties of provider but stored here to minimize data costs
-    var firstName: String
-    var lastName: String
+//    var firstName: String
+//    var lastName: String
     
     //List of IDs for all transactions
     var reservations: [String]
-    func validateTimeSlot(startTime: Int, endTime: Int, completion: @escaping(Bool)->Void) {
+    func validateTimeSlot(start: Int, end: Int, completion: @escaping(Bool)->Void) {
         completion(true);
     }
 }
@@ -52,4 +55,12 @@ struct Address: Codable {
 struct Coordinate: Codable {
     var lat: Double
     var long: Double
+}
+extension Address {
+    func toString() -> String {
+        return street + ", " + city + ", " + state + " " + zip
+    }
+    static func blankAddress() -> Address {
+        return Address(city: "Test City", state: "TS", street: "Test Street", zip: "12345")
+    }
 }
