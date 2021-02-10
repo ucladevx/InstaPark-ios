@@ -14,6 +14,8 @@ class MapViewViewController: ViewController{
     
     let locationManager = CLLocationManager()
     
+    @IBOutlet var timeSelectionPopup: UIView!
+    @IBOutlet var blackScreen: UIView!
     //passed variable from hourlyTimeViewController
     var shortTermStartTime: Date!
     var shortTermEndTime: Date!
@@ -73,6 +75,9 @@ class MapViewViewController: ViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("MapKit did load")
+        if shortTermStartTime == nil || shortTermEndTime == nil {
+            setUpTimePopup()
+        }
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -129,33 +134,35 @@ class MapViewViewController: ViewController{
         
         self.mapView.setRegion(region, animated: false)
         regionQuery = geoFire.query(with: region) // for some reason geoFire isn't working with regionQuery???
-        
-        // get all parking spaces within a 20000 km radius from the db
         circleQuery = geoFire.query(at: CLLocation.init(latitude: location.latitude, longitude: location.longitude), withRadius: 20)
         
-        _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
-            print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
-            ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
-                DispatchQueue.global(qos: .userInteractive).async {
-                    ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
-                        if let parkingSpot = parkingSpot{
-                            parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
-                                if (success) {
-                                    if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
-                                        parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
-                                            if(success){
-                                                //IF PARKING SPOT IS AVAILABLE
-                                                print("Parking Spot is available")
-                                                print("Query by location")
-                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
-                                                // short-term parking
-                                                if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
-                                                    annotation.startTime = self.shortTermStartTime
-                                                    annotation.endTime = self.shortTermEndTime
-                                                    annotation.date = self.shortTermDate
+        // if user has chosen a time frame & date query only to that time frame/date
+        if shortTermStartTime != nil && shortTermEndTime != nil {
+            // get all parking spaces within a 20000 km radius from the db
+            _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
+                print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
+                ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
+                    DispatchQueue.global(qos: .userInteractive).async {
+                        ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
+                            if let parkingSpot = parkingSpot{
+                                parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+                                    if (success) {
+                                        if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+                                            parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+                                                if(success){
+                                                    //IF PARKING SPOT IS AVAILABLE
+                                                    print("Parking Spot is available")
+                                                    print("Query by location")
+                                                    let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
+                                                    // short-term parking
+                                                    if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+                                                        annotation.startTime = self.shortTermStartTime
+                                                        annotation.endTime = self.shortTermEndTime
+                                                        annotation.date = self.shortTermDate
+                                                    }
+                                                    self.annotations.append(annotation)
+                                                    mapView.addAnnotation(annotation)
                                                 }
-                                                self.annotations.append(annotation)
-                                                mapView.addAnnotation(annotation)
                                             }
                                         }
                                     }
@@ -164,8 +171,35 @@ class MapViewViewController: ViewController{
                         }
                     }
                 }
-            }
-        })
+            })
+        }
+        // no time is selected - query all parking spots in user location so map is not empty??
+        else {
+            _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
+                print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
+                ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
+                    DispatchQueue.global(qos: .userInteractive).async {
+                        ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
+                            if let parkingSpot = parkingSpot{
+                                if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+                                    print("Query by location")
+                                    let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
+                                    // short-term parking
+                                    if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+                                        annotation.startTime = self.shortTermStartTime
+                                        annotation.endTime = self.shortTermEndTime
+                                        annotation.date = self.shortTermDate
+                                    }
+                                    self.annotations.append(annotation)
+                                    mapView.addAnnotation(annotation)
+                                }
+                            }
+                        }
+                    }
+                }
+            })
+        }
+        
         
         
 //        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
@@ -216,7 +250,7 @@ class MapViewViewController: ViewController{
     }
     
     @IBAction func timeFrameBtn(_ sender: Any) {
-        dismiss(animated: true)
+        setUpTimePopup()
     }
     @IBAction func reserveBtn(_ sender: UIButton) {
         let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
@@ -338,6 +372,37 @@ class MapViewViewController: ViewController{
     }
     //transaction button, for later use
     @IBAction func transactionButton(_ sender: UIButton){}
+    
+    //MARK: time selection popup view setup
+    func setUpTimePopup() {
+        blackScreen.alpha = 0.35
+        blackScreen.backgroundColor = .black
+        blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
+        self.view.addSubview(blackScreen)
+        self.view.addSubview(timeSelectionPopup)
+        timeSelectionPopup.isHidden = false
+        timeSelectionPopup.center.y = self.view.frame.height * 3 / 4
+        UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut],
+                       animations: {
+                        self.timeSelectionPopup.center = self.view.center
+        }, completion: nil)
+    }
+    func dismissTimePopup() {
+        UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseIn],
+                       animations: {
+                        self.timeSelectionPopup.center.y = self.view.frame.height * 3 / 4
+                       }, completion: {_ in
+                        self.timeSelectionPopup.removeFromSuperview()
+                        self.timeSelectionPopup.isHidden = true
+                        self.blackScreen.removeFromSuperview()
+                       })
+    }
+    @IBAction func timePopupDismiss(_ sender: Any) {
+        dismissTimePopup()
+    }
+    @IBAction func timePopupSkipToMap(_ sender: Any) {
+        dismissTimePopup()
+    }
 }
 
 extension UIView {
