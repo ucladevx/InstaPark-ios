@@ -24,6 +24,7 @@
 		044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE7254EA07A00B5F19C /* Transaction.swift */; };
 		044AD5802581EE07000FE799 /* SlideOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AD57F2581EE07000FE799 /* SlideOutView.swift */; };
 		045FF1BE2573854A00DC7327 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */; };
+		0464F72D25D3815700C9A055 /* ContactInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */; };
 		046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */; };
 		0482FE80255CB13A002F522E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE7F255CB13A002F522E /* User.swift */; };
 		0482FE85255CB157002F522E /* ParkingCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE84255CB157002F522E /* ParkingCalloutView.swift */; };
@@ -131,6 +132,7 @@
 		044A3FE7254EA07A00B5F19C /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		044AD57F2581EE07000FE799 /* SlideOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutView.swift; sourceTree = "<group>"; };
 		045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
+		0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoViewController.swift; sourceTree = "<group>"; };
 		046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
 		0482FE7F255CB13A002F522E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0482FE84255CB157002F522E /* ParkingCalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkingCalloutView.swift; sourceTree = "<group>"; };
@@ -285,6 +287,7 @@
 		0410B14C2548DC1F001C4D27 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				0464F72B25D3813200C9A055 /* SlideoutViews */,
 				945167CB25AE96A400939551 /* TimeViewControllers */,
 				0410B18F254A49F7001C4D27 /* LoginViewController.swift */,
 				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
@@ -369,6 +372,14 @@
 				045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */,
 			);
 			path = UI;
+			sourceTree = "<group>";
+		};
+		0464F72B25D3813200C9A055 /* SlideoutViews */ = {
+			isa = PBXGroup;
+			children = (
+				0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */,
+			);
+			path = SlideoutViews;
 			sourceTree = "<group>";
 		};
 		2B6A4DC525CB9F2000864075 /* ListingViewControllers */ = {
@@ -769,6 +780,7 @@
 				044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */,
 				0482FE8D255CB26F002F522E /* TransactionService.swift in Sources */,
 				942F122A25C65A8B00D04F39 /* calendarCell.swift in Sources */,
+				0464F72D25D3815700C9A055 /* ContactInfoViewController.swift in Sources */,
 				049863312578466300C7F370 /* TransactionTableViewController.swift in Sources */,
 				2B0F2C1925BA307F008430FF /* PictureUploadViewController.swift in Sources */,
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,

@@ -394,6 +394,9 @@
                                     <state key="normal" title="Contact Information">
                                         <color key="titleColor" systemColor="labelColor"/>
                                     </state>
+                                    <connections>
+                                        <segue destination="dJM-Mo-NH3" kind="presentation" id="Zri-7d-vpa"/>
+                                    </connections>
                                 </button>
                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="l5o-DV-V42">
                                     <rect key="frame" x="0.0" y="252" width="112" height="34"/>
@@ -3903,6 +3906,149 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="RYh-Ij-Mp6" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="5704" y="1523"/>
+        </scene>
+        <!--Contact Info View Controller-->
+        <scene sceneID="Fuu-fP-afT">
+            <objects>
+                <viewController id="dJM-Mo-NH3" customClass="ContactInfoViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" clipsSubviews="YES" contentMode="scaleToFill" id="4Ep-V3-xJy">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a8v-ph-naU">
+                                <rect key="frame" x="131.33333333333331" y="84" width="151.33333333333331" height="43.333333333333343"/>
+                                <attributedString key="attributedText">
+                                    <fragment content="contact info">
+                                        <attributes>
+                                            <font key="NSFont" size="36" name="BebasNeue-Regular"/>
+                                            <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                        </attributes>
+                                    </fragment>
+                                </attributedString>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="46" translatesAutoresizingMaskIntoConstraints="NO" id="L6T-M3-hhd">
+                                <rect key="frame" x="25" y="322" width="169.66666666666666" height="232.66666666666663"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="First Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RA1-as-NPb">
+                                        <rect key="frame" x="0.0" y="0.0" width="169.66666666666666" height="23.666666666666668"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Last Name:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ScF-YT-hNj">
+                                        <rect key="frame" x="0.0" y="69.666666666666686" width="169.66666666666666" height="23.666666666666671"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Phone:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PNE-kx-Bs8">
+                                        <rect key="frame" x="0.0" y="139.33333333333331" width="169.66666666666666" height="23.666666666666657"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Email Address:" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="128-e4-mSq">
+                                        <rect key="frame" x="0.0" y="209" width="169.66666666666666" height="23.666666666666657"/>
+                                        <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                            </stackView>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="5Uc-lc-XXK">
+                                <rect key="frame" x="219.66666666666663" y="322" width="169.33333333333337" height="232.66666666666663"/>
+                                <subviews>
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter first name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="prg-Lc-GDr">
+                                        <rect key="frame" x="0.0" y="0.0" width="169.33333333333334" height="34.666666666666664"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="enterInfo:" destination="dJM-Mo-NH3" eventType="editingDidEnd" id="FJS-bK-fhX"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter last name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="R44-Ap-Rg5">
+                                        <rect key="frame" x="0.0" y="66.666666666666686" width="169.33333333333334" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                        <connections>
+                                            <action selector="enterInfo:" destination="dJM-Mo-NH3" eventType="editingDidEnd" id="p1G-Mm-9cW"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter phone" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="KgW-21-NfF">
+                                        <rect key="frame" x="0.0" y="132.66666666666669" width="169.33333333333334" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="phonePad"/>
+                                        <connections>
+                                            <action selector="enterInfo:" destination="dJM-Mo-NH3" eventType="editingDidEnd" id="AzH-et-QCo"/>
+                                        </connections>
+                                    </textField>
+                                    <textField opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Enter email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="LCe-N9-qdK">
+                                        <rect key="frame" x="0.0" y="198.66666666666663" width="169.33333333333334" height="34"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" keyboardType="emailAddress"/>
+                                        <connections>
+                                            <action selector="enterInfo:" destination="dJM-Mo-NH3" eventType="editingDidEnd" id="NZX-NX-qoO"/>
+                                        </connections>
+                                    </textField>
+                                </subviews>
+                            </stackView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" adjustsImageSizeForAccessibilityContentSizeCategory="YES" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="uEy-Vf-cpK">
+                                <rect key="frame" x="25" y="700" width="364" height="51"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="51" id="PZ0-jm-XG5"/>
+                                </constraints>
+                                <color key="tintColor" red="0.56000000000000005" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <state key="normal">
+                                    <attributedString key="attributedTitle">
+                                        <fragment content="DONE">
+                                            <attributes>
+                                                <font key="NSFont" size="36" name="BebasNeue-Regular"/>
+                                                <paragraphStyle key="NSParagraphStyle" alignment="natural" lineBreakMode="wordWrapping" baseWritingDirection="natural" tighteningFactorForTruncation="0.0"/>
+                                            </attributes>
+                                        </fragment>
+                                    </attributedString>
+                                </state>
+                                <connections>
+                                    <action selector="save:" destination="dJM-Mo-NH3" eventType="touchUpInside" id="CKo-4z-1lz"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="KP0-ks-4Zc"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="L6T-M3-hhd" firstAttribute="leading" secondItem="KP0-ks-4Zc" secondAttribute="leading" constant="25" id="2vi-V9-xgS"/>
+                            <constraint firstItem="a8v-ph-naU" firstAttribute="top" secondItem="KP0-ks-4Zc" secondAttribute="top" constant="84" id="65X-XF-Pfq"/>
+                            <constraint firstItem="5Uc-lc-XXK" firstAttribute="leading" secondItem="L6T-M3-hhd" secondAttribute="trailing" constant="25" id="7rJ-Gy-CrD"/>
+                            <constraint firstItem="5Uc-lc-XXK" firstAttribute="leading" secondItem="L6T-M3-hhd" secondAttribute="trailing" constant="16" id="BIa-LZ-zsO"/>
+                            <constraint firstItem="KP0-ks-4Zc" firstAttribute="trailing" secondItem="5Uc-lc-XXK" secondAttribute="trailing" constant="16" id="IdL-OP-Y1s"/>
+                            <constraint firstItem="5Uc-lc-XXK" firstAttribute="width" secondItem="L6T-M3-hhd" secondAttribute="width" id="RQk-hX-aC4"/>
+                            <constraint firstItem="L6T-M3-hhd" firstAttribute="leading" secondItem="KP0-ks-4Zc" secondAttribute="leading" constant="16" id="S7M-qs-1Ux"/>
+                            <constraint firstItem="5Uc-lc-XXK" firstAttribute="height" secondItem="L6T-M3-hhd" secondAttribute="height" id="SDR-GF-PAe"/>
+                            <constraint firstItem="KP0-ks-4Zc" firstAttribute="trailing" secondItem="uEy-Vf-cpK" secondAttribute="trailing" constant="25" id="WJu-Wd-H6G"/>
+                            <constraint firstItem="KP0-ks-4Zc" firstAttribute="bottom" secondItem="uEy-Vf-cpK" secondAttribute="bottom" constant="57" id="fQL-rC-0Ak"/>
+                            <constraint firstItem="5Uc-lc-XXK" firstAttribute="leading" secondItem="L6T-M3-hhd" secondAttribute="trailing" constant="25" id="igt-kR-bA5"/>
+                            <constraint firstItem="5Uc-lc-XXK" firstAttribute="width" secondItem="L6T-M3-hhd" secondAttribute="width" id="jGM-aE-FsV"/>
+                            <constraint firstItem="L6T-M3-hhd" firstAttribute="top" secondItem="5Uc-lc-XXK" secondAttribute="top" id="lBg-iX-m9g"/>
+                            <constraint firstItem="L6T-M3-hhd" firstAttribute="top" secondItem="4Ep-V3-xJy" secondAttribute="top" constant="322" id="mtl-sB-7op"/>
+                            <constraint firstItem="L6T-M3-hhd" firstAttribute="leading" secondItem="KP0-ks-4Zc" secondAttribute="leading" constant="25" id="qC4-0Q-eQm"/>
+                            <constraint firstItem="uEy-Vf-cpK" firstAttribute="centerX" secondItem="a8v-ph-naU" secondAttribute="centerX" id="sRr-gV-lpb"/>
+                            <constraint firstItem="uEy-Vf-cpK" firstAttribute="leading" secondItem="KP0-ks-4Zc" secondAttribute="leading" constant="25" id="tqa-nw-f05"/>
+                            <constraint firstItem="KP0-ks-4Zc" firstAttribute="trailing" secondItem="5Uc-lc-XXK" secondAttribute="trailing" constant="25" id="uWK-t0-otd"/>
+                            <constraint firstItem="KP0-ks-4Zc" firstAttribute="trailing" secondItem="5Uc-lc-XXK" secondAttribute="trailing" constant="25" id="vaT-Ky-sdc"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="x7h-FB-WvI"/>
+                    <connections>
+                        <outletCollection property="textField" destination="prg-Lc-GDr" collectionClass="NSMutableArray" id="75a-ie-Lpo"/>
+                        <outletCollection property="textField" destination="R44-Ap-Rg5" collectionClass="NSMutableArray" id="huy-zN-q7O"/>
+                        <outletCollection property="textField" destination="KgW-21-NfF" collectionClass="NSMutableArray" id="ho0-Fq-UGm"/>
+                        <outletCollection property="textField" destination="LCe-N9-qdK" collectionClass="NSMutableArray" id="poT-sE-OOH"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5qk-pZ-lpd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2719" y="-717"/>
         </scene>
     </scenes>
     <designables>
