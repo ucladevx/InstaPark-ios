@@ -345,6 +345,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                         }
                     }
                 }
+            }
 //            }
             //        else if let paymentResult = paymentResult{
             //            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
