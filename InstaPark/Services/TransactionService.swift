@@ -29,6 +29,10 @@ class TransactionService {
         print("Getting transactions by ids")
         var transactions = [Transaction]()
         print(ids)
+        if(ids.count == 0) {
+            completion(transactions, nil)
+            return
+        }
         let query = db.collection("Transaction").whereField("id", in: ids).getDocuments() { querySnapshot, err in
             if let err = err {
                 completion(nil, err)

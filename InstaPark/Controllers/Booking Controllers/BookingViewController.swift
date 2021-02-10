@@ -32,10 +32,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
     var bookmarkFlag = false
- 
+    
     @IBOutlet var blackScreen: UIView!
     //  @IBOutlet var listingPopup: UIView!
-
+    
     
     
     @IBOutlet weak var tag1: UIButton!
@@ -54,7 +54,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: "test", tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date())
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date())
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
@@ -70,7 +70,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         bookmarkButton.isHidden = true
         nameLabel.text = info.name
-        addressLabel.text = info.address
+        addressLabel.text = info.address.toString()
         commentsLabel.text = info.comments
         commentsLabel.sizeToFit()
         
@@ -120,9 +120,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
         self.mapView.setRegion(region, animated: false)
         self.mapView.addAnnotation(info)
-//        let mask = UIView.init(frame: mapView.frame)
-//        mask.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
-//        self.mapView.addSubview(mask)
+        //        let mask = UIView.init(frame: mapView.frame)
+        //        mask.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
+        //        self.mapView.addSubview(mask)
         
         if listing {
             setupPopup()
@@ -188,7 +188,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.setTitleColor(.white, for: .normal)
             reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
             
-
+            
             reserveButton.isEnabled = true
         }
         // long term
@@ -228,38 +228,38 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         }
         
         /*
-        var time =  [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
-        time = [
-            0: [],
-            1: [],
-            2: [],
-            3: [],
-            4: [],
-            5: [],
-            6: []
-        ]
-        switch parkingType {
-        case .long:
-            print("long")
-        case .short:
-            DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-                guard let self = self else {
-                    return
-                }
-                ParkingSpotService.getShortTermParkingSpotById(self.info.id) { (parkingSpot, error) in
-                    if let spot = parkingSpot {
-                        for i in 0...6 {
-                            for times in spot.times[i] ?? [] {
-                                time[i]!.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: Date.init(timeIntervalSince1970: Double(times.start)), end: Date.init(timeIntervalSince1970: Double(times.end))))
-                            }
-                        }
-                        DispatchQueue.main.async {
-                            self.info.times = time
-                        }
-                    }
-                }
-            }
-        }*/
+         var time =  [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
+         time = [
+         0: [],
+         1: [],
+         2: [],
+         3: [],
+         4: [],
+         5: [],
+         6: []
+         ]
+         switch parkingType {
+         case .long:
+         print("long")
+         case .short:
+         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+         guard let self = self else {
+         return
+         }
+         ParkingSpotService.getShortTermParkingSpotById(self.info.id) { (parkingSpot, error) in
+         if let spot = parkingSpot {
+         for i in 0...6 {
+         for times in spot.times[i] ?? [] {
+         time[i]!.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: Date.init(timeIntervalSince1970: Double(times.start)), end: Date.init(timeIntervalSince1970: Double(times.end))))
+         }
+         }
+         DispatchQueue.main.async {
+         self.info.times = time
+         }
+         }
+         }
+         }
+         }*/
         
     }
     
@@ -303,58 +303,77 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         if listing {
             //UNCOMMENT when entire listing process is finished
             /*
-            if parkingType == .short {
-                ParkingSpotService.saveShortTermParkingSpot(ShortTermParking)
-            } else {
-                // set up saving of long term parking spot here
-            }*/
-        }
-        else if let paymentResult = paymentResult{
-            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
-                print("Sending payment to server");
-                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
-                    if error == nil {
-                        print("Payment Success!")
-                        ParkingSpotService.getParkingSpotById(self.info.id) { [self] (parkingSpot, error) in
-                            if let spot = parkingSpot {
-                                print(spot)
-                                //REPLACE WITH IF PARKING SPOT IS AVAILABLE
-                                if true {
-                                    print("Saving spot")
-                                    let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
-                                    //need to switch from info.bookTimes to ShortTermParkingSpot later
-                                    switch parkingType {
-                                    case .long:
-                                        print("long")
-                                    case .short:
-                                        if let parkingSpot = spot as? ShortTermParkingSpot{
-                                            TransactionService.saveTransaction(customer: "", provider:self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
-//                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
-                                           // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
+             if parkingType == .short {
+             ParkingSpotService.saveShortTermParkingSpot(ShortTermParking)
+             } else {
+             // set up saving of long term parking spot here
+             }*/
+        } else {
+            ParkingSpotService.getParkingSpotById(self.info.id) {[self] (parkingSpot, error) in
+                if let spot = parkingSpot, let startTime = startTime, let endTime = endTime {
+                    spot.validateTimeSlot(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970)){ success in
+                        if(!success) {
+                            
+                        } else {
+                            if let paymentResult = paymentResult, let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
+                                print("Sending payment to server");
+                                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
+                                    if error == nil {
+                                        print("Payment Success!")
+                                        switch parkingType {
+                                        case .long:
+                                            print("long")
+                                        case .short:
+                                            if let parkingSpot = spot as? ShortTermParkingSpot {
+                                                TransactionService.saveTransaction(customer: "", provider:self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
+                                                //                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
+                                                // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
+                                            }
                                         }
+                                    } else {
+                                        
                                     }
-//                                    self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
-//
-//                                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
-                                    
                                 }
                             }
                         }
-                    } else {
-                        print(error!.errorMessage())
                     }
                 }
             }
-        }else {
-            print("Payment has not been selected yet.")
-            //payment has not been selected
+            //        else if let paymentResult = paymentResult{
+            //            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
+            //                print("Sending payment to server");
+            //                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
+            //                    if error == nil {
+            //                        print("Payment Success!")
+            //                        ParkingSpotService.getParkingSpotById(self.info.id) { [self] (parkingSpot, error) in
+            //                            if let spot = parkingSpot {
+            //                                print(spot)
+            //                                //REPLACE WITH IF PARKING SPOT IS AVAILABLE
+            //                                if true {
+            //                                    print("Saving spot")
+            //                                    let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
+            //                                    //need to switch from info.bookTimes to ShortTermParkingSpot later
+            //                                    switch parkingType {
+            //                                    case .long:
+            //                                        print("long")
+            //                                    case .short:
+            //                                        if let parkingSpot = spot as? ShortTermParkingSpot {
+            //                                            TransactionService.saveTransaction(customer: "", provider:self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
+            //                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
+            // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
+            //                                        }
+            //                                    }
+            //                                    self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
+            //
+            //                                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
+            
         }
     }
     
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-    
+        
         if let vc = segue.destination as? AvailabilityViewController {
             vc.delegate = self
             if (startTime != nil && endTime != nil && startDate != nil)
@@ -425,7 +444,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
 extension BookingViewController {
     @objc func paymentTapped(_ send: UITapGestureRecognizer) {
         print("Payment Tapped");
-        var key = "sandbox_ndnbmg78_77yb2gxcsdwv5spd"
+        let key = "sandbox_ndnbmg78_77yb2gxcsdwv5spd"
         showDropIn(clientTokenOrTokenizationKey: key)
     }
     func showDropIn(clientTokenOrTokenizationKey: String) {
@@ -471,14 +490,14 @@ extension BookingViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         let reuseIdentifier = "pin1"
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-
-         if annotationView == nil {
-             annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-             annotationView?.canShowCallout = false
+        
+        if annotationView == nil {
+            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+            annotationView?.canShowCallout = false
             
-         } else {
-             annotationView?.annotation = annotation
-         }
+        } else {
+            annotationView?.annotation = annotation
+        }
         
         annotationView?.image = UIImage(named: "mapAnnotationPark")
         return annotationView

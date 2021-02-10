@@ -68,7 +68,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
         if(parkingType == .short) {
             //temp for now until all views are connected
             nextViewController.listing = true
-            nextViewController.info = ParkingSpaceMapAnnotation.init(id: "", name: "First Last", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 6.0, address: "address goes here", tags: ["tag1", "tag2", "tag3"], comments: comments.text, startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: nil)
+            nextViewController.info = ParkingSpaceMapAnnotation.init(id: "", name: "First Last", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 6.0, address: Address.blankAddress(), tags: ["tag1", "tag2", "tag3"], comments: comments.text, startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: nil)
             /*
             nextViewController.ShortTermParking = ShortTermParking
             var address = ShortTermParking.address.street

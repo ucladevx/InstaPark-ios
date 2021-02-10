@@ -28,8 +28,8 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     var timeRange = [String]()
     
     // saved variables
-    var startTime = Date() //daily start time
-    var endTime = Date.init(timeIntervalSinceNow: 60*60) //daily end time
+    var startTime:Int = 0 //daily start time
+    var endTime:Int = 60*60*24-1 //daily end time
     var selectedStartDate: Date!
     var selectedEndDate: Date!
     var datesRange: [Date]?
@@ -101,11 +101,12 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     // MARK: call this before passing - this saves all the variables needed
     func getAllValues() {
         if(twentyFourHourAccess) {
-            startTime = timeFormatter1.date(from: "12:00 AM")!
-            endTime = timeFormatter1.date(from: "11:45 PM")!
+            startTime = 0
+            endTime = 60*60*24-1;
         } else {
-            startTime = timeFormatter1.date(from: timeRange[startScroller.selectedRow(inComponent: 0)])!
-            endTime = timeFormatter1.date(from: timeRange[endScroller.selectedRow(inComponent: 0)])!
+            //CHANGE TO seconds SINCE start of day
+            startTime = startScroller.selectedRow(inComponent: 0) * 15;
+            endTime = startScroller.selectedRow(inComponent: 0) * 15;
         }
         //selectedStartDate = calendar.selectedDate!
     }
@@ -177,8 +178,9 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         return formatter1
     }()
     
-    func setTime(hour: Int, minute: Int) -> Date {
-        return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date())!
+    func setTime(hour: Int, minute: Int) -> Int {
+        return hour*60+minute
+//        return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date())!
     }
     
     // MARK: - Navigation
@@ -196,20 +198,20 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         if parkingType == .short {
             if twentyFourHourAccess {
                 startTime = setTime(hour: 0, minute: 00)
-                endTime = setTime(hour: 23, minute: 45)
+                endTime = setTime(hour: 23, minute: 59)
             }
             if weekendsOnly {
-                times[5] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
-                times[6] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+                times[5] = [ParkingTimeInterval(start: startTime, end: endTime)]
+                times[6] = [ParkingTimeInterval(start: startTime, end: endTime)]
             }
             else if weekdaysOnly {
                 for i in 0...4 {
-                    times[i] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+                    times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
                 }
             }
             else {
                 for i in 0...6 {
-                    times[i] = [ParkingTimeInterval(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970))]
+                    times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
                 }
             }
             ShortTermParking.times = times
@@ -369,9 +371,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
           diyCell.circleImageView.isHidden = true//!self.gregorian.isDateInToday(date)
           // Configure selection layer
           if position == .current {
-              
               var selectionType = SelectionType.none
-              
               if calendar.selectedDates.contains(date) {
                   let previousDate = self.gregorian.date(byAdding: .day, value: -1, to: date)!
                   let nextDate = self.gregorian.date(byAdding: .day, value: 1, to: date)!

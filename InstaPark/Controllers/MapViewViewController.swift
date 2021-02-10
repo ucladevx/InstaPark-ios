@@ -139,7 +139,7 @@ class MapViewViewController: ViewController{
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
                         if let parkingSpot = parkingSpot{
-                            parkingSpot.validateTimeSlot(startTime: Int(shortTermStartTime.timeIntervalSince1970), endTime: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+                            parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
                                 if (success) {
                                     if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
                                         parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
@@ -147,8 +147,7 @@ class MapViewViewController: ViewController{
                                                 //IF PARKING SPOT IS AVAILABLE
                                                 print("Parking Spot is available")
                                                 print("Query by location")
-                                                let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
-                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
+                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
                                                 // short-term parking
                                                 if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                                     annotation.startTime = self.shortTermStartTime
@@ -318,8 +317,7 @@ class MapViewViewController: ViewController{
                         if let parkingSpot = parkingSpot{
                             //IF PARKING SPOT IS AVAILABLEx
                             print("Query by location")
-                            let address = parkingSpot.address.street + ", " + parkingSpot.address.city + ", " + parkingSpot.address.state + " " + parkingSpot.address.zip
-                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.firstName + " " + parkingSpot.lastName, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
+                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil)
                             // short-term parking
                             if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                 annotation.startTime = self.shortTermStartTime
@@ -515,7 +513,7 @@ extension MapViewViewController: MKMapViewDelegate {
             originalCenterOfslideUpView = SlideUpView.center.y
           
             nameLabel.text = parkingSpace.name
-            addressLabel.text = parkingSpace.address
+            addressLabel.text = parkingSpace.address.toString()
             
             //set up price label
             let dollar = "$"
