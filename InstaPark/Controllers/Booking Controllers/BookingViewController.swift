@@ -55,7 +55,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date())
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String]())
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
@@ -66,6 +66,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var listing = false // only true if this is listing model
     override func viewDidLoad() {
         super.viewDidLoad()
+        if info.images.count != 0 {
+            print(info.images[0])
+            getAllImages()
+        }
         mapView.delegate = self
         
         
@@ -265,6 +269,35 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
          }
          }*/
         
+    }
+    
+    func getAllImages() {
+        for image in info.images {
+            print("starting image conversion...")
+            guard let url = URL(string: image) else {
+                print("can't convert string to URL")
+                return
+            }
+            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                guard let data = data, error == nil else {
+                    print("failed to convert image from url")
+                    return
+                }
+                DispatchQueue.main.async {
+                    guard let UIimage = UIImage(data: data) else {
+                        print("failed to make image into UIimage")
+                        return
+                    }
+                    print("image converted")
+                    self.images.append(UIimage)
+                    let imageView = UIImageView.init(image: UIimage)
+                    //imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 60)
+                    self.view.addSubview(imageView)
+                    imageView.center = self.view.center
+                }
+            }
+            task.resume()
+        }
     }
     
     func setupPopup() {

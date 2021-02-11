@@ -46,11 +46,55 @@ class ImageService {
                     return
                 }
                 print("upload sucessful")
-                db.collection(ParkingSpotService.parkingDBName).document(spotID).updateData(["super.images" : FieldValue.arrayUnion([id])])
-                print("updated parking spot image field")
+                print("downloading image URL")
+                storage.child(id).downloadURL { (url, error) in
+                    guard let url = url, error == nil else {
+                        print("FAILED TO DOWNLOAD")
+                        return
+                    }
+                    let urlString = url.absoluteString
+                    print("download URL: \(urlString)")
+                    db.collection(ParkingSpotService.parkingDBName).document(spotID).updateData(["super.images" : FieldValue.arrayUnion([urlString])])
+                    print("updated parking spot image field")
+                }
             })
         }
     }
+    /*
+    static func getImage(imageURL: String, completion: @escaping (UIImage?, Error?) -> Void) {
+        guard let url = URL(string: imageURL) else {
+            return
+        }
+        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+            guard let data = data, error == nil else {
+                completion(nil, error)
+                return
+            }
+            let image = UIImage(data: data)
+            completion(image, nil)
+        }
+        task.resume()
+    }
+    static func getAllImages(images: [String], completion: @escaping ([UIImage]?, Error?) -> Void) {
+        var UIimages = [UIImage]()
+        for image in images {
+            guard let url = URL(string: image) else {
+                return
+            }
+            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                guard let data = data, error == nil else {
+                    completion(nil, error)
+                    return
+                }
+                guard let UIimage = UIImage(data: data) else {
+                    return
+                }
+                UIimages.append(UIimage)
+            }
+            task.resume()
+        }
+        completion(UIimages, nil)
+    }*/
     //Gets image from Firebase Storage base on image id string and returns it as a UIImage
     static func downloadImage(id: String, completion: @escaping (UIImage?, Error?) -> Void) {
         //let imagePath = "images/" + id
@@ -62,7 +106,7 @@ class ImageService {
             }
             let urlString = url.absoluteString
             print("download URL: \(urlString)")
-            URLSession.shared.dataTask(with: url) { (data, _, error) in
+            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
                 guard let data = data, error == nil else {
                     completion(nil, error)
                     return
@@ -70,6 +114,7 @@ class ImageService {
                 let image = UIImage(data: data)
                 completion(image, nil)
             }
+            task.resume()
         }
     }
 }
