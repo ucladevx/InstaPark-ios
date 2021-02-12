@@ -69,6 +69,7 @@
 		945167D725AE96E800939551 /* monthlyTimeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945167D625AE96E800939551 /* monthlyTimeViewController.swift */; };
 		9451680E25B91A6000939551 /* ListingTimesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9451680D25B91A6000939551 /* ListingTimesViewController.swift */; };
 		9451681325B932FE00939551 /* ListingAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9451681225B932FE00939551 /* ListingAddressViewController.swift */; };
+		945E02EA25D4DB3D00741BDD /* BookingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945E02E925D4DB3C00741BDD /* BookingImageCollectionViewCell.swift */; };
 		94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */; };
 		94C8AB5D257C972A00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
 		94C8AB61257C972B00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
@@ -181,6 +182,7 @@
 		945167D625AE96E800939551 /* monthlyTimeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = monthlyTimeViewController.swift; sourceTree = "<group>"; };
 		9451680D25B91A6000939551 /* ListingTimesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingTimesViewController.swift; sourceTree = "<group>"; };
 		9451681225B932FE00939551 /* ListingAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingAddressViewController.swift; sourceTree = "<group>"; };
+		945E02E925D4DB3C00741BDD /* BookingImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityViewController.swift; sourceTree = "<group>"; };
 		94C8AB8B257C9F9E00D89060 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		94C8AB8C257C9F9E00D89060 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -308,6 +310,7 @@
 			isa = PBXGroup;
 			children = (
 				0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */,
+				945E02E925D4DB3C00741BDD /* BookingImageCollectionViewCell.swift */,
 				044AD57F2581EE07000FE799 /* SlideOutView.swift */,
 				2B29F77025BE3BC300E897E7 /* ParkingInfoView.swift */,
 				942F122925C65A8B00D04F39 /* calendarCell.swift */,
@@ -796,6 +799,7 @@
 				0410B11C2548D8E9001C4D27 /* SceneDelegate.swift in Sources */,
 				94313125255627BE002221F4 /* smallOverlayView.swift in Sources */,
 				0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */,
+				945E02EA25D4DB3D00741BDD /* BookingImageCollectionViewCell.swift in Sources */,
 				2B633EA825B92F9A003448A4 /* SelectListingTypeViewController.swift in Sources */,
 				945167D725AE96E800939551 /* monthlyTimeViewController.swift in Sources */,
 				2B6A4DF425CCC62D00864075 /* SegueFromRight.swift in Sources */,

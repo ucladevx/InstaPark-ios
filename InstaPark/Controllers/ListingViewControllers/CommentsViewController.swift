@@ -100,7 +100,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
                 address += ", " + ShortTermParking.address.city
                 address += ", " + ShortTermParking.address.state + " " + ShortTermParking.address.zip
             nextViewController.listing = true
-            nextViewController.info = ParkingSpaceMapAnnotation.init(id: "", name: "", coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: Date(), endDate: nil)
+            nextViewController.info = ParkingSpaceMapAnnotation.init(id: "", name: "", coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: Date(), endDate: nil, images: [String]())
         } else {
             // pass in long term parking when ready
         }

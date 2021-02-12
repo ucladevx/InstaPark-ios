@@ -17,6 +17,7 @@ protocol isAbleToReceiveData {
 class BookingViewController: UIViewController, isAbleToReceiveData {
     var transationDate: String! // only not nil when view came from transactions view
     
+    @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet var popupView: UIView!
     @IBOutlet weak var userInfoView: UIView!
@@ -55,7 +56,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date())
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String]())
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
@@ -66,8 +67,15 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var listing = false // only true if this is listing model
     override func viewDidLoad() {
         super.viewDidLoad()
+//        if info.images.count != 0 {
+//            print(info.images[0])
+//            getAllImages()
+//        }
         mapView.delegate = self
-        
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
+        imageCollectionView.allowsSelection = false
+        //imageCollectionView.hide
         
         bookmarkButton.isHidden = true
         nameLabel.text = info.name
@@ -265,6 +273,35 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
          }
          }*/
         
+    }
+    
+    func getAllImages() {
+        for image in info.images {
+            print("starting image conversion...")
+            guard let url = URL(string: image) else {
+                print("can't convert string to URL")
+                return
+            }
+            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                guard let data = data, error == nil else {
+                    print("failed to convert image from url")
+                    return
+                }
+                DispatchQueue.main.async {
+                    guard let UIimage = UIImage(data: data) else {
+                        print("failed to make image into UIimage")
+                        return
+                    }
+                    print("image converted")
+                    self.images.append(UIimage)
+                    let imageView = UIImageView.init(image: UIimage)
+                    //imageView.frame = CGRect(x: 0, y: 0, width: 50, height: 60)
+                    self.view.addSubview(imageView)
+                    imageView.center = self.view.center
+                }
+            }
+            task.resume()
+        }
     }
     
     func setupPopup() {
@@ -493,6 +530,127 @@ extension BookingViewController {
             //payment has not been selected
         }
     }
+}
+extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if images.isEmpty && info.images.isEmpty {
+            return CGSize(width: self.view.frame.width, height: 256)
+        }
+        return CGSize(width: 327, height: 256)
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        if listing {
+            return images.count + 1
+        }
+        return info.images.count + 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pictureCells", for: indexPath) as! BookingImageCollectionViewCell
+        cell.frame.size.width = 327
+        cell.frame.size.height = 256
+        let index = indexPath.row
+        var mapFlag = false
+        var mapOnly = false
+        if images.isEmpty && info.images.isEmpty {
+            mapOnly = true
+        }
+        if listing && !mapOnly{
+            if index != images.count {
+                cell.image.image = self.images[index]
+            } else {
+                mapFlag = true
+            }
+        } else if !mapOnly{
+            if index != info.images.count {
+                let image = info.images[index]
+                guard let url = URL(string: image) else {
+                    print("can't convert string to URL")
+                    return cell
+                }
+                let activityIndicator = UIActivityIndicatorView()
+                activityIndicator.style = .medium
+                activityIndicator.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                activityIndicator.hidesWhenStopped = true
+                cell.addSubview(activityIndicator)
+                activityIndicator.center = cell.center
+                activityIndicator.startAnimating()
+                let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                    guard let data = data, error == nil else {
+                        print("failed to convert image from url")
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        guard let UIimage = UIImage(data: data) else {
+                            print("failed to make image into UIimage")
+                            return
+                        }
+                        print("image converted")
+                        activityIndicator.stopAnimating()
+                        cell.image.image = UIimage
+                        self.images.append(UIimage)
+                    }
+                }
+                task.resume()
+            } else {
+                mapFlag = true
+            }
+        }
+        if mapFlag || mapOnly {
+            if mapOnly {
+                print("map only")
+                cell.sizeToFit()
+                cell.frame.size.width = collectionView.fs_width
+                cell.image.setNeedsLayout()
+                cell.image.layoutIfNeeded()
+                cell.image.frame.size.width = self.view.frame.width
+            }
+            let rect = cell.image.bounds
+            let options = MKMapSnapshotter.Options()
+            let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
+            let location: CLLocationCoordinate2D = info.coordinate
+            let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
+            options.size = CGSize(width: cell.fs_width, height: cell.fs_height)
+            if mapOnly {
+                options.size = CGSize(width: self.view.frame.width, height: cell.image.fs_height)
+            }
+            options.region = region
+            let snapshot = MKMapSnapshotter(options: options)
+            snapshot.start { snapshot, error in
+                guard let snapshot = snapshot, error == nil else {
+                    print(error ?? "Unknown error")
+                    return
+                }
+                let image = UIGraphicsImageRenderer(size: options.size).image { _ in
+                    snapshot.image.draw(at: .zero)
+                    
+                    let pinView = MKPinAnnotationView(annotation: nil, reuseIdentifier: nil)
+                    //pinView.frame = CGRect(x: 0, y: 0, width: 12, height: 10)
+                    let pinImage = UIImage(named: "mapAnnotationPark")
+                    
+                    //CGSize(width: 15, height: 10)
+                    var point = snapshot.point(for: self.info.coordinate)
+
+                    if rect.contains(point) {
+                        point.x -= pinView.bounds.width / 2
+                        point.y -= pinView.bounds.height / 2
+                        point.x += pinView.centerOffset.x
+                        point.y += pinView.centerOffset.y
+                        pinImage?.draw(at: point)
+                    }
+                }
+                UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
+                DispatchQueue.main.async {
+                    cell.image.image = image
+                }
+            }
+
+        }
+        
+        return cell
+    }
+    
+    
 }
 extension BookingViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
