@@ -530,12 +530,53 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="ixj-76-AXt">
-                                <rect key="frame" x="0.0" y="0.0" width="414" height="231"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="BWS-95-dgM">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="239"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="231" id="VTz-Zp-ckT"/>
+                                    <constraint firstAttribute="height" constant="239" id="NpN-Uk-wjs"/>
                                 </constraints>
-                            </mapView>
+                                <inset key="scrollIndicatorInsets" minX="0.0" minY="-17" maxX="0.0" maxY="0.0"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hGK-Ra-NRO">
+                                    <size key="itemSize" width="327" height="195"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="pictureCells" id="yPc-FY-kHg" customClass="BookingImageCollectionViewCell" customModule="InstaPark" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="327" height="195"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="327" height="195"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="eXp-nI-EcL">
+                                                    <rect key="frame" x="0.0" y="0.0" width="327" height="195"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="256" id="gi0-Ly-Oud"/>
+                                                        <constraint firstAttribute="width" constant="327" id="ikD-ms-fQO"/>
+                                                    </constraints>
+                                                </imageView>
+                                            </subviews>
+                                        </view>
+                                        <constraints>
+                                            <constraint firstItem="eXp-nI-EcL" firstAttribute="top" secondItem="yPc-FY-kHg" secondAttribute="top" id="0T5-P6-Opd"/>
+                                            <constraint firstItem="eXp-nI-EcL" firstAttribute="leading" secondItem="yPc-FY-kHg" secondAttribute="leading" id="Fo5-aW-wq3"/>
+                                            <constraint firstAttribute="bottom" secondItem="eXp-nI-EcL" secondAttribute="bottom" id="ehE-75-SmH"/>
+                                            <constraint firstAttribute="trailing" secondItem="eXp-nI-EcL" secondAttribute="trailing" id="hzp-A7-SEJ"/>
+                                        </constraints>
+                                        <size key="customSize" width="327" height="195"/>
+                                        <connections>
+                                            <outlet property="image" destination="eXp-nI-EcL" id="pG3-m5-7nD"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="AiY-WT-MZL" id="MCu-H4-3Ma"/>
+                                    <outlet property="delegate" destination="AiY-WT-MZL" id="cO1-2d-a73"/>
+                                </connections>
+                            </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LQq-xu-zfC">
                                 <rect key="frame" x="20" y="62" width="18" height="26"/>
                                 <constraints>
@@ -958,18 +999,18 @@
                         <constraints>
                             <constraint firstItem="rWx-8R-0LF" firstAttribute="bottom" secondItem="nUM-rw-KGy" secondAttribute="bottom" constant="53" id="1VF-pO-GP4"/>
                             <constraint firstItem="rWx-8R-0LF" firstAttribute="trailing" secondItem="nUM-rw-KGy" secondAttribute="trailing" constant="34" id="2PO-oQ-LWW"/>
+                            <constraint firstItem="BWS-95-dgM" firstAttribute="top" secondItem="AiY-WT-MZL" secondAttribute="top" id="3Qq-8J-wa2"/>
                             <constraint firstItem="SFi-uh-GN9" firstAttribute="leading" secondItem="rWx-8R-0LF" secondAttribute="leading" constant="34" id="4K1-VD-ZO1"/>
+                            <constraint firstItem="BWS-95-dgM" firstAttribute="leading" secondItem="rWx-8R-0LF" secondAttribute="leading" id="6sk-QZ-97A"/>
                             <constraint firstItem="nUM-rw-KGy" firstAttribute="top" secondItem="SFi-uh-GN9" secondAttribute="bottom" constant="38.5" id="CTb-iv-kWq"/>
                             <constraint firstItem="9VO-xo-rXc" firstAttribute="centerX" secondItem="AiY-WT-MZL" secondAttribute="centerX" id="DcY-h8-XOm"/>
                             <constraint firstItem="nUM-rw-KGy" firstAttribute="leading" secondItem="rWx-8R-0LF" secondAttribute="leading" constant="35" id="Fly-gW-g6o"/>
+                            <constraint firstItem="BWS-95-dgM" firstAttribute="trailing" secondItem="rWx-8R-0LF" secondAttribute="trailing" id="JA0-dN-mbb"/>
                             <constraint firstItem="cCB-Qv-sJg" firstAttribute="top" secondItem="rWx-8R-0LF" secondAttribute="top" constant="131" id="NVg-cH-E8d"/>
                             <constraint firstItem="LQq-xu-zfC" firstAttribute="top" secondItem="rWx-8R-0LF" secondAttribute="top" constant="18" id="Rrf-vU-CRu"/>
                             <constraint firstItem="LQq-xu-zfC" firstAttribute="leading" secondItem="rWx-8R-0LF" secondAttribute="leading" constant="20" id="WWd-dJ-3Vi"/>
-                            <constraint firstItem="ixj-76-AXt" firstAttribute="leading" secondItem="AiY-WT-MZL" secondAttribute="leading" id="Zed-Uv-xmY"/>
                             <constraint firstItem="9VO-xo-rXc" firstAttribute="top" secondItem="cCB-Qv-sJg" secondAttribute="bottom" constant="21" id="cci-L5-kHt"/>
                             <constraint firstItem="cCB-Qv-sJg" firstAttribute="centerX" secondItem="AiY-WT-MZL" secondAttribute="centerX" id="fdm-0c-bjT"/>
-                            <constraint firstItem="ixj-76-AXt" firstAttribute="top" secondItem="AiY-WT-MZL" secondAttribute="top" id="lEK-wP-nrz"/>
-                            <constraint firstItem="ixj-76-AXt" firstAttribute="trailing" secondItem="rWx-8R-0LF" secondAttribute="trailing" id="q1w-5K-9VV"/>
                             <constraint firstItem="rWx-8R-0LF" firstAttribute="trailing" secondItem="SFi-uh-GN9" secondAttribute="trailing" constant="35" id="reR-eq-wo2"/>
                         </constraints>
                     </view>
@@ -980,6 +1021,7 @@
                         <outlet property="blackScreen" destination="NRB-jN-7oN" id="fmr-3S-05B"/>
                         <outlet property="bookmarkButton" destination="d4b-uc-yCj" id="CGk-45-bON"/>
                         <outlet property="commentsLabel" destination="wSZ-8B-Ubh" id="5vM-HX-G8d"/>
+                        <outlet property="imageCollectionView" destination="BWS-95-dgM" id="zo9-rw-1qz"/>
                         <outlet property="mapView" destination="ixj-76-AXt" id="Pv5-Lb-QpF"/>
                         <outlet property="nameLabel" destination="AqB-Hz-RBe" id="JN7-5O-9Yj"/>
                         <outlet property="paymentCardLabel" destination="vze-ok-bis" id="FnG-wn-2qe"/>
@@ -1074,6 +1116,10 @@
                         </userDefinedRuntimeAttribute>
                     </userDefinedRuntimeAttributes>
                 </view>
+                <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" id="ixj-76-AXt">
+                    <rect key="frame" x="0.0" y="0.0" width="197" height="70"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                </mapView>
             </objects>
             <point key="canvasLocation" x="2718.840579710145" y="75"/>
         </scene>
