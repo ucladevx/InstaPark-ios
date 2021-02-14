@@ -19,6 +19,7 @@ class MapViewViewController: ViewController{
     //passed variable from hourlyTimeViewController
     var shortTermStartTime: Date!
     var shortTermEndTime: Date!
+    @IBOutlet weak var tagCollectionView: UICollectionView!
     var shortTermDate: Date!
     @IBOutlet weak var timeFrameButton: UIButton!
     
@@ -29,12 +30,12 @@ class MapViewViewController: ViewController{
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var availableLabel: UILabel!
+   // @IBOutlet weak var availableLabel: UILabel!
     
-    @IBOutlet weak var tag1: UIButton!
-    @IBOutlet weak var tag2: UIButton!
-    @IBOutlet weak var tag3: UIButton!
-    @IBOutlet weak var tag4: UIButton!
+//    @IBOutlet weak var tag1: UIButton!
+//    @IBOutlet weak var tag2: UIButton!
+//    @IBOutlet weak var tag3: UIButton!
+//    @IBOutlet weak var tag4: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     @IBAction func didTapMenuButton(_ sender: UIButton) {
         toggleMenu()
@@ -45,6 +46,7 @@ class MapViewViewController: ViewController{
     }
     
     @IBOutlet weak var slideoutBlackView: UIView!
+    var selectedAnnotationTags = [String]()
     
     
     @IBOutlet var slideOutBar: SlideOutView!
@@ -104,6 +106,11 @@ class MapViewViewController: ViewController{
         timeFrameButton.layer.shadowOpacity = 0.4
         timeFrameButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
         timeFrameButton.layer.shadowColor = CGColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+        
+        //tag collection view
+        tagCollectionView.delegate = self
+        tagCollectionView.dataSource = self
+        tagCollectionView.allowsSelection = false
         
         // if segued from hourlyTimeViewController, search/setup in here
         if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
@@ -546,6 +553,7 @@ extension MapViewViewController: MKMapViewDelegate {
             let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
             mapView.setRegion(region, animated: true)
             menuButton.isHidden = false
+            selectedAnnotationTags = [String]()
             //view.image = UIImage(named: "mapAnnotation")
         } else {
             return
@@ -598,25 +606,27 @@ extension MapViewViewController: MKMapViewDelegate {
             priceLabel.attributedText = cost
             
             //set up tags
-            let tags: [UIButton] = [tag1, tag2, tag3, tag4]
+            self.selectedAnnotationTags = parkingSpace.tags
+            tagCollectionView.reloadData()
+//            let tags: [UIButton] = [tag1, tag2, tag3, tag4]
+//
+//            for tag in tags {
+//                tag.layer.borderWidth = 1.5
+//                tag.layer.cornerRadius = 8
+//                tag.layer.borderColor = CGColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+//                tag.isHidden = true
+//            }
+//            for n in 0...(parkingSpace.tags.count-1) {
+//                tags[n].setTitle(parkingSpace.tags[n], for: .normal)
+//                tags[n].isHidden = false
+//            }
             
-            for tag in tags {
-                tag.layer.borderWidth = 1.5
-                tag.layer.cornerRadius = 8
-                tag.layer.borderColor = CGColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
-                tag.isHidden = true
-            }
-            for n in 0...(parkingSpace.tags.count-1) {
-                tags[n].setTitle(parkingSpace.tags[n], for: .normal)
-                tags[n].isHidden = false
-            }
             
-            //set up availability -- not done yet
-            let avail = "Available  "
-            let avail_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Regular", size: 14)]
-            let timeAvail = NSMutableAttributedString(string:avail, attributes:avail_attrs as [NSAttributedString.Key : Any])
-            
-            var now = "NOW"
+//            let avail = "Available  "
+//            let avail_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Regular", size: 14)]
+//            let timeAvail = NSMutableAttributedString(string:avail, attributes:avail_attrs as [NSAttributedString.Key : Any])
+//
+//            var now = "NOW"
             /*
             let weekDay = Calendar.current.component(.weekday, from: Date())
             
@@ -669,10 +679,10 @@ extension MapViewViewController: MKMapViewDelegate {
                 }
             }*/
             
-            let now_attrs =  [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-MediumItalic", size: 16), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
-            let nowLabel = NSMutableAttributedString(string:now, attributes:now_attrs as [NSAttributedString.Key : Any])
-            timeAvail.append(nowLabel)
-            availableLabel.attributedText = timeAvail
+//            let now_attrs =  [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-MediumItalic", size: 16), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
+//            let nowLabel = NSMutableAttributedString(string:now, attributes:now_attrs as [NSAttributedString.Key : Any])
+//            timeAvail.append(nowLabel)
+//            availableLabel.attributedText = timeAvail
         } else {
             return
         }
@@ -850,3 +860,41 @@ private extension MKMapView {
     }
 }
 
+extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            let index = indexPath.row
+            var width = 63 + 10
+            if self.selectedAnnotationTags[index].count > 8 {
+                width = (self.selectedAnnotationTags[index].count * 6) + 30
+            }
+            return CGSize(width: CGFloat(width), height: 30)
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.selectedAnnotationTags.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
+        let index = indexPath.row
+        var width = 63
+        if self.selectedAnnotationTags[index].count > 8 {
+            width = (self.selectedAnnotationTags[index].count * 6) + 20
+        }
+        cell.frame.size.width = CGFloat(width)
+        cell.frame.size.height = 30
+        cell.contentView.frame.size.width = CGFloat(width) + 5
+        cell.contentView.frame.size.height = 30
+        let tag = cell.tagLabel ?? UILabel()
+        tag.layer.borderWidth = 1.5
+        tag.frame.size.width = CGFloat(width)
+        tag.frame.size.height = 20
+        tag.layer.cornerRadius = 8
+        tag.layer.borderColor = CGColor(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+        tag.text = self.selectedAnnotationTags[index]
+        tag.textColor = UIColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+        tag.font = .systemFont(ofSize: 10)
+        tag.textAlignment = .center
+        return cell
+    }
+    
+}
