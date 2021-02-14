@@ -19,6 +19,7 @@ class MapViewViewController: ViewController{
     //passed variable from hourlyTimeViewController
     var shortTermStartTime: Date!
     var shortTermEndTime: Date!
+    @IBOutlet weak var tagCollectionView: UICollectionView!
     var shortTermDate: Date!
     @IBOutlet weak var timeFrameButton: UIButton!
     
@@ -29,12 +30,12 @@ class MapViewViewController: ViewController{
     @IBOutlet weak var nameLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var addressLabel: UILabel!
-    @IBOutlet weak var availableLabel: UILabel!
+   // @IBOutlet weak var availableLabel: UILabel!
     
-    @IBOutlet weak var tag1: UIButton!
-    @IBOutlet weak var tag2: UIButton!
-    @IBOutlet weak var tag3: UIButton!
-    @IBOutlet weak var tag4: UIButton!
+//    @IBOutlet weak var tag1: UIButton!
+//    @IBOutlet weak var tag2: UIButton!
+//    @IBOutlet weak var tag3: UIButton!
+//    @IBOutlet weak var tag4: UIButton!
     @IBOutlet weak var menuButton: UIButton!
     @IBAction func didTapMenuButton(_ sender: UIButton) {
         toggleMenu()
@@ -45,6 +46,7 @@ class MapViewViewController: ViewController{
     }
     
     @IBOutlet weak var slideoutBlackView: UIView!
+    var selectedAnnotationTags = [String]()
     
     
     @IBOutlet var slideOutBar: SlideOutView!
@@ -105,6 +107,11 @@ class MapViewViewController: ViewController{
         timeFrameButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
         timeFrameButton.layer.shadowColor = CGColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
         
+        //tag collection view
+        tagCollectionView.delegate = self
+        tagCollectionView.dataSource = self
+        tagCollectionView.allowsSelection = false
+        
         // if segued from hourlyTimeViewController, search/setup in here
         if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
             print("ID:2")
@@ -135,7 +142,138 @@ class MapViewViewController: ViewController{
         self.mapView.setRegion(region, animated: false)
         regionQuery = geoFire.query(with: region) // for some reason geoFire isn't working with regionQuery???
         circleQuery = geoFire.query(at: CLLocation.init(latitude: location.latitude, longitude: location.longitude), withRadius: 20)
+        queryInRegion(region: region, location: location)
+//        // if user has chosen a time frame & date query only to that time frame/date
+//        if shortTermStartTime != nil && shortTermEndTime != nil {
+//            // get all parking spaces within a 20000 km radius from the db
+//            _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
+//                print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
+//                ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
+//                    DispatchQueue.global(qos: .userInteractive).async {
+//                        ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
+//                            if let parkingSpot = parkingSpot{
+//                                parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+//                                    if (success) {
+//                                        if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+//                                            parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+//                                                if(success){
+//                                                    //IF PARKING SPOT IS AVAILABLE
+//                                                    print("Parking Spot is available")
+//                                                    print("Query by location")
+//                                                    let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images)
+//                                                    // short-term parking
+//                                                    if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+//                                                        annotation.startTime = self.shortTermStartTime
+//                                                        annotation.endTime = self.shortTermEndTime
+//                                                        annotation.date = self.shortTermDate
+//                                                    }
+//                                                    self.annotations.append(annotation)
+//                                                    mapView.addAnnotation(annotation)
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//        // no time is selected - query all parking spots in user location so map is not empty??
+//        else {
+//            _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
+//                print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
+//                ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
+//                    DispatchQueue.global(qos: .userInteractive).async {
+//                        ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
+//                            if let parkingSpot = parkingSpot{
+//                                if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+//                                    print("Query by location")
+//                                    let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images)
+//                                    // short-term parking
+//                                    if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+//                                        annotation.startTime = self.shortTermStartTime
+//                                        annotation.endTime = self.shortTermEndTime
+//                                        annotation.date = self.shortTermDate
+//                                    }
+//                                    self.annotations.append(annotation)
+//                                    mapView.addAnnotation(annotation)
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//
         
+        
+//        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
+//          guard let self = self else {
+//            return
+//          }
+//            ParkingSpotService.getAllParkingSpots() { parkingSpots, error in
+//                print("Rendering parking spots on map")
+//                if let parkingSpots = parkingSpots {
+//                    for parking in parkingSpots {
+//                        if parking.isAvailable {
+//                            let address = parking.address.street + ", " + parking.address.city + ", " + parking.address.state + " " + parking.address.zip
+//
+//                            self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: parking.firstName + " " + parking.lastName, coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: address , tags: parking.tags, comments: parking.comments))
+//                        }
+//                    }
+//                    print("Adding annotations")
+//                    DispatchQueue.main.async {
+//                        self.mapView.addAnnotations(self.annotations)
+//                    }
+//                }
+//             }
+//        }
+        NotificationCenter.default.addObserver(self, selector: #selector(self.updateView), name: UIApplication.didBecomeActiveNotification, object: nil)
+        
+        //test annotations until set up with firebase
+//        let annotation1 = ParkingSpaceMapAnnotation(name: "Joe Bruin", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 4.00, time: "3:00-4:00")
+//        let annotation2 = ParkingSpaceMapAnnotation(name: "FIRST LAST ", coordinate: CLLocationCoordinate2DMake(34.072, -118.43), price: 7.0, time: "5:00-8:00")
+//        let annotation3 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.071, -118.439), price: 8.0, time: "7:00-9:00")
+//        let annotation4 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.073, -118.449), price: 5.0, time: "2:30-4:00")
+//        let annotation5 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.08, -118.4381), price: 6.0, time: "11:00-12:00")
+        
+//        annotations.append(contentsOf: [annotation1, annotation2, annotation3, annotation4, annotation5])
+//
+//        self.mapView.addAnnotations(annotations)
+        setupView()
+        SlideUpView.isHidden = true
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
+    @objc func updateView() {
+        self.SlideUpView.isHidden = true
+        print("update View")
+    }
+    
+    @IBAction func timeFrameBtn(_ sender: Any) {
+        setUpTimePopup()
+    }
+    @IBAction func reserveBtn(_ sender: UIButton) {
+        let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "bookingView") as! BookingViewController
+//        self.navigationController?.pushViewController(nextViewController, animated: true)
+        nextViewController.modalPresentationStyle = .fullScreen
+        nextViewController.modalTransitionStyle = .coverVertical
+        nextViewController.info = parkingSpace[0]
+        
+        self.present(nextViewController, animated:true)
+    }
+    
+    func queryInRegion(region: MKCoordinateRegion, location: CLLocationCoordinate2D) {
+        regionQuery = geoFire.query(with: region) // for some reason geoFire isn't working with regionQuery???
+        circleQuery = geoFire.query(at: CLLocation.init(latitude: location.latitude, longitude: location.longitude), withRadius: 20)
         // if user has chosen a time frame & date query only to that time frame/date
         if shortTermStartTime != nil && shortTermEndTime != nil {
             // get all parking spaces within a 20000 km radius from the db
@@ -199,69 +337,15 @@ class MapViewViewController: ViewController{
                 }
             })
         }
-        
-        
-        
-//        DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-//          guard let self = self else {
-//            return
-//          }
-//            ParkingSpotService.getAllParkingSpots() { parkingSpots, error in
-//                print("Rendering parking spots on map")
-//                if let parkingSpots = parkingSpots {
-//                    for parking in parkingSpots {
-//                        if parking.isAvailable {
-//                            let address = parking.address.street + ", " + parking.address.city + ", " + parking.address.state + " " + parking.address.zip
-//
-//                            self.annotations.append(ParkingSpaceMapAnnotation(id: parking.id, name: parking.firstName + " " + parking.lastName, coordinate: CLLocationCoordinate2DMake(parking.coordinates.lat, parking.coordinates.long), price: parking.pricePerHour, address: address , tags: parking.tags, comments: parking.comments))
-//                        }
-//                    }
-//                    print("Adding annotations")
-//                    DispatchQueue.main.async {
-//                        self.mapView.addAnnotations(self.annotations)
-//                    }
-//                }
-//             }
-//        }
-        NotificationCenter.default.addObserver(self, selector: #selector(self.updateView), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-        //test annotations until set up with firebase
-//        let annotation1 = ParkingSpaceMapAnnotation(name: "Joe Bruin", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 4.00, time: "3:00-4:00")
-//        let annotation2 = ParkingSpaceMapAnnotation(name: "FIRST LAST ", coordinate: CLLocationCoordinate2DMake(34.072, -118.43), price: 7.0, time: "5:00-8:00")
-//        let annotation3 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.071, -118.439), price: 8.0, time: "7:00-9:00")
-//        let annotation4 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.073, -118.449), price: 5.0, time: "2:30-4:00")
-//        let annotation5 = ParkingSpaceMapAnnotation(name: "First Last ", coordinate: CLLocationCoordinate2DMake(34.08, -118.4381), price: 6.0, time: "11:00-12:00")
-        
-//        annotations.append(contentsOf: [annotation1, annotation2, annotation3, annotation4, annotation5])
-//
-//        self.mapView.addAnnotations(annotations)
-        setupView()
-        SlideUpView.isHidden = true
-        
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-    }
-    
-    @objc func updateView() {
-        self.SlideUpView.isHidden = true
-        print("update View")
-    }
-    
-    @IBAction func timeFrameBtn(_ sender: Any) {
-        setUpTimePopup()
-    }
-    @IBAction func reserveBtn(_ sender: UIButton) {
-        let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
-        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "bookingView") as! BookingViewController
-//        self.navigationController?.pushViewController(nextViewController, animated: true)
-        nextViewController.modalPresentationStyle = .fullScreen
-        nextViewController.modalTransitionStyle = .coverVertical
-        nextViewController.info = parkingSpace[0]
-        
-        self.present(nextViewController, animated:true)
+    func existingAnnotation(location: CLLocationCoordinate2D) -> Bool{
+        for annotation in mapView.annotations {
+            if location.longitude == annotation.coordinate.longitude && location.latitude == annotation.coordinate.latitude {
+                return true
+            }
+        }
+        return false
     }
     
 //    @IBAction func transactionsPressed(_ sender: UIButton) {
@@ -472,6 +556,7 @@ extension MapViewViewController: MKMapViewDelegate {
             let price_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Bold", size: 13)]
             let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
             cost.append(price_string)
+            print("price is: \(price) at location (\(annotation.coordinate.longitude), \(annotation.coordinate.latitude))")
             label.attributedText = cost
 
             annotationView?.addSubview(label)
@@ -546,6 +631,7 @@ extension MapViewViewController: MKMapViewDelegate {
             let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
             mapView.setRegion(region, animated: true)
             menuButton.isHidden = false
+            selectedAnnotationTags = [String]()
             //view.image = UIImage(named: "mapAnnotation")
         } else {
             return
@@ -598,25 +684,27 @@ extension MapViewViewController: MKMapViewDelegate {
             priceLabel.attributedText = cost
             
             //set up tags
-            let tags: [UIButton] = [tag1, tag2, tag3, tag4]
+            self.selectedAnnotationTags = parkingSpace.tags
+            tagCollectionView.reloadData()
+//            let tags: [UIButton] = [tag1, tag2, tag3, tag4]
+//
+//            for tag in tags {
+//                tag.layer.borderWidth = 1.5
+//                tag.layer.cornerRadius = 8
+//                tag.layer.borderColor = CGColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+//                tag.isHidden = true
+//            }
+//            for n in 0...(parkingSpace.tags.count-1) {
+//                tags[n].setTitle(parkingSpace.tags[n], for: .normal)
+//                tags[n].isHidden = false
+//            }
             
-            for tag in tags {
-                tag.layer.borderWidth = 1.5
-                tag.layer.cornerRadius = 8
-                tag.layer.borderColor = CGColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
-                tag.isHidden = true
-            }
-            for n in 0...(parkingSpace.tags.count-1) {
-                tags[n].setTitle(parkingSpace.tags[n], for: .normal)
-                tags[n].isHidden = false
-            }
             
-            //set up availability -- not done yet
-            let avail = "Available  "
-            let avail_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Regular", size: 14)]
-            let timeAvail = NSMutableAttributedString(string:avail, attributes:avail_attrs as [NSAttributedString.Key : Any])
-            
-            var now = "NOW"
+//            let avail = "Available  "
+//            let avail_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Regular", size: 14)]
+//            let timeAvail = NSMutableAttributedString(string:avail, attributes:avail_attrs as [NSAttributedString.Key : Any])
+//
+//            var now = "NOW"
             /*
             let weekDay = Calendar.current.component(.weekday, from: Date())
             
@@ -669,10 +757,10 @@ extension MapViewViewController: MKMapViewDelegate {
                 }
             }*/
             
-            let now_attrs =  [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-MediumItalic", size: 16), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
-            let nowLabel = NSMutableAttributedString(string:now, attributes:now_attrs as [NSAttributedString.Key : Any])
-            timeAvail.append(nowLabel)
-            availableLabel.attributedText = timeAvail
+//            let now_attrs =  [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-MediumItalic", size: 16), NSAttributedString.Key.foregroundColor : UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)]
+//            let nowLabel = NSMutableAttributedString(string:now, attributes:now_attrs as [NSAttributedString.Key : Any])
+//            timeAvail.append(nowLabel)
+//            availableLabel.attributedText = timeAvail
         } else {
             return
         }
@@ -772,6 +860,10 @@ extension MapViewViewController: UITableViewDataSource, UITableViewDelegate {
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
+        let annotations = self.mapView.annotations
+        self.mapView.removeAnnotations(annotations)
+        self.annotations = [ParkingSpaceMapAnnotation]()
+        self.queryInRegion(region: region, location: annotation.coordinate)
         mapView.setRegion(region, animated: true)
     }
 }
@@ -850,3 +942,41 @@ private extension MKMapView {
     }
 }
 
+extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+            let index = indexPath.row
+            var width = 63 + 10
+            if self.selectedAnnotationTags[index].count > 8 {
+                width = (self.selectedAnnotationTags[index].count * 6) + 30
+            }
+            return CGSize(width: CGFloat(width), height: 30)
+    }
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.selectedAnnotationTags.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
+        let index = indexPath.row
+        var width = 63
+        if self.selectedAnnotationTags[index].count > 8 {
+            width = (self.selectedAnnotationTags[index].count * 6) + 20
+        }
+        cell.frame.size.width = CGFloat(width)
+        cell.frame.size.height = 30
+        cell.contentView.frame.size.width = CGFloat(width) + 5
+        cell.contentView.frame.size.height = 30
+        let tag = cell.tagLabel ?? UILabel()
+        tag.layer.borderWidth = 1.5
+        tag.frame.size.width = CGFloat(width)
+        tag.frame.size.height = 20
+        tag.layer.cornerRadius = 8
+        tag.layer.borderColor = CGColor(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+        tag.text = self.selectedAnnotationTags[index]
+        tag.textColor = UIColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+        tag.font = .systemFont(ofSize: 10)
+        tag.textAlignment = .center
+        return cell
+    }
+    
+}
