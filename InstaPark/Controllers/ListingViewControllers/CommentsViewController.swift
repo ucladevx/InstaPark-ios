@@ -59,7 +59,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
     // MARK: - Navigation
 
     //pass all info into booking view controller
-    @IBAction func nextBtn(_ sender: Any) {
+    func moveToNext() {
         print("next")
         if comments.text == "" || comments.text == "Start typing here..." {
             let alert = UIAlertController(title: "Error", message: "Please enter a comment", preferredStyle: .alert)
