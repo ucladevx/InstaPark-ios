@@ -57,7 +57,6 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
             if let error = error {
                 print(error.localizedDescription)
             } else {
-                AuthService.createUserDocument(authResult: authResult!)
                 print("Login success")
                 let storyboard =  UIStoryboard(name: "Main", bundle: nil)
                 self.window!.rootViewController = storyboard.instantiateViewController(withIdentifier: "MapViewVC")

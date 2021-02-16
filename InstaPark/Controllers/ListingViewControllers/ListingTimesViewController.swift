@@ -108,8 +108,8 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             endTime = 60*60*24-1;
         } else {
             //CHANGE TO seconds SINCE start of day
-            startTime = startScroller.selectedRow(inComponent: 0) * 15;
-            endTime = startScroller.selectedRow(inComponent: 0) * 15;
+            startTime = startScroller.selectedRow(inComponent: 0) * (15*60);
+            endTime = endScroller.selectedRow(inComponent: 0) * (15*60);
         }
         //selectedStartDate = calendar.selectedDate!
     }
@@ -183,7 +183,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     }()
     
     func setTime(hour: Int, minute: Int) -> Int {
-        return hour*60+minute
+        return hour*3600+minute*60
 //        return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date())!
     }
     
@@ -214,7 +214,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         if parkingType == .short {
             if twentyFourHourAccess {
                 startTime = setTime(hour: 0, minute: 00)
-                endTime = setTime(hour: 23, minute: 45)
+                endTime = setTime(hour: 23, minute: 59)
             }
             if weekendsOnly {
                 times[5] = [ParkingTimeInterval(start: startTime, end: endTime)]
