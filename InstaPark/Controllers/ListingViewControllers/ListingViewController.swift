@@ -164,7 +164,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                    dataSource = self
                    return false}
                  next.parkingType = picController.parkingType
-                 next.images = picController.images
+                 next.images = picController.lowerQualityImages
                  if(picController.parkingType == .short) {
                      next.ShortTermParking = picController.ShortTermParking
                  } else {

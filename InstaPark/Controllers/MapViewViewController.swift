@@ -15,6 +15,7 @@ class MapViewViewController: ViewController{
     let locationManager = CLLocationManager()
     
     @IBOutlet var timeSelectionPopup: UIView!
+    @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet var blackScreen: UIView!
     //passed variable from hourlyTimeViewController
     var shortTermStartTime: Date!
@@ -47,6 +48,8 @@ class MapViewViewController: ViewController{
     
     @IBOutlet weak var slideoutBlackView: UIView!
     var selectedAnnotationTags = [String]()
+    var selectedImages = [String]()
+    var images = [UIImage]()
     
     
     @IBOutlet var slideOutBar: SlideOutView!
@@ -111,6 +114,12 @@ class MapViewViewController: ViewController{
         tagCollectionView.delegate = self
         tagCollectionView.dataSource = self
         tagCollectionView.allowsSelection = false
+        imageCollectionView.delegate = self
+        imageCollectionView.dataSource = self
+        imageCollectionView.allowsSelection = false
+        tagCollectionView.tag = 2
+        imageCollectionView.tag = 0
+        //imageCollectionView.roundCorners(corners: [.topLeft, .topRight], radius: SlideViewConstant.cornerRadiusOfSlideView)
         
         // if segued from hourlyTimeViewController, search/setup in here
         if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
@@ -267,6 +276,7 @@ class MapViewViewController: ViewController{
         nextViewController.modalPresentationStyle = .fullScreen
         nextViewController.modalTransitionStyle = .coverVertical
         nextViewController.info = parkingSpace[0]
+        nextViewController.images = images
         
         self.present(nextViewController, animated:true)
     }
@@ -632,6 +642,8 @@ extension MapViewViewController: MKMapViewDelegate {
             mapView.setRegion(region, animated: true)
             menuButton.isHidden = false
             selectedAnnotationTags = [String]()
+            selectedImages = [String]()
+            images = [UIImage]()
             //view.image = UIImage(named: "mapAnnotation")
         } else {
             return
@@ -653,7 +665,19 @@ extension MapViewViewController: MKMapViewDelegate {
             menuButton.isHidden = true
             SlideUpView.isHidden = false
             totalDistance = 0
-            SlideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewHeight)
+            //slide up view without images size: 280
+            if parkingSpace.images.isEmpty {
+                self.imageCollectionView.isHidden = true
+                self.imageCollectionView.frame.size.height = 0
+                self.SlideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewSmallHeight)
+                self.SlideUpView.frame.size.height = SlideViewConstant.slideViewSmallHeight
+            } else {
+                self.imageCollectionView.isHidden = false
+                self.imageCollectionView.frame.size.height = 144
+                self.SlideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewHeight)
+            }
+            self.SlideUpView.layoutIfNeeded()
+            
             UIView.animate(withDuration: TimeInterval(animationTime), animations: {
                 self.blackView.alpha = 1
                 self.SlideUpView.backgroundColor = UIColor.white
@@ -685,7 +709,13 @@ extension MapViewViewController: MKMapViewDelegate {
             
             //set up tags
             self.selectedAnnotationTags = parkingSpace.tags
+            self.selectedImages = parkingSpace.images
             tagCollectionView.reloadData()
+            if !selectedImages.isEmpty {
+                print("reloading images")
+                imageCollectionView.reloadData()
+            }
+            
 //            let tags: [UIButton] = [tag1, tag2, tag3, tag4]
 //
 //            for tag in tags {
@@ -944,39 +974,108 @@ private extension MKMapView {
 
 extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        if collectionView.tag == 0 {
+            if !selectedImages.isEmpty {
+                return CGSize(width: 250, height: 144)
+            }
+            return CGSize(width: 0, height: 0)
+        } else {
             let index = indexPath.row
             var width = 63 + 10
             if self.selectedAnnotationTags[index].count > 8 {
                 width = (self.selectedAnnotationTags[index].count * 6) + 30
             }
             return CGSize(width: CGFloat(width), height: 30)
+        }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.selectedAnnotationTags.count
+        if collectionView.tag == 2 {
+            return self.selectedAnnotationTags.count
+        } else {
+            return self.selectedImages.count
+        }
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
-        let index = indexPath.row
-        var width = 63
-        if self.selectedAnnotationTags[index].count > 8 {
-            width = (self.selectedAnnotationTags[index].count * 6) + 20
+        if collectionView.tag == 2 {
+            print("refreshing tags")
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
+            let index = indexPath.row
+            var width = 63
+            if self.selectedAnnotationTags[index].count > 8 {
+                width = (self.selectedAnnotationTags[index].count * 6) + 20
+            }
+            cell.frame.size.width = CGFloat(width)
+            cell.frame.size.height = 30
+            cell.contentView.frame.size.width = CGFloat(width) + 5
+            cell.contentView.frame.size.height = 30
+            let tag = cell.tagLabel ?? UILabel()
+            tag.layer.borderWidth = 1.5
+            tag.frame.size.width = CGFloat(width)
+            tag.frame.size.height = 20
+            tag.layer.cornerRadius = 8
+            tag.layer.borderColor = CGColor(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+            tag.text = self.selectedAnnotationTags[index]
+            tag.textColor = UIColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+            tag.font = .systemFont(ofSize: 10)
+            tag.textAlignment = .center
+            return cell
         }
-        cell.frame.size.width = CGFloat(width)
-        cell.frame.size.height = 30
-        cell.contentView.frame.size.width = CGFloat(width) + 5
-        cell.contentView.frame.size.height = 30
-        let tag = cell.tagLabel ?? UILabel()
-        tag.layer.borderWidth = 1.5
-        tag.frame.size.width = CGFloat(width)
-        tag.frame.size.height = 20
-        tag.layer.cornerRadius = 8
-        tag.layer.borderColor = CGColor(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
-        tag.text = self.selectedAnnotationTags[index]
-        tag.textColor = UIColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
-        tag.font = .systemFont(ofSize: 10)
-        tag.textAlignment = .center
-        return cell
+        else {
+            print("refreshing pictures")
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pictureCells", for: indexPath) as! BookingImageCollectionViewCell
+            cell.frame.size.width = 250
+            cell.frame.size.height = 144
+            let index = indexPath.row
+            if selectedImages.count != 0 {
+//                if index == 0 {
+//                    cell.roundCorners(corners: [.topLeft], radius: SlideViewConstant.cornerRadiusOfSlideView)
+//                }
+//                else if index == selectedImages.count-1 {
+//                    cell.roundCorners(corners: [.topRight], radius: SlideViewConstant.cornerRadiusOfSlideView)
+//                }
+                
+                let image = self.selectedImages[index]
+                guard let url = URL(string: image) else {
+                    print("can't convert string to URL")
+                    return cell
+                }
+                let activityIndicator = UIActivityIndicatorView()
+                activityIndicator.style = .medium
+                activityIndicator.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                activityIndicator.hidesWhenStopped = true
+                cell.addSubview(activityIndicator)
+                activityIndicator.center = cell.center
+                activityIndicator.startAnimating()
+                let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                    guard let data = data, error == nil else {
+                        print("failed to convert image from url")
+                        return
+                    }
+                    DispatchQueue.main.async {
+                        guard let UIimage = UIImage(data: data) else {
+                            print("failed to make image into UIimage")
+                            return
+                        }
+                        print("image converted")
+                        activityIndicator.stopAnimating()
+                        cell.image.image = UIimage
+                        self.images.append(UIimage)
+                    }
+                }
+                task.resume()
+            }
+            return cell
+        }
     }
     
+}
+
+extension UICollectionView {
+   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
 }

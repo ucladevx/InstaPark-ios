@@ -575,10 +575,11 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
         if collectionView.tag == 2 {
             return info.tags.count
         } else {
-            if listing {
-                return images.count + 1
-            }
-            return info.images.count + 1
+            return images.count + 1
+//            if listing {
+//                return images.count + 1
+//            }
+//            return info.images.count + 1
         }
     }
     
@@ -615,13 +616,14 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
             if images.isEmpty && info.images.isEmpty {
                 mapOnly = true
             }
-            if listing && !mapOnly{
+            if !mapOnly{
                 if index != images.count {
                     cell.image.image = self.images[index]
                 } else {
                     mapFlag = true
                 }
             } else if !mapOnly{
+                /*
                 if index != info.images.count {
                     let image = info.images[index]
                     guard let url = URL(string: image) else {
@@ -654,7 +656,7 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
                     task.resume()
                 } else {
                     mapFlag = true
-                }
+                }*/
             }
             if mapFlag || mapOnly {
                 if mapOnly {

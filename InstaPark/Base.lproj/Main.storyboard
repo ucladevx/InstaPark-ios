@@ -94,11 +94,12 @@
                                     <outletCollection property="gestureRecognizers" destination="4hO-NU-sIH" appends="YES" id="aRS-4m-kSg"/>
                                 </connections>
                             </view>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yzw-oZ-U85">
-                                <rect key="frame" x="0.0" y="616" width="414" height="280"/>
+                            <view contentMode="scaleToFill" id="Yzw-oZ-U85">
+                                <rect key="frame" x="0.0" y="496" width="414" height="400"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ckk-Da-crf">
-                                        <rect key="frame" x="32" y="157" width="350" height="40"/>
+                                        <rect key="frame" x="32" y="291" width="350" height="40"/>
                                         <color key="backgroundColor" red="0.56078431370000004" green="0.0" blue="1" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="350" id="ST4-br-XOp"/>
@@ -118,7 +119,7 @@
                                         </connections>
                                     </button>
                                     <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="top" spacing="11" translatesAutoresizingMaskIntoConstraints="NO" id="aoM-5p-umu">
-                                        <rect key="frame" x="25" y="20" width="364" height="97"/>
+                                        <rect key="frame" x="25" y="164" width="364" height="97"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9G0-e4-Zc1">
                                                 <rect key="frame" x="0.0" y="0.0" width="350" height="28.333333333333332"/>
@@ -213,19 +214,69 @@
                                             <constraint firstAttribute="height" constant="97" id="qll-kl-A3b"/>
                                         </constraints>
                                     </stackView>
+                                    <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" bounces="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" bouncesZoom="NO" dataMode="prototypes" id="QhI-42-fv7">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="144"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="144" id="6ni-5t-F4J"/>
+                                        </constraints>
+                                        <inset key="scrollIndicatorInsets" minX="0.0" minY="-17" maxX="0.0" maxY="0.0"/>
+                                        <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="4" minimumInteritemSpacing="4" id="Tk7-2e-YuH">
+                                            <size key="itemSize" width="289" height="141"/>
+                                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        </collectionViewFlowLayout>
+                                        <cells>
+                                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="pictureCells" id="PHA-c1-mDa" customClass="BookingImageCollectionViewCell" customModule="InstaPark" customModuleProvider="target">
+                                                <rect key="frame" x="0.0" y="0.0" width="250" height="144"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                                    <rect key="frame" x="0.0" y="0.0" width="250" height="144"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <subviews>
+                                                        <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Lvs-rN-DBG">
+                                                            <rect key="frame" x="0.0" y="0.0" width="250" height="144"/>
+                                                            <constraints>
+                                                                <constraint firstAttribute="height" constant="144" id="KKm-AJ-he1"/>
+                                                                <constraint firstAttribute="width" constant="250" id="vHN-dz-cyT"/>
+                                                            </constraints>
+                                                        </imageView>
+                                                    </subviews>
+                                                </view>
+                                                <constraints>
+                                                    <constraint firstItem="Lvs-rN-DBG" firstAttribute="leading" secondItem="PHA-c1-mDa" secondAttribute="leading" id="3gI-Bu-KVU"/>
+                                                    <constraint firstAttribute="trailing" secondItem="Lvs-rN-DBG" secondAttribute="trailing" id="Y7u-IW-tWi"/>
+                                                    <constraint firstItem="Lvs-rN-DBG" firstAttribute="top" secondItem="PHA-c1-mDa" secondAttribute="top" id="lNM-1s-c7y"/>
+                                                    <constraint firstAttribute="bottom" secondItem="Lvs-rN-DBG" secondAttribute="bottom" id="msf-b4-khj"/>
+                                                </constraints>
+                                                <size key="customSize" width="250" height="144"/>
+                                                <connections>
+                                                    <outlet property="image" destination="Lvs-rN-DBG" id="7rR-Rw-GfR"/>
+                                                </connections>
+                                            </collectionViewCell>
+                                        </cells>
+                                        <connections>
+                                            <outlet property="dataSource" destination="AiY-WT-MZL" id="C8x-KN-WGz"/>
+                                            <outlet property="delegate" destination="AiY-WT-MZL" id="7It-MD-rEQ"/>
+                                        </connections>
+                                    </collectionView>
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstItem="Ckk-Da-crf" firstAttribute="top" secondItem="aoM-5p-umu" secondAttribute="bottom" constant="40" id="1AE-Tw-3DV"/>
-                                    <constraint firstAttribute="height" constant="280" id="Flz-xy-tls"/>
+                                    <constraint firstItem="Ckk-Da-crf" firstAttribute="top" secondItem="aoM-5p-umu" secondAttribute="bottom" constant="30" id="1AE-Tw-3DV"/>
                                     <constraint firstAttribute="trailing" secondItem="aoM-5p-umu" secondAttribute="trailing" constant="25" id="VIh-XY-A7B"/>
+                                    <constraint firstItem="QhI-42-fv7" firstAttribute="top" secondItem="Yzw-oZ-U85" secondAttribute="top" id="Vt9-7h-qQS"/>
                                     <constraint firstAttribute="trailing" secondItem="aoM-5p-umu" secondAttribute="trailing" constant="25" id="aTB-ef-9p4"/>
+                                    <constraint firstItem="aoM-5p-umu" firstAttribute="top" secondItem="QhI-42-fv7" secondAttribute="bottom" constant="20" id="aY8-sb-w8k"/>
                                     <constraint firstAttribute="trailing" secondItem="Ckk-Da-crf" secondAttribute="trailing" constant="32" id="dwY-e0-TIa"/>
                                     <constraint firstItem="aoM-5p-umu" firstAttribute="leading" secondItem="Yzw-oZ-U85" secondAttribute="leading" constant="25" id="gvF-UL-ueE"/>
                                     <constraint firstItem="aoM-5p-umu" firstAttribute="leading" secondItem="Yzw-oZ-U85" secondAttribute="leading" constant="25" id="kV5-l4-lkG"/>
-                                    <constraint firstItem="aoM-5p-umu" firstAttribute="top" secondItem="Yzw-oZ-U85" secondAttribute="top" constant="20" id="pCg-NL-Ogf"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="280" id="vTp-Sq-Ijc"/>
+                                    <constraint firstAttribute="height" constant="400" id="vTp-Sq-Ijc"/>
+                                    <constraint firstItem="QhI-42-fv7" firstAttribute="leading" secondItem="Yzw-oZ-U85" secondAttribute="leading" id="wKX-eo-gXN"/>
                                     <constraint firstItem="Ckk-Da-crf" firstAttribute="leading" secondItem="Yzw-oZ-U85" secondAttribute="leading" constant="32" id="x25-RK-3ci"/>
+                                    <constraint firstAttribute="trailing" secondItem="QhI-42-fv7" secondAttribute="trailing" id="zS5-ff-Fd4"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -254,6 +305,7 @@
                         <outlet property="SlideUpView" destination="Yzw-oZ-U85" id="9Qy-pg-sK2"/>
                         <outlet property="addressLabel" destination="rl1-MR-HBw" id="6Sg-EG-6Ic"/>
                         <outlet property="blackScreen" destination="EBf-q4-uWF" id="ODD-sf-bLU"/>
+                        <outlet property="imageCollectionView" destination="QhI-42-fv7" id="wnD-GB-Fz6"/>
                         <outlet property="mapView" destination="j3k-4t-CT2" id="joe-eP-ejC"/>
                         <outlet property="menuButton" destination="kHw-2e-c0X" id="eVH-Am-whG"/>
                         <outlet property="nameLabel" destination="tYY-HL-OWo" id="YH1-qS-jVs"/>
@@ -498,7 +550,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                 </view>
             </objects>
-            <point key="canvasLocation" x="1572" y="-169"/>
+            <point key="canvasLocation" x="1571.0144927536232" y="-169.41964285714286"/>
         </scene>
         <!--Booking View Controller-->
         <scene sceneID="40v-9s-1Xr">
@@ -515,7 +567,7 @@
                                     <constraint firstAttribute="height" constant="239" id="NpN-Uk-wjs"/>
                                 </constraints>
                                 <inset key="scrollIndicatorInsets" minX="0.0" minY="-17" maxX="0.0" maxY="0.0"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="hGK-Ra-NRO">
+                                <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="4" minimumInteritemSpacing="4" id="hGK-Ra-NRO">
                                     <size key="itemSize" width="327" height="195"/>
                                     <size key="headerReferenceSize" width="0.0" height="0.0"/>
                                     <size key="footerReferenceSize" width="0.0" height="0.0"/>
@@ -1696,10 +1748,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="g0k-bg-0Ve">
-                                <rect key="frame" x="40" y="304" width="334" height="217.33333333333337"/>
+                                <rect key="frame" x="40" y="304" width="334" height="216"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="first and last name" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="5BM-Ge-xJm" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="334" height="18.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="18"/>
                                         <color key="tintColor" red="0.50196078431372548" green="0.45490196078431372" blue="0.57647058823529407" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
@@ -1714,7 +1766,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iZN-Zh-8A7" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="66.333333333333314" width="334" height="18.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="66" width="334" height="18"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
@@ -1727,7 +1779,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gC7-yf-06q" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="132.66666666666669" width="334" height="18.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="132" width="334" height="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="one-time-code"/>
@@ -1744,7 +1796,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" onfirm password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-Nr-COX" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="199" width="334" height="18.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="198" width="334" height="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="one-time-code"/>
@@ -1763,7 +1815,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzL-XM-cNH">
-                                <rect key="frame" x="129" y="575.33333333333337" width="156" height="37"/>
+                                <rect key="frame" x="129" y="574" width="156" height="37"/>
                                 <color key="backgroundColor" red="0.3803921569" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="156" id="faI-wI-0Oh"/>
@@ -4235,22 +4287,22 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="141" height="18.333333333333332"/>
+            <size key="intrinsicContentSize" width="115.66666666666667" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="117.33333333333333" height="18.333333333333332"/>
+            <size key="intrinsicContentSize" width="91.333333333333329" height="19"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="87.666666666666671" height="17"/>
+            <size key="intrinsicContentSize" width="61.333333333333336" height="18"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="86.666666666666671" height="18.333333333333332"/>
+            <size key="intrinsicContentSize" width="61.333333333333336" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="60.666666666666664" height="18.333333333333332"/>
+            <size key="intrinsicContentSize" width="33.333333333333336" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="133.33333333333334" height="18.333333333333332"/>
+            <size key="intrinsicContentSize" width="108.66666666666667" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
