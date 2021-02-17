@@ -11,7 +11,6 @@ import CoreLocation
 
 
 class ListingAddressViewController: UIViewController {
-    var delegate: listingPass1?
     
     let locationManager = CLLocationManager()
     @IBOutlet weak var mapView: MKMapView!
@@ -199,13 +198,6 @@ class ListingAddressViewController: UIViewController {
     
 
     // MARK: - Navigation
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        if checkBeforeMovingPages() == false {
-            return
-        }
-        delegate?.pass1(parkingType: parkingType, ShortTermParking: ShortTermParking)
-    }
 
     func checkBeforeMovingPages() -> Bool {
         if coordinates == nil {
@@ -248,56 +240,6 @@ class ListingAddressViewController: UIViewController {
         }
 
     }
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if coordinates == nil {
-//            let alert = UIAlertController(title: "Error", message: "Please choose a valid location on the map. You can drag the annotation or use the search bar.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//            return
-//        }
-//        if address == nil || address.count == 0 {
-//            let alert = UIAlertController(title: "Error", message: "Please enter a valid address in the search bar to continue.", preferredStyle: .alert)
-//            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//            self.present(alert, animated: true, completion: nil)
-//            return
-//        }
-//        if parkingType == .short  {
-//            ShortTermParking.coordinates = Coordinate(lat: coordinates.latitude, long: coordinates.longitude)
-//            let addressArray = address.components(separatedBy: ", ")
-//            var stateAndZip = [String]()
-//            //if there is an extra street addresss line
-//            if addressArray.count == 5 {
-//                stateAndZip = addressArray[3].components(separatedBy: " ")
-//                ShortTermParking.address = Address(city: addressArray[2], state: stateAndZip[0], street: addressArray[0] + ", " +  addressArray[1], zip: stateAndZip[1])
-//                print(ShortTermParking.address)
-//            }
-//            else if addressArray.count == 4 {
-//                stateAndZip = addressArray[2].components(separatedBy: "  ")
-//                ShortTermParking.address = Address(city: addressArray[1], state: stateAndZip[0], street: addressArray[0], zip: stateAndZip[1])
-//                print(ShortTermParking.address)
-//            }
-//            else {
-//                let alert = UIAlertController(title: "Error", message: "The address you entered is invalid. Please enter a valid address in form 'Street Address, City, State, Zip' to continue.", preferredStyle: .alert)
-//                alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-//                self.present(alert, animated: true, completion: nil)
-//                return
-//            }
-//        } else { // LONGTERM -- do same thing as shortterm
-//
-//        }
-//
-//
-//        if let vc = segue.destination as? ListingTimesViewController {
-//            vc.parkingType = parkingType
-//            if(parkingType == .short) {
-//                vc.ShortTermParking = ShortTermParking
-//            } else {
-//                // pass in long term parking when ready
-//            }
-//        }
-//    }
-
 }
 
 extension ListingAddressViewController: MKMapViewDelegate {

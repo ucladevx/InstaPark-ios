@@ -8,12 +8,7 @@
 import UIKit
 import FSCalendar
 
-protocol listingPass1 {
-    func pass1(parkingType: ParkingType, ShortTermParking: ShortTermParkingSpot)
-}
-
 class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance{
-    var delegate: listingPass2?
     @IBOutlet var infoPopup: UIView!
     @IBOutlet var blackScreen: UIView!
     
@@ -189,12 +184,6 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     
     // MARK: - Navigation
-    override func viewWillDisappear(_ animated: Bool) {
-        if checkBeforeMovingPages() == false {
-            return
-        }
-        delegate?.pass(parkingType: parkingType, ShortTermParking: ShortTermParking)
-    }
     
     func checkBeforeMovingPages() -> Bool {
         getAllValues()
@@ -242,56 +231,6 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         }
     }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        getAllValues()
-        if weekdaysOnly && weekendsOnly {
-            let alert = UIAlertController(title: "Error", message: "Please select at least one valid date.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
-        var times = [0: [ParkingTimeInterval](), 1: [ParkingTimeInterval](), 2: [ParkingTimeInterval](), 3:[ParkingTimeInterval](), 4:[ParkingTimeInterval](), 5:[ParkingTimeInterval](), 6:[ParkingTimeInterval]()]
-        if parkingType == .short {
-            if twentyFourHourAccess {
-                startTime = setTime(hour: 0, minute: 00)
-                endTime = setTime(hour: 23, minute: 59)
-            }
-            if weekendsOnly {
-                times[5] = [ParkingTimeInterval(start: startTime, end: endTime)]
-                times[6] = [ParkingTimeInterval(start: startTime, end: endTime)]
-            }
-            else if weekdaysOnly {
-                for i in 0...4 {
-                    times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
-                }
-            }
-            else {
-                for i in 0...6 {
-                    times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
-                }
-            }
-            ShortTermParking.times = times
-            //need to fix this when I figure out how to select a range of dates on the calendar
-            //ShortTermParking.lastEndTime = Int(selectedEndDate.timeIntervalSince1970)
-            print(ShortTermParking.times)
-            //print(ShortTermParking.lastEndTime)
-        }
-        else { //LONGTERM parking
-            
-        }
-        
-        if let vc = segue.destination as? PriceViewController {
-            vc.parkingType = parkingType
-            if(parkingType == .short) {
-                vc.ShortTermParking = ShortTermParking
-            } else {
-                // pass in long term parking when ready
-            }
-        }
-    }*/
-    
     func datesRange(from: Date, to: Date) -> [Date] {
         // in case of the "from" date is more than "to" date,
         // it should returns an empty array:
@@ -565,13 +504,3 @@ extension ListingTimesViewController: UIPickerViewDataSource {
     
 }
 
-extension ListingTimesViewController: listingPass1 {
-    // pass from address controller
-    func pass1(parkingType: ParkingType, ShortTermParking: ShortTermParkingSpot){
-        self.parkingType = parkingType
-        self.ShortTermParking = ShortTermParking
-        print("pass")
-        print(self.ShortTermParking.address)
-        print(self.ShortTermParking.coordinates)
-    }
-}

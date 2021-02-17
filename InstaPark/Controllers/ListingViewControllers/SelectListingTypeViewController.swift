@@ -34,6 +34,8 @@ class SelectListingTypeViewController: UIViewController {
         })
         
     }
+    @IBAction func unwind( _ seg: UIStoryboardSegue) {
+    }
     
     var isHourly = false
     

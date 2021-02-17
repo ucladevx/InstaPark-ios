@@ -47,8 +47,6 @@
 		2B33E56F25C33ED700FDC288 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B33E56E25C33ED700FDC288 /* PriceViewController.swift */; };
 		2B633EA825B92F9A003448A4 /* SelectListingTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B633EA725B92F9A003448A4 /* SelectListingTypeViewController.swift */; };
 		2B633EB025B93745003448A4 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B633EAF25B93745003448A4 /* BebasNeue-Regular.ttf */; };
-		2B6A4DEF25CCB21C00864075 /* SegueFromLeft.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6A4DEE25CCB21C00864075 /* SegueFromLeft.swift */; };
-		2B6A4DF425CCC62D00864075 /* SegueFromRight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6A4DF325CCC62D00864075 /* SegueFromRight.swift */; };
 		2B6A4DF925CCC8EB00864075 /* ListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6A4DF825CCC8EB00864075 /* ListingViewController.swift */; };
 		2B786A7F25CA5441001575D2 /* DirectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B786A7E25CA5441001575D2 /* DirectionsViewController.swift */; };
 		2B97AF1A25C3736E002950A9 /* ParkingTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B97AF1925C3736E002950A9 /* ParkingTypeViewController.swift */; };
@@ -158,8 +156,6 @@
 		2B33E56E25C33ED700FDC288 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
 		2B633EA725B92F9A003448A4 /* SelectListingTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListingTypeViewController.swift; sourceTree = "<group>"; };
 		2B633EAF25B93745003448A4 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
-		2B6A4DEE25CCB21C00864075 /* SegueFromLeft.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromLeft.swift; sourceTree = "<group>"; };
-		2B6A4DF325CCC62D00864075 /* SegueFromRight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegueFromRight.swift; sourceTree = "<group>"; };
 		2B6A4DF825CCC8EB00864075 /* ListingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingViewController.swift; sourceTree = "<group>"; };
 		2B786A7E25CA5441001575D2 /* DirectionsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DirectionsViewController.swift; sourceTree = "<group>"; };
 		2B97AF1925C3736E002950A9 /* ParkingTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingTypeViewController.swift; sourceTree = "<group>"; };
@@ -353,8 +349,6 @@
 				0410B1242548D8EB001C4D27 /* LaunchScreen.storyboard */,
 				0410B1272548D8EB001C4D27 /* Info.plist */,
 				B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */,
-				2B6A4DEE25CCB21C00864075 /* SegueFromLeft.swift */,
-				2B6A4DF325CCC62D00864075 /* SegueFromRight.swift */,
 			);
 			path = SupportingFiles;
 			sourceTree = "<group>";
@@ -779,7 +773,6 @@
 				2BD6E16225C51BE000E4A88F /* uploadButtonView.swift in Sources */,
 				2BD6E15825C4EDE000E4A88F /* UploadSlideView.swift in Sources */,
 				B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */,
-				2B6A4DEF25CCB21C00864075 /* SegueFromLeft.swift in Sources */,
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
 				9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */,
 				9451680E25B91A6000939551 /* ListingTimesViewController.swift in Sources */,
@@ -806,7 +799,6 @@
 				945E02EA25D4DB3D00741BDD /* BookingImageCollectionViewCell.swift in Sources */,
 				2B633EA825B92F9A003448A4 /* SelectListingTypeViewController.swift in Sources */,
 				945167D725AE96E800939551 /* monthlyTimeViewController.swift in Sources */,
-				2B6A4DF425CCC62D00864075 /* SegueFromRight.swift in Sources */,
 				945167D225AE96CF00939551 /* hourlyTimeViewController.swift in Sources */,
 				2BE39BD625C3C2F200D10436 /* ParkingTypeView.swift in Sources */,
 				2B786A7F25CA5441001575D2 /* DirectionsViewController.swift in Sources */,

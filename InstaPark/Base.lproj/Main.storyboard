@@ -523,7 +523,7 @@
                                 </collectionViewFlowLayout>
                                 <cells>
                                     <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="pictureCells" id="yPc-FY-kHg" customClass="BookingImageCollectionViewCell" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="327" height="195"/>
+                                        <rect key="frame" x="0.0" y="22" width="327" height="195"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
                                             <rect key="frame" x="0.0" y="0.0" width="327" height="195"/>
@@ -1568,10 +1568,110 @@
                 <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="fAa-vY-KUh" customClass="ListingViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationItem key="navigationItem" id="Oyc-rp-Zex"/>
                     <connections>
-                        <segue destination="IQf-1d-RDz" kind="show" identifier="toBooking" id="Crx-6U-hYe"/>
+                        <outlet property="dot1" destination="kpS-j7-oba" id="xYg-2A-m9M"/>
+                        <outlet property="dot2" destination="6Wd-jk-N3y" id="zgg-4f-vLK"/>
+                        <outlet property="dot3" destination="bxA-dQ-0nf" id="dqX-qm-1RU"/>
+                        <outlet property="dot4" destination="FIO-xW-QDe" id="jdu-WH-irc"/>
+                        <outlet property="dot5" destination="Qp6-Vw-BDO" id="s4G-Ar-oPd"/>
+                        <outlet property="dot6" destination="wvr-bh-4gz" id="Ige-AT-TNC"/>
+                        <outlet property="dot7" destination="G3Z-1h-9pW" id="mcG-Bi-X0q"/>
+                        <outlet property="pageControl" destination="65k-A9-onf" id="NWF-dK-JBf"/>
+                        <outlet property="rightButton" destination="a99-mz-UMM" id="GIa-hM-IbX"/>
+                        <segue destination="g2E-wl-a7g" kind="unwind" identifier="unwind" unwindAction="unwind:" id="UeS-PG-eqW"/>
                     </connections>
                 </pageViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ScB-fh-4lg" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="g2E-wl-a7g" userLabel="Exit" sceneMemberID="exit"/>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="65k-A9-onf">
+                    <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                    <subviews>
+                        <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="ipf-mu-Eig">
+                            <rect key="frame" x="0.0" y="0.0" width="300" height="50"/>
+                            <subviews>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vUA-Sb-VX9">
+                                    <rect key="frame" x="0.0" y="17.666666666666668" width="15" height="15.000000000000004"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="15" id="fum-ed-Oh5"/>
+                                        <constraint firstAttribute="width" constant="15" id="q20-Nw-GgN"/>
+                                    </constraints>
+                                    <state key="normal" image="leftPage"/>
+                                    <connections>
+                                        <action selector="leftButtonAction:" destination="fAa-vY-KUh" eventType="touchUpInside" id="qRP-ya-Dhl"/>
+                                    </connections>
+                                </button>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pastPage" translatesAutoresizingMaskIntoConstraints="NO" id="kpS-j7-oba">
+                                    <rect key="frame" x="38.333333333333336" y="19" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="90v-x5-xLe"/>
+                                        <constraint firstAttribute="width" constant="12" id="i28-0r-k7T"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="futurePage" translatesAutoresizingMaskIntoConstraints="NO" id="6Wd-jk-N3y">
+                                    <rect key="frame" x="73.666666666666671" y="19" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="12" id="MHW-TI-Lma"/>
+                                        <constraint firstAttribute="height" constant="12" id="kq4-cz-SvB"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="futurePage" translatesAutoresizingMaskIntoConstraints="NO" id="bxA-dQ-0nf">
+                                    <rect key="frame" x="108.66666666666667" y="19" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="Eqt-md-LQD"/>
+                                        <constraint firstAttribute="width" constant="12" id="Y2c-jl-Wg8"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="futurePage" translatesAutoresizingMaskIntoConstraints="NO" id="FIO-xW-QDe">
+                                    <rect key="frame" x="144" y="19" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="M04-pW-xzS"/>
+                                        <constraint firstAttribute="width" constant="12" id="WuR-aY-bTz"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="futurePage" translatesAutoresizingMaskIntoConstraints="NO" id="Qp6-Vw-BDO">
+                                    <rect key="frame" x="179.33333333333334" y="19" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="PjV-da-ReD"/>
+                                        <constraint firstAttribute="width" constant="12" id="iQk-tk-KpR"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="futurePage" translatesAutoresizingMaskIntoConstraints="NO" id="wvr-bh-4gz">
+                                    <rect key="frame" x="214.66666666666666" y="19" width="12" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="height" constant="12" id="JhS-Oc-cs6"/>
+                                        <constraint firstAttribute="width" constant="12" id="KN0-XE-ABd"/>
+                                    </constraints>
+                                </imageView>
+                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="futurePage" translatesAutoresizingMaskIntoConstraints="NO" id="G3Z-1h-9pW">
+                                    <rect key="frame" x="249.66666666666666" y="19" width="11.999999999999972" height="12"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="12" id="L9l-0E-cBQ"/>
+                                        <constraint firstAttribute="height" constant="12" id="z4W-CU-i3b"/>
+                                    </constraints>
+                                </imageView>
+                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="a99-mz-UMM">
+                                    <rect key="frame" x="285" y="17.666666666666668" width="15" height="15.000000000000004"/>
+                                    <constraints>
+                                        <constraint firstAttribute="width" constant="15" id="geu-Oc-yTu"/>
+                                        <constraint firstAttribute="height" constant="15" id="nP7-Wa-Pwb"/>
+                                    </constraints>
+                                    <state key="normal" image="rightPage"/>
+                                    <connections>
+                                        <action selector="rightButtonAction:" destination="fAa-vY-KUh" eventType="touchUpInside" id="rio-ij-7mi"/>
+                                    </connections>
+                                </button>
+                            </subviews>
+                        </stackView>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="f51-Kd-bkf"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="50" id="AUL-Fi-b2F"/>
+                        <constraint firstAttribute="trailing" secondItem="ipf-mu-Eig" secondAttribute="trailing" id="E7O-Af-7lA"/>
+                        <constraint firstItem="ipf-mu-Eig" firstAttribute="top" secondItem="65k-A9-onf" secondAttribute="top" id="QNz-Ta-Itd"/>
+                        <constraint firstItem="ipf-mu-Eig" firstAttribute="leading" secondItem="65k-A9-onf" secondAttribute="leading" id="QSE-0Z-pMo"/>
+                        <constraint firstItem="f51-Kd-bkf" firstAttribute="bottom" secondItem="ipf-mu-Eig" secondAttribute="bottom" id="TgA-EW-GB0"/>
+                        <constraint firstAttribute="width" constant="300" id="fK4-Ty-Gov"/>
+                    </constraints>
+                </view>
             </objects>
             <point key="canvasLocation" x="671" y="1521"/>
         </scene>
@@ -1596,10 +1696,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="g0k-bg-0Ve">
-                                <rect key="frame" x="40" y="304" width="334" height="216"/>
+                                <rect key="frame" x="40" y="304" width="334" height="217.33333333333337"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="first and last name" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="5BM-Ge-xJm" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="334" height="18"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="18.333333333333332"/>
                                         <color key="tintColor" red="0.50196078431372548" green="0.45490196078431372" blue="0.57647058823529407" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
@@ -1614,7 +1714,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iZN-Zh-8A7" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="66" width="334" height="18"/>
+                                        <rect key="frame" x="0.0" y="66.333333333333314" width="334" height="18.333333333333329"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
@@ -1627,7 +1727,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gC7-yf-06q" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="132" width="334" height="18"/>
+                                        <rect key="frame" x="0.0" y="132.66666666666669" width="334" height="18.333333333333343"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="one-time-code"/>
@@ -1644,7 +1744,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" onfirm password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-Nr-COX" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="198" width="334" height="18"/>
+                                        <rect key="frame" x="0.0" y="199" width="334" height="18.333333333333343"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="one-time-code"/>
@@ -1663,7 +1763,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzL-XM-cNH">
-                                <rect key="frame" x="129" y="574" width="156" height="37"/>
+                                <rect key="frame" x="129" y="575.33333333333337" width="156" height="37"/>
                                 <color key="backgroundColor" red="0.3803921569" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="156" id="faI-wI-0Oh"/>
@@ -2775,7 +2875,7 @@
         <scene sceneID="lVL-nV-PJ9">
             <objects>
                 <viewController storyboardIdentifier="Listing2" id="mT9-jA-zZe" customClass="ListingTimesViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="jfd-0F-aGu">
+                    <view key="view" tag="1" contentMode="scaleToFill" id="jfd-0F-aGu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="900"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -3077,7 +3177,7 @@
         <scene sceneID="YQI-q8-ZIL">
             <objects>
                 <viewController storyboardIdentifier="Listing3" id="QnX-mJ-7AC" customClass="PriceViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="yBf-F4-j7o">
+                    <view key="view" tag="2" contentMode="scaleToFill" id="yBf-F4-j7o">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -3219,7 +3319,7 @@
         <scene sceneID="URV-rE-5PP">
             <objects>
                 <viewController storyboardIdentifier="Listing4" id="q7s-eb-QwX" customClass="ParkingTypeViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="Nvf-47-kZe">
+                    <view key="view" tag="3" contentMode="scaleToFill" id="Nvf-47-kZe">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
@@ -3714,7 +3814,7 @@
         <scene sceneID="fBc-7l-qvz">
             <objects>
                 <viewController storyboardIdentifier="Listing5" id="iv6-da-E3N" customClass="PictureUploadViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="tGN-vP-ZAf">
+                    <view key="view" tag="4" contentMode="scaleToFill" id="tGN-vP-ZAf">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -3776,7 +3876,7 @@
         <scene sceneID="iAQ-oQ-vp7">
             <objects>
                 <viewController storyboardIdentifier="Listing7" id="pRO-Iv-cIs" customClass="CommentsViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="reD-NW-4g6">
+                    <view key="view" tag="6" contentMode="scaleToFill" id="reD-NW-4g6">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -3823,14 +3923,6 @@
                                     </label>
                                 </subviews>
                             </stackView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e48-UA-6Ry">
-                                <rect key="frame" x="351" y="785" width="32" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Next"/>
-                                <connections>
-                                    <action selector="nextBtn:" destination="pRO-Iv-cIs" eventType="touchUpInside" id="hCH-da-H3c"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="1Oa-ua-gFy"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -3858,7 +3950,7 @@
         <scene sceneID="53Z-aI-TfY">
             <objects>
                 <viewController storyboardIdentifier="Listing6" id="wcg-3e-ivO" customClass="DirectionsViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="zEo-ef-CSi">
+                    <view key="view" tag="5" contentMode="scaleToFill" id="zEo-ef-CSi">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
@@ -4143,28 +4235,27 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="115.66666666666667" height="18"/>
+            <size key="intrinsicContentSize" width="141" height="18.333333333333332"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="91.333333333333329" height="19"/>
+            <size key="intrinsicContentSize" width="117.33333333333333" height="18.333333333333332"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="61.333333333333336" height="18"/>
+            <size key="intrinsicContentSize" width="87.666666666666671" height="17"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="61.333333333333336" height="18"/>
+            <size key="intrinsicContentSize" width="86.666666666666671" height="18.333333333333332"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="33.333333333333336" height="18"/>
+            <size key="intrinsicContentSize" width="60.666666666666664" height="18.333333333333332"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="108.66666666666667" height="18"/>
+            <size key="intrinsicContentSize" width="133.33333333333334" height="18.333333333333332"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="WaY-RN-Vf8"/>
-        <segue reference="Crx-6U-hYe"/>
-        <segue reference="B7T-cY-we4"/>
+        <segue reference="mXm-Gb-kR6"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="6" height="10"/>
@@ -4178,16 +4269,20 @@
         <image name="chevron.backward" catalog="system" width="96" height="128"/>
         <image name="chevron.left" catalog="system" width="96" height="128"/>
         <image name="chevron.right" catalog="system" width="96" height="128"/>
+        <image name="futurePage" width="12" height="12"/>
         <image name="google-icon.ico" width="31" height="32"/>
         <image name="hourly" width="1458" height="512"/>
         <image name="info.circle" catalog="system" width="128" height="121"/>
         <image name="key" width="18" height="18"/>
+        <image name="leftPage" width="11" height="14"/>
         <image name="mail" width="18" height="18"/>
         <image name="menu-icon-white" width="24" height="24"/>
         <image name="monthly" width="1458" height="512"/>
+        <image name="pastPage" width="12" height="12"/>
         <image name="person.circle.fill" catalog="system" width="128" height="121"/>
         <image name="profile " width="16" height="16"/>
         <image name="reservation-pic" width="1144" height="782"/>
+        <image name="rightPage" width="11" height="14"/>
         <image name="square" catalog="system" width="128" height="114"/>
         <image name="watch" width="512" height="833"/>
         <image name="x" width="12" height="12"/>
