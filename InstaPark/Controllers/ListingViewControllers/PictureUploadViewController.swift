@@ -21,6 +21,7 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
     var page = 0
     //Must also change width and height of UploadSlideView if changing scrollWidth/Height
     var images = [UIImage]()
+    var lowerQualityImages = [UIImage]()
     let uploadSlide = Bundle.main.loadNibNamed("UploadSlideView", owner: self, options: nil)?.first as! UploadSlideView
 
     
@@ -37,6 +38,8 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             images.append(selectedImage)
+            //shrink image size by x4
+            lowerQualityImages.append(self.resizeImage(image: selectedImage, targetSize: CGSize(width: selectedImage.size.width/8, height: selectedImage.size.width/8)))
             print(images.count)
         }
         self.dismiss(animated: true, completion: {() in self.setUpSlides()})
@@ -88,15 +91,38 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
     }
     
     // call right before going to next view or maybe when the user confirms the entire listing to avoid uploading unwanted photos?
-    func uploadAllPhotosToDB() {
-        for image in images {
-            ImageService.uploadImage(image: image) { (imageID, error) in
-                if let imageID = imageID, error == nil {
-                    print(imageID)
-                    self.imageIDs.append(imageID)
-                }
-            }
+//    func uploadAllPhotosToDB() {
+//        for image in images {
+//            ImageService.uploadImage(image: image) { (imageID, error) in
+//                if let imageID = imageID, error == nil {
+//                    print(imageID)
+//                    self.imageIDs.append(imageID)
+//                }
+//            }
+//        }
+//    }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
         }
+
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage!
     }
     
     func checkBeforeMovingPages() -> Bool {

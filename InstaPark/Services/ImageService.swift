@@ -27,7 +27,17 @@ class ImageService {
                 return
             }
             print("upload sucessful")
-            completion(id, nil)
+            print("downloading image URL")
+            storage.child(id).downloadURL { (url, error) in
+                guard let url = url, error == nil else {
+                    print("FAILED TO DOWNLOAD")
+                    return
+                }
+                let urlString = url.absoluteString
+                print("download URL: \(urlString)")
+                completion(urlString, nil)
+            }
+            
         })
     }
     //Upload all images for a parking spot and update parking spot document with image id

@@ -35,6 +35,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var totalTitleLabel: UILabel!
    // @IBOutlet weak var tagStack: UIStackView!
     var bookmarkFlag = false
+    var transaction = false
     
     @IBOutlet var blackScreen: UIView!
     //  @IBOutlet var listingPopup: UIView!
@@ -233,11 +234,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             availabilityLabel.isEnabled = false
             
             timeFrameTitleLabel.text = "LAST BOOKED"
-            bookmarkButton.isHidden = false
-            bookmarkButton.layer.shadowRadius = 2.0
-            bookmarkButton.layer.shadowOpacity = 0.3
-            bookmarkButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
-            bookmarkButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+//            bookmarkButton.isHidden = false
+//            bookmarkButton.layer.shadowRadius = 2.0
+//            bookmarkButton.layer.shadowOpacity = 0.3
+//            bookmarkButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+//            bookmarkButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
             
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
@@ -575,10 +576,10 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
         if collectionView.tag == 2 {
             return info.tags.count
         } else {
-            if listing {
-                return images.count + 1
+            if transaction {
+                return info.images.count + 1
             }
-            return info.images.count + 1
+            return images.count + 1
         }
     }
     
@@ -615,13 +616,13 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
             if images.isEmpty && info.images.isEmpty {
                 mapOnly = true
             }
-            if listing && !mapOnly{
+            if !mapOnly && !transaction{
                 if index != images.count {
                     cell.image.image = self.images[index]
                 } else {
                     mapFlag = true
                 }
-            } else if !mapOnly{
+            } else if !mapOnly && transaction{
                 if index != info.images.count {
                     let image = info.images[index]
                     guard let url = URL(string: image) else {

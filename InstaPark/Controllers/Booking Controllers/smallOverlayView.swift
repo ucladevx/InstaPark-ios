@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 struct SlideViewConstant {
-    static let slideViewHeight: CGFloat = 280
+    static let slideViewHeight: CGFloat = 400
+    static let slideViewSmallHeight: CGFloat = 280
     static let cornerRadiusOfSlideView: CGFloat = 20
     static let animationTime: CGFloat = 0.3
     

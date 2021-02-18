@@ -20,6 +20,7 @@ class TransactionTableViewController: UITableViewController {
         self.tableView.rowHeight = 100
         UserService.getUserById(Auth.auth().currentUser!.uid) { user, error in
             if let user = user {
+                print(user.uid)
                 for id in user.transactions {
                     TransactionService.getTransactionById(id) { transaction, error in
                         if let transaction = transaction {
@@ -101,6 +102,7 @@ class TransactionTableViewController: UITableViewController {
                 nextViewController.transationDate = dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime)))
                     + ", " +  dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime)))
                     + " to " +  dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
+                nextViewController.transaction = true
                 
                 self.present(nextViewController, animated:true)
             }
