@@ -287,11 +287,9 @@
 		0410B14C2548DC1F001C4D27 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				945E02F925DF26DD00741BDD /* LoginSignUpControllers */,
 				0464F72B25D3813200C9A055 /* SlideoutViews */,
 				945167CB25AE96A400939551 /* TimeViewControllers */,
-				0410B18F254A49F7001C4D27 /* LoginViewController.swift */,
-				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
-				0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */,
 				0410B199254A4A7E001C4D27 /* MapViewViewController.swift */,
 				0482FEA7255CB2D6002F522E /* ReservationModalViewController.swift */,
 				9404764C254CEABC008C111E /* ParkingSpaceMapAnnotation.swift */,
@@ -438,6 +436,16 @@
 				945167D625AE96E800939551 /* monthlyTimeViewController.swift */,
 			);
 			path = TimeViewControllers;
+			sourceTree = "<group>";
+		};
+		945E02F925DF26DD00741BDD /* LoginSignUpControllers */ = {
+			isa = PBXGroup;
+			children = (
+				0410B18F254A49F7001C4D27 /* LoginViewController.swift */,
+				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
+				0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */,
+			);
+			path = LoginSignUpControllers;
 			sourceTree = "<group>";
 		};
 		9460B9B72558A8720016697A /* Booking Controllers */ = {

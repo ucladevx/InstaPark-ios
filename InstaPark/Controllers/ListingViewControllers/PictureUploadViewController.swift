@@ -39,7 +39,7 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
         if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             images.append(selectedImage)
             //shrink image size by x4
-            lowerQualityImages.append(self.resizeImage(image: selectedImage, targetSize: CGSize(width: selectedImage.size.width/4, height: selectedImage.size.width/4)))
+            lowerQualityImages.append(self.resizeImage(image: selectedImage, targetSize: CGSize(width: selectedImage.size.width/8, height: selectedImage.size.width/8)))
             print(images.count)
         }
         self.dismiss(animated: true, completion: {() in self.setUpSlides()})

@@ -119,7 +119,7 @@ class MapViewViewController: ViewController{
         imageCollectionView.allowsSelection = false
         tagCollectionView.tag = 2
         imageCollectionView.tag = 0
-        //imageCollectionView.roundCorners(corners: [.topLeft, .topRight], radius: SlideViewConstant.cornerRadiusOfSlideView)
+        imageCollectionView.roundTopCorners(cornerRadius: Double(SlideViewConstant.cornerRadiusOfSlideView))
         
         // if segued from hourlyTimeViewController, search/setup in here
         if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
@@ -144,14 +144,14 @@ class MapViewViewController: ViewController{
         }
         
         //set up of map
-        let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
-        let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(34.0703, -118.4441)
-        let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
-        
-        self.mapView.setRegion(region, animated: false)
-        regionQuery = geoFire.query(with: region) // for some reason geoFire isn't working with regionQuery???
-        circleQuery = geoFire.query(at: CLLocation.init(latitude: location.latitude, longitude: location.longitude), withRadius: 20)
-        queryInRegion(region: region, location: location)
+//        let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+//        let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(34.0703, -118.4441)
+//        let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
+//
+//        self.mapView.setRegion(region, animated: false)
+//        regionQuery = geoFire.query(with: region) // for some reason geoFire isn't working with regionQuery???
+//        circleQuery = geoFire.query(at: CLLocation.init(latitude: location.latitude, longitude: location.longitude), withRadius: 20)
+//        queryInRegion(region: region, location: location)
 //        // if user has chosen a time frame & date query only to that time frame/date
 //        if shortTermStartTime != nil && shortTermEndTime != nil {
 //            // get all parking spaces within a 20000 km radius from the db
@@ -475,6 +475,7 @@ class MapViewViewController: ViewController{
         self.view.addSubview(blackScreen)
         self.view.addSubview(timeSelectionPopup)
         timeSelectionPopup.isHidden = false
+        timeSelectionPopup.center.x = self.view.center.x
         timeSelectionPopup.center.y = self.view.frame.height * 3 / 4
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut],
                        animations: {
@@ -712,6 +713,11 @@ extension MapViewViewController: MKMapViewDelegate {
             self.selectedImages = parkingSpace.images
             tagCollectionView.reloadData()
             if !selectedImages.isEmpty {
+//                if selectedImages.count == 1 {
+//                    imageCollectionView.roundCorners(corners: [.topLeft, .topRight], radius: SlideViewConstant.cornerRadiusOfSlideView)
+//                } else {
+//
+//                }
                 print("reloading images")
                 imageCollectionView.reloadData()
             }
@@ -825,10 +831,16 @@ extension MapViewViewController: CLLocationManagerDelegate {
             let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
             //print(location.coordinate)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
+            self.queryInRegion(region: region, location: location.coordinate)
             mapView.setRegion(region, animated: true)
         }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
+        let location: CLLocationCoordinate2D = CLLocationCoordinate2DMake(34.0703, -118.4441)
+        let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
+        self.mapView.setRegion(region, animated: false)
+        self.queryInRegion(region: region, location: location)
         print(error)
     }
 }
@@ -975,7 +987,10 @@ private extension MKMapView {
 extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView.tag == 0 {
-            if !selectedImages.isEmpty {
+            if selectedImages.count == 1 {
+                return CGSize(width: self.view.frame.width, height: 144)
+            }
+            else if !selectedImages.isEmpty {
                 return CGSize(width: 250, height: 144)
             }
             return CGSize(width: 0, height: 0)
@@ -1024,6 +1039,7 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
         else {
             print("refreshing pictures")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pictureCells", for: indexPath) as! BookingImageCollectionViewCell
+            
             cell.frame.size.width = 250
             cell.frame.size.height = 144
             let index = indexPath.row
@@ -1034,7 +1050,13 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
 //                else if index == selectedImages.count-1 {
 //                    cell.roundCorners(corners: [.topRight], radius: SlideViewConstant.cornerRadiusOfSlideView)
 //                }
-                
+                if selectedImages.count == 1 {
+                    cell.sizeToFit()
+                    cell.frame.size.width = collectionView.fs_width
+                    cell.image.setNeedsLayout()
+                    cell.image.layoutIfNeeded()
+                    cell.image.frame.size.width = self.view.frame.width
+                }
                 let image = self.selectedImages[index]
                 guard let url = URL(string: image) else {
                     print("can't convert string to URL")
@@ -1072,10 +1094,9 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
 }
 
 extension UICollectionView {
-   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
-        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
-        let mask = CAShapeLayer()
-        mask.path = path.cgPath
-        layer.mask = mask
+    func roundTopCorners(cornerRadius: Double) {
+        self.layer.cornerRadius = CGFloat(cornerRadius)
+        self.clipsToBounds = true
+        self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
     }
 }
