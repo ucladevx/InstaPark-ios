@@ -13,6 +13,9 @@ import UIKit
 class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
     var id: String
     var name: String
+    var email: String
+    var phoneNumber: String
+    var photo: String
     var coordinate: CLLocationCoordinate2D
     var price: Double
     var address: Address
@@ -39,11 +42,14 @@ class ParkingSpaceMapAnnotation: NSObject, MKAnnotation {
         var end: Date
     }
     
-    init(id: String, name: String, coordinate: CLLocationCoordinate2D, price: Double, address: Address, tags: [String], comments: String, startTime: Date?, endTime: Date?, date: Date?, startDate: Date?, endDate: Date?, images: [String]) {
+    init(id: String, name: String, email: String, phoneNumber: String, photo: String, coordinate: CLLocationCoordinate2D, price: Double, address: Address, tags: [String], comments: String, startTime: Date?, endTime: Date?, date: Date?, startDate: Date?, endDate: Date?, images: [String]) {
         self.id = id
         self.coordinate = coordinate
         self.price = price
         self.name = name
+        self.email = email
+        self.phoneNumber = phoneNumber
+        self.photo = photo
         self.address = address
         self.tags = tags
         self.comments = comments

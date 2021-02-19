@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import Firebase
 //Don't directly instantiate this class, use either Short Term Parking or Long Term Parking
 class ParkingSpot: Codable {
     init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String) {
@@ -21,6 +22,17 @@ class ParkingSpot: Codable {
         self.reservations = reservations
         self.images = images
         self.directions = directions
+        if let user = Auth.auth().currentUser {
+            self.displayName = user.displayName ?? "Missing Name"
+            self.email = user.email ?? "No Email"
+            self.phoneNumber = user.phoneNumber ?? "No Phone Number"
+            self.photo = user.photoURL?.absoluteString ?? ""
+        } else {
+            self.displayName = "Unable to get lister name"
+            self.email =  "No Email"
+            self.phoneNumber =  "No Phone Number"
+            self.photo = ""
+        }
     }
     
     var id: String
@@ -37,8 +49,10 @@ class ParkingSpot: Codable {
     var endDate: Int
     
     //Fields below are properties of provider but stored here to minimize data costs
-//    var firstName: String
-//    var lastName: String
+    var displayName: String
+    var email: String
+    var phoneNumber: String
+    var photo: String
     
     //List of IDs for all transactions
     var reservations: [String]

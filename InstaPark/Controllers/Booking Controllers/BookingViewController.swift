@@ -23,6 +23,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet var popupView: UIView!
     @IBOutlet weak var userInfoView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet var photoImage: UIImageView!
+    @IBOutlet var emailLabel: UILabel!
+    @IBOutlet var phoneNumberLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
@@ -58,7 +61,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String]())
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String]())
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
@@ -86,9 +89,33 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         bookmarkButton.isHidden = true
         nameLabel.text = info.name
+        phoneNumberLabel.text = info.phoneNumber
+        emailLabel.text = info.email
         addressLabel.text = info.address.toString()
         commentsLabel.text = info.comments
         commentsLabel.sizeToFit()
+
+        if info.photo != "" {
+        guard let url = URL(string: info.photo) else {
+                print("can't convert string to URL")
+                return
+            }
+            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                guard let data = data, error == nil else {
+                    print("failed to convert image from url")
+                    return
+                }
+                DispatchQueue.main.async { [self] in
+                    guard let UIimage = UIImage(data: data) else {
+                        print("failed to make image into UIimage")
+                        return
+                    }
+                    print("image converted")
+                    self.photoImage.image = UIimage
+                }
+            }
+            task.resume()
+        }
         
         //shadow for user info view
         userInfoView.layer.shadowRadius = 5.0
