@@ -45,11 +45,11 @@ class AuthService {
     }
     
     //signup user with completion
-    static func signup(email: String, password1: String, password2: String, completion: @escaping (AuthDataResult?, AuthenticationError?) -> Void){
-        if let error = validateInput(email: email, password1: password1, password2: password2) {
+    static func signup(user: User, password1: String, password2: String, completion: @escaping (AuthDataResult?, AuthenticationError?) -> Void){
+        if let error = validateInput(email: user.email, password1: password1, password2: password2) {
             completion(nil, error)
         }
-        Auth.auth().createUser(withEmail: email, password: password1) { authResult, error in
+        Auth.auth().createUser(withEmail: user.email, password: password1) { authResult, error in
             if let error = error as NSError?{
                 if let errorCode = AuthErrorCode(rawValue: error.code) {
                     var firebaseError: AuthenticationError
@@ -67,7 +67,7 @@ class AuthService {
                 completion(nil, .error)
                 return;
             } else if let authResult = authResult{
-                createUserDocument(authResult: authResult)
+                createUserDocument(authResult: authResult, user: user)
                 completion(authResult, nil)
             }
         }
@@ -101,16 +101,23 @@ class AuthService {
     }
     
     //creates user document
-    static func createUserDocument(authResult: AuthDataResult) {
+    static func createUserDocument(authResult: AuthDataResult, user: User) {
         print("Creating user document")
         if let usr = Auth.auth().currentUser {
             let id = usr.uid
             print(id)
-            let user = authResult.user
-            let data = user.providerData[0]
+            let usr = authResult.user
+            let data = usr.providerData[0]
             let db = Firestore.firestore()
-            let customer = User(uid: id, displayName: data.displayName ?? "", phoneNumber: data.phoneNumber ?? "")
-            db.collection("User").document(id).setData(customer.dictionary)
+            var cust = user
+            cust.uid = id
+            if(user.displayName == "" ){
+                cust.displayName = data.phoneNumber ?? ""
+            }
+            if(user.phoneNumber == "" ) {
+                cust.phoneNumber = data.phoneNumber ?? ""
+            }
+            db.collection("User").document(id).setData(user.dictionary)
         } else {
             print("Cannot create user document without signed in user")
         }

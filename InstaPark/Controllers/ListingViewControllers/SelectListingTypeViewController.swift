@@ -46,11 +46,16 @@ class SelectListingTypeViewController: UIViewController {
     @IBOutlet var ParkingInfo: ParkingInfoView!
     @IBOutlet var hourlyParking: UILabel!
     @IBOutlet var monthlyParking: UILabel!
+    @IBAction func backButton(_ sender: Any) {
+        print("pressed back button")
+        _ = navigationController?.popViewController(animated: true)
+    }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(ParkingInfo)
+        navigationController?.setNavigationBarHidden(true, animated: false)
         ParkingInfo.isHidden = true
         ParkingInfo.alpha = 0
         ParkingInfo.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true

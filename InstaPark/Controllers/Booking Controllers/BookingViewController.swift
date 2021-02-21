@@ -33,6 +33,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentMethodLabel: UILabel!
     @IBOutlet weak var timeFrameTitleLabel: UILabel!
     @IBOutlet weak var paymentCardLabel: UILabel!
+    @IBOutlet weak var paymentIcon: UIImageView!
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
@@ -148,6 +149,18 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         priceLabel.attributedText = cost
         
         
+<<<<<<< HEAD
+        for tag in tags {
+            tag.layer.borderWidth = 1.5
+            tag.layer.cornerRadius = 8
+            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
+            tag.isHidden = true
+        }
+        for n in 0..<info.tags.count-1 {
+            tags[n].setTitle(info.tags[n], for: .normal)
+            tags[n].isHidden = false
+        }
+=======
 //        let tags: [UIButton] = [tag1, tag2, tag3, tag4]
 //
 //        for tag in tags {
@@ -170,6 +183,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
 //            //tagStack.addSubview(tag)
 //            tagStack.didAddSubview(tag)
 //        }
+>>>>>>> main
         
         //initialize map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
@@ -560,6 +574,9 @@ extension BookingViewController {
                 print("CANCELLED")
             } else if let result = result {
                 self.paymentResult = result
+                self.paymentCardLabel.text = result.paymentDescription
+                let size = CGSize(width: 32, height: 17)
+                self.paymentIcon.image = BTUIKViewUtil.vectorArtView(for: result.paymentOptionType).image(of: size)
                 // Use the BTDropInResult properties to update your UI
                 // result.paymentOptionType
                 // result.paymentMethod
