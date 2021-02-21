@@ -6,10 +6,11 @@
 //
 
 import UIKit
+import Firebase
 
 class SelectListingTypeViewController: UIViewController {
     var parkingType: ParkingType = .long
-    let ShortTermParking = ShortTermParkingSpot.init(id: "", address: Address.blankAddress(), coordinates: Coordinate(lat: 0.0, long: 0.0), pricePerHour: 0.0, provider: "", comments: "", tags: [String](),reservations: [String](), fromFullDays: [Int](), images: [String](), startDate: 0, endDate: 0, directions: "")
+    let ShortTermParking = ShortTermParkingSpot.init(id: "", address: Address.blankAddress(), coordinates: Coordinate(lat: 0.0, long: 0.0), pricePerHour: 0.0, provider: "", comments: "", tags: [String](),reservations: [String](), fromFullDays: [Int](), images: [String](), startDate: 0, endDate: 0, directions: "", displayName: "", email: "", phoneNumber: "", photo: "")
    
     @IBAction func monthlyAction(_ sender: Any) {
         //do the same as short term parking here but with long term parking if clicked
@@ -85,6 +86,15 @@ class SelectListingTypeViewController: UIViewController {
         if let vc = segue.destination as? ListingViewController {
             vc.parkingType = parkingType
             if(parkingType == .short) {
+                UserService.getUserById(Auth.auth().currentUser!.uid) { user, error in
+                    if let user = user {
+                        self.ShortTermParking.displayName = user.displayName
+                        self.ShortTermParking.email = user.email
+                        self.ShortTermParking.phoneNumber = user.phoneNumber
+                        self.ShortTermParking.photo = user.photoURL
+                        self.ShortTermParking.provider = user.uid
+                    }
+                }
                 vc.ShortTermParking = ShortTermParking
             } else {
                 // pass in long term parking when ready 
