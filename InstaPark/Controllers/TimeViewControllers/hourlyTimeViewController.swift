@@ -11,6 +11,8 @@ import FSCalendar
 class hourlyTimeViewController: UIViewController {
 
     @IBOutlet weak var calendar: FSCalendar!
+    @IBOutlet weak var calendarBackground: UIView!
+    @IBOutlet weak var selectedDateLabel: UILabel!
     @IBOutlet weak var startScroller: UIPickerView!
     @IBOutlet weak var endScroller: UIPickerView!
     @IBOutlet weak var searchButton: UIButton!
@@ -34,11 +36,23 @@ class hourlyTimeViewController: UIViewController {
         calendar.reloadData()
         calendar.appearance.titleFont = UIFont.init(name: "Roboto-Medium", size: 16)
         calendar.appearance.headerTitleFont = UIFont.init(name: "Roboto-Medium", size: 16)
+        calendar.backgroundColor = UIColor.init(red: 248.0/255.0, green: 240/255.0, blue: 1.0, alpha: 1.0)
         calendar.dataSource = self
+        calendar.rowHeight = 15
         calendar.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
         calendar.swipeToChooseGesture.isEnabled = true
         let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
                 calendar.addGestureRecognizer(scopeGesture)
+        calendar.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
+        if calendar.selectedDates.count == 0 {
+            selectedDateLabel.text = ""
+        }
+        
+        calendarBackground.layer.shadowRadius = 5.0
+        calendarBackground.layer.shadowOpacity = 0.35
+        calendarBackground.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+        calendarBackground.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        
             
         //create time range from picker from 12:00 am -> 11:45 pm
         for row in 0...95 {
@@ -96,7 +110,18 @@ class hourlyTimeViewController: UIViewController {
     }()
     
     private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
-          
+        func formatDate(date: Date) -> String{
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yy"
+            return formatter.string(from: date)
+        }
+        if selectedStartDate != nil {
+            selectedDateLabel.text = formatDate(date: selectedStartDate)
+        }
+        else {
+            selectedDateLabel.text = ""
+        }
+        
           let diyCell = (cell as! DIYCalendarCell)
           // Custom today circle
           diyCell.circleImageView.isHidden = true//!self.gregorian.isDateInToday(date)
@@ -197,6 +222,7 @@ extension hourlyTimeViewController: FSCalendarDelegate, FSCalendarDataSource, FS
     
     func calendar(_ calendar: FSCalendar, didSelect date: Date, at monthPosition: FSCalendarMonthPosition) {
         selectedDate = date
+        
         // nothing selected:
         if selectedStartDate == nil {
             selectedStartDate = date
@@ -241,6 +267,7 @@ extension hourlyTimeViewController: FSCalendarDelegate, FSCalendarDataSource, FS
             selectedEndDate = nil
             selectedStartDate = nil
             datesRange = []
+            selectedDateLabel.text = ""
         }
         self.configureVisibleCells()
     }
@@ -366,6 +393,15 @@ extension hourlyTimeViewController: UIPickerViewDataSource {
     }
     
     
+}
+
+extension UIView {
+   func roundCorners(corners: UIRectCorner, radius: CGFloat) {
+        let path = UIBezierPath(roundedRect: bounds, byRoundingCorners: corners, cornerRadii: CGSize(width: radius, height: radius))
+        let mask = CAShapeLayer()
+        mask.path = path.cgPath
+        layer.mask = mask
+    }
 }
 
 

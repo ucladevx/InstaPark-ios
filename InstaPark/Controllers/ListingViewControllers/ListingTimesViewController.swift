@@ -8,15 +8,14 @@
 import UIKit
 import FSCalendar
 
-protocol listingPass1 {
-    func pass1(parkingType: ParkingType, ShortTermParking: ShortTermParkingSpot)
-}
-
 class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance{
-    var delegate: listingPass2?
     @IBOutlet var infoPopup: UIView!
     @IBOutlet var blackScreen: UIView!
     
+    @IBOutlet weak var advancedOptionsBtn: UIButton!
+    @IBOutlet weak var startDateLabel: UILabel!
+    @IBOutlet weak var endDateLabel: UILabel!
+    @IBOutlet weak var calendarBackground: UIView!
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var weekdaysBtn: UIButton!
     @IBOutlet weak var weekendsBtn: UIButton!
@@ -26,11 +25,21 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     @IBOutlet weak var startEndLabels: UIStackView!
     @IBOutlet weak var arrow: UIImageView!
     
+    @IBOutlet weak var advancedOptionsCheckStack: UIStackView!
+    @IBOutlet weak var sunday: UIButton!
+    @IBOutlet weak var monday: UIButton!
+    @IBOutlet weak var tuesday: UIButton!
+    @IBOutlet weak var wednesday: UIButton!
+    @IBOutlet weak var thursday: UIButton!
+    @IBOutlet weak var friday: UIButton!
+    @IBOutlet weak var saturday: UIButton!
+    @IBOutlet weak var advancedOptionsDayStack: UIStackView!
     var twentyFourHourAccess = false
     var weekdaysOnly = false
     var weekendsOnly = false
     fileprivate weak var calendar: FSCalendar!
     var timeRange = [String]()
+    var daysOfWeek = [0: true, 1: true, 2: true, 3: true, 4: true, 5: true, 6:true]
     
     // saved variables
     var startTime:Int = 0 //daily start time
@@ -44,11 +53,12 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: 340, height: 240))
+        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: calendarView.frame.width, height: 240))
         calendar.dataSource = self
         calendar.delegate = self
         calendar.placeholderType = .none
         //calendar.select(Date() as Date)
+        calendar.backgroundColor = UIColor.init(red: 248.0/255.0, green: 240/255.0, blue: 1.0, alpha: 1.0)
         calendar.appearance.titleFont = .boldSystemFont(ofSize: 16)
         calendar.appearance.headerTitleFont = .boldSystemFont(ofSize: 16)
         calendar.appearance.todayColor = .clear
@@ -58,13 +68,33 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         calendar.allowsMultipleSelection = true
         calendar.firstWeekday = 1
         calendar.weekdayHeight = 0
+        calendar.rowHeight = 15
         calendar.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
         calendar.swipeToChooseGesture.isEnabled = true
         let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
                 calendar.addGestureRecognizer(scopeGesture)
-        
+        calendarView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
+        calendar.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
+        if calendar.selectedDates.count == 0 {
+            startDateLabel.text = ""
+            endDateLabel.text = ""
+        }
         calendarView.addSubview(calendar)
         self.calendar = calendar
+        
+        calendarBackground.layer.cornerRadius = 20
+        calendarBackground.layer.shadowRadius = 5.0
+        calendarBackground.layer.shadowOpacity = 0.35
+        calendarBackground.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+        calendarBackground.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        
+        advancedOptionsDayStack.isHidden = true
+        advancedOptionsCheckStack.isHidden = true
+        let days = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
+        for day in days {
+            day!.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+            day!.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+        }
         
        // calendar.register(FSCalendarCell.self, forCellReuseIdentifier: "CELL")
         
@@ -130,13 +160,16 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         if weekdaysOnly {
             weekdaysBtn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
             weekdaysBtn.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+            daysOfWeek[0] = true
+            daysOfWeek[6] = true
             weekdaysOnly = false
         } else {
             weekdaysBtn.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
             weekdaysBtn.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            daysOfWeek[0] = false
+            daysOfWeek[6] = false
             weekdaysOnly = true
         }
-        calendar.reloadData()
         calendar.reloadData()
     }
     
@@ -144,10 +177,16 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         if weekendsOnly {
             weekendsBtn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
             weekendsBtn.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+            for i in 1...5 {
+                daysOfWeek[i] = true
+            }
             weekendsOnly = false
         } else {
             weekendsBtn.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
             weekendsBtn.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            for i in 1...5 {
+                daysOfWeek[i] = false
+            }
             weekendsOnly = true
         }
         calendar.reloadData()
@@ -167,6 +206,65 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             arrow.isHidden = true
         }
     }
+    
+    @IBAction func advancedOptionsBtn(_ sender: Any) {
+        if advancedOptionsDayStack.isHidden == true {
+            let days = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
+            for i in 0...6 {
+                if daysOfWeek[i] == true {
+                    days[i]!.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+                    days[i]!.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+                }
+                else {
+                    days[i]!.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
+                    days[i]!.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+                }
+            }
+            advancedOptionsDayStack.isHidden = false
+            advancedOptionsCheckStack.isHidden = false
+            return
+        }
+        else {
+            advancedOptionsDayStack.isHidden = true
+            advancedOptionsCheckStack.isHidden = true
+        }
+    }
+    
+    func changeState(day: Int, button: UIButton){
+        if daysOfWeek[day] == false {
+            button.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+            button.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            daysOfWeek[day] = true
+        } else {
+            button.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
+            button.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+            daysOfWeek[day] = false
+        }
+        print(daysOfWeek)
+        calendar.reloadData()
+    }
+    @IBAction func sunday(_ sender: Any) {
+        changeState(day: 0, button: sunday)
+    }
+    @IBAction func monday(_ sender: Any) {
+        changeState(day: 1, button: monday)
+    }
+    @IBAction func tuesday(_ sender: Any) {
+        changeState(day: 2, button: tuesday)
+    }
+    @IBAction func wednesday(_ sender: Any) {
+        changeState(day: 3, button: wednesday)
+    }
+    @IBAction func thursday(_ sender: Any) {
+        changeState(day: 4, button: thursday)
+    }
+    @IBAction func friday(_ sender: Any) {
+        changeState(day: 5, button: friday)
+    }
+    @IBAction func saturday(_ sender: Any) {
+        changeState(day: 6, button: saturday)
+    }
+    
     
     //for cleaner time conversion from date -> string
     fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
@@ -189,12 +287,6 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     
     // MARK: - Navigation
-    override func viewWillDisappear(_ animated: Bool) {
-        if checkBeforeMovingPages() == false {
-            return
-        }
-        delegate?.pass(parkingType: parkingType, ShortTermParking: ShortTermParking)
-    }
     
     func checkBeforeMovingPages() -> Bool {
         getAllValues()
@@ -216,82 +308,42 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
                 startTime = setTime(hour: 0, minute: 00)
                 endTime = setTime(hour: 23, minute: 59)
             }
-            if weekendsOnly {
-                times[5] = [ParkingTimeInterval(start: startTime, end: endTime)]
-                times[6] = [ParkingTimeInterval(start: startTime, end: endTime)]
-            }
-            else if weekdaysOnly {
-                for i in 0...4 {
+            for i in 0...6 {
+                if daysOfWeek[i] == true {
                     times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
                 }
             }
-            else {
-                for i in 0...6 {
-                    times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
-                }
-            }
+//            if weekendsOnly {
+//                times[5] = [ParkingTimeInterval(start: startTime, end: endTime)]
+//                times[6] = [ParkingTimeInterval(start: startTime, end: endTime)]
+//            }
+//            else if weekdaysOnly {
+//                for i in 0...4 {
+//                    times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
+//                }
+//            }
+//            else {
+//                for i in 0...6 {
+//                    times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
+//                }
+//            }
             ShortTermParking.times = times
-            //need to fix this when I figure out how to select a range of dates on the calendar
-            //ShortTermParking.lastEndTime = Int(selectedEndDate.timeIntervalSince1970)
+            if selectedStartDate != nil {
+                ShortTermParking.startDate = Int(selectedStartDate.timeIntervalSince1970)
+            }
+            if selectedEndDate != nil {
+                ShortTermParking.endDate = Int(selectedEndDate.timeIntervalSince1970)
+            }
+            
             print(ShortTermParking.times)
             return true
-            //print(ShortTermParking.lastEndTime)
+            
         }
         else { //LONGTERM parking
             return true
         }
     }
 
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    /*
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        getAllValues()
-        if weekdaysOnly && weekendsOnly {
-            let alert = UIAlertController(title: "Error", message: "Please select at least one valid date.", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
-            self.present(alert, animated: true, completion: nil)
-            return
-        }
-        var times = [0: [ParkingTimeInterval](), 1: [ParkingTimeInterval](), 2: [ParkingTimeInterval](), 3:[ParkingTimeInterval](), 4:[ParkingTimeInterval](), 5:[ParkingTimeInterval](), 6:[ParkingTimeInterval]()]
-        if parkingType == .short {
-            if twentyFourHourAccess {
-                startTime = setTime(hour: 0, minute: 00)
-                endTime = setTime(hour: 23, minute: 59)
-            }
-            if weekendsOnly {
-                times[5] = [ParkingTimeInterval(start: startTime, end: endTime)]
-                times[6] = [ParkingTimeInterval(start: startTime, end: endTime)]
-            }
-            else if weekdaysOnly {
-                for i in 0...4 {
-                    times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
-                }
-            }
-            else {
-                for i in 0...6 {
-                    times[i] = [ParkingTimeInterval(start: startTime, end: endTime)]
-                }
-            }
-            ShortTermParking.times = times
-            //need to fix this when I figure out how to select a range of dates on the calendar
-            //ShortTermParking.lastEndTime = Int(selectedEndDate.timeIntervalSince1970)
-            print(ShortTermParking.times)
-            //print(ShortTermParking.lastEndTime)
-        }
-        else { //LONGTERM parking
-            
-        }
-        
-        if let vc = segue.destination as? PriceViewController {
-            vc.parkingType = parkingType
-            if(parkingType == .short) {
-                vc.ShortTermParking = ShortTermParking
-            } else {
-                // pass in long term parking when ready
-            }
-        }
-    }*/
-    
     func datesRange(from: Date, to: Date) -> [Date] {
         // in case of the "from" date is more than "to" date,
         // it should returns an empty array:
@@ -398,17 +450,15 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
         let weekday = Calendar.current.component(.weekday, from: date)
         let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        if weekdaysOnly && (weekday == 1 || weekday == 7){
+        if date < yesterday{
             return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
         }
-        else if weekendsOnly && (weekday == 2 || weekday == 3 || weekday == 4 || weekday == 5 || weekday == 6){
-            return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
-        } else if date < yesterday{
-            return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+        for i in 0...6 {
+            if daysOfWeek[i] == false && weekday == i+1 {
+                return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+            }
         }
-        else {
-            return .black
-        }
+        return .black
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
@@ -422,11 +472,10 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         if date < yesterday{
             return false
         }
-        else if weekdaysOnly && (weekday == 1 || weekday == 7){
-            return false
-        }
-        else if weekendsOnly && (weekday == 2 || weekday == 3 || weekday == 4 || weekday == 5 || weekday == 6){
-            return  false
+        for i in 0...6 {
+            if daysOfWeek[i] == false && weekday == i+1 {
+                return false
+            }
         }
         return true
     }
@@ -440,7 +489,25 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         }
     
     private func configure(cell: FSCalendarCell, for date: Date, at position: FSCalendarMonthPosition) {
-          
+        
+        func formatDate(date: Date) -> String{
+            let formatter = DateFormatter()
+            formatter.dateFormat = "MM/dd/yy"
+            print(formatter.string(from: calendar.selectedDates.first!))
+            return formatter.string(from: date)
+        }
+        if selectedStartDate != nil {
+            startDateLabel.text = formatDate(date: selectedStartDate)
+        }
+        else {
+            startDateLabel.text = ""
+        }
+        if selectedEndDate != nil {
+            endDateLabel.text = formatDate(date: selectedEndDate)
+        }
+        else {
+            endDateLabel.text = ""
+        }
           let diyCell = (cell as! DIYCalendarCell)
           // Custom today circle
           diyCell.circleImageView.isHidden = true//!self.gregorian.isDateInToday(date)
@@ -565,13 +632,3 @@ extension ListingTimesViewController: UIPickerViewDataSource {
     
 }
 
-extension ListingTimesViewController: listingPass1 {
-    // pass from address controller
-    func pass1(parkingType: ParkingType, ShortTermParking: ShortTermParkingSpot){
-        self.parkingType = parkingType
-        self.ShortTermParking = ShortTermParking
-        print("pass")
-        print(self.ShortTermParking.address)
-        print(self.ShortTermParking.coordinates)
-    }
-}

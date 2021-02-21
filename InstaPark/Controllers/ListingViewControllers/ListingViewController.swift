@@ -11,12 +11,49 @@ import CoreLocation
 
 class ListingViewController: UIPageViewController, UIPageViewControllerDataSource, UIPageViewControllerDelegate {
    
+    @IBOutlet var dot1: UIImageView!
+    @IBOutlet var dot2: UIImageView!
+    @IBOutlet var dot3: UIImageView!
+    @IBOutlet var dot4: UIImageView!
+    @IBOutlet var dot5: UIImageView!
+    @IBOutlet var dot6: UIImageView!
+    @IBOutlet var dot7: UIImageView!
+    var dots = [UIImageView]()
+    @IBOutlet var rightButton: UIButton!
+    @IBOutlet var pageControl: UIView!
+    
     var coordinates: CLLocationCoordinate2D! // stores user's coordinates
     var address: String! // stores address entered in the search bar
     var parkingType: ParkingType = .short
     var ShortTermParking: ShortTermParkingSpot!
     var images = [UIImage]()
     var currentViewIndex: Int = 0
+    
+    @IBAction func leftButtonAction(_ sender: UIButton) {
+        if currentViewIndex == 0 {
+            performSegue(withIdentifier: "unwind", sender: nil)
+        } else {
+            setViewControllers([orderedViewControllers[currentViewIndex-1]], direction: .reverse, animated: true, completion:{(true) in
+                        self.currentViewIndex -= 1
+                        self.updatePageControl()
+            })
+        }
+    }
+    
+    @IBAction func rightButtonAction(_ sender: UIButton) {
+        if currentViewIndex == 6 {
+            if let controller = orderedViewControllers[6] as? CommentsViewController {
+                controller.moveToNext()
+            }
+        }else{
+            guard transition(next:orderedViewControllers[currentViewIndex+1]) else {return}
+            setViewControllers([orderedViewControllers[currentViewIndex+1]], direction: .forward, animated: true, completion:{(true) in
+                        self.currentViewIndex += 1
+                        self.updatePageControl()
+            })
+        }
+    }
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else {
             return nil
@@ -37,50 +74,29 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else{
             return nil
         }
-        print("view controller index from func: \(viewControllerIndex)\nview controller from current index variable: \(currentViewIndex)")
-        let nextIndex = viewControllerIndex + 1
-        
-        //MARK: Moving from ListingAddress
-        if viewControllerIndex == currentViewIndex {
-            if let addressController = viewController as? ListingAddressViewController {
-                 print("address to times")
-                 if let next = orderedViewControllers[nextIndex] as? ListingTimesViewController {
-                     if !addressController.checkBeforeMovingPages() {
-                         //not configured yet
-                     }
-                     next.parkingType = addressController.parkingType
-                     if(addressController.parkingType == .short) {
-                         next.ShortTermParking = addressController.ShortTermParking
-                     } else {
-                         // pass in long term parking when ready
-                     }
-                     return next;
-                 }
-             }
-        }
-        
-        if(nextIndex != 7) {
-            return orderedViewControllers[nextIndex]
+        if(viewControllerIndex != 6) {
+            return orderedViewControllers[viewControllerIndex+1]
         }
         return nil
     }
     
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        print("will transition to")
-        
-        guard let viewControllerIndex = orderedViewControllers.firstIndex(of: pendingViewControllers.first!) else {
-            return
+        if let next = pendingViewControllers.first {
+            transition(next:next)
         }
-        let nextIndex = viewControllerIndex
-       // print("next view controller: \(nextIndex)")
+    }
+    
+    func transition(next:UIViewController) -> Bool {
+        print("will transition to")
         let viewController = orderedViewControllers[currentViewIndex]
-        
+        //MARK: Moving from ListingAddress
         if let addressController = viewController as? ListingAddressViewController {
-             print("address to times")
-             if let next = orderedViewControllers[nextIndex] as? ListingTimesViewController {
-                 if !addressController.checkBeforeMovingPages() {
-                     //not configured yet
-                 }
+             if let next = next as? ListingTimesViewController {
+                print("address to times")
+                 guard addressController.checkBeforeMovingPages() else {
+                    dataSource = nil
+                    dataSource = self
+                    return false}
                  next.parkingType = addressController.parkingType
                  if(addressController.parkingType == .short) {
                      next.ShortTermParking = addressController.ShortTermParking
@@ -91,11 +107,12 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
          }
          //MARK: Moving from ListingTimes
          if let timesController = viewController as? ListingTimesViewController {
-             print("time to price")
-                 if let next = orderedViewControllers[nextIndex] as? PriceViewController {
-                     if !timesController.checkBeforeMovingPages() {
-                         //not configured yet
-                     }
+                 if let next = next as? PriceViewController {
+                    print("time to price")
+                    guard timesController.checkBeforeMovingPages() else {
+                       dataSource = nil
+                       dataSource = self
+                       return false}
                      next.parkingType = timesController.parkingType
                      if(timesController.parkingType == .short) {
                          next.ShortTermParking = timesController.ShortTermParking
@@ -106,11 +123,12 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
          }
          //MARK: Moving from Price
          if let priceController = viewController as? PriceViewController {
-             print("price to tag")
-             if let next = orderedViewControllers[nextIndex] as? ParkingTypeViewController {
-                 if !priceController.checkBeforeMovingPages() {
-                     //not configured yet
-                 }
+             if let next = next as? ParkingTypeViewController {
+                print("price to tag")
+                guard priceController.checkBeforeMovingPages() else {
+                   dataSource = nil
+                   dataSource = self
+                   return false}
                  next.parkingType = priceController.parkingType
                  if(priceController.parkingType == .short) {
                      next.ShortTermParking = priceController.ShortTermParking
@@ -122,11 +140,12 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
          }
          //MARK: Moving from ParkingType/Tags view
          if let tagController = viewController as? ParkingTypeViewController {
-             print("tag to picture")
-             if let next = orderedViewControllers[nextIndex] as? PictureUploadViewController {
-                 if !tagController.checkBeforeMovingPages() {
-                     //not configured yet
-                 }
+             if let next = next as? PictureUploadViewController {
+                print("tag to picture")
+                guard tagController.checkBeforeMovingPages() else {
+                   dataSource = nil
+                   dataSource = self
+                   return false}
                  next.parkingType = tagController.parkingType
                  if(tagController.parkingType == .short) {
                      next.ShortTermParking = tagController.ShortTermParking
@@ -138,13 +157,14 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
          }
          //MARK: Moving from Picture
          if let picController = viewController as? PictureUploadViewController {
-             print("picture to direction")
-             if let next = orderedViewControllers[nextIndex] as? DirectionsViewController {
-                 if !picController.checkBeforeMovingPages() {
-                     //not configured yet
-                 }
+             if let next = next as? DirectionsViewController {
+                 print("picture to direction")
+                guard picController.checkBeforeMovingPages() else {
+                   dataSource = nil
+                   dataSource = self
+                   return false}
                  next.parkingType = picController.parkingType
-                 next.images = picController.images
+                 next.images = picController.lowerQualityImages
                  if(picController.parkingType == .short) {
                      next.ShortTermParking = picController.ShortTermParking
                  } else {
@@ -156,11 +176,12 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
          }
          //MARK: Moving from Directions
          if let directionsController = viewController as? DirectionsViewController {
-             print("direction to comments")
-             if let next = orderedViewControllers[nextIndex] as? CommentsViewController {
-                 if !directionsController.checkBeforeMovingPages() {
-                     //not configured yet
-                 }
+             if let next = next as? CommentsViewController {
+                 print("direction to comments")
+                guard directionsController.checkBeforeMovingPages() else {
+                   dataSource = nil
+                   dataSource = self
+                   return false}
                  next.parkingType = directionsController.parkingType
                  next.images = directionsController.images
                  if(directionsController.parkingType == .short) {
@@ -192,14 +213,27 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                  // pass in long term parking when ready
              }
          }
+        return true
     }
 
     
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        guard let viewControllerIndex = orderedViewControllers.firstIndex(of: previousViewControllers.last!) else {
-            return
+        currentViewIndex = pageViewController.viewControllers!.first!.view.tag
+        updatePageControl()
+    }
+    
+    func updatePageControl() {
+        if currentViewIndex == 6 {
+            rightButton.setImage(UIImage(named: "listingDone"), for: .normal)
+        }else {
+            rightButton.setImage(UIImage(named: "rightPage"), for: .normal)
         }
-        currentViewIndex = viewControllerIndex + 1
+        for i in 0..<currentViewIndex+1 {
+            dots[i].image = UIImage(named: "pastPage")
+        }
+        for i in currentViewIndex+1..<7 {
+            dots[i].image = UIImage(named: "futurePage")
+        }
         print("page changed to: \(currentViewIndex)")
     }
     
@@ -225,7 +259,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                 address += ", " + ShortTermParking.address.city
                 address += ", " + ShortTermParking.address.state + " " + ShortTermParking.address.zip
                 vc.listing = true
-                vc.info = ParkingSpaceMapAnnotation.init(id: "", name: "", coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: Date(), endDate: nil, images: [String]())
+                vc.info = ParkingSpaceMapAnnotation.init(id: "", name: ShortTermParking.displayName, email: ShortTermParking.email, phoneNumber: ShortTermParking.phoneNumber, photo: ShortTermParking.photo, coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: Date(), endDate: nil, images: [String]())
                 if ShortTermParking.tags.isEmpty {
                     vc.info.tags = ["no", "tags", "passed"]
                 }
@@ -233,16 +267,6 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                 // pass in long term parking when ready
             }
         }
-    }
-    
-    func configurePageControl() {
-        pageControl = UIPageControl(frame: CGRect(x: 0,y: UIScreen.main.bounds.maxY - 50,width: UIScreen.main.bounds.width,height: 50))
-        self.pageControl.numberOfPages = orderedViewControllers.count
-        self.pageControl.currentPage = 0
-        self.pageControl.tintColor = UIColor.black
-        self.pageControl.pageIndicatorTintColor = UIColor.white
-        self.pageControl.currentPageIndicatorTintColor = UIColor.black
-        self.view.addSubview(pageControl)
     }
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {
@@ -258,12 +282,17 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     private func newViewController(controller: String) -> UIViewController {
         return UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: controller)
     }
-
-    var pageControl = UIPageControl()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         dataSource = self
         delegate = self
+        self.view.addSubview(pageControl)
+        dots = [dot1,dot2,dot3,dot4,dot5,dot6,dot7]
+        pageControl.translatesAutoresizingMaskIntoConstraints = false
+        pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25).isActive = true
+//        view.addConstraint(NSLayoutConstraint(item: pageControl!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottomMargin, multiplier: 1, constant: 5))
         
         if let viewController = orderedViewControllers.first {
             if let firstViewController = orderedViewControllers.first as? ListingAddressViewController {

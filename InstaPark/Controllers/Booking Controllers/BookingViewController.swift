@@ -17,11 +17,15 @@ protocol isAbleToReceiveData {
 class BookingViewController: UIViewController, isAbleToReceiveData {
     var transationDate: String! // only not nil when view came from transactions view
     
+    @IBOutlet weak var tagCollectionView: UICollectionView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var popupTitle: UILabel!
     @IBOutlet var popupView: UIView!
     @IBOutlet weak var userInfoView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet var photoImage: UIImageView!
+    @IBOutlet var emailLabel: UILabel!
+    @IBOutlet var phoneNumberLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
@@ -33,7 +37,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
+   // @IBOutlet weak var tagStack: UIStackView!
     var bookmarkFlag = false
+    var transaction = false
     
     @IBOutlet var blackScreen: UIView!
     //  @IBOutlet var listingPopup: UIView!
@@ -41,11 +47,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var images = [UIImage]()
     
     
-    @IBOutlet weak var tag1: UIButton!
-    @IBOutlet weak var tag2: UIButton!
-    @IBOutlet weak var tag3: UIButton!
-    @IBOutlet weak var tag4: UIButton!
-    
+//    @IBOutlet weak var tag1: UIButton!
+//    @IBOutlet weak var tag2: UIButton!
+//    @IBOutlet weak var tag3: UIButton!
+//    @IBOutlet weak var tag4: UIButton!
+//
     
     @IBOutlet weak var commentsLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
@@ -57,7 +63,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "address", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String]())
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String]())
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
@@ -76,13 +82,42 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
         imageCollectionView.allowsSelection = false
+        tagCollectionView.delegate = self
+        tagCollectionView.dataSource = self
+        tagCollectionView.allowsSelection = false
+        imageCollectionView.tag = 0
+        tagCollectionView.tag = 2
         //imageCollectionView.hide
         
         bookmarkButton.isHidden = true
         nameLabel.text = info.name
+        phoneNumberLabel.text = info.phoneNumber
+        emailLabel.text = info.email
         addressLabel.text = info.address.toString()
         commentsLabel.text = info.comments
         commentsLabel.sizeToFit()
+
+        if info.photo != "" {
+        guard let url = URL(string: info.photo) else {
+                print("can't convert string to URL")
+                return
+            }
+            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                guard let data = data, error == nil else {
+                    print("failed to convert image from url")
+                    return
+                }
+                DispatchQueue.main.async { [self] in
+                    guard let UIimage = UIImage(data: data) else {
+                        print("failed to make image into UIimage")
+                        return
+                    }
+                    print("image converted")
+                    self.photoImage.image = UIimage
+                }
+            }
+            task.resume()
+        }
         
         //shadow for user info view
         userInfoView.layer.shadowRadius = 5.0
@@ -113,9 +148,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         priceLabel.attributedText = cost
         
-        //set up tags
-        let tags: [UIButton] = [tag1, tag2, tag3, tag4]
         
+<<<<<<< HEAD
         for tag in tags {
             tag.layer.borderWidth = 1.5
             tag.layer.cornerRadius = 8
@@ -126,6 +160,30 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             tags[n].setTitle(info.tags[n], for: .normal)
             tags[n].isHidden = false
         }
+=======
+//        let tags: [UIButton] = [tag1, tag2, tag3, tag4]
+//
+//        for tag in tags {
+//            tag.layer.borderWidth = 1.5
+//            tag.layer.cornerRadius = 8
+//            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
+//            tag.isHidden = true
+//        }
+//        for n in 0...(info.tags.count-1) {
+//            let tag = UILabel(frame: CGRect(x: 0, y: 0, width: 63, height: 20))
+//            tag.layer.borderWidth = 1.5
+//            tag.layer.cornerRadius = 8
+//            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
+//            tag.text = info.tags[n]
+//            tag.textColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9)
+//            tag.font = .systemFont(ofSize: 10)
+//            tag.textAlignment = .center
+//            tagStack.addArrangedSubview(tag)
+//            tagStack.autoresizesSubviews = false
+//            //tagStack.addSubview(tag)
+//            tagStack.didAddSubview(tag)
+//        }
+>>>>>>> main
         
         //initialize map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
@@ -217,11 +275,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             availabilityLabel.isEnabled = false
             
             timeFrameTitleLabel.text = "LAST BOOKED"
-            bookmarkButton.isHidden = false
-            bookmarkButton.layer.shadowRadius = 2.0
-            bookmarkButton.layer.shadowOpacity = 0.3
-            bookmarkButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
-            bookmarkButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+//            bookmarkButton.isHidden = false
+//            bookmarkButton.layer.shadowRadius = 2.0
+//            bookmarkButton.layer.shadowOpacity = 0.3
+//            bookmarkButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+//            bookmarkButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
             
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
@@ -317,8 +375,14 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     }
     
     @IBAction func dismissPopup(_ sender: Any) {
-        popupView.removeFromSuperview()
-        blackScreen.removeFromSuperview()
+        UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseIn],
+                       animations: {
+                        self.popupView.center.y = self.view.frame.height * 3 / 4
+                       }, completion: {_ in
+                        self.popupView.removeFromSuperview()
+                        self.popupView.isHidden = true
+                        self.blackScreen.removeFromSuperview()
+                       })
     }
     
     @IBAction func bookmarkButton(_ sender: Any) {
@@ -537,121 +601,159 @@ extension BookingViewController {
 }
 extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if images.isEmpty && info.images.isEmpty {
-            return CGSize(width: self.view.frame.width, height: 256)
+        if collectionView.tag == 0 { //image collection
+            if images.isEmpty && info.images.isEmpty {
+                return CGSize(width: self.view.frame.width, height: 256)
+            }
+            return CGSize(width: 327, height: 256)
+        } else { //tag view
+            let index = indexPath.row
+            var width = 63 + 10
+            if self.info.tags[index].count > 8 {
+                width = (self.info.tags[index].count * 6) + 30
+            }
+            return CGSize(width: CGFloat(width), height: 30)
         }
-        return CGSize(width: 327, height: 256)
+        
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        if listing {
+        if collectionView.tag == 2 {
+            return info.tags.count
+        } else {
+            if transaction {
+                return info.images.count + 1
+            }
             return images.count + 1
         }
-        return info.images.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pictureCells", for: indexPath) as! BookingImageCollectionViewCell
-        cell.frame.size.width = 327
-        cell.frame.size.height = 256
-        let index = indexPath.row
-        var mapFlag = false
-        var mapOnly = false
-        if images.isEmpty && info.images.isEmpty {
-            mapOnly = true
-        }
-        if listing && !mapOnly{
-            if index != images.count {
-                cell.image.image = self.images[index]
-            } else {
-                mapFlag = true
+        if collectionView.tag == 2 {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
+            let index = indexPath.row
+            var width = 63
+            if self.info.tags[index].count > 8 {
+                width = (self.info.tags[index].count * 6) + 20
             }
-        } else if !mapOnly{
-            if index != info.images.count {
-                let image = info.images[index]
-                guard let url = URL(string: image) else {
-                    print("can't convert string to URL")
-                    return cell
+            cell.frame.size.width = CGFloat(width)
+            cell.frame.size.height = 30
+            cell.contentView.frame.size.width = CGFloat(width) + 5
+            cell.contentView.frame.size.height = 30
+            let tag = cell.tagLabel ?? UILabel()
+            tag.layer.borderWidth = 1.5
+            tag.frame.size.width = CGFloat(width)
+            tag.frame.size.height = 20
+            tag.layer.cornerRadius = 8
+            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
+            tag.text = self.info.tags[index]
+            tag.textColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9)
+            tag.font = .systemFont(ofSize: 10)
+            tag.textAlignment = .center
+            return cell
+        } else {
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "pictureCells", for: indexPath) as! BookingImageCollectionViewCell
+            cell.frame.size.width = 327
+            cell.frame.size.height = 256
+            let index = indexPath.row
+            var mapFlag = false
+            var mapOnly = false
+            if images.isEmpty && info.images.isEmpty {
+                mapOnly = true
+            }
+            if !mapOnly && !transaction{
+                if index != images.count {
+                    cell.image.image = self.images[index]
+                } else {
+                    mapFlag = true
                 }
-                let activityIndicator = UIActivityIndicatorView()
-                activityIndicator.style = .medium
-                activityIndicator.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
-                activityIndicator.hidesWhenStopped = true
-                cell.addSubview(activityIndicator)
-                activityIndicator.center = cell.center
-                activityIndicator.startAnimating()
-                let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-                    guard let data = data, error == nil else {
-                        print("failed to convert image from url")
-                        return
+            } else if !mapOnly && transaction{
+                if index != info.images.count {
+                    let image = info.images[index]
+                    guard let url = URL(string: image) else {
+                        print("can't convert string to URL")
+                        return cell
                     }
-                    DispatchQueue.main.async {
-                        guard let UIimage = UIImage(data: data) else {
-                            print("failed to make image into UIimage")
+                    let activityIndicator = UIActivityIndicatorView()
+                    activityIndicator.style = .medium
+                    activityIndicator.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+                    activityIndicator.hidesWhenStopped = true
+                    cell.addSubview(activityIndicator)
+                    activityIndicator.center = cell.center
+                    activityIndicator.startAnimating()
+                    let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                        guard let data = data, error == nil else {
+                            print("failed to convert image from url")
                             return
                         }
-                        print("image converted")
-                        activityIndicator.stopAnimating()
-                        cell.image.image = UIimage
-                        self.images.append(UIimage)
+                        DispatchQueue.main.async {
+                            guard let UIimage = UIImage(data: data) else {
+                                print("failed to make image into UIimage")
+                                return
+                            }
+                            print("image converted")
+                            activityIndicator.stopAnimating()
+                            cell.image.image = UIimage
+                            self.images.append(UIimage)
+                        }
+                    }
+                    task.resume()
+                } else {
+                    mapFlag = true
+                }
+            }
+            if mapFlag || mapOnly {
+                if mapOnly {
+                    print("map only")
+                    cell.sizeToFit()
+                    cell.frame.size.width = collectionView.fs_width
+                    cell.image.setNeedsLayout()
+                    cell.image.layoutIfNeeded()
+                    cell.image.frame.size.width = self.view.frame.width
+                }
+                let rect = cell.image.bounds
+                let options = MKMapSnapshotter.Options()
+                let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
+                let location: CLLocationCoordinate2D = info.coordinate
+                let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
+                options.size = CGSize(width: cell.fs_width, height: cell.fs_height)
+                if mapOnly {
+                    options.size = CGSize(width: self.view.frame.width, height: cell.image.fs_height)
+                }
+                options.region = region
+                let snapshot = MKMapSnapshotter(options: options)
+                snapshot.start { snapshot, error in
+                    guard let snapshot = snapshot, error == nil else {
+                        print(error ?? "Unknown error")
+                        return
+                    }
+                    let image = UIGraphicsImageRenderer(size: options.size).image { _ in
+                        snapshot.image.draw(at: .zero)
+                        
+                        let pinView = MKPinAnnotationView(annotation: nil, reuseIdentifier: nil)
+                        //pinView.frame = CGRect(x: 0, y: 0, width: 12, height: 10)
+                        let pinImage = UIImage(named: "mapAnnotationPark")
+                        
+                        //CGSize(width: 15, height: 10)
+                        var point = snapshot.point(for: self.info.coordinate)
+
+                        if rect.contains(point) {
+                            point.x -= pinView.bounds.width / 2
+                            point.y -= pinView.bounds.height / 2
+                            point.x += pinView.centerOffset.x
+                            point.y += pinView.centerOffset.y
+                            pinImage?.draw(at: point)
+                        }
+                    }
+                    UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
+                    DispatchQueue.main.async {
+                        cell.image.image = image
                     }
                 }
-                task.resume()
-            } else {
-                mapFlag = true
-            }
-        }
-        if mapFlag || mapOnly {
-            if mapOnly {
-                print("map only")
-                cell.sizeToFit()
-                cell.frame.size.width = collectionView.fs_width
-                cell.image.setNeedsLayout()
-                cell.image.layoutIfNeeded()
-                cell.image.frame.size.width = self.view.frame.width
-            }
-            let rect = cell.image.bounds
-            let options = MKMapSnapshotter.Options()
-            let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
-            let location: CLLocationCoordinate2D = info.coordinate
-            let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
-            options.size = CGSize(width: cell.fs_width, height: cell.fs_height)
-            if mapOnly {
-                options.size = CGSize(width: self.view.frame.width, height: cell.image.fs_height)
-            }
-            options.region = region
-            let snapshot = MKMapSnapshotter(options: options)
-            snapshot.start { snapshot, error in
-                guard let snapshot = snapshot, error == nil else {
-                    print(error ?? "Unknown error")
-                    return
-                }
-                let image = UIGraphicsImageRenderer(size: options.size).image { _ in
-                    snapshot.image.draw(at: .zero)
-                    
-                    let pinView = MKPinAnnotationView(annotation: nil, reuseIdentifier: nil)
-                    //pinView.frame = CGRect(x: 0, y: 0, width: 12, height: 10)
-                    let pinImage = UIImage(named: "mapAnnotationPark")
-                    
-                    //CGSize(width: 15, height: 10)
-                    var point = snapshot.point(for: self.info.coordinate)
 
-                    if rect.contains(point) {
-                        point.x -= pinView.bounds.width / 2
-                        point.y -= pinView.bounds.height / 2
-                        point.x += pinView.centerOffset.x
-                        point.y += pinView.centerOffset.y
-                        pinImage?.draw(at: point)
-                    }
-                }
-                UIGraphicsBeginImageContextWithOptions(image.size, true, image.scale)
-                DispatchQueue.main.async {
-                    cell.image.image = image
-                }
             }
-
+            
+            return cell
         }
-        
-        return cell
     }
     
     
