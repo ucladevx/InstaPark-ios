@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 //Don't directly instantiate this class, use either Short Term Parking or Long Term Parking
 class ParkingSpot: Codable {
-    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String) {
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String, displayName: String, email: String, phoneNumber: String, photo: String) {
         self.id = id
         self.address = address
         self.coordinates = coordinates
@@ -22,17 +22,10 @@ class ParkingSpot: Codable {
         self.reservations = reservations
         self.images = images
         self.directions = directions
-        if let user = Auth.auth().currentUser {
-            self.displayName = user.displayName ?? "Missing Name"
-            self.email = user.email ?? "No Email"
-            self.phoneNumber = user.phoneNumber ?? "No Phone Number"
-            self.photo = user.photoURL?.absoluteString ?? ""
-        } else {
-            self.displayName = "Unable to get lister name"
-            self.email =  "No Email"
-            self.phoneNumber =  "No Phone Number"
-            self.photo = ""
-        }
+        self.displayName = displayName
+        self.email = email
+        self.phoneNumber = phoneNumber
+        self.photo = photo
     }
     
     var id: String

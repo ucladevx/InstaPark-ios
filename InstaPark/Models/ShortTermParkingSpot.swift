@@ -10,20 +10,20 @@ class ShortTermParkingSpot: ParkingSpot {
     //protocol for setting times : let user set time interval for each day of the week. 0 is monday, 6 is sunday. Each day has a list of time intervals (in unix time) for the start and end time of the interval.
     var times: [Int: [ParkingTimeInterval]]
     var occupied = [Int: [ParkingTimeInterval]]()
-    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String],reservations: [String], times: [Int: [ParkingTimeInterval]], images: [String], startDate: Int, endDate: Int, directions: String) {
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String],reservations: [String], times: [Int: [ParkingTimeInterval]], images: [String], startDate: Int, endDate: Int, directions: String, displayName: String, email: String, phoneNumber: String, photo: String) {
         self.times = times
-    super.init(id: id, address: address, coordinates: coordinates, pricePerHour: pricePerHour, provider: provider, comments: comments, tags: tags, reservations: reservations, images:images, startDate: startDate, endDate: endDate, directions:directions)
+    super.init(id: id, address: address, coordinates: coordinates, pricePerHour: pricePerHour, provider: provider, comments: comments, tags: tags, reservations: reservations, images:images, startDate: startDate, endDate: endDate, directions:directions, displayName: displayName, email: email, phoneNumber: phoneNumber, photo: photo)
         
     }
     // init from Full Days means that the parking spot is open for the full days in the array ( 0 -> Monday, 6 -> Sunday)
-    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], fromFullDays: [Int], images: [String], startDate: Int, endDate: Int, directions:String) {
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], fromFullDays: [Int], images: [String], startDate: Int, endDate: Int, directions:String, displayName: String, email: String, phoneNumber: String, photo: String) {
         //since we only care about the day of the week, 345600 represents Jan 4th 1970 in unix or Monday there are 86400 seconds in a day
         self.times = [Int: [ParkingTimeInterval]]()
         //number of seconds since start of day
         for i in fromFullDays {
             times[i] = [ParkingTimeInterval(start: 0, end: 86400)]
         }
-        super.init(id: id, address: address, coordinates: coordinates, pricePerHour: pricePerHour, provider: provider, comments: comments, tags: tags, reservations: reservations, images: images, startDate: startDate, endDate: endDate, directions: directions)
+        super.init(id: id, address: address, coordinates: coordinates, pricePerHour: pricePerHour, provider: provider, comments: comments, tags: tags, reservations: reservations, images: images, startDate: startDate, endDate: endDate, directions: directions, displayName: displayName, email: email, phoneNumber: phoneNumber, photo: photo)
     }
     enum CodingKeys: String, CodingKey {
         case times

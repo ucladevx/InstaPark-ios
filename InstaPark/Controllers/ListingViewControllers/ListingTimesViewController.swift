@@ -140,6 +140,14 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             //CHANGE TO seconds SINCE start of day
             startTime = startScroller.selectedRow(inComponent: 0) * (15*60);
             endTime = endScroller.selectedRow(inComponent: 0) * (15*60);
+// =======
+//             let startRow = startScroller.selectedRow(inComponent: 0)
+//             let endRow = endScroller.selectedRow(inComponent: 0)
+//             print("start time: \(startRow/4): \((startRow % 4) * 15)")
+//             print("end time: \(endRow/4): \((endRow % 4) * 15)")
+//             startTime = setTime(hour: startRow/4, minute: (startRow % 4) * 15)
+//             endTime = setTime(hour: endRow/4, minute: (endRow % 4) * 15)
+// >>>>>>> main
         }
         //selectedStartDate = calendar.selectedDate!
     }
@@ -333,6 +341,8 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             }
             if selectedEndDate != nil {
                 ShortTermParking.endDate = Int(selectedEndDate.timeIntervalSince1970)
+            } else {
+                ShortTermParking.endDate = Int(selectedStartDate.timeIntervalSince1970)
             }
             
             print(ShortTermParking.times)
