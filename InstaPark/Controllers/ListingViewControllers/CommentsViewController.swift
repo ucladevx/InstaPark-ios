@@ -100,7 +100,12 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
                 address += ", " + ShortTermParking.address.city
                 address += ", " + ShortTermParking.address.state + " " + ShortTermParking.address.zip
             nextViewController.listing = true
-            nextViewController.info = ParkingSpaceMapAnnotation.init(id: "", name: ShortTermParking.displayName,email: ShortTermParking.email, phoneNumber: ShortTermParking.phoneNumber, photo: ShortTermParking.photo, coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: Date(), endDate: nil, images: [String]())
+            let start = Date.init(timeIntervalSince1970: TimeInterval(ShortTermParking.startDate))
+            var end:Date? = Date.init(timeIntervalSince1970: TimeInterval(ShortTermParking.endDate))
+            if start == end {
+                end = nil
+            }
+            nextViewController.info = ParkingSpaceMapAnnotation.init(id: "", name: ShortTermParking.displayName,email: ShortTermParking.email, phoneNumber: ShortTermParking.phoneNumber, photo: ShortTermParking.photo, coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: start, endDate: end, images: [String]())
         } else {
             // pass in long term parking when ready
         }

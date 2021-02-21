@@ -9,12 +9,15 @@ import UIKit
 import MapKit
 import GeoFire
 import CoreLocation
+import Firebase
 
 class MapViewViewController: ViewController{
     
     let locationManager = CLLocationManager()
+    let defaults = UserDefaults.standard
     
     @IBOutlet var timeSelectionPopup: UIView!
+    @IBOutlet weak var slideOutMenuUserName: UILabel!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet var blackScreen: UIView!
     //passed variable from hourlyTimeViewController
@@ -103,6 +106,29 @@ class MapViewViewController: ViewController{
         self.view.addSubview(slideoutBlackView)
         self.view.addSubview(slideOutBar)
         slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
+        
+        // make user name & image a user default so it doesn't have to be queried every time
+        if (defaults.string(forKey: "userDisplayName") == nil) {
+            UserService.getUserById(Auth.auth().currentUser!.uid) { user, error in
+                if let user = user {
+                    self.slideOutMenuUserName.text = user.displayName
+                    self.defaults.set(user.displayName, forKey: "userDisplayName")
+                }
+            }
+        } else {
+            slideOutMenuUserName.text = defaults.string(forKey: "userDisplayName")
+        }
+        if (defaults.string(forKey: "userPhotoURL") == nil) {
+            UserService.getUserById(Auth.auth().currentUser!.uid) { user, error in
+                if let user = user {
+                    // set profile photo image for slide out menu when users have them
+                    self.defaults.set(user.photoURL, forKey: "userPhotoURL")
+                }
+            }
+        } else {
+            // set profile photo image for slide out menu when users have them
+        }
+        
         
         //time frame button
         timeFrameButton.layer.shadowRadius = 4.0
@@ -289,7 +315,7 @@ class MapViewViewController: ViewController{
             // get all parking spaces within a 20000 km radius from the db
             _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
                 print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
-                ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
+                ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
                     DispatchQueue.global(qos: .userInteractive).async {
                         ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
                             if let parkingSpot = parkingSpot{
@@ -301,6 +327,7 @@ class MapViewViewController: ViewController{
                                                     //IF PARKING SPOT IS AVAILABLE
                                                     print("Parking Spot is available")
                                                     print("Query by location")
+                                                    
                                                     let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: parkingSpot.displayName, email: parkingSpot.email, phoneNumber: parkingSpot.phoneNumber, photo: parkingSpot.photo, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images)
                                                     // short-term parking
                                                     if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {

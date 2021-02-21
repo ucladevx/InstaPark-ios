@@ -190,13 +190,20 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             endTime = info.endTime
             startDate = info.date
             let formatter1 = DateFormatter()
-            formatter1.dateFormat = "MMMM dth"
-            let day = formatter1.string(from: startDate ?? Date())
+            formatter1.dateFormat = "MMMM d"
+            let startday = formatter1.string(from: info.startDate ?? Date())
+            var endday = ""
+            if info.endDate != nil {
+                let formatter1b = DateFormatter()
+                formatter1b.dateFormat = "d yyyy"
+                endday = formatter1b.string(from: info.endDate ?? Date())
+                endday = "-" + endday
+            }
             let formatter2 = DateFormatter()
             formatter2.dateFormat = "h:mm a"
             let startString = formatter2.string(from: startTime! as Date)
             let endString = formatter2.string(from: endTime! as Date)
-            availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
+            availabilityLabel.setTitle(startday + endday + ", " + startString + " to " + endString, for: .normal)
             availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
             availabilityLabel.isEnabled = false
             

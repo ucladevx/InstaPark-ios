@@ -314,6 +314,7 @@
                         <outlet property="reserveBtn" destination="Ckk-Da-crf" id="TRk-5G-uzd"/>
                         <outlet property="searchBar" destination="bwu-FT-YUQ" id="QyH-cv-6ga"/>
                         <outlet property="slideOutBar" destination="X8F-qr-hyw" id="izT-Vy-JXS"/>
+                        <outlet property="slideOutMenuUserName" destination="wtr-6N-9Ou" id="WVu-ta-wHW"/>
                         <outlet property="slideoutBlackView" destination="7k6-gW-eKd" id="1bW-oL-pgJ"/>
                         <outlet property="tagCollectionView" destination="haC-5G-YU6" id="KJm-pF-3wY"/>
                         <outlet property="timeFrameButton" destination="Jbx-F9-Sil" id="i56-jk-rn8"/>
@@ -370,8 +371,8 @@
                                     <rect key="frame" x="21" y="10" width="74" height="68"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 </imageView>
-                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtr-6N-9Ou">
-                                    <rect key="frame" x="131" y="34" width="42" height="21"/>
+                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Name" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wtr-6N-9Ou">
+                                    <rect key="frame" x="131" y="34" width="45" height="21"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                     <nil key="textColor"/>
@@ -908,7 +909,8 @@
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 Glenrock Ave, Los Angeles, CA 90024" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Il7-fp-ZaZ">
                                                 <rect key="frame" x="15" y="0.0" width="305" height="17"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="17" id="rDo-bm-IHj"/>
+                                                    <constraint firstAttribute="width" constant="305" id="Wdc-0B-GLo"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="17" id="rDo-bm-IHj"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" name="Roboto-Regular" family="Roboto" pointSize="14"/>
                                                 <nil key="textColor"/>
@@ -1760,10 +1762,10 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" spacing="48" translatesAutoresizingMaskIntoConstraints="NO" id="g0k-bg-0Ve">
-                                <rect key="frame" x="40" y="304" width="334" height="217.33333333333337"/>
+                                <rect key="frame" x="40" y="304" width="334" height="216"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="first and last name" textAlignment="natural" minimumFontSize="16" translatesAutoresizingMaskIntoConstraints="NO" id="5BM-Ge-xJm" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="334" height="18.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="334" height="18"/>
                                         <color key="tintColor" red="0.50196078431372548" green="0.45490196078431372" blue="0.57647058823529407" alpha="0.84999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
@@ -1778,7 +1780,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="email" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="iZN-Zh-8A7" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="66.333333333333314" width="334" height="18.333333333333329"/>
+                                        <rect key="frame" x="0.0" y="66" width="334" height="18"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" textContentType="email"/>
                                         <userDefinedRuntimeAttributes>
@@ -1791,7 +1793,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="gC7-yf-06q" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="132.66666666666669" width="334" height="18.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="132" width="334" height="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="one-time-code"/>
@@ -1808,7 +1810,7 @@
                                         </connections>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder=" onfirm password" textAlignment="natural" adjustsFontSizeToFit="NO" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="nuh-Nr-COX" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="199" width="334" height="18.333333333333343"/>
+                                        <rect key="frame" x="0.0" y="198" width="334" height="18"/>
                                         <color key="textColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" name="Roboto-Italic" family="Roboto" pointSize="14"/>
                                         <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" smartDashesType="no" smartInsertDeleteType="no" smartQuotesType="no" textContentType="one-time-code"/>
@@ -1827,7 +1829,7 @@
                                 </subviews>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZzL-XM-cNH">
-                                <rect key="frame" x="129" y="575.33333333333337" width="156" height="37"/>
+                                <rect key="frame" x="129" y="574" width="156" height="37"/>
                                 <color key="backgroundColor" red="0.3803921569" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="156" id="faI-wI-0Oh"/>
@@ -4667,22 +4669,22 @@
     </scenes>
     <designables>
         <designable name="5BM-Ge-xJm">
-            <size key="intrinsicContentSize" width="113.66666666666667" height="18.333333333333332"/>
+            <size key="intrinsicContentSize" width="143" height="18"/>
         </designable>
         <designable name="GdT-8Y-CMn">
-            <size key="intrinsicContentSize" width="89.333333333333329" height="19.333333333333332"/>
+            <size key="intrinsicContentSize" width="119.33333333333333" height="18"/>
         </designable>
         <designable name="JCk-ea-L3P">
-            <size key="intrinsicContentSize" width="59.666666666666664" height="18"/>
+            <size key="intrinsicContentSize" width="89.333333333333329" height="17"/>
         </designable>
         <designable name="gC7-yf-06q">
-            <size key="intrinsicContentSize" width="59.666666666666664" height="18.333333333333332"/>
+            <size key="intrinsicContentSize" width="88.333333333333329" height="18"/>
         </designable>
         <designable name="iZN-Zh-8A7">
-            <size key="intrinsicContentSize" width="33.666666666666664" height="18.333333333333332"/>
+            <size key="intrinsicContentSize" width="60.333333333333336" height="18"/>
         </designable>
         <designable name="nuh-Nr-COX">
-            <size key="intrinsicContentSize" width="106.33333333333333" height="18.333333333333332"/>
+            <size key="intrinsicContentSize" width="136" height="18"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
