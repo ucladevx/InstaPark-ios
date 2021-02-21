@@ -149,18 +149,16 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         priceLabel.attributedText = cost
         
         
-<<<<<<< HEAD
-        for tag in tags {
-            tag.layer.borderWidth = 1.5
-            tag.layer.cornerRadius = 8
-            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
-            tag.isHidden = true
-        }
-        for n in 0..<info.tags.count-1 {
-            tags[n].setTitle(info.tags[n], for: .normal)
-            tags[n].isHidden = false
-        }
-=======
+//        for tag in tags {
+//            tag.layer.borderWidth = 1.5
+//            tag.layer.cornerRadius = 8
+//            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
+//            tag.isHidden = true
+//        }
+//        for n in 0..<info.tags.count-1 {
+//            tags[n].setTitle(info.tags[n], for: .normal)
+//            tags[n].isHidden = false
+//        }
 //        let tags: [UIButton] = [tag1, tag2, tag3, tag4]
 //
 //        for tag in tags {
@@ -183,7 +181,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
 //            //tagStack.addSubview(tag)
 //            tagStack.didAddSubview(tag)
 //        }
->>>>>>> main
         
         //initialize map
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
