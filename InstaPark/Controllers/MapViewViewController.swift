@@ -575,9 +575,9 @@ extension UIView {
 
 extension MapViewViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let reuseIdentifier = "pin"
         if let parkingSpace = annotation as? ParkingSpaceMapAnnotation {
             print("Parking Space Map Annotation")
+            let reuseIdentifier = parkingSpace.address.street
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
             if annotationView == nil {
                 annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
