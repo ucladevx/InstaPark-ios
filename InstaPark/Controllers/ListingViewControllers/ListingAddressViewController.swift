@@ -219,12 +219,16 @@ class ListingAddressViewController: UIViewController {
             //if there is an extra street addresss line
             if addressArray.count == 5 {
                 stateAndZip = addressArray[3].components(separatedBy: " ")
+                stateAndZip.removeAll {$0 == ""}
                 ShortTermParking.address = Address(city: addressArray[2], state: stateAndZip[0], street: addressArray[0] + ", " +  addressArray[1], zip: stateAndZip[1])
                 print(ShortTermParking.address)
                 return true
             }
             else if addressArray.count == 4 {
                 stateAndZip = addressArray[2].components(separatedBy: "  ")
+                if stateAndZip.count == 1 {
+                    stateAndZip = addressArray[2].components(separatedBy: " ")
+                }
                 ShortTermParking.address = Address(city: addressArray[1], state: stateAndZip[0], street: addressArray[0], zip: stateAndZip[1])
                 print(ShortTermParking.address)
                 return true
