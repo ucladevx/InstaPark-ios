@@ -26,6 +26,7 @@
 		045FF1BE2573854A00DC7327 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */; };
 		0464F72D25D3815700C9A055 /* ContactInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */; };
 		046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */; };
+		0477982625E3C3A00051AA83 /* SelfParkingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0477982525E3C3A00051AA83 /* SelfParkingViewController.swift */; };
 		0482FE80255CB13A002F522E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE7F255CB13A002F522E /* User.swift */; };
 		0482FE85255CB157002F522E /* ParkingCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE84255CB157002F522E /* ParkingCalloutView.swift */; };
 		0482FE8D255CB26F002F522E /* TransactionService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE8C255CB26F002F522E /* TransactionService.swift */; };
@@ -134,6 +135,7 @@
 		045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoViewController.swift; sourceTree = "<group>"; };
 		046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
+		0477982525E3C3A00051AA83 /* SelfParkingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfParkingViewController.swift; sourceTree = "<group>"; };
 		0482FE7F255CB13A002F522E /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		0482FE84255CB157002F522E /* ParkingCalloutView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ParkingCalloutView.swift; sourceTree = "<group>"; };
 		0482FE8C255CB26F002F522E /* TransactionService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TransactionService.swift; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				9451681225B932FE00939551 /* ListingAddressViewController.swift */,
 				9451680D25B91A6000939551 /* ListingTimesViewController.swift */,
 				2B97AF1925C3736E002950A9 /* ParkingTypeViewController.swift */,
+				0477982525E3C3A00051AA83 /* SelfParkingViewController.swift */,
 			);
 			path = ListingViewControllers;
 			sourceTree = "<group>";
@@ -805,6 +808,7 @@
 				94313125255627BE002221F4 /* smallOverlayView.swift in Sources */,
 				0410B19A254A4A7E001C4D27 /* MapViewViewController.swift in Sources */,
 				945E02EA25D4DB3D00741BDD /* BookingImageCollectionViewCell.swift in Sources */,
+				0477982625E3C3A00051AA83 /* SelfParkingViewController.swift in Sources */,
 				2B633EA825B92F9A003448A4 /* SelectListingTypeViewController.swift in Sources */,
 				945167D725AE96E800939551 /* monthlyTimeViewController.swift in Sources */,
 				945167D225AE96CF00939551 /* hourlyTimeViewController.swift in Sources */,
