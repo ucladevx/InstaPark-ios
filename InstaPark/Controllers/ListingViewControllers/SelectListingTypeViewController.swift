@@ -10,7 +10,7 @@ import Firebase
 
 class SelectListingTypeViewController: UIViewController {
     var parkingType: ParkingType = .long
-    let ShortTermParking = ShortTermParkingSpot.init(id: "", address: Address.blankAddress(), coordinates: Coordinate(lat: 0.0, long: 0.0), pricePerHour: 0.0, provider: "", comments: "", tags: [String](),reservations: [String](), fromFullDays: [Int](), images: [String](), startDate: 0, endDate: 0, directions: "", displayName: "", email: "", phoneNumber: "", photo: "")
+    let ShortTermParking = ShortTermParkingSpot.init(id: "", address: Address.blankAddress(), coordinates: Coordinate(lat: 0.0, long: 0.0), pricePerHour: 0.0, provider: "", comments: "", tags: [String](),reservations: [String](), fromFullDays: [Int](), images: [String](), startDate: 0, endDate: 0, directions: "")
    
     @IBAction func monthlyAction(_ sender: Any) {
         //do the same as short term parking here but with long term parking if clicked
@@ -61,6 +61,8 @@ class SelectListingTypeViewController: UIViewController {
         ParkingInfo.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         ParkingInfo.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         monthlyButton.layer.shadowRadius = 3.0
+        monthlyButton.backgroundColor = .white
+        hourlyButton.backgroundColor = .white
         monthlyButton.layer.shadowOpacity = 0.3
         monthlyButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
         monthlyButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
@@ -68,6 +70,25 @@ class SelectListingTypeViewController: UIViewController {
         hourlyButton.layer.shadowOpacity = 0.3
         hourlyButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
         hourlyButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        let buttons = [monthlyButton, hourlyButton]
+        for button in buttons {
+            let gradient = CAGradientLayer()
+            gradient.frame =  CGRect(origin: CGPoint.zero, size: button!.frame.size)
+            gradient.colors = [UIColor.init(red: 143.0/255, green: 0.0, blue: 1.0, alpha: 1.0).cgColor, UIColor.init(red: 183/255, green: 91/255, blue: 1.0, alpha: 1.0).cgColor, UIColor.init(red: 97/255, green: 0.0, blue: 1.0, alpha: 1.0).cgColor]
+            gradient.startPoint = CGPoint(x: 0, y: 0.5)
+            gradient.endPoint = CGPoint(x: 1, y: 0.5)
+            
+            let shape = CAShapeLayer()
+            shape.lineWidth = 2
+            shape.path = UIBezierPath(roundedRect: button!.bounds, cornerRadius: button!.layer.cornerRadius).cgPath
+            shape.strokeColor = UIColor.black.cgColor
+            shape.fillColor = UIColor.clear.cgColor
+            gradient.mask = shape
+            
+            button!.layer.addSublayer(gradient)
+        }
+        
+        //self.monthlyButton.layer.borderColor.insertSublayer
         //Must declare info text here because bolding partial text in storyboard doesn't work
         let attrs_b = [NSAttributedString.Key.font : UIFont(name: "Roboto Bold", size: 12)]
         let attrs = [NSAttributedString.Key.font : UIFont(name: "Roboto", size: 12)]
@@ -91,15 +112,7 @@ class SelectListingTypeViewController: UIViewController {
         if let vc = segue.destination as? ListingViewController {
             vc.parkingType = parkingType
             if(parkingType == .short) {
-                UserService.getUserById(Auth.auth().currentUser!.uid) { user, error in
-                    if let user = user {
-                        self.ShortTermParking.displayName = user.displayName
-                        self.ShortTermParking.email = user.email
-                        self.ShortTermParking.phoneNumber = user.phoneNumber
-                        self.ShortTermParking.photo = user.photoURL
-                        self.ShortTermParking.provider = user.uid
-                    }
-                }
+                self.ShortTermParking.provider = Auth.auth().currentUser!.uid
                 vc.ShortTermParking = ShortTermParking
             } else {
                 // pass in long term parking when ready 

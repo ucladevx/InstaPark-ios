@@ -17,6 +17,7 @@ protocol isAbleToReceiveData {
 class BookingViewController: UIViewController, isAbleToReceiveData {
     var transationDate: String! // only not nil when view came from transactions view
     
+    @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var tagCollectionView: UICollectionView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet weak var popupTitle: UILabel!
@@ -88,6 +89,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         imageCollectionView.tag = 0
         tagCollectionView.tag = 2
         //imageCollectionView.hide
+        backBtn.layer.shadowRadius = 2.0
+        backBtn.layer.shadowOpacity = 0.25
+        backBtn.layer.shadowOffset = CGSize.init(width: 1, height: 1)
+        backBtn.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         
         bookmarkButton.isHidden = true
         nameLabel.text = info.name
@@ -96,28 +101,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         addressLabel.text = info.address.toString()
         commentsLabel.text = info.comments
         commentsLabel.sizeToFit()
-
-        if info.photo != "" {
-        guard let url = URL(string: info.photo) else {
-                print("can't convert string to URL")
-                return
-            }
-            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-                guard let data = data, error == nil else {
-                    print("failed to convert image from url")
-                    return
-                }
-                DispatchQueue.main.async { [self] in
-                    guard let UIimage = UIImage(data: data) else {
-                        print("failed to make image into UIimage")
-                        return
-                    }
-                    print("image converted")
-                    self.photoImage.image = UIimage
-                }
-            }
-            task.resume()
-        }
         
         //shadow for user info view
         userInfoView.layer.shadowRadius = 5.0
@@ -194,6 +177,15 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         if listing {
             setupPopup()
+            //var name = "", photo = "", email = "", phone = ""
+            UserService.getUserById(ShortTermParking.provider) { (user, error) in
+                if let user = user {
+                    self.nameLabel.text = user.displayName
+                    self.phoneNumberLabel.text = user.phoneNumber
+                    self.emailLabel.text = user.email
+                    self.info.photo = user.photoURL
+                }
+            }
             paymentMethodLabel.isHidden = true
             totalTitleLabel.isHidden = true
             totalLabel.isHidden = true
@@ -300,6 +292,29 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             availabilityLabel.setTitle("To book, go back to select a specific time frame!", for: .normal)
             reserveButton.isEnabled = false
             availabilityLabel.isEnabled = false
+        }
+        
+        
+        if info.photo != "" {
+        guard let url = URL(string: info.photo) else {
+                print("can't convert string to URL")
+                return
+            }
+            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                guard let data = data, error == nil else {
+                    print("failed to convert image from url")
+                    return
+                }
+                DispatchQueue.main.async { [self] in
+                    guard let UIimage = UIImage(data: data) else {
+                        print("failed to make image into UIimage")
+                        return
+                    }
+                    print("image converted")
+                    self.photoImage.image = UIimage
+                }
+            }
+            task.resume()
         }
         
         /*
@@ -714,6 +729,7 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
                     cell.image.layoutIfNeeded()
                     cell.image.frame.size.width = self.view.frame.width
                 }
+                self.backBtn.tintColor = .black
                 let rect = cell.image.bounds
                 let options = MKMapSnapshotter.Options()
                 let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.015, longitudeDelta: 0.015)
