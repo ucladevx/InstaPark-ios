@@ -65,7 +65,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbx-F9-Sil">
-                                <rect key="frame" x="87" y="158" width="240" height="30"/>
+                                <rect key="frame" x="87" y="114" width="240" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="8TC-YG-d8X"/>
@@ -4707,9 +4707,9 @@
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
-        <segue reference="lZp-Rj-hWj"/>
+        <segue reference="qv6-dG-1Q7"/>
         <segue reference="WaY-RN-Vf8"/>
-        <segue reference="fHt-Y7-lI7"/>
+        <segue reference="mXm-Gb-kR6"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="6" height="10"/>
