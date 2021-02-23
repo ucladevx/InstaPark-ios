@@ -7,6 +7,7 @@
 
 import UIKit
 import MapKit
+import Firebase
 
 class CommentsViewController: UIViewController, UITextViewDelegate{
     
@@ -82,12 +83,10 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
         nextViewController.parkingType = parkingType
         nextViewController.images = images
         if(parkingType == .short) {
-            //nextViewController.listing = true
-            //nextViewController.info = ParkingSpaceMapAnnotation.init(id: "", name: "First Last", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 6.0, address: "address goes here", tags: ["tag1", "tag2", "tag3"], comments: comments.text, startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: nil)
             var startTime: Date = Date()
             var endTime: Date = Date()
             for i in 0...6 {
-                let day = ShortTermParking.times[i]
+                let day = self.ShortTermParking.times[i]
                 if day?.isEmpty == false {
                     startTime = Date.init(timeIntervalSince1970: TimeInterval(day![0].start))
                     print(startTime)
@@ -95,17 +94,18 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
                     break
                 }
             }
-            nextViewController.ShortTermParking = ShortTermParking
-            var address = ShortTermParking.address.street
-                address += ", " + ShortTermParking.address.city
-                address += ", " + ShortTermParking.address.state + " " + ShortTermParking.address.zip
+            nextViewController.ShortTermParking = self.ShortTermParking
+            var address = self.ShortTermParking.address.street
+            address += ", " + self.ShortTermParking.address.city
+            address += ", " + self.ShortTermParking.address.state + " " + self.ShortTermParking.address.zip
             nextViewController.listing = true
-            let start = Date.init(timeIntervalSince1970: TimeInterval(ShortTermParking.startDate))
-            var end:Date? = Date.init(timeIntervalSince1970: TimeInterval(ShortTermParking.endDate))
+            let start = Date.init(timeIntervalSince1970: TimeInterval(self.ShortTermParking.startDate))
+            var end:Date? = Date.init(timeIntervalSince1970: TimeInterval(self.ShortTermParking.endDate))
             if start == end {
                 end = nil
             }
-            nextViewController.info = ParkingSpaceMapAnnotation.init(id: "", name: ShortTermParking.displayName,email: ShortTermParking.email, phoneNumber: ShortTermParking.phoneNumber, photo: ShortTermParking.photo, coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: start, endDate: end, images: [String]())
+            nextViewController.info = ParkingSpaceMapAnnotation.init(id: ShortTermParking.provider, name: "",email:"", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(self.ShortTermParking.coordinates.lat, self.ShortTermParking.coordinates.long), price: self.ShortTermParking.pricePerHour, address: self.ShortTermParking.address, tags: self.ShortTermParking.tags, comments: self.ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: start, endDate: end, images: [String]())
+            
         } else {
             // pass in long term parking when ready
         }

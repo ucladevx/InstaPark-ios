@@ -259,14 +259,14 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                 address += ", " + ShortTermParking.address.city
                 address += ", " + ShortTermParking.address.state + " " + ShortTermParking.address.zip
                 vc.listing = true
-                vc.info = ParkingSpaceMapAnnotation.init(id: "", name: ShortTermParking.displayName, email: ShortTermParking.email, phoneNumber: ShortTermParking.phoneNumber, photo: ShortTermParking.photo, coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: Date(), endDate: nil, images: [String]())
+                vc.info = ParkingSpaceMapAnnotation.init(id: "", name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: Date(), endDate: nil, images: [String]())
                 if ShortTermParking.tags.isEmpty {
                     vc.info.tags = ["no", "tags", "passed"]
                 }
             } else {
                 // pass in long term parking when ready
             }
-        }
+       }
     }
     
     private(set) lazy var orderedViewControllers: [UIViewController] = {

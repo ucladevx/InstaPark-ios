@@ -9,7 +9,7 @@ import Foundation
 import Firebase
 //Don't directly instantiate this class, use either Short Term Parking or Long Term Parking
 class ParkingSpot: Codable {
-    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String, displayName: String, email: String, phoneNumber: String, photo: String) {
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String) {
         self.id = id
         self.address = address
         self.coordinates = coordinates
@@ -22,10 +22,10 @@ class ParkingSpot: Codable {
         self.reservations = reservations
         self.images = images
         self.directions = directions
-        self.displayName = displayName
-        self.email = email
-        self.phoneNumber = phoneNumber
-        self.photo = photo
+//        self.displayName = displayName
+//        self.email = email
+//        self.phoneNumber = phoneNumber
+//        self.photo = photo
     }
     
     var id: String
@@ -41,12 +41,13 @@ class ParkingSpot: Codable {
     var startDate: Int
     var endDate: Int
     
+    // NOTE: no longer needed since we requery provider data every time
     //Fields below are properties of provider but stored here to minimize data costs
-    var displayName: String
-    var email: String
-    var phoneNumber: String
-    var photo: String
-    
+//    var displayName: String
+//    var email: String
+//    var phoneNumber: String
+//    var photo: String
+//
     //List of IDs for all transactions
     var reservations: [String]
     func validateTimeSlot(start: Int, end: Int, completion: @escaping(Bool)->Void) {
