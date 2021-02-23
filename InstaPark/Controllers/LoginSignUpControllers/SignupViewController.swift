@@ -16,6 +16,7 @@ class SignupViewController: ViewController {
     @IBOutlet weak var email: UITextField!
     @IBOutlet weak var password1: UITextField!
     @IBOutlet weak var password2: UITextField!
+    @IBOutlet weak var phone: DesignableTextField!
     
     var password1Value = ""
     var password2Value = ""
@@ -23,11 +24,11 @@ class SignupViewController: ViewController {
     @IBOutlet weak var signupButton: UIButton!
     
     @IBAction func signupAction(_ sender: Any) {
-        if let email = email.text, let name = firstname.text, let password1 = password1.text, let password2 = password2.text{
+        if let email = email.text, let name = firstname.text, let phoneNumber = phone.text, let password1 = password1.text, let password2 = password2.text{
             var fullNameArr = name.components(separatedBy: " ")
             var firstName: String = fullNameArr[0]
             var lastName: String? = fullNameArr.count > 1 ? fullNameArr[1] : nil
-            var user = User(uid: "", displayName: name, phoneNumber: "", firstName: firstName, lastName: lastName ?? "" , photoURL: "", email: email, transactions: [], parkingSpots: [])
+            var user = User(uid: "", displayName: name, phoneNumber: phoneNumber ?? "", firstName: firstName, lastName: lastName ?? "" , photoURL: "", email: email, transactions: [], parkingSpots: [])
             AuthService.signup(user: user, password1: password1, password2: password2) { (success, error) in
                if success != nil{
                  self.performSegue(withIdentifier: "signupSuccess", sender: self)

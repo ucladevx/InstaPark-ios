@@ -9,7 +9,8 @@ import Foundation
 import Firebase
 //Don't directly instantiate this class, use either Short Term Parking or Long Term Parking
 class ParkingSpot: Codable {
-    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String) {
+
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String, selfParking: SelfParking) {
         self.id = id
         self.address = address
         self.coordinates = coordinates
@@ -22,10 +23,7 @@ class ParkingSpot: Codable {
         self.reservations = reservations
         self.images = images
         self.directions = directions
-//        self.displayName = displayName
-//        self.email = email
-//        self.phoneNumber = phoneNumber
-//        self.photo = photo
+        self.selfParking = selfParking
     }
     
     var id: String
@@ -53,6 +51,7 @@ class ParkingSpot: Codable {
     func validateTimeSlot(start: Int, end: Int, completion: @escaping(Bool)->Void) {
         completion(true);
     }
+    var selfParking: SelfParking
 }
 struct Address: Codable {
     var city: String
@@ -63,6 +62,16 @@ struct Address: Codable {
 struct Coordinate: Codable {
     var lat: Double
     var long: Double
+}
+struct SelfParking: Codable {
+    var hasSelfParking: Bool
+    var selfParkingMethod: String
+    var specificDirections: String
+}
+extension SelfParking {
+    static func blank() -> SelfParking {
+        return SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections:"")
+    }
 }
 extension Address {
     func toString() -> String {

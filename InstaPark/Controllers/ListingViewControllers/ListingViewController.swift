@@ -18,6 +18,9 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     @IBOutlet var dot5: UIImageView!
     @IBOutlet var dot6: UIImageView!
     @IBOutlet var dot7: UIImageView!
+    @IBOutlet var dot8: UIImageView!
+    
+    
     var dots = [UIImageView]()
     @IBOutlet var rightButton: UIButton!
     @IBOutlet var pageControl: UIView!
@@ -41,8 +44,8 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func rightButtonAction(_ sender: UIButton) {
-        if currentViewIndex == 6 {
-            if let controller = orderedViewControllers[6] as? CommentsViewController {
+        if currentViewIndex == 7 {
+            if let controller = orderedViewControllers[7] as? CommentsViewController {
                 controller.moveToNext()
             }
         }else{
@@ -74,7 +77,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else{
             return nil
         }
-        if(viewControllerIndex != 6) {
+        if(viewControllerIndex != 7) {
             return orderedViewControllers[viewControllerIndex+1]
         }
         return nil
@@ -85,7 +88,6 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
             transition(next:next)
         }
     }
-    
     func transition(next:UIViewController) -> Bool {
         print("will transition to")
         let viewController = orderedViewControllers[currentViewIndex]
@@ -140,7 +142,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
          }
          //MARK: Moving from ParkingType/Tags view
          if let tagController = viewController as? ParkingTypeViewController {
-             if let next = next as? PictureUploadViewController {
+             if let next = next as? SelfParkingViewController {
                 print("tag to picture")
                 guard tagController.checkBeforeMovingPages() else {
                    dataSource = nil
@@ -155,6 +157,23 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
             }
              
          }
+        //MARK: Moving from SelfParking to PictureUploadVC
+        if let selfParkingController = viewController as? SelfParkingViewController {
+            if let next = next as? PictureUploadViewController {
+               print("selfParking to picture")
+               guard selfParkingController.checkBeforeMovingPages() else {
+                  dataSource = nil
+                  dataSource = self
+                  return false}
+                next.parkingType = selfParkingController.parkingType
+                if(selfParkingController.parkingType == .short) {
+                    next.ShortTermParking = selfParkingController.ShortTermParking
+                } else {
+                    // pass in long term parking when ready
+                }
+           }
+        }
+        
          //MARK: Moving from Picture
          if let picController = viewController as? PictureUploadViewController {
              if let next = next as? DirectionsViewController {
@@ -223,15 +242,15 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     }
     
     func updatePageControl() {
-        if currentViewIndex == 6 {
-            rightButton.setImage(UIImage(named: "listingDone"), for: .normal)
-        }else {
+        if currentViewIndex == 7 {
+            rightButton.setImage(UIImage(named: "ListingDone"), for: .normal)
+        } else {
             rightButton.setImage(UIImage(named: "rightPage"), for: .normal)
         }
         for i in 0..<currentViewIndex+1 {
             dots[i].image = UIImage(named: "pastPage")
         }
-        for i in currentViewIndex+1..<7 {
+        for i in currentViewIndex+1..<8 {
             dots[i].image = UIImage(named: "futurePage")
         }
         print("page changed to: \(currentViewIndex)")
@@ -276,7 +295,8 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                 self.newViewController(controller: "Listing4"),
                 self.newViewController(controller: "Listing5"),
                 self.newViewController(controller: "Listing6"),
-                self.newViewController(controller: "Listing7"),]
+                self.newViewController(controller: "Listing7"),
+                self.newViewController(controller: "Listing8")]
     }()
 
     private func newViewController(controller: String) -> UIViewController {
@@ -288,7 +308,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
         dataSource = self
         delegate = self
         self.view.addSubview(pageControl)
-        dots = [dot1,dot2,dot3,dot4,dot5,dot6,dot7]
+        dots = [dot1,dot2,dot3,dot4,dot5,dot6,dot7,dot8]
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25).isActive = true
