@@ -25,7 +25,6 @@
 		044AD5802581EE07000FE799 /* SlideOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AD57F2581EE07000FE799 /* SlideOutView.swift */; };
 		045FF1BE2573854A00DC7327 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */; };
 		0464F72D25D3815700C9A055 /* ContactInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */; };
-		04658ABA25DC9D110066D773 /* Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0410B1272548D8EB001C4D27 /* Info.plist */; };
 		046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */; };
 		0482FE80255CB13A002F522E /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE7F255CB13A002F522E /* User.swift */; };
 		0482FE85255CB157002F522E /* ParkingCalloutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0482FE84255CB157002F522E /* ParkingCalloutView.swift */; };
@@ -589,7 +588,6 @@
 				94C8AB9A257C9F9F00D89060 /* Roboto-Light.ttf in Resources */,
 				94C8ABA0257C9F9F00D89060 /* Roboto-Bold.ttf in Resources */,
 				0482FE97255CB297002F522E /* fonts in Resources */,
-				04658ABA25DC9D110066D773 /* Info.plist in Resources */,
 				94C8AB9F257C9F9F00D89060 /* Roboto-BlackItalic.ttf in Resources */,
 				94C8AB9C257C9F9F00D89060 /* Roboto-Italic.ttf in Resources */,
 				2B633EB025B93745003448A4 /* BebasNeue-Regular.ttf in Resources */,
