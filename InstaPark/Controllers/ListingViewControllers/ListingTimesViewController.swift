@@ -53,7 +53,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: calendarView.frame.width, height: 240))
+        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: calendarBackground.frame.width, height: 240))
         calendar.dataSource = self
         calendar.delegate = self
         calendar.placeholderType = .none
@@ -79,7 +79,11 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             startDateLabel.text = ""
             endDateLabel.text = ""
         }
+     
         calendarView.addSubview(calendar)
+        NSLayoutConstraint(item: calendar, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: calendarView, attribute: NSLayoutConstraint.Attribute.leadingMargin, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: calendar, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: calendarView, attribute: NSLayoutConstraint.Attribute.trailingMargin, multiplier: 1.0, constant: 0.0).isActive = true
+        NSLayoutConstraint(item: calendar, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: calendarView, attribute: NSLayoutConstraint.Attribute.bottomMargin, multiplier: 1.0, constant: 0.0).isActive = true
         self.calendar = calendar
         
         calendarBackground.layer.cornerRadius = 20

@@ -1,8 +1,8 @@
 //
-//  BookingViewController.swift
+//  TransactionsBookingViewController.swift
 //  InstaPark
 //
-//  Created by Yili Liu on 11/6/20.
+//  Created by Yili Liu on 2/24/21.
 //
 
 import UIKit
@@ -10,25 +10,22 @@ import MapKit
 import Braintree
 import BraintreeDropIn
 
-protocol isAbleToReceiveData {
-    func pass(start: Date, end: Date, date: Date, cancel: Bool)
-}
-
-class BookingViewController: UIViewController, isAbleToReceiveData {
-    var transationDate: String! 
+// MARK: booking view controller but for TRANSACTIONS
+class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
+    var transationDate: String!
+    var provider: String!
+    var directions: String!
     
     @IBOutlet weak var backBtn: UIButton!
     @IBOutlet weak var tagCollectionView: UICollectionView!
     @IBOutlet weak var imageCollectionView: UICollectionView!
-    @IBOutlet weak var popupTitle: UILabel!
-    @IBOutlet var popupView: UIView!
     @IBOutlet weak var userInfoView: UIView!
     @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var directionsLabel: UILabel!
     @IBOutlet var photoImage: UIImageView!
     @IBOutlet var emailLabel: UILabel!
     @IBOutlet var phoneNumberLabel: UILabel!
     @IBOutlet weak var priceLabel: UILabel!
-    @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
     @IBOutlet weak var availabilityLabel: UIButton!
     @IBOutlet weak var paymentMethodLabel: UILabel!
@@ -38,21 +35,12 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
-   // @IBOutlet weak var tagStack: UIStackView!
+   
     var bookmarkFlag = false
     var transaction = false
-    
-    @IBOutlet var blackScreen: UIView!
-    //  @IBOutlet var listingPopup: UIView!
 
     var images = [UIImage]()
     
-    
-//    @IBOutlet weak var tag1: UIButton!
-//    @IBOutlet weak var tag2: UIButton!
-//    @IBOutlet weak var tag3: UIButton!
-//    @IBOutlet weak var tag4: UIButton!
-//
     
     @IBOutlet weak var commentsLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
@@ -75,11 +63,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var listing = false // only true if this is listing model
     override func viewDidLoad() {
         super.viewDidLoad()
-//        if info.images.count != 0 {
-//            print(info.images[0])
-//            getAllImages()
-//        }
-        mapView.delegate = self
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
         imageCollectionView.allowsSelection = false
@@ -102,14 +85,27 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         commentsLabel.text = info.comments
         commentsLabel.sizeToFit()
         
+        if directions != nil {
+            directionsLabel.text = directions
+        }
+        
         //shadow for user info view
         userInfoView.layer.shadowRadius = 5.0
         userInfoView.layer.shadowOpacity = 0.25
         userInfoView.layer.shadowOffset = CGSize.init(width: 1, height: 2)
         userInfoView.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        let paymentTap = UITapGestureRecognizer(target:self, action: #selector(self.paymentTapped(_:)))
-        self.paymentStack.isUserInteractionEnabled = true
-        self.paymentStack.addGestureRecognizer(paymentTap)
+        //let paymentTap = UITapGestureRecognizer(target:self, action: #selector(self.paymentTapped(_:)))
+        //self.paymentStack.isUserInteractionEnabled = true
+        //self.paymentStack.addGestureRecognizer(paymentTap)
+        
+        UserService.getUserById(provider) { (user, error) in
+            if let user = user {
+                self.nameLabel.text = user.displayName
+                self.phoneNumberLabel.text = user.phoneNumber
+                self.emailLabel.text = user.email
+                self.info.photo = user.photoURL
+            }
+        }
         
         //set up price Attributed String
         let dollar = "$"
@@ -130,94 +126,50 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         cost.append(hour_string)
         
         priceLabel.attributedText = cost
-        
-        
-//        for tag in tags {
-//            tag.layer.borderWidth = 1.5
-//            tag.layer.cornerRadius = 8
-//            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
-//            tag.isHidden = true
-//        }
-//        for n in 0..<info.tags.count-1 {
-//            tags[n].setTitle(info.tags[n], for: .normal)
-//            tags[n].isHidden = false
-//        }
-//        let tags: [UIButton] = [tag1, tag2, tag3, tag4]
+
+//        if listing {
+//          //  setupPopup()
+//            //var name = "", photo = "", email = "", phone = ""
+//            UserService.getUserById(ShortTermParking.provider) { (user, error) in
+//                if let user = user {
+//                    self.nameLabel.text = user.displayName
+//                    self.phoneNumberLabel.text = user.phoneNumber
+//                    self.emailLabel.text = user.email
+//                    self.info.photo = user.photoURL
+//                }
+//            }
+//            paymentMethodLabel.isHidden = true
+//            totalTitleLabel.isHidden = true
+//            totalLabel.isHidden = true
+//            startTime = info.startTime
+//            endTime = info.endTime
+//            startDate = info.date
+//            let formatter1 = DateFormatter()
+//            formatter1.dateFormat = "MMMM d"
+//            let startday = formatter1.string(from: info.startDate ?? Date())
+//            var endday = ""
+//            if info.endDate != nil {
+//                let formatter1b = DateFormatter()
+//                formatter1b.dateFormat = "d yyyy"
+//                endday = formatter1b.string(from: info.endDate ?? Date())
+//                endday = "-" + endday
+//            }
+//            let formatter2 = DateFormatter()
+//            formatter2.dateFormat = "h:mm a"
+//            let startString = formatter2.string(from: startTime! as Date)
+//            let endString = formatter2.string(from: endTime! as Date)
+//            availabilityLabel.setTitle(startday + endday + ", " + startString + " to " + endString, for: .normal)
+//            availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
+//            availabilityLabel.isEnabled = false
 //
-//        for tag in tags {
-//            tag.layer.borderWidth = 1.5
-//            tag.layer.cornerRadius = 8
-//            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
-//            tag.isHidden = true
+//            reserveButton.isEnabled = true
+//            reserveButton.setTitle("Create Listing", for: .normal)
+//            reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+//            reserveButton.setTitleColor(.white, for: .normal)
+//            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
 //        }
-//        for n in 0...(info.tags.count-1) {
-//            let tag = UILabel(frame: CGRect(x: 0, y: 0, width: 63, height: 20))
-//            tag.layer.borderWidth = 1.5
-//            tag.layer.cornerRadius = 8
-//            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
-//            tag.text = info.tags[n]
-//            tag.textColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9)
-//            tag.font = .systemFont(ofSize: 10)
-//            tag.textAlignment = .center
-//            tagStack.addArrangedSubview(tag)
-//            tagStack.autoresizesSubviews = false
-//            //tagStack.addSubview(tag)
-//            tagStack.didAddSubview(tag)
-//        }
-        
-        //initialize map
-        let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.005, longitudeDelta: 0.005)
-        let location: CLLocationCoordinate2D = info.coordinate
-        let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
-        self.mapView.setRegion(region, animated: false)
-        self.mapView.addAnnotation(info)
-        //        let mask = UIView.init(frame: mapView.frame)
-        //        mask.backgroundColor = UIColor.init(white: 0.0, alpha: 0.5)
-        //        self.mapView.addSubview(mask)
-        
-        if listing {
-            setupPopup()
-            //var name = "", photo = "", email = "", phone = ""
-            UserService.getUserById(ShortTermParking.provider) { (user, error) in
-                if let user = user {
-                    self.nameLabel.text = user.displayName
-                    self.phoneNumberLabel.text = user.phoneNumber
-                    self.emailLabel.text = user.email
-                    self.info.photo = user.photoURL
-                }
-            }
-            paymentMethodLabel.isHidden = true
-            totalTitleLabel.isHidden = true
-            totalLabel.isHidden = true
-            startTime = info.startTime
-            endTime = info.endTime
-            startDate = info.date
-            let formatter1 = DateFormatter()
-            formatter1.dateFormat = "MMMM d"
-            let startday = formatter1.string(from: info.startDate ?? Date())
-            var endday = ""
-            if info.endDate != nil {
-                let formatter1b = DateFormatter()
-                formatter1b.dateFormat = "d yyyy"
-                endday = formatter1b.string(from: info.endDate ?? Date())
-                endday = "-" + endday
-            }
-            let formatter2 = DateFormatter()
-            formatter2.dateFormat = "h:mm a"
-            let startString = formatter2.string(from: startTime! as Date)
-            let endString = formatter2.string(from: endTime! as Date)
-            availabilityLabel.setTitle(startday + endday + ", " + startString + " to " + endString, for: .normal)
-            availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
-            availabilityLabel.isEnabled = false
-            
-            reserveButton.isEnabled = true
-            reserveButton.setTitle("Create Listing", for: .normal)
-            reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-            reserveButton.setTitleColor(.white, for: .normal)
-            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
-        }
         // short term
-        else if(info.startTime != nil && info.endTime != nil && info.date != nil) {
+        if(info.startTime != nil && info.endTime != nil && info.date != nil) {
             //time frame
             startTime = info.startTime
             endTime = info.endTime
@@ -271,12 +223,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             availabilityLabel.isEnabled = false
             
             timeFrameTitleLabel.text = "LAST BOOKED"
-//            bookmarkButton.isHidden = false
-//            bookmarkButton.layer.shadowRadius = 2.0
-//            bookmarkButton.layer.shadowOpacity = 0.3
-//            bookmarkButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
-//            bookmarkButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-            
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
@@ -317,40 +263,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             task.resume()
         }
         
-        /*
-         var time =  [Int: [ParkingSpaceMapAnnotation.ParkingTimeInterval]]()
-         time = [
-         0: [],
-         1: [],
-         2: [],
-         3: [],
-         4: [],
-         5: [],
-         6: []
-         ]
-         switch parkingType {
-         case .long:
-         print("long")
-         case .short:
-         DispatchQueue.global(qos: .userInitiated).async { [weak self] in
-         guard let self = self else {
-         return
-         }
-         ParkingSpotService.getShortTermParkingSpotById(self.info.id) { (parkingSpot, error) in
-         if let spot = parkingSpot {
-         for i in 0...6 {
-         for times in spot.times[i] ?? [] {
-         time[i]!.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: Date.init(timeIntervalSince1970: Double(times.start)), end: Date.init(timeIntervalSince1970: Double(times.end))))
-         }
-         }
-         DispatchQueue.main.async {
-         self.info.times = time
-         }
-         }
-         }
-         }
-         }*/
-        
     }
     
     func getAllImages() {
@@ -381,29 +293,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             task.resume()
         }
     }
-    
-    func setupPopup() {
-        blackScreen.alpha = 0.35
-        blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
-        self.view.addSubview(blackScreen)
-        popupTitle.font =  UIFont(name: "BebasNeue", size: 30)
-        popupView.frame = CGRect(x: self.view.frame.midX , y: self.view.frame.midY , width: 325, height: 300)
-        self.view.addSubview(popupView)
-        popupView.center = self.view.center
-        popupView.isHidden = false
-    }
-    
-    @IBAction func dismissPopup(_ sender: Any) {
-        UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseIn],
-                       animations: {
-                        self.popupView.center.y = self.view.frame.height * 3 / 4
-                       }, completion: {_ in
-                        self.popupView.removeFromSuperview()
-                        self.popupView.isHidden = true
-                        self.blackScreen.removeFromSuperview()
-                       })
-    }
-    
+
     @IBAction func bookmarkButton(_ sender: Any) {
         if bookmarkFlag {
             bookmarkButton.backgroundColor = UIColor.init(red: 0.820, green: 0.788, blue: 0.847, alpha: 1.0)
@@ -420,83 +310,12 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         dismiss(animated: true)
     }
     
-    @IBAction func availabilityButton(_ sender: Any) {
-        performSegue(withIdentifier: "availabilityVC", sender: self)
-    }
+//    @IBAction func availabilityButton(_ sender: Any) {
+//        performSegue(withIdentifier: "availabilityVC", sender: self)
+//    }
     
     @IBAction func reserveButton(_ sender: Any) {
-        if listing {
-            if parkingType == .short {
-                ParkingSpotService.saveShortTermParkingSpot(self.ShortTermParking) { (id, error) in
-                    if let id = id, error == nil {
-                        print(id)
-                        ImageService.uploadAllImages(images: self.images, spotID: id)
-                    }
-                }
-            } else {
-                // set up saving of long term parking spot here
-            }
-        } else {
-            ParkingSpotService.getParkingSpotById(self.info.id) {[self] (parkingSpot, error) in
-                if let spot = parkingSpot, let startTime = startTime, let endTime = endTime {
-                    spot.validateTimeSlot(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970)){ success in
-                        if(!success) {
-                            
-                        } else {
-                            if let paymentResult = paymentResult, let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
-                                print("Sending payment to server");
-                                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
-                                    if error == nil {
-                                        print("Payment Success!")
-                                        switch parkingType {
-                                        case .long:
-                                            print("long")
-                                        case .short:
-                                            if let parkingSpot = spot as? ShortTermParkingSpot {
-                                                TransactionService.saveTransaction(customer: "", provider:self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
-                                                //                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
-                                                // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
-                                            }
-                                        }
-                                    } else {
-                                        
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-//            }
-            //        else if let paymentResult = paymentResult{
-            //            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
-            //                print("Sending payment to server");
-            //                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
-            //                    if error == nil {
-            //                        print("Payment Success!")
-            //                        ParkingSpotService.getParkingSpotById(self.info.id) { [self] (parkingSpot, error) in
-            //                            if let spot = parkingSpot {
-            //                                print(spot)
-            //                                //REPLACE WITH IF PARKING SPOT IS AVAILABLE
-            //                                if true {
-            //                                    print("Saving spot")
-            //                                    let weekDay = Calendar.current.component(.weekday, from: self.startDate!)
-            //                                    //need to switch from info.bookTimes to ShortTermParkingSpot later
-            //                                    switch parkingType {
-            //                                    case .long:
-            //                                        print("long")
-            //                                    case .short:
-            //                                        if let parkingSpot = spot as? ShortTermParkingSpot {
-            //                                            TransactionService.saveTransaction(customer: "", provider:self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
-            //                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
-            // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
-            //                                        }
-            //                                    }
-            //                                    self.info.bookedTimes[weekDay-1]?.append(ParkingSpaceMapAnnotation.ParkingTimeInterval(start: self.startTime!, end: self.endTime!))
-            //
-            //                                    TransactionService.saveTransaction(customer: "", provider: self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
-            
-        }
+        
     }
     
     // MARK: - Navigation
@@ -515,8 +334,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             }
             else
             {
-                //vc.startTime = NSDate.init(timeInterval: 1000, since: Date.init())
-                //vc.endTime = NSDate.init(timeInterval: 5000, since: Date.init())
                 vc.times = info.times
                 vc.bookedTimes = info.bookedTimes
             }
@@ -570,55 +387,50 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         }
     }
 }
-extension BookingViewController {
-    @objc func paymentTapped(_ send: UITapGestureRecognizer) {
-        print("Payment Tapped");
-        let key = "sandbox_ndnbmg78_77yb2gxcsdwv5spd"
-        showDropIn(clientTokenOrTokenizationKey: key)
-    }
-    func showDropIn(clientTokenOrTokenizationKey: String) {
-        let request =  BTDropInRequest()
-        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
-        { (controller, result, error) in
-            if (error != nil) {
-                print("ERROR")
-            } else if (result?.isCancelled == true) {
-                print("CANCELLED")
-            } else if let result = result {
-                self.paymentResult = result
-                self.paymentCardLabel.text = result.paymentDescription
-                let size = CGSize(width: 32, height: 17)
-                self.paymentIcon.image = BTUIKViewUtil.vectorArtView(for: result.paymentOptionType).image(of: size)
-                // Use the BTDropInResult properties to update your UI
-                // result.paymentOptionType
-                // result.paymentMethod
-                // result.paymentIcon
-                // result.paymentDescription
-            }
-            controller.dismiss(animated: true, completion: nil)
-        }
-        self.present(dropIn!, animated: true, completion: nil)
-    }
-    //function not currently being used
-    func processPayment() {
-        //payment has been selected
-        if let paymentResult = paymentResult{
-            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
-                print("Sending payment to server");
-                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
-                    if error == nil {
-                        print("Payment Success!")
-                    } else {
-                        print(error!.errorMessage())
-                    }
-                }
-            }
-        }else {
-            //payment has not been selected
-        }
-    }
-}
-extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+//extension TransactionsBookingViewController {
+//    @objc func paymentTapped(_ send: UITapGestureRecognizer) {
+//        print("Payment Tapped");
+//        let key = "sandbox_ndnbmg78_77yb2gxcsdwv5spd"
+//        showDropIn(clientTokenOrTokenizationKey: key)
+//    }
+//    func showDropIn(clientTokenOrTokenizationKey: String) {
+//        let request =  BTDropInRequest()
+//        let dropIn = BTDropInController(authorization: clientTokenOrTokenizationKey, request: request)
+//        { (controller, result, error) in
+//            if (error != nil) {
+//                print("ERROR")
+//            } else if (result?.isCancelled == true) {
+//                print("CANCELLED")
+//            } else if let result = result {
+//                self.paymentResult = result
+//                self.paymentCardLabel.text = result.paymentDescription
+//                let size = CGSize(width: 32, height: 17)
+//                self.paymentIcon.image = BTUIKViewUtil.vectorArtView(for: result.paymentOptionType).image(of: size)
+//            }
+//            controller.dismiss(animated: true, completion: nil)
+//        }
+//        self.present(dropIn!, animated: true, completion: nil)
+//    }
+//    //function not currently being used
+//    func processPayment() {
+//        //payment has been selected
+//        if let paymentResult = paymentResult{
+//            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
+//                print("Sending payment to server");
+//                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
+//                    if error == nil {
+//                        print("Payment Success!")
+//                    } else {
+//                        print(error!.errorMessage())
+//                    }
+//                }
+//            }
+//        }else {
+//            //payment has not been selected
+//        }
+//    }
+//}
+extension TransactionsBookingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         if collectionView.tag == 0 { //image collection
             if images.isEmpty && info.images.isEmpty {
@@ -778,21 +590,20 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
     
     
 }
-extension BookingViewController: MKMapViewDelegate {
-    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        let reuseIdentifier = "pin1"
-        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
-        
-        if annotationView == nil {
-            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
-            annotationView?.canShowCallout = false
-            
-        } else {
-            annotationView?.annotation = annotation
-        }
-        
-        annotationView?.image = UIImage(named: "mapAnnotationPark")
-        return annotationView
-    }
-}
-
+//extension TransactionsBookingViewController: MKMapViewDelegate {
+//    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+//        let reuseIdentifier = "pin1"
+//        var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
+//
+//        if annotationView == nil {
+//            annotationView = MKAnnotationView(annotation: annotation, reuseIdentifier: reuseIdentifier)
+//            annotationView?.canShowCallout = false
+//
+//        } else {
+//            annotationView?.annotation = annotation
+//        }
+//
+//        annotationView?.image = UIImage(named: "mapAnnotationPark")
+//        return annotationView
+//    }
+//}

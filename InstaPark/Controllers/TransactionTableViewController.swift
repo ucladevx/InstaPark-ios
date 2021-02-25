@@ -88,11 +88,13 @@ class TransactionTableViewController: UITableViewController {
                 let parkingSpace = ParkingSpaceMapAnnotation(id: parkingSpot.id,name: "", email: "", phoneNumber: "", photo:"", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images)
                 
                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "bookingView") as! BookingViewController
+                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "transactionsBookingView") as! TransactionsBookingViewController
                 nextViewController.modalPresentationStyle = .fullScreen
                 nextViewController.modalTransitionStyle = .coverVertical
                 nextViewController.info = parkingSpace
                 nextViewController.total = transaction.total
+                nextViewController.provider = parkingSpot.provider
+                nextViewController.directions = parkingSpot.selfParking.specificDirections
                 
                 let dateFormatter1 = DateFormatter()
                 dateFormatter1.dateFormat = "MMMM d"

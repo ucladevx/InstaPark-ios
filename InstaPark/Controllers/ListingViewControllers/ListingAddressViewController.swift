@@ -54,6 +54,10 @@ class ListingAddressViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        cardViewController.layer.shadowRadius = 30.0
+        cardViewController.layer.shadowOpacity = 0.25
+        cardViewController.layer.shadowOffset = CGSize.init(width: 1, height: 0)
+        cardViewController.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         setupCard()
         searchBar.delegate = self
         

@@ -17,6 +17,7 @@ class MapViewViewController: ViewController{
     let defaults = UserDefaults.standard
     
     @IBOutlet var timeSelectionPopup: UIView!
+    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var slideOutMenuUserName: UILabel!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet var blackScreen: UIView!
@@ -113,14 +114,32 @@ class MapViewViewController: ViewController{
         
         // make user name & image a user default so it doesn't have to be queried every time
         
-        
+        profileImage.layer.cornerRadius = 38
         UserService.getUserById(Auth.auth().currentUser!.uid) { (user, error) in
             if let user = user {
                 self.slideOutMenuUserName.text = user.displayName
                 let photoURL = user.photoURL
                 if photoURL != "" {
-                    // set profile photo image for slide out menu when users have them
-                }
+                    guard let url = URL(string: photoURL) else {
+                            print("can't convert string to URL")
+                            return
+                        }
+                        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                            guard let data = data, error == nil else {
+                                print("failed to convert image from url")
+                                return
+                            }
+                            DispatchQueue.main.async { [self] in
+                                guard let UIimage = UIImage(data: data) else {
+                                    print("failed to make image into UIimage")
+                                    return
+                                }
+                                print("image converted")
+                                self.profileImage.image = UIimage
+                            }
+                        }
+                        task.resume()
+                    }
             }
         }
         
@@ -139,7 +158,9 @@ class MapViewViewController: ViewController{
         imageCollectionView.allowsSelection = false
         tagCollectionView.tag = 2
         imageCollectionView.tag = 0
+        imageCollectionView.frame.size.width = UIScreen.main.bounds.width
         imageCollectionView.roundTopCorners(cornerRadius: Double(SlideViewConstant.cornerRadiusOfSlideView))
+        
         
         // if segued from hourlyTimeViewController, search/setup in here
         if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
