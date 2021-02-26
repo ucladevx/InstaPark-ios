@@ -86,6 +86,8 @@
 		94C8ABA1257C9F9F00D89060 /* Roboto-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C8AB95257C9F9F00D89060 /* Roboto-LightItalic.ttf */; };
 		94C8ABA2257C9F9F00D89060 /* Roboto-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 94C8AB96257C9F9F00D89060 /* Roboto-Regular.ttf */; };
 		94DFA7AC25C1204800A371E8 /* ImageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94DFA7AB25C1204800A371E8 /* ImageService.swift */; };
+		94F8455225E7390C00F3BC85 /* TransactionsBookingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F8455125E7390C00F3BC85 /* TransactionsBookingViewController.swift */; };
+		94F8455A25E7487100F3BC85 /* ProfilePhotoUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94F8455925E7487100F3BC85 /* ProfilePhotoUploadViewController.swift */; };
 		B077A1B195D83D092DCED7A6 /* Pods_InstaParkTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8ACB029C29483E699DC42615 /* Pods_InstaParkTests.framework */; };
 		B49FB6B825608C2400D1DB45 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 0410B1502548EACC001C4D27 /* GoogleService-Info.plist */; };
 		B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */; };
@@ -197,6 +199,8 @@
 		94C8AB95257C9F9F00D89060 /* Roboto-LightItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-LightItalic.ttf"; sourceTree = "<group>"; };
 		94C8AB96257C9F9F00D89060 /* Roboto-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Regular.ttf"; sourceTree = "<group>"; };
 		94DFA7AB25C1204800A371E8 /* ImageService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageService.swift; sourceTree = "<group>"; };
+		94F8455125E7390C00F3BC85 /* TransactionsBookingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransactionsBookingViewController.swift; sourceTree = "<group>"; };
+		94F8455925E7487100F3BC85 /* ProfilePhotoUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfilePhotoUploadViewController.swift; sourceTree = "<group>"; };
 		B4D29FAD2560AD6A0092CBB4 /* DesignableTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignableTextField.swift; sourceTree = "<group>"; };
 		BA64A4E5B848A1E0438EBF59 /* Pods_InstaPark.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		DBB3BEB0DBAF3EBA683DD6B0 /* Pods-InstaParkTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-InstaParkTests.debug.xcconfig"; path = "Target Support Files/Pods-InstaParkTests/Pods-InstaParkTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -299,6 +303,7 @@
 				9460B9B72558A8720016697A /* Booking Controllers */,
 				9431304C254E4E47002221F4 /* CustomCallout */,
 				049863302578466300C7F370 /* TransactionTableViewController.swift */,
+				94F8455125E7390C00F3BC85 /* TransactionsBookingViewController.swift */,
 				2B6A4DC525CB9F2000864075 /* ListingViewControllers */,
 			);
 			path = Controllers;
@@ -447,6 +452,7 @@
 				0410B18F254A49F7001C4D27 /* LoginViewController.swift */,
 				0410B194254A4A08001C4D27 /* SignupViewController.swift */,
 				0482FEA2255CB2D0002F522E /* SignupPaymentViewController.swift */,
+				94F8455925E7487100F3BC85 /* ProfilePhotoUploadViewController.swift */,
 			);
 			path = LoginSignUpControllers;
 			sourceTree = "<group>";
@@ -778,6 +784,7 @@
 				0410B190254A49F7001C4D27 /* LoginViewController.swift in Sources */,
 				0410B195254A4A08001C4D27 /* SignupViewController.swift in Sources */,
 				945E02F225D8C74A00741BDD /* BookingTagCollectionCell.swift in Sources */,
+				94F8455225E7390C00F3BC85 /* TransactionsBookingViewController.swift in Sources */,
 				2B33E56F25C33ED700FDC288 /* PriceViewController.swift in Sources */,
 				0498632C2578354F00C7F370 /* TransactionTableViewCell.swift in Sources */,
 				9431304E254E4E83002221F4 /* CalloutView.swift in Sources */,
@@ -814,6 +821,7 @@
 				945167D225AE96CF00939551 /* hourlyTimeViewController.swift in Sources */,
 				2BE39BD625C3C2F200D10436 /* ParkingTypeView.swift in Sources */,
 				2B786A7F25CA5441001575D2 /* DirectionsViewController.swift in Sources */,
+				94F8455A25E7487100F3BC85 /* ProfilePhotoUploadViewController.swift in Sources */,
 				044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */,
 				94158B3C2568A359002F5B51 /* ReservationConfirmationViewController.swift in Sources */,
 				0410B1702548F860001C4D27 /* AuthService.swift in Sources */,

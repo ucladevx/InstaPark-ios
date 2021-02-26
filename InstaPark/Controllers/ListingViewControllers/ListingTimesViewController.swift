@@ -20,10 +20,11 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     @IBOutlet weak var weekdaysBtn: UIButton!
     @IBOutlet weak var weekendsBtn: UIButton!
     @IBOutlet weak var startScroller: UIPickerView!
-    @IBOutlet weak var calendarView: UIView!
+    //@IBOutlet weak var calendarView: UIView!
     @IBOutlet weak var endScroller: UIPickerView!
     @IBOutlet weak var startEndLabels: UIStackView!
     @IBOutlet weak var arrow: UIImageView!
+    @IBOutlet weak var calendar: FSCalendar!
     
     @IBOutlet weak var advancedOptionsCheckStack: UIStackView!
     @IBOutlet weak var sunday: UIButton!
@@ -37,7 +38,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     var twentyFourHourAccess = false
     var weekdaysOnly = false
     var weekendsOnly = false
-    fileprivate weak var calendar: FSCalendar!
+  //  fileprivate weak var calendar: FSCalendar!
     var timeRange = [String]()
     var daysOfWeek = [0: true, 1: true, 2: true, 3: true, 4: true, 5: true, 6:true]
     
@@ -53,7 +54,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: calendarView.frame.width, height: 240))
+        //let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: calendarBackground.frame.width, height: 240))
         calendar.dataSource = self
         calendar.delegate = self
         calendar.placeholderType = .none
@@ -73,14 +74,18 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         calendar.swipeToChooseGesture.isEnabled = true
         let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
                 calendar.addGestureRecognizer(scopeGesture)
-        calendarView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
-        calendar.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
+        //calendarView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
+        calendar.roundBottomCorners(cornerRadius: 18)
         if calendar.selectedDates.count == 0 {
             startDateLabel.text = ""
             endDateLabel.text = ""
         }
-        calendarView.addSubview(calendar)
-        self.calendar = calendar
+     
+ //       calendarView.addSubview(calendar)
+//        NSLayoutConstraint(item: calendar, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: calendarView, attribute: NSLayoutConstraint.Attribute.leadingMargin, multiplier: 1.0, constant: 0.0).isActive = true
+//        NSLayoutConstraint(item: calendar, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: calendarView, attribute: NSLayoutConstraint.Attribute.trailingMargin, multiplier: 1.0, constant: 0.0).isActive = true
+//        NSLayoutConstraint(item: calendar, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: calendarView, attribute: NSLayoutConstraint.Attribute.bottomMargin, multiplier: 1.0, constant: 0.0).isActive = true
+//        self.calendar = calendar
         
         calendarBackground.layer.cornerRadius = 20
         calendarBackground.layer.shadowRadius = 5.0
@@ -503,7 +508,6 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         func formatDate(date: Date) -> String{
             let formatter = DateFormatter()
             formatter.dateFormat = "MM/dd/yy"
-            print(formatter.string(from: calendar.selectedDates.first!))
             return formatter.string(from: date)
         }
         if selectedStartDate != nil {
@@ -642,3 +646,10 @@ extension ListingTimesViewController: UIPickerViewDataSource {
     
 }
 
+extension UIView {
+    func roundBottomCorners(cornerRadius: Double) {
+        self.layer.cornerRadius = CGFloat(cornerRadius)
+        self.clipsToBounds = true
+        self.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMinXMaxYCorner]
+    }
+}

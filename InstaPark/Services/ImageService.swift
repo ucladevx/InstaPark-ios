@@ -12,12 +12,39 @@ import FirebaseStorage
 class ImageService {
     static let db = Firestore.firestore()
     static let storage = Storage.storage().reference()
+    //upload profile photo to Storage and update User document with photoURL
+    static func uploadProfilePhoto(image: UIImage, uid: String) {
+        guard let imageData = image.pngData() else {
+             return
+        }
+        let uuid = UUID().uuidString // create unique id for image since fbstorage doesn't let you generate random keys/ids
+        let id = "profiles/" + uuid
+        print(id)
+        storage.child(id).putData(imageData, metadata: nil, completion: { _, error in
+            guard error == nil else {
+                print("FAILED TO UPLOAD")
+                return
+            }
+            print("upload sucessful")
+            print("downloading image URL")
+            storage.child(id).downloadURL { (url, error) in
+                guard let url = url, error == nil else {
+                    print("FAILED TO DOWNLOAD")
+                    return
+                }
+                let urlString = url.absoluteString
+                print("download URL: \(urlString)")
+                db.collection("User").document(uid).updateData(["photoURL" : urlString])
+            }
+            
+        })
+    }
     //Upload image to Firebase Cloud Storage and return images id (to be stored in parking spot)
     static func uploadImage(image: UIImage, completion: @escaping (String?, Error?) -> Void) {
         guard let imageData = image.pngData() else {
              return
         }
-        let uuid = UUID().uuidString // create unique id for image since fbstorage doesn't let you generate random keys/ids
+        let uuid = UUID().uuidString
         let id = "images/" + uuid
         print(id)
         storage.child(id).putData(imageData, metadata: nil, completion: { _, error in

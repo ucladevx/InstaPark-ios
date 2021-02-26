@@ -17,6 +17,7 @@ class MapViewViewController: ViewController{
     let defaults = UserDefaults.standard
     
     @IBOutlet var timeSelectionPopup: UIView!
+    @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var slideOutMenuUserName: UILabel!
     @IBOutlet weak var imageCollectionView: UICollectionView!
     @IBOutlet var blackScreen: UIView!
@@ -113,14 +114,32 @@ class MapViewViewController: ViewController{
         
         // make user name & image a user default so it doesn't have to be queried every time
         
-        
+        profileImage.layer.cornerRadius = 35
         UserService.getUserById(Auth.auth().currentUser!.uid) { (user, error) in
             if let user = user {
-                self.slideOutMenuUserName.text = user.displayName
+                self.slideOutMenuUserName.text = user.firstName + "\n" + user.lastName
                 let photoURL = user.photoURL
                 if photoURL != "" {
-                    // set profile photo image for slide out menu when users have them
-                }
+                    guard let url = URL(string: photoURL) else {
+                            print("can't convert string to URL")
+                            return
+                        }
+                        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                            guard let data = data, error == nil else {
+                                print("failed to convert image from url")
+                                return
+                            }
+                            DispatchQueue.main.async { [self] in
+                                guard let UIimage = UIImage(data: data) else {
+                                    print("failed to make image into UIimage")
+                                    return
+                                }
+                                print("image converted")
+                                self.profileImage.image = UIimage
+                            }
+                        }
+                        task.resume()
+                    }
             }
         }
         
@@ -139,7 +158,9 @@ class MapViewViewController: ViewController{
         imageCollectionView.allowsSelection = false
         tagCollectionView.tag = 2
         imageCollectionView.tag = 0
+        imageCollectionView.frame.size.width = UIScreen.main.bounds.width
         imageCollectionView.roundTopCorners(cornerRadius: Double(SlideViewConstant.cornerRadiusOfSlideView))
+        
         
         // if segued from hourlyTimeViewController, search/setup in here
         if(shortTermStartTime != nil && shortTermEndTime != nil && shortTermDate != nil) {
@@ -292,7 +313,6 @@ class MapViewViewController: ViewController{
         let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
         let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
         let nextViewController = storyBoard.instantiateViewController(withIdentifier: "bookingView") as! BookingViewController
-//        self.navigationController?.pushViewController(nextViewController, animated: true)
         nextViewController.modalPresentationStyle = .fullScreen
         nextViewController.modalTransitionStyle = .coverVertical
         nextViewController.info = parkingSpace[0]
@@ -400,6 +420,11 @@ class MapViewViewController: ViewController{
         SlideUpView.frame = CGRect(x: 0, y: self.view.bounds.height, width: self.view.bounds.width, height: SlideViewConstant.slideViewHeight)
         SlideUpView.layoutIfNeeded()
         SlideUpView.addDropShadow(cornerRadius: SlideViewConstant.cornerRadiusOfSlideView)
+        
+        SlideUpView.layer.shadowRadius = 7.0
+        SlideUpView.layer.shadowOpacity = 0.2
+        SlideUpView.layer.shadowOffset = CGSize.init(width: 1, height: -2)
+        SlideUpView.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         
         blackView.backgroundColor = UIColor(white: 0, alpha: 0.0)
         blackView.frame = self.view.frame
@@ -589,17 +614,28 @@ extension MapViewViewController: MKMapViewDelegate {
             annotationView?.image = UIImage(named: "mapAnnotation")
             let label = UILabel(frame: CGRect(x: 10, y: 0, width: 40, height: 30))
             label.textColor = .white
+            
+            var priceString = String(format: "%.2f", parkingSpace.price)
+            if parkingSpace.price > 99 {
+                priceString = String(format: "%g", parkingSpace.price.rounded())
+            }
+            
+            let font:UIFont? = UIFont.init(name: "Roboto-Bold", size: 13)
+            let fontSuper:UIFont? = UIFont.init(name: "Roboto-Bold", size: 8)
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: "$"+priceString, attributes: [.font:font!])
+            attString.setAttributes([.font:fontSuper!,.baselineOffset:2.5], range: NSRange(location:0,length:1))
+            label.attributedText = attString
 
-            let dollar = "$"
-            let dollar_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Bold", size: 9)]
-            let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
-
-            let price = String(format: "%.2f", parkingSpace.price)
-            let price_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Bold", size: 13)]
-            let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
-            cost.append(price_string)
-            print("price is: \(price) at location (\(annotation.coordinate.longitude), \(annotation.coordinate.latitude))")
-            label.attributedText = cost
+//            let dollar = "$"
+//            let dollar_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Bold", size: 9)]
+//            let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
+//
+//            let price = String(format: "%.2f", parkingSpace.price)
+//            let price_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Bold", size: 13)]
+//            let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
+//            cost.append(price_string)
+//            print("price is: \(price) at location (\(annotation.coordinate.longitude), \(annotation.coordinate.latitude))")
+//            label.attributedText = cost
 
             annotationView?.addSubview(label)
             return annotationView
@@ -670,6 +706,22 @@ extension MapViewViewController: MKMapViewDelegate {
 
     func mapView(_ mapView: MKMapView, didDeselect view: MKAnnotationView) {
         if let parkingSpace = view.annotation as? ParkingSpaceMapAnnotation {
+            view.image = UIImage(named: "mapAnnotation")
+            let label = UILabel(frame: CGRect(x: 10, y: 0, width: 40, height: 30))
+            label.textColor = .white
+
+            var priceString = String(format: "%.2f", parkingSpace.price)
+            if parkingSpace.price > 99 {
+                priceString = String(format: "%g", parkingSpace.price.rounded())
+            }
+            
+            let font:UIFont? = UIFont.init(name: "Roboto-Bold", size: 13)
+            let fontSuper:UIFont? = UIFont.init(name: "Roboto-Bold", size: 8)
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: "$"+priceString, attributes: [.font:font!])
+            attString.setAttributes([.font:fontSuper!,.baselineOffset:2.5], range: NSRange(location:0,length:1))
+            label.attributedText = attString
+            view.addSubview(label)
+            
             let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02))
             mapView.setRegion(region, animated: true)
             menuButton.isHidden = false
@@ -690,6 +742,23 @@ extension MapViewViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
         print("Annotation selected")
         if let parkingSpace = view.annotation as? ParkingSpaceMapAnnotation {
+            view.image = UIImage(named: "selectedMapAnnotation")
+            let label = UILabel(frame: CGRect(x: 10, y: 0, width: 40, height: 30))
+            label.textColor = .init(red: 143.0/255.0, green: 0.0, blue: 1.0, alpha: 1.0)
+
+            var priceString = String(format: "%.2f", parkingSpace.price)
+            if parkingSpace.price > 99 {
+                priceString = String(format: "%g", parkingSpace.price.rounded())
+            }
+            
+            let font:UIFont? = UIFont.init(name: "Roboto-Bold", size: 13)
+            let fontSuper:UIFont? = UIFont.init(name: "Roboto-Bold", size: 8)
+            let attString:NSMutableAttributedString = NSMutableAttributedString(string: "$"+priceString, attributes: [.font:font!])
+            attString.setAttributes([.font:fontSuper!,.baselineOffset:2.5], range: NSRange(location:0,length:1))
+            label.attributedText = attString
+
+            view.addSubview(label)
+
             // view.image = UIImage(named: "mapAnnotationSelected")
              let region: MKCoordinateRegion =  MKCoordinateRegion(center: parkingSpace.coordinate, span: MKCoordinateSpan(latitudeDelta: 0.004, longitudeDelta: 0.004))
              
@@ -933,9 +1002,6 @@ extension MapViewViewController: UITableViewDataSource, UITableViewDelegate {
         mapView.addAnnotation(annotation)
         let span = MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05)
         let region = MKCoordinateRegion(center: placemark.coordinate, span: span)
-        let annotations = self.mapView.annotations
-        self.mapView.removeAnnotations(annotations)
-        self.annotations = [ParkingSpaceMapAnnotation]()
         self.queryInRegion(region: region, location: annotation.coordinate)
         mapView.setRegion(region, animated: true)
     }

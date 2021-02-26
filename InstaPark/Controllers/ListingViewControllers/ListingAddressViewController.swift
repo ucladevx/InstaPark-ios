@@ -54,6 +54,10 @@ class ListingAddressViewController: UIViewController {
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
         locationManager.requestLocation()
+        cardViewController.layer.shadowRadius = 30.0
+        cardViewController.layer.shadowOpacity = 0.25
+        cardViewController.layer.shadowOffset = CGSize.init(width: 1, height: 0)
+        cardViewController.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         setupCard()
         searchBar.delegate = self
         
@@ -66,10 +70,14 @@ class ListingAddressViewController: UIViewController {
     func setupCard() {
         endCardHeight = self.view.frame.height * 0.8
         startCardHeight = self.view.frame.height * 0.25
-        
+        handleArea.layer.cornerRadius = 30
         cardViewController.frame = CGRect(x: 0, y: self.view.frame.height - startCardHeight, width: self.view.bounds.width, height: endCardHeight)
-        cardViewController.clipsToBounds = true
+        cardViewController.clipsToBounds = false
         self.cardViewController.layer.cornerRadius = 30
+        cardViewController.layer.shadowRadius = 7.0
+        cardViewController.layer.shadowOpacity = 0.3
+        cardViewController.layer.shadowOffset = CGSize.init(width: 1, height: -2)
+        cardViewController.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(ListingAddressViewController.handleCardTap(recognzier:)))
         let panGestureRecognizer = UIPanGestureRecognizer(target: self, action: #selector(ListingAddressViewController.handleCardPan(recognizer:)))

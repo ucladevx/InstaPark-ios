@@ -94,6 +94,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
                     break
                 }
             }
+            print(ShortTermParking.provider)
             nextViewController.ShortTermParking = self.ShortTermParking
             var address = self.ShortTermParking.address.street
             address += ", " + self.ShortTermParking.address.city

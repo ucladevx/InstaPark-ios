@@ -20,6 +20,7 @@ class SignupViewController: ViewController {
     
     var password1Value = ""
     var password2Value = ""
+    var user: User!
     
     @IBOutlet weak var signupButton: UIButton!
     
@@ -28,10 +29,11 @@ class SignupViewController: ViewController {
             var fullNameArr = name.components(separatedBy: " ")
             var firstName: String = fullNameArr[0]
             var lastName: String? = fullNameArr.count > 1 ? fullNameArr[1] : nil
-            var user = User(uid: "", displayName: name, phoneNumber: phoneNumber ?? "", firstName: firstName, lastName: lastName ?? "" , photoURL: "", email: email, transactions: [], parkingSpots: [])
+            user = User(uid: "", displayName: name, phoneNumber: phoneNumber ?? "", firstName: firstName, lastName: lastName ?? "" , photoURL: "", email: email, transactions: [], parkingSpots: [])
+
             AuthService.signup(user: user, password1: password1, password2: password2) { (success, error) in
                if success != nil{
-                 self.performSegue(withIdentifier: "signupSuccess", sender: self)
+                 self.performSegue(withIdentifier: "signupInfoSuccess", sender: self)
                } else {
                 if let messageError = error {
                     let alertController = UIAlertController(title: "Error", message: messageError.errorString(), preferredStyle: .alert)
@@ -122,15 +124,14 @@ class SignupViewController: ViewController {
         }
         self.password2.text = String(repeating: "•", count: self.password2.text!.count)*/
     }
-    /*
+    
     // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if let vc = segue.destination as? ProfilePhotoUploadViewController {
+            vc.user = self.user
+        }
     }
-    */
+    
 
 }
 

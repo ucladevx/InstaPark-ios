@@ -72,6 +72,8 @@ class SelfParkingViewController: UIViewController {
             btn.layer.borderWidth = 1
             btn.layer.borderColor = UIColor(red: 0.429, green: 0.429, blue: 0.429, alpha: 1).cgColor
         }
+        specificDirectionsInput.textContainerInset.left = 10
+        specificDirectionsInput.textContainerInset.right = 10
         // Do any additional setup after loading the view.
     }
     func checkBeforeMovingPages() -> Bool {

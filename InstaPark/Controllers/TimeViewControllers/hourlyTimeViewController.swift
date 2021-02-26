@@ -15,6 +15,8 @@ class hourlyTimeViewController: UIViewController {
     @IBOutlet weak var selectedDateLabel: UILabel!
     @IBOutlet weak var startScroller: UIPickerView!
     @IBOutlet weak var endScroller: UIPickerView!
+    @IBOutlet weak var toLabel: UILabel!
+    @IBOutlet weak var selectedEndDateLabel: UILabel!
     @IBOutlet weak var searchButton: UIButton!
     
     var startTime = Date()
@@ -47,6 +49,9 @@ class hourlyTimeViewController: UIViewController {
         if calendar.selectedDates.count == 0 {
             selectedDateLabel.text = ""
         }
+        
+        toLabel.isHidden = true
+        selectedEndDateLabel.isHidden = true
         
         calendarBackground.layer.shadowRadius = 5.0
         calendarBackground.layer.shadowOpacity = 0.35
@@ -120,6 +125,14 @@ class hourlyTimeViewController: UIViewController {
         }
         else {
             selectedDateLabel.text = ""
+        }
+        if selectedEndDate != nil {
+            selectedEndDateLabel.isHidden = false
+            toLabel.isHidden = false
+            selectedEndDateLabel.text = formatDate(date: selectedEndDate)
+        } else {
+            selectedEndDateLabel.isHidden = true
+            toLabel.isHidden = true
         }
         
           let diyCell = (cell as! DIYCalendarCell)
