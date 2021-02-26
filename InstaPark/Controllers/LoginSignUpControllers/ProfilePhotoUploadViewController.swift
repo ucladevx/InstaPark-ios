@@ -40,6 +40,17 @@ class ProfilePhotoUploadViewController: UIViewController ,UIImagePickerControlle
     }
     
     @IBAction func ContinueBtn(_ sender: Any){
+        if image == nil {
+            let alert = UIAlertController(title: "Warning", message: "Are you sure you want to proceed without choosing a profile photo?", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: { _ in
+                return
+            }))
+            alert.addAction(UIAlertAction(title: "Proceed", style: UIAlertAction.Style.destructive, handler: {(_: UIAlertAction!) in
+                self.performSegue(withIdentifier: "signupSuccess", sender: self)
+            }))
+            self.present(alert, animated: true, completion: nil)
+            return
+        }
         guard let currentUser = Auth.auth().currentUser else {
             return
         }

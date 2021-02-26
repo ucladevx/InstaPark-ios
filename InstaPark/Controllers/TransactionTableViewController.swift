@@ -18,6 +18,10 @@ class TransactionTableViewController: UITableViewController {
         super.viewDidLoad()
         print("Loading transaction table view controller")
         self.tableView.rowHeight = 100
+        self.refreshControl = UIRefreshControl()
+        //refreshControl!.attributedTitle = NSAttributedString(string: "Pull to refresh")
+        refreshControl!.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
+        tableView.addSubview(refreshControl!)
         UserService.getUserById(Auth.auth().currentUser!.uid) { user, error in
             if let user = user {
                 print(user.uid)
@@ -41,6 +45,29 @@ class TransactionTableViewController: UITableViewController {
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    
+    @objc func refresh(_ sender: AnyObject) {
+        transactions.removeAll()
+        UserService.getUserById(Auth.auth().currentUser!.uid) { user, error in
+            if let user = user {
+                print(user.uid)
+                for id in user.transactions {
+                    TransactionService.getTransactionById(id) { transaction, error in
+                        if let transaction = transaction {
+                            self.transactions.append(transaction)
+                            print("Reloading data")
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                            }
+                        }
+                        
+                    }
+                }
+            }
+        }
+        
+        self.refreshControl!.endRefreshing()
     }
 
     @IBAction func backBtn(_ sender: Any) {

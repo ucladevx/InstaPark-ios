@@ -89,8 +89,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         imageCollectionView.tag = 0
         tagCollectionView.tag = 2
         //imageCollectionView.hide
-        backBtn.layer.shadowRadius = 2.0
-        backBtn.layer.shadowOpacity = 0.25
+        backBtn.layer.shadowRadius = 4.0
+        backBtn.layer.shadowOpacity = 0.98
         backBtn.layer.shadowOffset = CGSize.init(width: 1, height: 1)
         backBtn.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         
