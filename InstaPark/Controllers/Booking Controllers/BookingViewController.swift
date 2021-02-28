@@ -102,6 +102,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         commentsLabel.text = info.comments
         commentsLabel.sizeToFit()
         
+        if info.name.count > 10 {
+            nameLabel.adjustsFontSizeToFitWidth = true
+        }
+        
         //shadow for user info view
         userInfoView.layer.shadowRadius = 5.0
         userInfoView.layer.shadowOpacity = 0.25

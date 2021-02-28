@@ -11,10 +11,12 @@ import GeoFire
 import CoreLocation
 import Firebase
 
-class MapViewViewController: ViewController{
-    
+protocol passFromProfile {
+    func reload(firstName: String, lastName: String, image: UIImage?)
+}
+
+class MapViewViewController: ViewController, passFromProfile{
     let locationManager = CLLocationManager()
-    let defaults = UserDefaults.standard
     
     @IBOutlet var timeSelectionPopup: UIView!
     @IBOutlet weak var profileImage: UIImageView!
@@ -27,6 +29,9 @@ class MapViewViewController: ViewController{
     @IBOutlet weak var tagCollectionView: UICollectionView!
     var shortTermDate: Date!
     @IBOutlet weak var timeFrameButton: UIButton!
+    
+    // if coming from sign up, pass in uploaded photo
+    var signupPhoto: UIImage!
     
     @IBOutlet weak var SlideUpView: SlideView!
     @IBOutlet weak var searchBar: UISearchBar!
@@ -119,7 +124,10 @@ class MapViewViewController: ViewController{
             if let user = user {
                 self.slideOutMenuUserName.text = user.firstName + "\n" + user.lastName
                 let photoURL = user.photoURL
-                if photoURL != "" {
+                if self.signupPhoto != nil {
+                    self.profileImage.image = self.signupPhoto
+                }
+                else if photoURL != "" {
                     guard let url = URL(string: photoURL) else {
                             print("can't convert string to URL")
                             return
@@ -296,6 +304,14 @@ class MapViewViewController: ViewController{
         SlideUpView.isHidden = true
         
     }
+    
+    func reload(firstName: String, lastName: String, image: UIImage?) {
+        slideOutMenuUserName.text = firstName + "\n" + lastName
+        if image != nil {
+            profileImage.image = image
+        }
+    }
+    
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
