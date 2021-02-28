@@ -25,4 +25,11 @@ class UserService {
             }
         }
     }
+    static func updateUserInfo(id: String, changedData: [String:String]) {
+        let docRef = db.collection("User").document(id)
+        for (key, data) in changedData {
+            docRef.updateData([key: data])
+            print("updated key: \(key) to \(data)")
+        }
+    }
 }

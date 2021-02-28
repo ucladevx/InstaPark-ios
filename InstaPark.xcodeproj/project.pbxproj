@@ -302,8 +302,6 @@
 				046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */,
 				9460B9B72558A8720016697A /* Booking Controllers */,
 				9431304C254E4E47002221F4 /* CustomCallout */,
-				049863302578466300C7F370 /* TransactionTableViewController.swift */,
-				94F8455125E7390C00F3BC85 /* TransactionsBookingViewController.swift */,
 				2B6A4DC525CB9F2000864075 /* ListingViewControllers */,
 			);
 			path = Controllers;
@@ -382,6 +380,8 @@
 		0464F72B25D3813200C9A055 /* SlideoutViews */ = {
 			isa = PBXGroup;
 			children = (
+				049863302578466300C7F370 /* TransactionTableViewController.swift */,
+				94F8455125E7390C00F3BC85 /* TransactionsBookingViewController.swift */,
 				0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */,
 			);
 			path = SlideoutViews;

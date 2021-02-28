@@ -11,6 +11,8 @@ import Firebase
 class ProfilePhotoUploadViewController: UIViewController ,UIImagePickerControllerDelegate, UINavigationControllerDelegate {
 
     @IBOutlet weak var profileImage: UIImageView!
+    @IBOutlet weak var headerLabel: UILabel!
+    @IBOutlet weak var continueBtn: UIButton!
     var image: UIImage!
     var user: User!
     override func viewDidLoad() {
@@ -19,6 +21,13 @@ class ProfilePhotoUploadViewController: UIViewController ,UIImagePickerControlle
         profileImage.layer.cornerRadius = 60
         print(Auth.auth().currentUser!.uid)
         print(user.displayName)
+        if user.displayName != "" {
+            headerLabel.text = "Nice to meet you,\n\(user.displayName)!"
+        }
+        continueBtn.layer.shadowRadius = 3.0
+        continueBtn.layer.shadowOpacity = 0.3
+        continueBtn.layer.shadowOffset = CGSize.init(width: 2, height: 2)
+        continueBtn.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         // Do any additional setup after loading the view.
     }
     
@@ -32,11 +41,15 @@ class ProfilePhotoUploadViewController: UIViewController ,UIImagePickerControlle
     }
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-            if let selectedImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-                image = self.resizeImage(image: selectedImage, targetSize: CGSize(width: 100, height: 100))
-                profileImage.image = selectedImage
-            }
-           self.dismiss(animated: true, completion: nil)
+        if let editedImage = info[UIImagePickerController.InfoKey.editedImage] as? UIImage {
+            image = self.resizeImage(image: editedImage, targetSize: CGSize(width: 100, height: 100))
+            profileImage.image = editedImage
+        }
+        else if let originalImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
+            image = self.resizeImage(image: originalImage, targetSize: CGSize(width: 100, height: 100))
+            profileImage.image = originalImage
+        }
+        self.dismiss(animated: true, completion: nil)
     }
     
     @IBAction func ContinueBtn(_ sender: Any){
@@ -82,5 +95,12 @@ class ProfilePhotoUploadViewController: UIViewController ,UIImagePickerControlle
         UIGraphicsEndImageContext()
 
         return newImage!
+    }
+    
+    // MARK: - Navigation
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? MapViewViewController{
+            vc.signupPhoto = profileImage.image
+        }
     }
 }
