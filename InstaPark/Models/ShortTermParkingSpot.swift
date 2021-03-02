@@ -17,7 +17,7 @@ class ShortTermParkingSpot: ParkingSpot {
     }
     // init from Full Days means that the parking spot is open for the full days in the array ( 0 -> Monday, 6 -> Sunday)
     init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], fromFullDays: [Int], images: [String], startDate: Int, endDate: Int, directions:String, selfParking: SelfParking) {
-
+        
         //since we only care about the day of the week, 345600 represents Jan 4th 1970 in unix or Monday there are 86400 seconds in a day
         self.times = [Int: [ParkingTimeInterval]]()
         //number of seconds since start of day
@@ -28,6 +28,7 @@ class ShortTermParkingSpot: ParkingSpot {
     }
     enum CodingKeys: String, CodingKey {
         case times
+        case startEndDates
     }
     required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
@@ -58,6 +59,9 @@ class ShortTermParkingSpot: ParkingSpot {
     }
     //checks if time slot is available for reservation, including if they span across night (takes into account provider time-ranges. All times are in epoch
     func validateTimeSlotWithProvider(start: Int, end: Int) -> Bool {
+        if(!(start>startDate && end<endDate)) {
+            return false;
+        }
         //first, make sure valid with provider time intervals
         var offset = Calendar.current.timeZone.secondsFromGMT() - TimeZone.init(abbreviation: "PST")!.secondsFromGMT()
         var startParking = Date.init(timeIntervalSince1970: Double(start + offset))
@@ -193,6 +197,7 @@ struct ParkingTimeInterval : Codable{
     var start: Int
     var end: Int
 }
+
 extension Date {
     func convertUTCToTimeZone(timeZone: TimeZone) -> Date {
         let delta = TimeInterval(timeZone.secondsFromGMT())

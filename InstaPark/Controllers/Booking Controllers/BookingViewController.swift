@@ -434,6 +434,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 ParkingSpotService.saveShortTermParkingSpot(self.ShortTermParking) { (id, error) in
                     if let id = id, error == nil {
                         print(id)
+                        DispatchQueue.main.async {
+                            self.performSegue(withIdentifier: "showReservationConfirmation", sender: self)
+                        }
                         ImageService.uploadAllImages(images: self.images, spotID: id)
                     }
                 }
@@ -458,14 +461,22 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                                         case .short:
                                             if let parkingSpot = spot as? ShortTermParkingSpot {
                                                 TransactionService.saveTransaction(customer: "", provider:self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
+                                                DispatchQueue.main.async {
+                                                    self.performSegue(withIdentifier: "showReservationConfirmation", sender: self)
+                                                }
+                                                
                                                 //                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
                                                 // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
                                             }
                                         }
                                     } else {
-                                        
+                                        let alert = UIAlertController(title: "Please enter payment information", message: "You must enter payment information before booking a parking spot.", preferredStyle: .alert)
+                                        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+                                        self.present(alert, animated: true)
                                     }
                                 }
+                            } else {
+                                //Alert must choose payment before proceeding
                             }
                         }
                     }
