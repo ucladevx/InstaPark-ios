@@ -85,41 +85,15 @@ class MapViewViewController: ViewController, passFromProfile{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.setNavigationBarHidden(true, animated: animated)
+        print("View will reappear")
+        loadSlideoutData()
+        
     }
     override func viewWillDisappear(_ animated: Bool) {
 //        super.viewWillAppear(animated)
 //        navigationController?.setNavigationBarHidden(false, animated: animated)
     }
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        print("MapKit did load")
-        if shortTermStartTime == nil || shortTermEndTime == nil {
-            setUpTimePopup()
-        }
-        mapView.delegate = self
-        locationManager.delegate = self
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager.requestWhenInUseAuthorization()
-        locationManager.requestLocation()
-        searchBar.delegate = self
-        searchBar.backgroundImage = UIImage()
-        overlay.frame = CGRect(x: 0, y: 100, width: self.view.bounds.width, height: self.view.bounds.height-50)
-        overlay.tag = 100
-        overlay.dataSource = self
-        overlay.delegate = self
-        menuButton.setBackgroundImage(UIImage.init(named: "purple-circle"), for: .normal)
-        menuButton.isHidden = false
-        menuButton.layer.shadowRadius = 3.0
-        menuButton.layer.shadowOpacity = 0.3
-        menuButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
-        menuButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
-        self.view.addSubview(slideoutBlackView)
-        self.view.addSubview(slideOutBar)
-        slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
-        
-        // make user name & image a user default so it doesn't have to be queried every time
-        
-        profileImage.layer.cornerRadius = 35
+    func loadSlideoutData() {
         UserService.getUserById(Auth.auth().currentUser!.uid) { (user, error) in
             if let user = user {
                 self.slideOutMenuUserName.text = user.firstName + "\n" + user.lastName
@@ -150,6 +124,37 @@ class MapViewViewController: ViewController, passFromProfile{
                     }
             }
         }
+    }
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        print("MapKit did load")
+        if shortTermStartTime == nil || shortTermEndTime == nil {
+            setUpTimePopup()
+        }
+        mapView.delegate = self
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager.requestWhenInUseAuthorization()
+        locationManager.requestLocation()
+        searchBar.delegate = self
+        searchBar.backgroundImage = UIImage()
+        overlay.frame = CGRect(x: 0, y: 100, width: self.view.bounds.width, height: self.view.bounds.height-50)
+        overlay.tag = 100
+        overlay.dataSource = self
+        overlay.delegate = self
+        menuButton.setBackgroundImage(UIImage.init(named: "purple-circle"), for: .normal)
+        menuButton.isHidden = false
+        menuButton.layer.shadowRadius = 3.0
+        menuButton.layer.shadowOpacity = 0.3
+        menuButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+        menuButton.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
+        self.view.addSubview(slideoutBlackView)
+        self.view.addSubview(slideOutBar)
+        slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
+        
+        // make user name & image a user default so it doesn't have to be queried every time
+//        loadSlideoutData()
+        profileImage.layer.cornerRadius = 35
         
         //time frame button
         timeFrameButton.layer.shadowRadius = 4.0
