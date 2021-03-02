@@ -63,14 +63,16 @@ class SelfParkingViewController: UIViewController {
         accessRadioButtons = [remoteAccessButton, codeAccessButton, keyAccessButton, otherAccessButton]
         super.viewDidLoad()
         for btn in selfParkingRadioButtons! {
-            btn.layer.cornerRadius = 8
+            btn.layer.cornerRadius = btn.frame.width/2
             btn.layer.borderWidth = 1
             btn.layer.borderColor = UIColor(red: 0.429, green: 0.429, blue: 0.429, alpha: 1).cgColor
+            btn.imageEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
         }
         for btn in accessRadioButtons! {
-            btn.layer.cornerRadius = 8
+            btn.layer.cornerRadius = btn.frame.width/2
             btn.layer.borderWidth = 1
             btn.layer.borderColor = UIColor(red: 0.429, green: 0.429, blue: 0.429, alpha: 1).cgColor
+            btn.imageEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
         }
         specificDirectionsInput.textContainerInset.left = 10
         specificDirectionsInput.textContainerInset.right = 10
@@ -78,7 +80,14 @@ class SelfParkingViewController: UIViewController {
     }
     func checkBeforeMovingPages() -> Bool {
         ShortTermParking.selfParking.specificDirections = specificDirectionsInput.text
-        return selectedSelfParking && selectedAccess
+        if(selectedSelfParking && selectedAccess) {
+            return true;
+        } else {
+            let alert = UIAlertController(title: "Error", message: "Please fill out self driving & access options.", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Dismiss", style: .cancel, handler: nil))
+            self.present(alert, animated: true)
+            return false;
+        }
     }
     
     /*
