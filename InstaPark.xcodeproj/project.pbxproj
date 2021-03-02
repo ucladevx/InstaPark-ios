@@ -46,6 +46,8 @@
 		2B0F2C1E25BA4D9D008430FF /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F2C1D25BA4D9D008430FF /* CommentsViewController.swift */; };
 		2B29F77125BE3BC400E897E7 /* ParkingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29F77025BE3BC300E897E7 /* ParkingInfoView.swift */; };
 		2B33E56F25C33ED700FDC288 /* PriceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B33E56E25C33ED700FDC288 /* PriceViewController.swift */; };
+		2B4B911625EC6FF30040A7C2 /* PictureSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B4B911525EC6FF30040A7C2 /* PictureSlide.swift */; };
+		2B4B911B25EC70070040A7C2 /* PictureSlide.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2B4B911A25EC70070040A7C2 /* PictureSlide.xib */; };
 		2B633EA825B92F9A003448A4 /* SelectListingTypeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B633EA725B92F9A003448A4 /* SelectListingTypeViewController.swift */; };
 		2B633EB025B93745003448A4 /* BebasNeue-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B633EAF25B93745003448A4 /* BebasNeue-Regular.ttf */; };
 		2B6A4DF925CCC8EB00864075 /* ListingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B6A4DF825CCC8EB00864075 /* ListingViewController.swift */; };
@@ -158,6 +160,8 @@
 		2B0F2C1D25BA4D9D008430FF /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
 		2B29F77025BE3BC300E897E7 /* ParkingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingInfoView.swift; sourceTree = "<group>"; };
 		2B33E56E25C33ED700FDC288 /* PriceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PriceViewController.swift; sourceTree = "<group>"; };
+		2B4B911525EC6FF30040A7C2 /* PictureSlide.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureSlide.swift; sourceTree = "<group>"; };
+		2B4B911A25EC70070040A7C2 /* PictureSlide.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PictureSlide.xib; sourceTree = "<group>"; };
 		2B633EA725B92F9A003448A4 /* SelectListingTypeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectListingTypeViewController.swift; sourceTree = "<group>"; };
 		2B633EAF25B93745003448A4 /* BebasNeue-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "BebasNeue-Regular.ttf"; sourceTree = "<group>"; };
 		2B6A4DF825CCC8EB00864075 /* ListingViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ListingViewController.swift; sourceTree = "<group>"; };
@@ -320,6 +324,8 @@
 				2BD6E15C25C4EE1000E4A88F /* UploadSlideView.xib */,
 				2BD6E16125C51BE000E4A88F /* uploadButtonView.swift */,
 				945E02F125D8C74A00741BDD /* BookingTagCollectionCell.swift */,
+				2B4B911525EC6FF30040A7C2 /* PictureSlide.swift */,
+				2B4B911A25EC70070040A7C2 /* PictureSlide.xib */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -603,6 +609,7 @@
 				B49FB6B825608C2400D1DB45 /* GoogleService-Info.plist in Resources */,
 				0410B1262548D8EB001C4D27 /* LaunchScreen.storyboard in Resources */,
 				94C8AB9A257C9F9F00D89060 /* Roboto-Light.ttf in Resources */,
+				2B4B911B25EC70070040A7C2 /* PictureSlide.xib in Resources */,
 				94C8ABA0257C9F9F00D89060 /* Roboto-Bold.ttf in Resources */,
 				0482FE97255CB297002F522E /* fonts in Resources */,
 				94C8AB9F257C9F9F00D89060 /* Roboto-BlackItalic.ttf in Resources */,
@@ -804,6 +811,7 @@
 				048D7E552550D739009B6AE3 /* ParkingSpotService.swift in Sources */,
 				2B6A4DF925CCC8EB00864075 /* ListingViewController.swift in Sources */,
 				2B0F2C1E25BA4D9D008430FF /* CommentsViewController.swift in Sources */,
+				2B4B911625EC6FF30040A7C2 /* PictureSlide.swift in Sources */,
 				0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */,
 				943131302556391D002221F4 /* BookingViewController.swift in Sources */,
 				945167CD25AE96BC00939551 /* landingPageViewController.swift in Sources */,
@@ -1014,7 +1022,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9Z5ZS6QY3G;
+				DEVELOPMENT_TEAM = Q7BF3CRD6T;
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1035,7 +1043,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = 9Z5ZS6QY3G;
+				DEVELOPMENT_TEAM = Q7BF3CRD6T;
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
