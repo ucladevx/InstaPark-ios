@@ -18,7 +18,6 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     @IBOutlet var dot5: UIImageView!
     @IBOutlet var dot6: UIImageView!
     @IBOutlet var dot7: UIImageView!
-    @IBOutlet var dot8: UIImageView!
     
     
     var dots = [UIImageView]()
@@ -44,8 +43,8 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     }
     
     @IBAction func rightButtonAction(_ sender: UIButton) {
-        if currentViewIndex == 7 {
-            if let controller = orderedViewControllers[7] as? CommentsViewController {
+        if currentViewIndex == 6 {
+            if let controller = orderedViewControllers[6] as? CommentsViewController {
                 controller.moveToNext()
             }
         }else{
@@ -77,7 +76,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
         guard let viewControllerIndex = orderedViewControllers.firstIndex(of: viewController) else{
             return nil
         }
-        if(viewControllerIndex != 7) {
+        if(viewControllerIndex != 6) {
             return orderedViewControllers[viewControllerIndex+1]
         }
         return nil
@@ -173,11 +172,10 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                 }
            }
         }
-        
          //MARK: Moving from Picture
          if let picController = viewController as? PictureUploadViewController {
-             if let next = next as? DirectionsViewController {
-                 print("picture to direction")
+             if let next = next as? CommentsViewController {
+                 print("picture to comments")
                 guard picController.checkBeforeMovingPages() else {
                    dataSource = nil
                    dataSource = self
@@ -185,52 +183,21 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                  next.parkingType = picController.parkingType
                  next.images = picController.lowerQualityImages
                  if(picController.parkingType == .short) {
-                     next.ShortTermParking = picController.ShortTermParking
+                       next.ShortTermParking = picController.ShortTermParking
+                       print("checking successful passing of data so far...")
+                       print(next.ShortTermParking.times)
+                       print("Parking price is: \(next.ShortTermParking.pricePerHour)")
+                       print(next.ShortTermParking.coordinates)
+                       print(next.ShortTermParking.address)
+                       print("Tags: \(next.ShortTermParking.tags)")
+                       print("Directions: \(next.ShortTermParking.directions)")
+                       print("Number of images: \(next.images.count)")
                  } else {
                      // pass in long term parking when ready
                  }
                 next.view.layoutIfNeeded()
              }
              
-         }
-         //MARK: Moving from Directions
-         if let directionsController = viewController as? DirectionsViewController {
-             if let next = next as? CommentsViewController {
-                 print("direction to comments")
-                guard directionsController.checkBeforeMovingPages() else {
-                   dataSource = nil
-                   dataSource = self
-                   return false}
-                 next.parkingType = directionsController.parkingType
-                 next.images = directionsController.images
-                 if(directionsController.parkingType == .short) {
-                     next.ShortTermParking = directionsController.ShortTermParking
-                    if parkingType == .short { //check pass
-                        print("checking successful passing of data so far...")
-                        print(next.ShortTermParking.times)
-                        print("Parking price is: \(next.ShortTermParking.pricePerHour)")
-                        print(next.ShortTermParking.coordinates)
-                        print(next.ShortTermParking.address)
-                        print("Tags: \(next.ShortTermParking.tags)")
-                        print("Directions: \(next.ShortTermParking.directions)")
-                        print("Number of images: \(next.images.count)")
-                    }
-                 } else {
-                     // pass in long term parking when ready
-                 }
-                next.view.layoutIfNeeded()
-            }
-         }
-         //MARK: Moving from Comments
-         if let commentsController = viewController as? CommentsViewController {
-             print("comments to booking")
-             parkingType = commentsController.parkingType
-             if(commentsController.parkingType == .short) {
-                 ShortTermParking = commentsController.ShortTermParking
-                 images = commentsController.images
-             } else {
-                 // pass in long term parking when ready
-             }
          }
         return true
     }
@@ -242,15 +209,15 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     }
     
     func updatePageControl() {
-        if currentViewIndex == 7 {
-            rightButton.setImage(UIImage(named: "ListingDone"), for: .normal)
+        if currentViewIndex == 6 {
+            rightButton.setImage(UIImage(named: "listingDone"), for: .normal)
         } else {
             rightButton.setImage(UIImage(named: "rightPage"), for: .normal)
         }
         for i in 0..<currentViewIndex+1 {
             dots[i].image = UIImage(named: "pastPage")
         }
-        for i in currentViewIndex+1..<8 {
+        for i in currentViewIndex+1..<7 {
             dots[i].image = UIImage(named: "futurePage")
         }
         print("page changed to: \(currentViewIndex)")
@@ -295,8 +262,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                 self.newViewController(controller: "Listing4"),
                 self.newViewController(controller: "Listing5"),
                 self.newViewController(controller: "Listing6"),
-                self.newViewController(controller: "Listing7"),
-                self.newViewController(controller: "Listing8")]
+                self.newViewController(controller: "Listing7")]
     }()
 
     private func newViewController(controller: String) -> UIViewController {
@@ -308,7 +274,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
         dataSource = self
         delegate = self
         self.view.addSubview(pageControl)
-        dots = [dot1,dot2,dot3,dot4,dot5,dot6,dot7,dot8]
+        dots = [dot1,dot2,dot3,dot4,dot5,dot6,dot7]
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
         pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25).isActive = true

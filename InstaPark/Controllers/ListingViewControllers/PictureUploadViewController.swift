@@ -6,8 +6,7 @@
 //
 
 import UIKit
-
-
+import AVFoundation
 
 class PictureUploadViewController: UIViewController,UIImagePickerControllerDelegate, UINavigationControllerDelegate, UIScrollViewDelegate {
     
@@ -16,6 +15,7 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
     var parkingType: ParkingType = .short
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
+    //Must change width and height in PictureSlide xib too if want to change scrollWidth/Height
     let scrollWidth = 300
     let scrollHeight = 200
     var page = 0
@@ -51,30 +51,42 @@ class PictureUploadViewController: UIViewController,UIImagePickerControllerDeleg
 
    //var images = [UIImage]()
     var imageIDs = [String]()
-    @IBOutlet var upload: UIButton!
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
          page = Int(round(scrollView.contentOffset.x / scrollView.frame.size.width))
          pageControl.currentPage = page
         
     }
+    
+    @objc func deleteAction(sender:UIButton) {
+        images.remove(at: sender.tag)
+        lowerQualityImages.remove(at: sender.tag)
+        setUpSlides()
+    }
 
     func setUpSlides() {
-        var array = [UIView]()
-        for i in images {
-            let slide = UIImageView()
-            slide.image = i
-            slide.contentMode = .scaleAspectFit
-            array.append(slide)
+        var arraySlides = [UIView]()
+        for view in scrollView.subviews {
+            view.removeFromSuperview()
         }
-        array.append(uploadSlide)
+        for i in images {
+            let slide:PictureSlide = Bundle.main.loadNibNamed("PictureSlide", owner: self, options: nil)?.first as! PictureSlide
+            let frame = AVMakeRect(aspectRatio: i.size, insideRect: slide.image.frame)
+            slide.image.image = i
+            slide.buttonTop.constant = (CGFloat(scrollHeight) - frame.height)/2 + 10
+            slide.buttonRight.constant = (CGFloat(scrollWidth) - frame.width)/2 + 10
+            slide.button.tag = arraySlides.count
+            slide.button.addTarget(self, action: #selector(deleteAction), for: .touchDown)
+            arraySlides.append(slide)
+        }
+        arraySlides.append(uploadSlide)
 
         scrollView.frame = CGRect(x: 0, y: 0, width: view.frame.width, height: view.frame.height)
-        scrollView.contentSize = CGSize(width: scrollWidth * array.count, height: scrollHeight)
-        for i in 0 ..< array.count {
-            array[i].frame = CGRect(x: scrollWidth * i, y: 0, width: scrollWidth, height: scrollHeight)
-            scrollView.addSubview(array[i])
+        scrollView.contentSize = CGSize(width: scrollWidth * arraySlides.count, height: scrollHeight)
+        for i in 0 ..< arraySlides.count {
+            arraySlides[i].frame = CGRect(x: scrollWidth * i, y: 0, width: scrollWidth, height: scrollHeight)
+            scrollView.addSubview(arraySlides[i])
         }
-        pageControl.numberOfPages = array.count
+        pageControl.numberOfPages = arraySlides.count
         pageControl.currentPage = 0
         scrollView.setContentOffset(CGPoint(x: 0, y: 0), animated: false)
     }
