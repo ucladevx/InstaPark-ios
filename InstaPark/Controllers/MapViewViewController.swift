@@ -365,7 +365,7 @@ class MapViewViewController: ViewController, passFromProfile{
                                                             print("Parking Spot is available")
                                                             print("Query by location")
                                                             
-                                                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images)
+                                                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking.hasSelfParking)
                                                             // short-term parking
                                                             if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                                                 annotation.startTime = self.shortTermStartTime
@@ -400,7 +400,7 @@ class MapViewViewController: ViewController, passFromProfile{
                                         UserService.getUserById(parkingSpot.provider) { (user, error) in
                                             if let user = user {
                                                 print("Query by location")
-                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images)
+                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking.hasSelfParking)
                                                 // short-term parking
                                                 if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                                     annotation.startTime = self.shortTermStartTime
@@ -522,7 +522,7 @@ class MapViewViewController: ViewController, passFromProfile{
                         if let parkingSpot = parkingSpot{
                             //IF PARKING SPOT IS AVAILABLEx
                             print("Query by location")
-                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images)
+                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking.hasSelfParking)
                             // short-term parking
                             if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                 annotation.startTime = self.shortTermStartTime
@@ -831,6 +831,13 @@ extension MapViewViewController: MKMapViewDelegate {
             
             //set up tags
             self.selectedAnnotationTags = parkingSpace.tags
+            if parkingSpace.selfParking {
+                self.selectedAnnotationTags.insert("Self-Parking Available", at: 0)
+            }
+            else {
+                self.selectedAnnotationTags.insert("Self-Parking Not Available", at: 0)
+            }
+            
             self.selectedImages = parkingSpace.images
             tagCollectionView.reloadData()
             if !selectedImages.isEmpty {
@@ -1114,11 +1121,11 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: 0, height: 0)
         } else {
             let index = indexPath.row
-            var width = 63 + 10
+            var width = 63.0 + 10.0
             if self.selectedAnnotationTags[index].count > 8 {
-                width = (self.selectedAnnotationTags[index].count * 6) + 30
+                width = (Double(self.selectedAnnotationTags[index].count) * 5.5) + 30.0
             }
-            return CGSize(width: CGFloat(width), height: 30)
+            return CGSize(width: CGFloat(width), height: 33)
         }
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -1134,22 +1141,24 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
             print("refreshing tags")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
             let index = indexPath.row
-            var width = 63
+            var width: Double = 63.0
             if self.selectedAnnotationTags[index].count > 8 {
-                width = (self.selectedAnnotationTags[index].count * 6) + 20
+                width = (Double(self.selectedAnnotationTags[index].count) * 5.5) + 20.0
             }
             cell.frame.size.width = CGFloat(width)
-            cell.frame.size.height = 30
+            cell.frame.size.height = 33
             cell.contentView.frame.size.width = CGFloat(width) + 5
             cell.contentView.frame.size.height = 30
             let tag = cell.tagLabel ?? UILabel()
             tag.layer.borderWidth = 1.5
             tag.frame.size.width = CGFloat(width)
             tag.frame.size.height = 20
-            tag.layer.cornerRadius = 8
-            tag.layer.borderColor = CGColor(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+            tag.layer.cornerRadius = 9
+//            tag.layer.borderColor = CGColor(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+            tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
             tag.text = self.selectedAnnotationTags[index]
-            tag.textColor = UIColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+//            tag.textColor = UIColor.init(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
+            tag.textColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
             tag.font = .systemFont(ofSize: 10)
             tag.textAlignment = .center
             return cell

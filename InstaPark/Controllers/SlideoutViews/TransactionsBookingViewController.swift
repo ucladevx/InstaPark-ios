@@ -52,7 +52,7 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String]())
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: false)
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
@@ -439,17 +439,26 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
             return CGSize(width: 327, height: 256)
         } else { //tag view
             let index = indexPath.row
-            var width = 63 + 10
-            if self.info.tags[index].count > 8 {
-                width = (self.info.tags[index].count * 6) + 30
+            var width = 63.0 + 10.0
+            if index == 0 {
+                if self.info.selfParking {
+                    width = (20 * 6) + 30
+                } else {
+                    width = (23 * 6) + 30
+                }
             }
-            return CGSize(width: CGFloat(width), height: 30)
+            else {
+                if self.info.tags[index-1].count > 8 {
+                    width = (Double(self.info.tags[index-1].count) * 5.5) + 30
+                }
+            }
+            return CGSize(width: CGFloat(width), height: 33)
         }
         
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 2 {
-            return info.tags.count
+            return info.tags.count + 1
         } else {
             if transaction {
                 return info.images.count + 1
@@ -461,23 +470,39 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView.tag == 2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
+            var selfParkingText = "Self-Parking Not Available"
+            if self.info.selfParking {
+                selfParkingText = "Self-Parking Available"
+            }
             let index = indexPath.row
-            var width = 63
-            if self.info.tags[index].count > 8 {
-                width = (self.info.tags[index].count * 6) + 20
+            var width = 63.0
+            if index == 0 {
+                if self.info.selfParking {
+                    width = (20 * 6) + 20
+                } else {
+                    width = (23 * 6) + 20
+                }
+            }
+            else if self.info.tags[index-1].count > 8 {
+                width = (Double(self.info.tags[index-1].count) * 5.5) + 20.0
             }
             cell.frame.size.width = CGFloat(width)
-            cell.frame.size.height = 30
+            cell.frame.size.height = 33
             cell.contentView.frame.size.width = CGFloat(width) + 5
             cell.contentView.frame.size.height = 30
             let tag = cell.tagLabel ?? UILabel()
             tag.layer.borderWidth = 1.5
             tag.frame.size.width = CGFloat(width)
             tag.frame.size.height = 20
-            tag.layer.cornerRadius = 8
-            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
-            tag.text = self.info.tags[index]
-            tag.textColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.9)
+            tag.layer.cornerRadius = 9
+//            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
+            tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
+            if index == 0 {
+                tag.text = selfParkingText
+            } else {
+                tag.text = self.info.tags[index-1]
+            }
+            tag.textColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
             tag.font = .systemFont(ofSize: 10)
             tag.textAlignment = .center
             return cell
