@@ -72,6 +72,7 @@
 		9451681325B932FE00939551 /* ListingAddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9451681225B932FE00939551 /* ListingAddressViewController.swift */; };
 		945E02EA25D4DB3D00741BDD /* BookingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945E02E925D4DB3C00741BDD /* BookingImageCollectionViewCell.swift */; };
 		945E02F225D8C74A00741BDD /* BookingTagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945E02F125D8C74A00741BDD /* BookingTagCollectionCell.swift */; };
+		9463F24025F06B4000DF7F65 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9463F23F25F06B4000DF7F65 /* CustomSegmentedControl.swift */; };
 		94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */; };
 		94C8AB5D257C972A00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
 		94C8AB61257C972B00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
@@ -189,6 +190,7 @@
 		9451681225B932FE00939551 /* ListingAddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingAddressViewController.swift; sourceTree = "<group>"; };
 		945E02E925D4DB3C00741BDD /* BookingImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		945E02F125D8C74A00741BDD /* BookingTagCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingTagCollectionCell.swift; sourceTree = "<group>"; };
+		9463F23F25F06B4000DF7F65 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
 		94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityViewController.swift; sourceTree = "<group>"; };
 		94C8AB8B257C9F9E00D89060 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		94C8AB8C257C9F9E00D89060 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -326,6 +328,7 @@
 				945E02F125D8C74A00741BDD /* BookingTagCollectionCell.swift */,
 				2B4B911525EC6FF30040A7C2 /* PictureSlide.swift */,
 				2B4B911A25EC70070040A7C2 /* PictureSlide.xib */,
+				9463F23F25F06B4000DF7F65 /* CustomSegmentedControl.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -815,6 +818,7 @@
 				0482FEA3255CB2D0002F522E /* SignupPaymentViewController.swift in Sources */,
 				943131302556391D002221F4 /* BookingViewController.swift in Sources */,
 				945167CD25AE96BC00939551 /* landingPageViewController.swift in Sources */,
+				9463F24025F06B4000DF7F65 /* CustomSegmentedControl.swift in Sources */,
 				046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */,
 				04AB7897255DCA280090B6E7 /* ShortTermParkingSpot.swift in Sources */,
 				044AD5802581EE07000FE799 /* SlideOutView.swift in Sources */,
