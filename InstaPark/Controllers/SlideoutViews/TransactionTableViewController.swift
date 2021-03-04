@@ -27,10 +27,11 @@ class TransactionTableViewController: UITableViewController, CustomSegmentedCont
     }
     var pastProviderNames = [String]()
     var upcomingTab = true
+    var tabs: CustomSegmentedControl!
     override func viewDidLoad() {
         super.viewDidLoad()
         print("Loading transaction table view controller")
-        let tabs = CustomSegmentedControl(frame: CGRect(x: 0, y: 58, width: self.view.frame.width, height: 35), buttonTitle: ["UPCOMING","PAST"])
+        tabs = CustomSegmentedControl(frame: CGRect(x: 0, y: 58, width: self.view.frame.width, height: 35), buttonTitle: ["UPCOMING","PAST"])
         tabs.backgroundColor = .clear
         tabs.delegate = self
         self.view.addSubview(tabs)
@@ -43,11 +44,36 @@ class TransactionTableViewController: UITableViewController, CustomSegmentedCont
         
         getTransactions()
         
+        let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
+           for direction in directions {
+                let gesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe(sender:)))
+                gesture.direction = direction
+                self.view.addGestureRecognizer(gesture)
+           }
+        
         // Uncomment the following line to preserve selection between presentations
         // self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+    }
+    @objc func handleSwipe(sender: UISwipeGestureRecognizer) {
+        switch sender.direction {
+        case UISwipeGestureRecognizer.Direction.right:
+            if !upcomingTab {
+                tabs.setIndex(index: 0)
+                change(to: 0)
+            }
+            print("right")
+        case UISwipeGestureRecognizer.Direction.left:
+            if upcomingTab {
+                tabs.setIndex(index: 1)
+                change(to: 1)
+            }
+            print("left")
+        default:
+            break
+        }
     }
     
     func splitBetweenUpcomingAndPast(transaction: Transaction) {
