@@ -210,7 +210,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     
     func updatePageControl() {
         if currentViewIndex == 6 {
-            rightButton.setImage(UIImage(named: "ListingDone"), for: .normal)
+            rightButton.setImage(UIImage(named: "listingDone"), for: .normal)
         } else {
             rightButton.setImage(UIImage(named: "rightPage"), for: .normal)
         }
@@ -277,7 +277,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
         dots = [dot1,dot2,dot3,dot4,dot5,dot6,dot7]
         pageControl.translatesAutoresizingMaskIntoConstraints = false
         pageControl.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-        pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25).isActive = true
+        pageControl.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -7).isActive = true
 //        view.addConstraint(NSLayoutConstraint(item: pageControl!, attribute: .bottom, relatedBy: .equal, toItem: view, attribute: .bottomMargin, multiplier: 1, constant: 5))
         
         if let viewController = orderedViewControllers.first {
