@@ -8,9 +8,10 @@
 import UIKit
 import FSCalendar
 
-class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance{
+class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCalendarDelegate, FSCalendarDelegateAppearance, UIScrollViewDelegate{
     @IBOutlet var infoPopup: UIView!
     @IBOutlet var blackScreen: UIView!
+    @IBOutlet var scrollView: UIScrollView!
     
     @IBOutlet weak var advancedOptionsBtn: UIButton!
     @IBOutlet weak var startDateLabel: UILabel!
@@ -55,6 +56,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     override func viewDidLoad() {
         super.viewDidLoad()
         //let calendar = FSCalendar(frame: CGRect(x: 0, y: 0, width: calendarBackground.frame.width, height: 240))
+        scrollView.delegate = self
         calendar.dataSource = self
         calendar.delegate = self
         calendar.placeholderType = .none
@@ -278,6 +280,11 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         changeState(day: 6, button: saturday)
     }
     
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        if scrollView.contentOffset.x != 0 {
+            scrollView.contentOffset.x = 0
+        }
+    }
     
     //for cleaner time conversion from date -> string
     fileprivate let gregorian: Calendar = Calendar(identifier: .gregorian)
