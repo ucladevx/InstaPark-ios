@@ -107,6 +107,14 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
             }
         }
         
+        let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
+        
+        layout.sectionInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
+        layout.minimumInteritemSpacing = 4
+        layout.minimumLineSpacing = 0
+        layout.scrollDirection = .horizontal
+        imageCollectionView.collectionViewLayout = layout
+        
         //set up price Attributed String
         let dollar = "$"
         let dollar_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Bold", size: 13)]
@@ -432,13 +440,15 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
 //}
 extension TransactionsBookingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let index = indexPath.row
         if collectionView.tag == 0 { //image collection
             if images.isEmpty && info.images.isEmpty {
+                return CGSize(width: self.view.frame.width+4, height: 256)
+            } else if (index == info.images.count && !info.images.isEmpty) || (index == images.count && !images.isEmpty){
                 return CGSize(width: self.view.frame.width, height: 256)
             }
             return CGSize(width: 327, height: 256)
         } else { //tag view
-            let index = indexPath.row
             var width = 63.0 + 10.0
             if index == 0 {
                 if self.info.selfParking {
@@ -549,6 +559,7 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
                             print("image converted")
                             activityIndicator.stopAnimating()
                             cell.image.image = UIimage
+                            cell.image.adjustsImageSizeForAccessibilityContentSizeCategory = true
                             self.images.append(UIimage)
                         }
                     }
@@ -558,13 +569,15 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
                 }
             }
             if mapFlag || mapOnly {
-                if mapOnly {
+                if mapOnly || mapFlag {
                     print("map only")
                     cell.sizeToFit()
                     cell.frame.size.width = collectionView.fs_width
                     cell.image.setNeedsLayout()
                     cell.image.layoutIfNeeded()
                     cell.image.frame.size.width = self.view.frame.width
+                }
+                if mapOnly {
                     self.backBtn.tintColor = .black
                 }
                 let rect = cell.image.bounds
@@ -573,9 +586,9 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
                 let location: CLLocationCoordinate2D = info.coordinate
                 let region: MKCoordinateRegion = MKCoordinateRegion(center: location, span: span)
                 options.size = CGSize(width: cell.fs_width, height: cell.fs_height)
-                if mapOnly {
-                    options.size = CGSize(width: self.view.frame.width, height: cell.image.fs_height)
-                }
+//                if mapOnly {
+//                    options.size = CGSize(width: self.view.frame.width, height: cell.image.fs_height)
+//                }
                 options.region = region
                 let snapshot = MKMapSnapshotter(options: options)
                 snapshot.start { snapshot, error in

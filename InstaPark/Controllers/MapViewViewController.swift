@@ -154,7 +154,7 @@ class MapViewViewController: ViewController, passFromProfile{
         
         // make user name & image a user default so it doesn't have to be queried every time
 //        loadSlideoutData()
-        profileImage.layer.cornerRadius = 35
+        profileImage.layer.cornerRadius = 30
         
         //time frame button
         timeFrameButton.layer.shadowRadius = 4.0
