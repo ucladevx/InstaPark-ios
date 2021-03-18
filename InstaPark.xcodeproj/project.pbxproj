@@ -73,6 +73,7 @@
 		945E02EA25D4DB3D00741BDD /* BookingImageCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945E02E925D4DB3C00741BDD /* BookingImageCollectionViewCell.swift */; };
 		945E02F225D8C74A00741BDD /* BookingTagCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 945E02F125D8C74A00741BDD /* BookingTagCollectionCell.swift */; };
 		9463F24025F06B4000DF7F65 /* CustomSegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9463F23F25F06B4000DF7F65 /* CustomSegmentedControl.swift */; };
+		9463F24B2603BCFB00DF7F65 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9463F24A2603BCFB00DF7F65 /* HelpViewController.swift */; };
 		94C7F85525584DD300FC15DC /* AvailabilityViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */; };
 		94C8AB5D257C972A00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
 		94C8AB61257C972B00D89060 /* fonts in Resources */ = {isa = PBXBuildFile; fileRef = 0482FE96255CB297002F522E /* fonts */; };
@@ -191,6 +192,7 @@
 		945E02E925D4DB3C00741BDD /* BookingImageCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingImageCollectionViewCell.swift; sourceTree = "<group>"; };
 		945E02F125D8C74A00741BDD /* BookingTagCollectionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BookingTagCollectionCell.swift; sourceTree = "<group>"; };
 		9463F23F25F06B4000DF7F65 /* CustomSegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomSegmentedControl.swift; sourceTree = "<group>"; };
+		9463F24A2603BCFB00DF7F65 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
 		94C7F85425584DD300FC15DC /* AvailabilityViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvailabilityViewController.swift; sourceTree = "<group>"; };
 		94C8AB8B257C9F9E00D89060 /* Roboto-Black.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-Black.ttf"; sourceTree = "<group>"; };
 		94C8AB8C257C9F9E00D89060 /* Roboto-BoldItalic.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "Roboto-BoldItalic.ttf"; sourceTree = "<group>"; };
@@ -392,6 +394,7 @@
 				049863302578466300C7F370 /* TransactionTableViewController.swift */,
 				94F8455125E7390C00F3BC85 /* TransactionsBookingViewController.swift */,
 				0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */,
+				9463F24A2603BCFB00DF7F65 /* HelpViewController.swift */,
 			);
 			path = SlideoutViews;
 			sourceTree = "<group>";
@@ -799,6 +802,7 @@
 				0498632C2578354F00C7F370 /* TransactionTableViewCell.swift in Sources */,
 				9431304E254E4E83002221F4 /* CalloutView.swift in Sources */,
 				2BD6E16225C51BE000E4A88F /* uploadButtonView.swift in Sources */,
+				9463F24B2603BCFB00DF7F65 /* HelpViewController.swift in Sources */,
 				2BD6E15825C4EDE000E4A88F /* UploadSlideView.swift in Sources */,
 				B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */,
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
@@ -1026,7 +1030,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q7BF3CRD6T;
+				DEVELOPMENT_TEAM = 9Z5ZS6QY3G;
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1047,7 +1051,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = Q7BF3CRD6T;
+				DEVELOPMENT_TEAM = 9Z5ZS6QY3G;
 				INFOPLIST_FILE = "$(SRCROOT)/InstaPark/SupportingFiles/Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
