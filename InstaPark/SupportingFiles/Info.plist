@@ -56,6 +56,17 @@
 	<string>Allow us to know your location to find parking spots.</string>
 	<key>UIAppFonts</key>
 	<array>
+		<string>ProximaNova-Bold.otf</string>
+		<string>OpenSans-SemiBold.ttf</string>
+		<string>OpenSans-LightBold.ttf</string>
+		<string>OpenSans-Italic.ttf</string>
+		<string>OpenSans-ExtraBold.ttf</string>
+		<string>OpenSans-LightItalic.ttf</string>
+		<string>OpenSans-Bold.ttf</string>
+		<string>OpenSans-SemiBoldItalic.ttf</string>
+		<string>OpenSans-ExtraBoldItalic.ttf</string>
+		<string>OpenSans-Regular.ttf</string>
+		<string>OpenSans-BoldItalic.ttf</string>
 		<string>BebasNeue-Regular.ttf</string>
 		<string>Roboto-Thin.ttf</string>
 		<string>Roboto-ThinItalic.ttf</string>

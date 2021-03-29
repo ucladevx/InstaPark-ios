@@ -25,7 +25,7 @@ class ReservationConfirmationViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if listing {
-            parkLabel.text = "YOUR LISTING IS UP!"
+            parkLabel.text = "Your listing is up!"
             instructionsLabel.text = "Your listing is live for buyers to view!\nYou'll get a notification if anyone purchases your spot."
         }
         timeLabel.text = time
@@ -34,7 +34,7 @@ class ReservationConfirmationViewController: UIViewController {
         infoView.layer.shadowColor = CGColor.init(red: 0, green: 0, blue: 0, alpha: 1)
         infoView.layer.shadowOpacity = 0.2
         infoView.layer.shadowOffset = .init(width: 5, height: 5)
-        parkLabel?.font = UIFont(name: "BebasNeue", size: 40)
+        parkLabel?.font = UIFont(name: "OpenSans-Bold", size: 34)
         
         // Do any additional setup after loading the view.
     }

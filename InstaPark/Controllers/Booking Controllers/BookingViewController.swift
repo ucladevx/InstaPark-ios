@@ -125,11 +125,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         //set up price Attributed String
         let dollar = "$"
-        let dollar_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Bold", size: 13)]
+        let dollar_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-Bold", size: 13)]
         let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
         print(info.price)
         let price = String(format: "%.2f", info.price)
-        let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Medium", size: 23)]
+        let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 23)]
         let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
         cost.append(price_string)
         
@@ -137,7 +137,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         if price_string.length > 4 {
             perHour = "/hr"
         }
-        let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "Roboto-Medium", size: 16)]
+        let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 16)]
         let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
         cost.append(hour_string)
         
@@ -219,14 +219,14 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             let startString = formatter2.string(from: startTime! as Date)
             let endString = formatter2.string(from: endTime! as Date)
             availabilityLabel.setTitle(startday + endday + ", " + startString + " to " + endString, for: .normal)
-            availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
+            availabilityLabel.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 14)
             availabilityLabel.isEnabled = false
             
             reserveButton.isEnabled = true
             reserveButton.setTitle("Create Listing", for: .normal)
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
-            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+            reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
         }
         // short term
         else if(info.startTime != nil && info.endTime != nil && info.date != nil) {
@@ -242,7 +242,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             let startString = formatter2.string(from: startTime! as Date)
             let endString = formatter2.string(from: endTime! as Date)
             availabilityLabel.setTitle(day + "th, " + startString + " to " + endString, for: .normal)
-            availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
+            availabilityLabel.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 14)
             availabilityLabel.isEnabled = false
             
             //calculate total cost (for now without tax/extra fees)
@@ -262,10 +262,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             self.totalPrice = total
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-            totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
+            totalLabel.font =  UIFont.init(name: "OpenSans-SemiBold", size: 20)
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
-            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+            reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
             
             
             reserveButton.isEnabled = true
@@ -279,7 +279,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         // transaction reciept
         else if (transationDate != nil) {
             availabilityLabel.setTitle(transationDate, for: .normal)
-            availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
+            availabilityLabel.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 14)
             availabilityLabel.isEnabled = false
             
             timeFrameTitleLabel.text = "LAST BOOKED"
@@ -291,13 +291,13 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-            totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
+            totalLabel.font =  UIFont.init(name: "OpenSans-SemiBold", size: 20)
             
             reserveButton.isEnabled = false
             reserveButton.setTitle("Book Again", for: .normal)
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
-            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+            reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
         }
         // just browsing
         else {
@@ -398,7 +398,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         blackScreen.alpha = 0.35
         blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.view.addSubview(blackScreen)
-        popupTitle.font =  UIFont(name: "BebasNeue", size: 30)
+        popupTitle.font =  UIFont(name: "OpenSans-Bold", size: 24)
         popupView.frame = CGRect(x: self.view.frame.midX , y: self.view.frame.midY , width: 325, height: 300)
         self.view.addSubview(popupView)
         popupView.center = self.view.center
@@ -584,10 +584,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             self.totalPrice = total
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
-            totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
+            totalLabel.font =  UIFont.init(name: "OpenSans-SemiBold", size: 20)
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
-            reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+            reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
             
             reserveButton.isEnabled = true
         }

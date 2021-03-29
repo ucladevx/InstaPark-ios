@@ -96,8 +96,8 @@ class ParkingTypeViewController: UIViewController {
         ParkingType.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
         
         //Must declare info text here because bolding partial text in storyboard doesn't work
-        let attrs_b = [NSAttributedString.Key.font : UIFont(name: "Roboto Bold", size: 12)]
-        let attrs = [NSAttributedString.Key.font : UIFont(name: "Roboto", size: 12)]
+        let attrs_b = [NSAttributedString.Key.font : UIFont(name: "OpenSans-Bold", size: 12)]
+        let attrs = [NSAttributedString.Key.font : UIFont(name: "OpenSans-Regular", size: 12)]
         
         var bold = "Driveway parking"
         var text = " is parking within a driveway, usually close to the sidewalk and uncovered."

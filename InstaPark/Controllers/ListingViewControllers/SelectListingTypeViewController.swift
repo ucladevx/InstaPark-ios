@@ -90,8 +90,8 @@ class SelectListingTypeViewController: UIViewController {
         
         //self.monthlyButton.layer.borderColor.insertSublayer
         //Must declare info text here because bolding partial text in storyboard doesn't work
-        let attrs_b = [NSAttributedString.Key.font : UIFont(name: "Roboto Bold", size: 12)]
-        let attrs = [NSAttributedString.Key.font : UIFont(name: "Roboto", size: 12)]
+        let attrs_b = [NSAttributedString.Key.font : UIFont(name: "OpenSans-Bold", size: 12)]
+        let attrs = [NSAttributedString.Key.font : UIFont(name: "OpenSans-Regular", size: 12)]
         
         let h_bold = "Hourly Parking"
         let h_text = " means other buyers will rent your parking spot for hours at a time."
