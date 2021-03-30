@@ -51,8 +51,8 @@ class SignupViewController: ViewController {
         super.showNavBar(true)
         super.viewDidLoad()
         
-        welcomeLabel.font = UIFont(name: "BebasNeue", size: 48)
-        startedLabel.font = UIFont(name: "BebasNeue", size: 47)
+        welcomeLabel.font = UIFont(name: "OpenSans-Bold", size: 43)
+        startedLabel.font = UIFont(name: "OpenSans-Bold", size: 41)
         
         //passwords
         /*
