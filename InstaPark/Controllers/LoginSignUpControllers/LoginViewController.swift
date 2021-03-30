@@ -97,7 +97,7 @@ class LoginViewController: ViewController {
         func getGradientLayer(bounds : CGRect) -> CAGradientLayer{
             let gradient = CAGradientLayer()
             gradient.frame = bounds
-            gradient.colors = [UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0).cgColor, UIColor.init(red: 0.561, green: 0.0, blue: 1.0, alpha: 1.0).cgColor]
+            gradient.colors = [UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0).cgColor, UIColor.init(red: 143.0/255.0, green: 0.0, blue: 1.0, alpha: 1.0).cgColor]
             gradient.startPoint = CGPoint(x: 0.0, y: 0.5)
             gradient.endPoint = CGPoint(x: 1.0, y: 0.5)
             return gradient

@@ -32,6 +32,7 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
         }
         let gradient = getGradientLayer(bounds: sparkeLogo.bounds)
         sparkeLogo.textColor = gradientColor(bounds: sparkeLogo.bounds, gradientLayer: gradient)
+        sparkeLogo.font = UIFont(name: "ProximaNova-Bold", size: 36)
         
         //emailView
         emailView.layer.shadowRadius = 5.0

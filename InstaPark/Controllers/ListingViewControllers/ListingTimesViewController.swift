@@ -383,6 +383,20 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     }
     
     // MARK: FScalendar
+    func shouldSelectDate(for date: Date) -> Bool {
+        let weekday = Calendar.current.component(.weekday, from: date)
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        if date < yesterday{
+            return false
+        }
+        for i in 0...6 {
+            if daysOfWeek[i] == false && weekday == i+1 {
+                return false
+            }
+        }
+        return true
+    }
+    
     func calendar(_ calendar: FSCalendar, cellFor date: Date, at position: FSCalendarMonthPosition) -> FSCalendarCell {
             let cell = calendar.dequeueReusableCell(withIdentifier: "cell", for: date, at: position)
             return cell
@@ -427,7 +441,9 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             let range = datesRange(from: selectedStartDate!, to: date)
             selectedEndDate = range.last
             for d in range {
-                calendar.select(d)
+                if shouldSelectDate(for: d) {
+                    calendar.select(d)
+                }
             }
             datesRange = range
             self.configureVisibleCells()
@@ -470,17 +486,21 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, titleDefaultColorFor date: Date) -> UIColor? {
-        let weekday = Calendar.current.component(.weekday, from: date)
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        if date < yesterday{
-            return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+//        let weekday = Calendar.current.component(.weekday, from: date)
+//        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+//        if date < yesterday{
+//            return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+//        }
+//        for i in 0...6 {
+//            if daysOfWeek[i] == false && weekday == i+1 {
+//                return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
+//            }
+//        }
+//        return .black
+        if shouldSelectDate(for: date) {
+            return .black
         }
-        for i in 0...6 {
-            if daysOfWeek[i] == false && weekday == i+1 {
-                return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
-            }
-        }
-        return .black
+        return UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
     }
     
     func calendar(_ calendar: FSCalendar, appearance: FSCalendarAppearance, fillSelectionColorFor date: Date) -> UIColor? {
@@ -489,22 +509,26 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     }
     
     func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-        let weekday = Calendar.current.component(.weekday, from: date)
-        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
-        if date < yesterday{
-            return false
-        }
-        for i in 0...6 {
-            if daysOfWeek[i] == false && weekday == i+1 {
-                return false
-            }
-        }
-        return true
+//        let weekday = Calendar.current.component(.weekday, from: date)
+//        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+//        if date < yesterday{
+//            return false
+//        }
+//        for i in 0...6 {
+//            if daysOfWeek[i] == false && weekday == i+1 {
+//                return false
+//            }
+//        }
+//        return true
+        return shouldSelectDate(for: date)
     }
-    
+
     private func configureVisibleCells() {
             calendar.visibleCells().forEach { (cell) in
                 let date = calendar.date(for: cell)
+                if !shouldSelectDate(for: date!) {
+                    return
+                }
                 let position = calendar.monthPosition(for: cell)
                 self.configure(cell: cell, for: date!, at: position)
             }
