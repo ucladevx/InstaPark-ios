@@ -308,7 +308,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         
         if info.photo != "" {
-        guard let url = URL(string: info.photo) else {
+            photoImage.layer.cornerRadius = 18
+            guard let url = URL(string: info.photo) else {
                 print("can't convert string to URL")
                 return
             }
