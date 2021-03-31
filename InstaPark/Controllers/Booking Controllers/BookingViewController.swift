@@ -227,6 +227,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
             reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
+            
         }
         // short term
         else if(info.startTime != nil && info.endTime != nil && info.date != nil) {

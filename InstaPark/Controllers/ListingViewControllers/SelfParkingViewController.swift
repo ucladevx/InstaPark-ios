@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SelfParkingViewController: UIViewController {
+class SelfParkingViewController: UIViewController, UITextViewDelegate {
     var parkingType = ParkingType.short
     var ShortTermParking: ShortTermParkingSpot!
     @IBOutlet var hidden: [UIView]!
@@ -53,6 +53,7 @@ class SelfParkingViewController: UIViewController {
         ShortTermParking.selfParking.selfParkingMethod = sender.value(forKey: "tag") as? String ?? ""
     }
     @IBOutlet weak var specificDirectionsInput: UITextView!
+    @IBOutlet weak var wordCount: UILabel!
     var selfParkingRadioButtons:[UIButton]?
     var accessRadioButtons:[UIButton]?
     override func viewDidLoad() {
@@ -74,8 +75,10 @@ class SelfParkingViewController: UIViewController {
             btn.layer.borderColor = UIColor(red: 0.429, green: 0.429, blue: 0.429, alpha: 1).cgColor
             btn.imageEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
         }
-        specificDirectionsInput.textContainerInset.left = 10
-        specificDirectionsInput.textContainerInset.right = 10
+        specificDirectionsInput.delegate = self
+        specificDirectionsInput.textContainerInset.left = 15
+        specificDirectionsInput.textContainerInset.top = 10
+        specificDirectionsInput.textContainerInset.right = 15
         // Do any additional setup after loading the view.
     }
     func checkBeforeMovingPages() -> Bool {
@@ -100,4 +103,20 @@ class SelfParkingViewController: UIViewController {
     }
     */
 
+}
+
+extension SelfParkingViewController {
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        let count = textView.text.count + (text.count - range.length)
+        guard count <= 140 else {return false}
+        wordCount.text = "\(count)/140"
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if specificDirectionsInput.textColor == UIColor.lightGray {
+            specificDirectionsInput.text = ""
+            specificDirectionsInput.textColor = UIColor.black
+        }
+    }
 }

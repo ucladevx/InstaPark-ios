@@ -21,6 +21,7 @@ class SelectListingTypeViewController: UIViewController {
         isHourly = true
         parkingType = .short
         performSegue(withIdentifier: "toListing1", sender: nil)
+//        performSegue(withIdentifier: "toComments", sender: nil)
     }
     @IBAction func CloseButton(_ sender: Any) {
         UIView.animate(withDuration: 0.3, animations: {

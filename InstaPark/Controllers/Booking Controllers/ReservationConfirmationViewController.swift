@@ -17,8 +17,23 @@ class ReservationConfirmationViewController: UIViewController {
     var listing = false // only true if new listing is created
     
     @IBAction func returnToHome(_ sender: Any) {
-        self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
-
+        weak var pvc = self.presentingViewController
+        weak var pvcpvc = pvc?.presentingViewController
+        print(String(describing: pvc.self))
+        print(String(describing: pvcpvc.self))
+        if listing {
+            self.dismiss(animated: true) {
+                pvc?.dismiss(animated: true) {
+                    let storyboard = UIStoryboard(name: "Main", bundle: nil)
+                    let vc = storyboard.instantiateViewController(identifier: "MapViewVC") as MapViewViewController
+                    (pvcpvc as? UINavigationController)?.pushViewController(vc, animated: true)
+                }
+//                pvcpvc?.performSegue(withIdentifier: "segueToMapView", sender: nil)
+            };
+            
+        } else {
+            self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+        }
     }
     var time = ""
     var address = ""
