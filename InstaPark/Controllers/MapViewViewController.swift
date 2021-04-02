@@ -1220,10 +1220,10 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
     
 }
 
-extension UICollectionView {
-    func roundTopCorners(cornerRadius: Double) {
-        self.layer.cornerRadius = CGFloat(cornerRadius)
-        self.clipsToBounds = true
-        self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-    }
-}
+//extension UICollectionView {
+//    func roundTopCorners(cornerRadius: Double) {
+//        self.layer.cornerRadius = CGFloat(cornerRadius)
+//        self.clipsToBounds = true
+//        self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+//    }
+//}
