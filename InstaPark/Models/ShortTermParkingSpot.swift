@@ -7,7 +7,7 @@
 
 import Foundation
 class ShortTermParkingSpot: ParkingSpot {
-    //protocol for setting times : let user set time interval for each day of the week. 0 is monday, 6 is sunday. Each day has a list of time intervals (in unix time) for the start and end time of the interval.
+    //protocol for setting times : let user set time interval for each day of the week. 0 is sunday, 6 is saturday. Each day has a list of time intervals (in unix time) for the start and end time of the interval.
     var times: [Int: [ParkingTimeInterval]]
     var occupied = [Int: [ParkingTimeInterval]]()
     init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String],reservations: [String], times: [Int: [ParkingTimeInterval]], images: [String], startDate: Int, endDate: Int, directions: String, selfParking: SelfParking) {
