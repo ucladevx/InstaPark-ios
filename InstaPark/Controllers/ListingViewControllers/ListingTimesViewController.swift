@@ -274,11 +274,22 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         infoPopup.removeFromSuperview()
     }
     
+    func setToChecked(for btn: UIButton) {
+        btn.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+        btn.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+    }
+    
+    func setToUnchecked(for btn: UIButton) {
+        btn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
+        btn.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+    }
+    
     @IBAction func weekdaysBtn(_ sender: Any) {
         let timeBtns : [UIButton] = [sundayStart, sundayEnd, saturdayStart, saturdayEnd]
         if weekdaysOnly {
-            weekdaysBtn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
-            weekdaysBtn.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+//            weekdaysBtn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
+//            weekdaysBtn.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+            setToUnchecked(for: weekdaysBtn)
             daysOfWeek[0] = true
             daysOfWeek[6] = true
             for btn in timeBtns {
@@ -286,9 +297,16 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
                 btn.backgroundColor = .clear
             }
             weekdaysOnly = false
+            if advancedOptionsDayStack.isHidden == false {
+                let days: [UIButton] = [sunday, saturday]
+                for day in days {
+                    setToChecked(for: day)
+                }
+            }
         } else {
-            weekdaysBtn.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
-            weekdaysBtn.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+//            weekdaysBtn.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+//            weekdaysBtn.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            setToChecked(for: weekdaysBtn)
             daysOfWeek[0] = false
             daysOfWeek[6] = false
             for btn in timeBtns {
@@ -296,15 +314,23 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
                 btn.backgroundColor =  UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.2)
             }
             weekdaysOnly = true
+            if advancedOptionsDayStack.isHidden == false {
+                let days: [UIButton] = [sunday, saturday]
+                for day in days {
+                    setToUnchecked(for: day)
+                }
+            }
         }
+        refreshCalendar()
         calendar.reloadData()
     }
     
     @IBAction func weekendsBtn(_ sender: Any) {
         let timeBtns : [UIButton] = [mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd]
         if weekendsOnly {
-            weekendsBtn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
-            weekendsBtn.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+//            weekendsBtn.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
+//            weekendsBtn.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+            setToUnchecked(for:weekendsBtn)
             for i in 1...5 {
                 daysOfWeek[i] = true
             }
@@ -313,9 +339,16 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
                 btn.backgroundColor = .clear
             }
             weekendsOnly = false
+            if advancedOptionsDayStack.isHidden == false {
+                let days: [UIButton] = [monday, tuesday, wednesday, thursday, friday]
+                for day in days {
+                    setToChecked(for: day)
+                }
+            }
         } else {
-            weekendsBtn.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
-            weekendsBtn.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+//            weekendsBtn.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+//            weekendsBtn.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            setToChecked(for: weekendsBtn)
             for i in 1...5 {
                 daysOfWeek[i] = false
             }
@@ -324,8 +357,23 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
                 btn.backgroundColor =  UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.2)
             }
             weekendsOnly = true
+            if advancedOptionsDayStack.isHidden == false {
+                let days: [UIButton] = [monday, tuesday, wednesday, thursday, friday]
+                for day in days {
+                    setToUnchecked(for: day)
+                }
+            }
         }
+        refreshCalendar()
         calendar.reloadData()
+    }
+    
+    func refreshCalendar(){
+        for date in calendar.selectedDates {
+            if !shouldSelectDate(for: date) {
+                calendar.deselect(date)
+            }
+        }
     }
     
     @IBAction func accessSwitch(_ sender: Any) {
@@ -351,15 +399,17 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     @IBAction func advancedOptionsBtn(_ sender: Any) {
         if advancedOptionsDayStack.isHidden == true {
-            let days = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
+            let days: [UIButton] = [sunday, monday, tuesday, wednesday, thursday, friday, saturday]
             for i in 0...6 {
                 if daysOfWeek[i] == true {
-                    days[i]!.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
-                    days[i]!.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+//                    days[i].setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+//                    days[i].tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+                    setToChecked(for: days[i])
                 }
                 else {
-                    days[i]!.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
-                    days[i]!.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+//                    days[i].setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
+//                    days[i].tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+                    setToUnchecked(for: days[i])
                 }
             }
             advancedOptionsDayStack.isHidden = false
@@ -374,16 +424,18 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     func changeState(day: Int, button: UIButton, customStartBtn: UIButton, customEndBtn: UIButton){
         if daysOfWeek[day] == false {
-            button.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
-            button.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+//            button.setBackgroundImage(UIImage.init(systemName: "checkmark.square.fill"), for: .normal)
+//            button.tintColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+            setToChecked(for: button)
             daysOfWeek[day] = true
             customStartBtn.isEnabled = true
             customEndBtn.isEnabled = true
             customStartBtn.backgroundColor = .clear
             customEndBtn.backgroundColor = .clear
         } else {
-            button.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
-            button.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+//            button.setBackgroundImage(UIImage.init(systemName: "square"), for: .normal)
+//            button.tintColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.4)
+            setToUnchecked(for: button)
             daysOfWeek[day] = false
             customStartBtn.isEnabled = false
             customEndBtn.isEnabled = false
@@ -391,6 +443,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             customEndBtn.backgroundColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.2)
         }
         print(daysOfWeek)
+        refreshCalendar()
         calendar.reloadData()
     }
     @IBAction func sunday(_ sender: Any) {
