@@ -1076,6 +1076,7 @@
                         <outlet property="totalTitleLabel" destination="XSv-aw-HBZ" id="ID1-Ix-ib8"/>
                         <outlet property="userInfoView" destination="cCB-Qv-sJg" id="b5n-WZ-742"/>
                         <segue destination="IGB-7k-VAN" kind="show" identifier="showReservationConfirmation" id="CmZ-r1-A73"/>
+                        <segue destination="XZo-nB-whM" kind="show" identifier="segueToPaymentPage" id="dU1-Pb-29V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIH-D0-LWr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -5377,7 +5378,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qk-pZ-lpd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2718.840579710145" y="-717.1875"/>
+            <point key="canvasLocation" x="2718" y="-642"/>
         </scene>
         <!--Transactions Booking View Controller-->
         <scene sceneID="Kfs-lf-MI6">
@@ -5932,7 +5933,38 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgD-oh-qEp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="aMM-a3-qSF"/>
             </objects>
-            <point key="canvasLocation" x="2770.0934579439249" y="-1350.3239740820736"/>
+            <point key="canvasLocation" x="2718" y="-1350"/>
+        </scene>
+        <!--Payment View Controller-->
+        <scene sceneID="Jit-jg-0yP">
+            <objects>
+                <viewController id="XZo-nB-whM" customClass="PaymentViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qVg-pc-YOD">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAq-WU-zDn">
+                                <rect key="frame" x="169" y="455" width="90" height="16"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" image="venmo_logo_blue"/>
+                                <connections>
+                                    <action selector="venmoButton:" destination="bhc-C1-NWN" eventType="touchUpInside" id="S5e-Yz-CCV"/>
+                                    <action selector="venmoPayment:" destination="XZo-nB-whM" eventType="touchUpInside" id="lN3-0v-qd5"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hsc-mx-aab"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="yEf-t9-Wj0"/>
+                    <connections>
+                        <outlet property="venmoButton" destination="xAq-WU-zDn" id="TNd-s6-9VR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3WZ-ai-0Wh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <exit id="bhc-C1-NWN" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4365" y="80"/>
         </scene>
     </scenes>
     <designables>
@@ -6005,6 +6037,7 @@
         <image name="reservation-confirmation" width="676" height="512"/>
         <image name="rightPage" width="11" height="14"/>
         <image name="square" catalog="system" width="128" height="114"/>
+        <image name="venmo_logo_blue" width="786" height="149"/>
         <image name="watch" width="512" height="833"/>
         <image name="x" width="12" height="12"/>
         <image name="xmark" catalog="system" width="128" height="113"/>

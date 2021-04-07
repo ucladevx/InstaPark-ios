@@ -454,6 +454,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 // set up saving of long term parking spot here
             }
         } else {
+            self.performSegue(withIdentifier: "segueToPaymentPage", sender: self)
             
 //            START COMMENT
             
