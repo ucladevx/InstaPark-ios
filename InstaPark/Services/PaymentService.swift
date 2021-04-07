@@ -21,6 +21,15 @@ class PaymentService {
         let success: Bool
         let error_message: String
     }
+    static func savePaymentToDatabase(providerId: String, customerId: String, transactionId: String) {
+        let url = URL(string: "https://salty-river-57707.herokuapp.com/savePayment")!
+        var request = URLRequest(url: url)
+        let body: [String:Any] = ["providerId": providerId, "customerId": customerId, transactionId: transactionId]
+        let jsonData = try? JSONSerialization.data(withJSONObject: body)
+        request.httpBody = jsonData;
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    }
     static func postNonceToServer(paymentMethodNonce: String, transactionAmount: Double, completion: @escaping(PaymentError?)->Void) {
         let paymentURL = URL(string: "https://salty-river-57707.herokuapp.com/checkout")!
         var request = URLRequest(url: paymentURL)

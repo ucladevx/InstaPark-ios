@@ -9,7 +9,7 @@ import UIKit
 import MapKit
 import Braintree
 import BraintreeDropIn
-
+import Firebase
 protocol isAbleToReceiveData {
     func pass(start: Date, end: Date, date: Date, cancel: Bool)
 }
@@ -454,45 +454,57 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 // set up saving of long term parking spot here
             }
         } else {
-            ParkingSpotService.getParkingSpotById(self.info.id) {[self] (parkingSpot, error) in
-                if let spot = parkingSpot, let startTime = startTime, let endTime = endTime {
-                    spot.validateTimeSlot(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970)){ success in
-                        if(!success) {
+            
+//            START COMMENT
+            
+//            ParkingSpotService.getParkingSpotById(self.info.id) {[self] (parkingSpot, error) in
+//                if let spot = parkingSpot, let startTime = startTime, let endTime = endTime {
+//                    spot.validateTimeSlot(start: Int(startTime.timeIntervalSince1970), end: Int(endTime.timeIntervalSince1970)){ success in
+//                        if(!success) {
+//
+//                        } else {
                             
-                        } else {
-                            if let paymentResult = paymentResult, let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
-                                print("Sending payment to server");
-                                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
-                                    if error == nil {
-                                        print("Payment Success!")
-                                        switch parkingType {
-                                        case .long:
-                                            print("long")
-                                        case .short:
-                                            if let parkingSpot = spot as? ShortTermParkingSpot {
-                                                TransactionService.saveTransaction(customer: "", provider:self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
-                                                DispatchQueue.main.async {
-                                                    self.performSegue(withIdentifier: "showReservationConfirmation", sender: self)
-                                                }
-                                                
-                                                //                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
-                                                // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
-                                            }
-                                        }
-                                    } else {
-                                        let alert = UIAlertController(title: "Please enter payment information", message: "You must enter payment information before booking a parking spot.", preferredStyle: .alert)
-                                        alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
-                                        self.present(alert, animated: true)
-                                    }
-                                }
-                            } else {
-                                //Alert must choose payment before proceeding
-                            }
-                        }
-                    }
-                }
-            }
+//                            if let paymentResult = paymentResult, let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
+//                                print("Sending payment to server");
+//                                UserService.getUserById(Auth.auth().currentUser!.uid) { (user, error) in
+//                                    if let user = user {
+//                                        PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
+//                                            if error == nil {
+//                                                print("Payment Success!")
+//                                                switch parkingType {
+//                                                case .long:
+//                                                    print("long")
+//                                                case .short:
+//                                                    if let parkingSpot = spot as? ShortTermParkingSpot {
+//                                                        TransactionService.saveTransaction(customer: "", provider:self.info.name, startTime: Int(self.startTime!.timeIntervalSince1970), endTime: Int(self.endTime!.timeIntervalSince1970), address: spot.address, spot: spot)
+//                                                        DispatchQueue.main.async {
+//                                                            self.performSegue(withIdentifier: "showReservationConfirmation", sender: self)
+//                                                        }
+//
+//                                                        //                                            parkingSpot.occupied[weekDay-1]?.append(ParkingTimeInterval(start: Int((self.startTime!.timeIntervalSince1970)), end: Int(self.endTime!.timeIntervalSince1970)))
+//                                                        // ParkingSpotService.reserveParkingSpot(parkingSpot: parkingSpot as ParkingSpot, time: Int(self.endTime!.timeIntervalSince1970))
+//                                                    }
+//                                                }
+//                                            } else {
+//                                                let alert = UIAlertController(title: "Please enter payment information", message: "You must enter payment information before booking a parking spot.", preferredStyle: .alert)
+//                                                alert.addAction(UIAlertAction(title: "Dismiss", style: .default, handler: nil))
+//                                                self.present(alert, animated: true)
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            } else {
+//                                //Alert must choose payment before proceeding
+//                            }
+//                        }
+
+//                    }
+//                }
 //            }
+//            }
+            
+// END COMMENT
+            
             //        else if let paymentResult = paymentResult{
             //            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
             //                print("Sending payment to server");
@@ -624,24 +636,24 @@ extension BookingViewController {
         }
         self.present(dropIn!, animated: true, completion: nil)
     }
-    //function not currently being used
-    func processPayment() {
-        //payment has been selected
-        if let paymentResult = paymentResult{
-            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
-                print("Sending payment to server");
-                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
-                    if error == nil {
-                        print("Payment Success!")
-                    } else {
-                        print(error!.errorMessage())
-                    }
-                }
-            }
-        }else {
-            //payment has not been selected
-        }
-    }
+//    //function not currently being used
+//    func processPayment() {
+//        //payment has been selected
+//        if let paymentResult = paymentResult{
+//            if let paymentMethod = paymentResult.paymentMethod, let total = self.totalPrice {
+//                print("Sending payment to server");
+//                PaymentService.postNonceToServer(paymentMethodNonce: paymentMethod.nonce, transactionAmount: total) { error in
+//                    if error == nil {
+//                        print("Payment Success!")
+//                    } else {
+//                        print(error!.errorMessage())
+//                    }
+//                }
+//            }
+//        }else {
+//            //payment has not been selected
+//        }
+//    }
 }
 extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
