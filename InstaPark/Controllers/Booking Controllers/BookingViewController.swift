@@ -448,6 +448,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                             self.performSegue(withIdentifier: "showReservationConfirmation", sender: self)
                         }
                         ImageService.uploadAllImages(images: self.images, spotID: id)
+                        UserService.saveListingToUser(uid: Auth.auth().currentUser!.uid, spotID: id)
                     }
                 }
             } else {
@@ -668,25 +669,25 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: 327, height: 256)
         } else { //tag view
             var width = 63.0 + 10.0
-            if index == 0 {
-                if self.info.selfParking {
-                    width = (20 * 6) + 30
-                } else {
-                    width = (23 * 6) + 30
+//            if index == 0 {
+//                if self.info.selfParking {
+//                    width = (20 * 6) + 30
+//                } else {
+//                    width = (23 * 6) + 30
+//                }
+//            }
+//            else {
+                if self.info.tags[index].count > 8 {
+                    width = (Double(self.info.tags[index].count) * 5.5) + 30
                 }
-            }
-            else {
-                if self.info.tags[index-1].count > 8 {
-                    width = (Double(self.info.tags[index-1].count) * 5.5) + 30
-                }
-            }
+//            }
             return CGSize(width: CGFloat(width), height: 33)
         }
         
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 2 {
-            return info.tags.count + 1
+            return info.tags.count
         } else {
             if transaction {
                 return info.images.count + 1
@@ -698,21 +699,21 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView.tag == 2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
-            var selfParkingText = "Self-Parking Not Available"
-            if self.info.selfParking {
-                selfParkingText = "Self-Parking Available"
-            }
+//            var selfParkingText = "Self-Parking Not Available"
+//            if self.info.selfParking {
+//                selfParkingText = "Self-Parking Available"
+//            }
             let index = indexPath.row
             var width = 63.0
-            if index == 0 {
-                if self.info.selfParking {
-                    width = (20 * 6) + 20
-                } else {
-                    width = (23 * 6) + 20
-                }
-            }
-            else if self.info.tags[index-1].count > 8 {
-                width = (Double(self.info.tags[index-1].count) * 5.5) + 20.0
+//            if index == 0 {
+//                if self.info.selfParking {
+//                    width = (20 * 6) + 20
+//                } else {
+//                    width = (23 * 6) + 20
+//                }
+//            }
+            if self.info.tags[index].count > 8 {
+                width = (Double(self.info.tags[index].count) * 5.5) + 20.0
             }
             cell.frame.size.width = CGFloat(width)
             cell.frame.size.height = 33
@@ -725,11 +726,11 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
             tag.layer.cornerRadius = 9
 //            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
             tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
-            if index == 0 {
-                tag.text = selfParkingText
-            } else {
-                tag.text = self.info.tags[index-1]
-            }
+//            if index == 0 {
+//                tag.text = selfParkingText
+//            } else {
+                tag.text = self.info.tags[index]
+//            }
             tag.textColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
             tag.font = .systemFont(ofSize: 10)
             tag.textAlignment = .center

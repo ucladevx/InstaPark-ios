@@ -32,4 +32,7 @@ class UserService {
             print("updated key: \(key) to \(data)")
         }
     }
+    static func saveListingToUser(uid: String, spotID: String) {
+        db.collection("User").document(uid).updateData(["parkingSpots": FieldValue.arrayUnion([spotID])])
+    }
 }

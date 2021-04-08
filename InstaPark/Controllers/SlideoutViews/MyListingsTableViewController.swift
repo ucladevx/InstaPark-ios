@@ -74,28 +74,48 @@ class MyListingsTableViewController: UITableViewController,CustomSegmentedContro
             let segControl = CustomSegmentedControl()
             segControl.delegate = self
             DispatchQueue.global(qos: .userInteractive).async {
-                //MARK: Actually implementation needed, this gets all parking spots ever made for testing reasons
-                    ParkingSpotService.getAllParkingSpots(completion: {(a:[ParkingSpot]?,b:Error?) in
-                    if (b == nil && a != nil) {
-                        let spots = a!;
-                        for spot in spots {
-                            if let parkingSpot = spot as? ShortTermParkingSpot {
-                                self.myListings.append(parkingSpot)
+                UserService.getUserById(Auth.auth().currentUser!.uid) { user, error in
+                    if let user = user {
+                        ParkingSpotService.getParkingSpotByIds(user.parkingSpots) { (parkingSpots, error) in
+                            if let parkingSpots = parkingSpots, error == nil {
+                                for spot in parkingSpots {
+                                    if let parkingSpot = spot as? ShortTermParkingSpot {
+                                        self.myListings.append(parkingSpot)
+                                    }
+                                }
+                                DispatchQueue.main.async {
+                                    self.tableView.reloadData()
+                                    if self.refreshControl != nil {
+                                        self.refreshControl!.endRefreshing()
+                                    }
+                                    return
+                                }
                             }
-                        }
-                        print("Reloading listings")
-                        
-                        //MARK: Add booking request retrieval code here
-                        
-                        DispatchQueue.main.async {
-                            self.tableView.reloadData()
-                            if self.refreshControl != nil {
-                                self.refreshControl!.endRefreshing()
-                            }
-                            return
                         }
                     }
-                })
+                    
+                }
+//                    ParkingSpotService.getAllParkingSpots(completion: {(a:[ParkingSpot]?,b:Error?) in
+//                    if (b == nil && a != nil) {
+//                        let spots = a!;
+//                        for spot in spots {
+//                            if let parkingSpot = spot as? ShortTermParkingSpot {
+//                                self.myListings.append(parkingSpot)
+//                            }
+//                        }
+//                        print("Reloading listings")
+//
+//                        //MARK: Add booking request retrieval code here
+//
+//                        DispatchQueue.main.async {
+//                            self.tableView.reloadData()
+//                            if self.refreshControl != nil {
+//                                self.refreshControl!.endRefreshing()
+//                            }
+//                            return
+//                        }
+//                    }
+//                })
             }
         }
         
@@ -144,7 +164,15 @@ class MyListingsTableViewController: UITableViewController,CustomSegmentedContro
                 self.present(nextViewController, animated: true)
             })
             let deleteAction = UIAlertAction(title: "Delete Listing", style: .destructive, handler: {action -> Void in
-                
+                let alert = UIAlertController(title: "Delete Your Lisiting?", message: "This action cannot be undone.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Delete", style: .destructive, handler: { _ in
+                    let parkingSpot = self.myListings[sender.tag]
+                    ParkingSpotService.deleteParkingSpotById(parkingSpot.id)
+                    self.myListings.remove(at: sender.tag)
+                    self.tableView.reloadData()
+                }))
+                self.present(alert, animated: true, completion: nil)
             })
            let cancelAction = UIAlertAction(title: "Cancel", style: .cancel)
            optionMenu.addAction(editAction)
@@ -187,7 +215,11 @@ class MyListingsTableViewController: UITableViewController,CustomSegmentedContro
                 dateFormatter1.dateFormat = "MMMM d"
                 let dateFormatter2 = DateFormatter()
                 dateFormatter2.dateFormat = "h:mm a"
-                cell.dateLabel.text = dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(listing.startDate))) + " - " + dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(listing.endDate)))
+                if listing.startDate == listing.endDate {
+                    cell.dateLabel.text = dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(listing.startDate)))
+                } else {
+                    cell.dateLabel.text = dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(listing.startDate))) + " - " + dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(listing.endDate)))
+                }
                 var time:ParkingTimeInterval!
                 for i in 0..<7 {
                     if listing.times[i] != nil && !listing.times[i]!.isEmpty {

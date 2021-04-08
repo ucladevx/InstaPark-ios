@@ -166,6 +166,53 @@ class ParkingSpotService {
         }
     }
     
+    static func getParkingSpotByIds(_ ids: [String], completion: @escaping([ParkingSpot]?, Error?)->Void) {
+        var parkingSpots = [ParkingSpot]()
+        if(ids.count == 0) {
+            completion(parkingSpots, nil)
+            return
+        }
+        let docRef: Query
+        switch parkingType {
+        case .short:
+            docRef = db.collection(parkingDBName).whereField("super.id", in: ids)
+        case .long:
+            docRef = db.collection("LongTermParkingSpot").whereField("super.id", in: ids)
+        }
+        let _: Void = docRef.getDocuments() { querySnapshot, err in
+            if let err = err {
+                completion(nil, err)
+            } else {
+                for document in querySnapshot!.documents {
+                    print(document.data())
+                    var spot: ShortTermParkingSpot?
+                    switch parkingType {
+                    case .short:
+                        spot = try? ShortTermParkingSpot.init(from: document.data())
+                    case .long:
+                        print("long")
+                        spot = try? ShortTermParkingSpot.init(from: document.data())
+                    }
+                    if let spot = spot {
+                        parkingSpots.append(spot)
+                    }
+                }
+                completion(parkingSpots,nil)
+            }
+            
+        }
+    }
+    
+    static func deleteParkingSpotById(_ id: String) {
+        db.collection(parkingDBName).document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed")
+            }
+        }
+
+    }
 }
 enum ParkingType {
     case short
