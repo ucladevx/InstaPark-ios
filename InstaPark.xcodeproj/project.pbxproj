@@ -44,6 +44,9 @@
 		04AB789C255DCA320090B6E7 /* LongTermParking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04AB789B255DCA320090B6E7 /* LongTermParking.swift */; };
 		2B0F2C1925BA307F008430FF /* PictureUploadViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F2C1825BA307F008430FF /* PictureUploadViewController.swift */; };
 		2B0F2C1E25BA4D9D008430FF /* CommentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B0F2C1D25BA4D9D008430FF /* CommentsViewController.swift */; };
+		2B1066B426178DC000DCCBF8 /* MyListingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1066B326178DC000DCCBF8 /* MyListingsTableViewController.swift */; };
+		2B1066B92617904300DCCBF8 /* MyListingsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1066B82617904300DCCBF8 /* MyListingsTableViewCell.swift */; };
+		2B1066BE2619155100DCCBF8 /* ListingMapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B1066BD2619155100DCCBF8 /* ListingMapViewController.swift */; };
 		2B29F77125BE3BC400E897E7 /* ParkingInfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B29F77025BE3BC300E897E7 /* ParkingInfoView.swift */; };
 		2B2A13FF260D11AA00A0CB03 /* ProximaNova-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A13FE260D11A500A0CB03 /* ProximaNova-Bold.otf */; };
 		2B2A1412260D12FD00A0CB03 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2B2A1407260D12FD00A0CB03 /* OpenSans-SemiBold.ttf */; };
@@ -171,6 +174,9 @@
 		0A3B1D98927989F311CC80D4 /* Pods_InstaPark_InstaParkUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_InstaPark_InstaParkUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B0F2C1825BA307F008430FF /* PictureUploadViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PictureUploadViewController.swift; sourceTree = "<group>"; };
 		2B0F2C1D25BA4D9D008430FF /* CommentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentsViewController.swift; sourceTree = "<group>"; };
+		2B1066B326178DC000DCCBF8 /* MyListingsTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListingsTableViewController.swift; sourceTree = "<group>"; };
+		2B1066B82617904300DCCBF8 /* MyListingsTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyListingsTableViewCell.swift; sourceTree = "<group>"; };
+		2B1066BD2619155100DCCBF8 /* ListingMapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListingMapViewController.swift; sourceTree = "<group>"; };
 		2B29F77025BE3BC300E897E7 /* ParkingInfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingInfoView.swift; sourceTree = "<group>"; };
 		2B2A13FE260D11A500A0CB03 /* ProximaNova-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "ProximaNova-Bold.otf"; sourceTree = "<group>"; };
 		2B2A1407260D12FD00A0CB03 /* OpenSans-SemiBold.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "OpenSans-SemiBold.ttf"; sourceTree = "<group>"; };
@@ -353,6 +359,7 @@
 				2B4B911525EC6FF30040A7C2 /* PictureSlide.swift */,
 				2B4B911A25EC70070040A7C2 /* PictureSlide.xib */,
 				9463F23F25F06B4000DF7F65 /* CustomSegmentedControl.swift */,
+				2B1066B82617904300DCCBF8 /* MyListingsTableViewCell.swift */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -419,6 +426,8 @@
 				94F8455125E7390C00F3BC85 /* TransactionsBookingViewController.swift */,
 				0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */,
 				9463F24A2603BCFB00DF7F65 /* HelpViewController.swift */,
+				2B1066B326178DC000DCCBF8 /* MyListingsTableViewController.swift */,
+				2B1066BD2619155100DCCBF8 /* ListingMapViewController.swift */,
 			);
 			path = SlideoutViews;
 			sourceTree = "<group>";
@@ -846,6 +855,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B1066B92617904300DCCBF8 /* MyListingsTableViewCell.swift in Sources */,
 				0410B190254A49F7001C4D27 /* LoginViewController.swift in Sources */,
 				0410B195254A4A08001C4D27 /* SignupViewController.swift in Sources */,
 				945E02F225D8C74A00741BDD /* BookingTagCollectionCell.swift in Sources */,
@@ -857,6 +867,7 @@
 				9463F24B2603BCFB00DF7F65 /* HelpViewController.swift in Sources */,
 				2BD6E15825C4EDE000E4A88F /* UploadSlideView.swift in Sources */,
 				B4D29FAE2560AD6A0092CBB4 /* DesignableTextField.swift in Sources */,
+				2B1066BE2619155100DCCBF8 /* ListingMapViewController.swift in Sources */,
 				0410B11E2548D8E9001C4D27 /* ViewController.swift in Sources */,
 				9404764D254CEABC008C111E /* ParkingSpaceMapAnnotation.swift in Sources */,
 				9451680E25B91A6000939551 /* ListingTimesViewController.swift in Sources */,
@@ -902,6 +913,7 @@
 				2B97AF1A25C3736E002950A9 /* ParkingTypeViewController.swift in Sources */,
 				045FF1BE2573854A00DC7327 /* UIButtonExtension.swift in Sources */,
 				0482FE80255CB13A002F522E /* User.swift in Sources */,
+				2B1066B426178DC000DCCBF8 /* MyListingsTableViewController.swift in Sources */,
 				0449E5A125AD6F3D00F0EED9 /* PaymentService.swift in Sources */,
 				0482FEA8255CB2D6002F522E /* ReservationModalViewController.swift in Sources */,
 				94DFA7AC25C1204800A371E8 /* ImageService.swift in Sources */,
