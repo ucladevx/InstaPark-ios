@@ -15,7 +15,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     
     var blackInfoView: UIView!
     
-    @IBOutlet weak var timeSegmentedControl: UIView!
+//    @IBOutlet weak var timeSegmentedControl: UIView!
     @IBOutlet weak var timeSegmentDescription: UILabel!
     var tabs: CustomSegmentedControl!
     @IBOutlet weak var segmentedView: UIView!
@@ -124,10 +124,10 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         blackInfoView = UIView()
         
         
-        tabs = CustomSegmentedControl(frame: CGRect(x: 0, y: 0, width: self.timeSegmentedControl.frame.width, height: 35), buttonTitle: ["STANDARD","CUSTOM"])
-        tabs.backgroundColor = .clear
-        tabs.delegate = self
-        self.timeSegmentedControl.addSubview(tabs)
+//        tabs = CustomSegmentedControl(frame: CGRect(x: 0, y: 0, width: self.timeSegmentedControl.frame.width, height: 35), buttonTitle: ["STANDARD","CUSTOM"])
+//        tabs.backgroundColor = .clear
+//        tabs.delegate = self
+//        self.timeSegmentedControl.addSubview(tabs)
         timeSegmentDescription.textColor = .darkGray
         
         advancedOptionsDayStack.isHidden = true
@@ -380,7 +380,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         twentyFourHourAccess = !twentyFourHourAccess
         if(!twentyFourHourAccess) {
             timeSegmentDescription.isHidden = false
-            timeSegmentedControl.isHidden = false
+//            timeSegmentedControl.isHidden = false
             segmentedView.isHidden = false
 //            startEndLabels.isHidden = false
 //            startScroller.isHidden = false
@@ -392,7 +392,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
 //            endScroller.isHidden = true
 //            arrow.isHidden = true
             timeSegmentDescription.isHidden = true
-            timeSegmentedControl.isHidden = true
+//            timeSegmentedControl.isHidden = true
             segmentedView.isHidden = true
         }
     }

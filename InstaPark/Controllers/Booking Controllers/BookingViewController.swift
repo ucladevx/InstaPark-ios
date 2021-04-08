@@ -448,6 +448,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                             self.performSegue(withIdentifier: "showReservationConfirmation", sender: self)
                         }
                         ImageService.uploadAllImages(images: self.images, spotID: id)
+                        UserService.saveListingToUser(uid: Auth.auth().currentUser!.uid, spotID: id)
                     }
                 }
             } else {
