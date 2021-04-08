@@ -5962,6 +5962,35 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3WZ-ai-0Wh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="CSF-3C-TTG">
+                    <rect key="frame" x="0.0" y="0.0" width="250" height="200"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="jEx-xe-7LI">
+                            <rect key="frame" x="115" y="90" width="20" height="20"/>
+                        </activityIndicatorView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verifying Payment ..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLD-Qr-gic">
+                            <rect key="frame" x="47" y="130" width="156" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ov7-mx-xdR">
+                            <rect key="frame" x="59" y="159" width="132" height="30"/>
+                            <state key="normal" title="Cancel Transaction"/>
+                        </button>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="XVM-di-H98"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="ov7-mx-xdR" firstAttribute="centerX" secondItem="CSF-3C-TTG" secondAttribute="centerX" id="CNh-gh-PBC"/>
+                        <constraint firstItem="aLD-Qr-gic" firstAttribute="top" secondItem="jEx-xe-7LI" secondAttribute="bottom" constant="20" id="Hx3-vX-0lU"/>
+                        <constraint firstItem="jEx-xe-7LI" firstAttribute="centerX" secondItem="CSF-3C-TTG" secondAttribute="centerX" id="MZh-zB-VIS"/>
+                        <constraint firstItem="aLD-Qr-gic" firstAttribute="centerX" secondItem="CSF-3C-TTG" secondAttribute="centerX" id="ccq-NY-U2M"/>
+                        <constraint firstItem="ov7-mx-xdR" firstAttribute="top" secondItem="aLD-Qr-gic" secondAttribute="bottom" constant="8" symbolic="YES" id="htO-ei-OJ5"/>
+                        <constraint firstItem="jEx-xe-7LI" firstAttribute="centerY" secondItem="CSF-3C-TTG" secondAttribute="centerY" id="nBm-Wl-lki"/>
+                    </constraints>
+                </view>
                 <exit id="bhc-C1-NWN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
             <point key="canvasLocation" x="4365" y="80"/>

@@ -55,7 +55,7 @@ class TransactionService {
         if let user = Auth.auth().currentUser {
             print(user.uid)
             let docRef = db.collection("Transaction").document()
-            let transaction = Transaction(id: docRef.documentID, customer: customer, startTime: startTime, endTime: endTime, address: address, fromParkingSpot: spot)
+            let transaction = Transaction(id: docRef.documentID, customer: customer, startTime: startTime, endTime: endTime, fromParkingSpot: spot)
             docRef.setData(transaction.dictionary)
             db.collection("User").document(user.uid).updateData(["transactions": FieldValue.arrayUnion([transaction.id])])
             print("Transaction information: ")

@@ -8,18 +8,51 @@
 import UIKit
 
 class PaymentViewController: UIViewController {
-    
     @IBOutlet weak var venmoButton: UIButton!
+    var orderCode: String?
+    var transaction: Transaction?
+    var paymentCompleted = false
     @IBAction func venmoPayment(_ sender: Any) {
 //        let url = URL(string: "venmo://users/60573933")
-        let orderCode = generateOrderCode()
-        let url = URL(string: "venmo://paycharge?txn=pay&recipients=claireez&amount=10&note=Sparke: Parking for Westwood #"+orderCode)
-        UIApplication.shared.open(url!, options: [:], completionHandler: nil)
+        orderCode = generateOrderCode()
+        let url = URL(string: "venmo://paycharge?txn=pay&recipients=claireez&amount=10&note=Sparke: Parking for Westwood #"+orderCode!)
+        UIApplication.shared.open(url!, options: [:], completionHandler: doVerificationProcess)
     }
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
+    }
+    func doVerificationProcess(success: Bool) {
+        if(success) {
+            while(!paymentCompleted) {
+                let seconds = 4.0
+                DispatchQueue.global(qos: .utility).asyncAfter(deadline: .now() + seconds) {
+                    self.sendVerificationRequest()
+                }
+            }
+        }
+    }
+    func sendVerificationRequest() {
+        if let transaction = transaction {
+            let requestURL = URL(string: "http://localhost:3000/validatePayment")
+            var request = URLRequest(url: requestURL!)
+            let body: [String:Any] = [
+                "orderCode": orderCode,
+                "amount": transaction.total,
+                "providerId": transaction.provider,
+                "customerId": transaction.customer
+            ]
+            let jsonData = try? JSONSerialization.data(withJSONObject: body)
+            request.httpBody = jsonData
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            URLSession.shared.dataTask(with: request) {(data, response, error) in
+                if let data = data {
+                    print(data)
+                }
+            }
+        }
     }
     func generateOrderCode() -> String{
         let allowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"

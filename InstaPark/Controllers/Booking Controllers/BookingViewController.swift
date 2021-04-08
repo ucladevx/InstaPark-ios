@@ -540,7 +540,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        if let vc = segue.destination as? PaymentViewController {
+            vc.transaction = Transaction(id: "", customer: Auth.auth().currentUser!.uid, startTime: 0, endTime: 0, fromParkingSpot: ShortTermParking)
+        }
         if let vc = segue.destination as? AvailabilityViewController {
             vc.delegate = self
             if (startTime != nil && endTime != nil && startDate != nil)
