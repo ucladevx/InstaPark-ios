@@ -79,7 +79,7 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         
         let co = Coordinate(lat: 0.0, long: 0.0)
         
-        let park = ParkingSpot(id: "", address: addy, coordinates: co, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp)
+        let park = ParkingSpot(id: "", address: addy, coordinates: co, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp, approvedReservations: [])
         
         let tr = Transaction(id: "1", customer: "Joe Bruin", startTime: 0, endTime: 0, address: addy, fromParkingSpot: park)
         requests.append(tr)
@@ -97,7 +97,7 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         
         let co1 = Coordinate(lat: 0.0, long: 0.0)
         
-        let park1 = ParkingSpot(id: "", address: addy1, coordinates: co1, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp1)
+        let park1 = ParkingSpot(id: "", address: addy1, coordinates: co1, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp1, approvedReservations: [])
         
         let tr1 = Transaction(id: "1", customer: "Bob Bruin", startTime: 0, endTime: 0, address: addy, fromParkingSpot: park1)
         requests.append(tr1)
