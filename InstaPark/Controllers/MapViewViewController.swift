@@ -849,12 +849,12 @@ extension MapViewViewController: MKMapViewDelegate {
             
             //set up tags
             self.selectedAnnotationTags = parkingSpace.tags
-            if parkingSpace.selfParking {
-                self.selectedAnnotationTags.insert("Self-Parking Available", at: 0)
-            }
-            else {
-                self.selectedAnnotationTags.insert("Self-Parking Not Available", at: 0)
-            }
+//            if parkingSpace.selfParking {
+//                self.selectedAnnotationTags.insert("Self-Parking Available", at: 0)
+//            }
+//            else {
+//                self.selectedAnnotationTags.insert("Self-Parking Not Available", at: 0)
+//            }
             
             self.selectedImages = parkingSpace.images
             tagCollectionView.reloadData()

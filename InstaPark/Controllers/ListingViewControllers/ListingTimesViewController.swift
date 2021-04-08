@@ -16,7 +16,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     var blackInfoView: UIView!
     
 //    @IBOutlet weak var timeSegmentedControl: UIView!
-    @IBOutlet weak var timeSegmentDescription: UILabel!
+//    @IBOutlet weak var timeSegmentDescription: UILabel!
     var tabs: CustomSegmentedControl!
     @IBOutlet weak var segmentedView: UIView!
     @IBOutlet var standardTimeView: UIView!
@@ -128,7 +128,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
 //        tabs.backgroundColor = .clear
 //        tabs.delegate = self
 //        self.timeSegmentedControl.addSubview(tabs)
-        timeSegmentDescription.textColor = .darkGray
+//        timeSegmentDescription.textColor = .darkGray
         
         advancedOptionsDayStack.isHidden = true
         advancedOptionsCheckStack.isHidden = true
@@ -198,8 +198,12 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         let customStartTime = customStartScroller.selectedRow(inComponent: 0) * (15*60)
         let customEndTime = customEndScroller.selectedRow(inComponent: 0) * (15*60)
         
-        self.segmentedView.addSubview(standardTimeView)
-        standardTimeView.frame =  CGRect(x: 0, y: 0, width: self.segmentedView.frame.width, height: 210)
+//        self.segmentedView.addSubview(standardTimeView)
+//        standardTimeView.frame =  CGRect(x: 0, y: 0, width: self.segmentedView.frame.width, height: 210)
+        self.segmentedView.addSubview(customTimeView)
+        customTimeView.frame =  CGRect(x: 0, y: 0, width: self.customTimeView.frame.width, height: 300)
+        customTimeView.center.x = segmentedView.center.x
+        standardTime = false
         let timeBtns = [sundayStart, sundayEnd, mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd]
         var count = 0
         for btn in timeBtns {
@@ -379,7 +383,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     @IBAction func accessSwitch(_ sender: Any) {
         twentyFourHourAccess = !twentyFourHourAccess
         if(!twentyFourHourAccess) {
-            timeSegmentDescription.isHidden = false
+//            timeSegmentDescription.isHidden = false
 //            timeSegmentedControl.isHidden = false
             segmentedView.isHidden = false
 //            startEndLabels.isHidden = false
@@ -391,7 +395,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
 //            startScroller.isHidden = true
 //            endScroller.isHidden = true
 //            arrow.isHidden = true
-            timeSegmentDescription.isHidden = true
+//            timeSegmentDescription.isHidden = true
 //            timeSegmentedControl.isHidden = true
             segmentedView.isHidden = true
         }
@@ -650,15 +654,15 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     func change(to index: Int) {
         if index == 0 {
             customTimeView.removeFromSuperview()
-            timeSegmentDescription.text = "Standard means the daily time frame does not change between different days."
-            timeSegmentDescription.textAlignment = .left
+//            timeSegmentDescription.text = "Standard means the daily time frame does not change between different days."
+//            timeSegmentDescription.textAlignment = .left
             self.segmentedView.addSubview(standardTimeView)
             standardTimeView.frame =  CGRect(x: 0, y: 0, width: self.segmentedView.frame.width, height: 210)
             standardTime = true
         } else {
             standardTimeView.removeFromSuperview()
-            timeSegmentDescription.text = "Custom allows for different time frames for each day."
-            timeSegmentDescription.textAlignment = .center
+//            timeSegmentDescription.text = "Custom allows for different time frames for each day."
+//            timeSegmentDescription.textAlignment = .center
             self.segmentedView.addSubview(customTimeView)
             customTimeView.frame =  CGRect(x: 0, y: 0, width: self.customTimeView.frame.width, height: 300)
             customTimeView.center.x = segmentedView.center.x
