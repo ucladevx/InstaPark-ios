@@ -230,7 +230,7 @@ class MyListingsTableViewController: UITableViewController,CustomSegmentedContro
                 cell.timeLabel.text =  dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(time.start)))
                     + " - " +  dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(time.end)))
                 cell.addressLabel.text = listing.address.street + " " + listing.address.city + " " + listing.address.state + " " + listing.address.zip
-                cell.priceLabel.text = "$"+String(format: "%.2f", listing.pricePerHour)
+                cell.priceLabel.text = "$"+String(format: "%.2f", listing.pricePerHour) + "/hr"
                 cell.optionsButton.addTarget(self, action: #selector(options), for: .touchUpInside)
                 cell.optionsButton.tag = indexPath.row
                 return cell

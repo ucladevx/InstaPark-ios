@@ -35,11 +35,14 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
-   
+    @IBOutlet weak var directionsOutlineView: UIView!
+    
     var bookmarkFlag = false
     var transaction = false
 
     var images = [UIImage]()
+    
+    var upcomingSpot = false
     
     
     @IBOutlet weak var commentsLabel: UILabel!
@@ -230,22 +233,36 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
             availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
             availabilityLabel.isEnabled = false
             
-            timeFrameTitleLabel.text = "LAST BOOKED"
+            timeFrameTitleLabel.text = "TIME FRAME"
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
             
             reserveButton.isEnabled = false
-            reserveButton.setTitle("Book Again", for: .normal)
+            reserveButton.setTitle("Reserve Again", for: .normal)
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
             reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+            
+            
+            if upcomingSpot, directions != nil, !directions.isEmpty{
+                directionsOutlineView.layer.borderWidth = 1
+                directionsOutlineView.layer.borderColor = CGColor.init(red: 143.0/255.0, green: 0.0, blue: 1.0, alpha: 1.0)
+                print("upcoming")
+            } else {
+                directionsOutlineView.isHidden = true
+            }
         }
         // just browsing
         else {
             availabilityLabel.setTitle("To book, go back to select a specific time frame!", for: .normal)
             reserveButton.isEnabled = false
             availabilityLabel.isEnabled = false
+            reserveButton.isHidden = true
+            directionsOutlineView.layer.borderWidth = 1
+            directionsOutlineView.layer.borderColor = CGColor.init(red: 143.0/255.0, green: 0.0, blue: 1.0, alpha: 1.0)
+            totalLabel.isHidden = true
+            totalTitleLabel.isHidden = true
         }
         
         

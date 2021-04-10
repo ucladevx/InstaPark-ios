@@ -295,10 +295,10 @@ extension hourlyTimeViewController: FSCalendarDelegate, FSCalendarDataSource, FS
         }
     }
     
-//    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-//        monthPosition == .current
-//        return true
-//    }
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        return date >= yesterday
+    }
     
     private func configureVisibleCells() {
             calendar.visibleCells().forEach { (cell) in
