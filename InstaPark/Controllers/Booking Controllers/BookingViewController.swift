@@ -133,10 +133,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
         cost.append(price_string)
         
-        var perHour = "/hour"
-        if price_string.length > 4 {
-            perHour = "/hr"
-        }
+        var perHour = "/hr"
         let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 16)]
         let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
         cost.append(hour_string)
@@ -267,7 +264,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
             reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
-            
+            reserveButton.setTitle("Confirm Reservation", for: .normal)
             
             reserveButton.isEnabled = true
         }
@@ -455,7 +452,6 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 // set up saving of long term parking spot here
             }
         } else {
-            
 //            START COMMENT
             
 //            ParkingSpotService.getParkingSpotById(self.info.id) {[self] (parkingSpot, error) in
@@ -540,7 +536,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+        let navigationController = segue.destination
+        navigationController.modalPresentationStyle = .fullScreen
         if let vc = segue.destination as? AvailabilityViewController {
             vc.delegate = self
             if (startTime != nil && endTime != nil && startDate != nil)
@@ -562,8 +559,26 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         if let vc = segue.destination as? ReservationConfirmationViewController {
             vc.address = addressLabel.text!
-            vc.time = availabilityLabel.titleLabel!.text!
+//            vc.time = availabilityLabel.titleLabel!.text!
             vc.listing = listing
+            
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "MMMM d"
+            let startday = formatter1.string(from: info.startDate ?? Date())
+            var endday = ""
+            if info.endDate != nil {
+                let formatter1b = DateFormatter()
+                formatter1b.dateFormat = "d yyyy"
+                endday = formatter1b.string(from: info.endDate ?? Date())
+                endday = "-" + endday
+            }
+            vc.date = startday + endday
+            
+            let formatter2 = DateFormatter()
+            formatter2.dateFormat = "h:mm a"
+            let startString = formatter2.string(from: startTime! as Date)
+            let endString = formatter2.string(from: endTime! as Date)
+            vc.time = startString + " to " + endString
         }
     }
     

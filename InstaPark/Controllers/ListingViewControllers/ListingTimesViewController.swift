@@ -195,8 +195,8 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         endScroller.selectRow(start+4, inComponent: 0, animated: false)
         customStartScroller.selectRow(start, inComponent: 0, animated: false)
         customEndScroller.selectRow(start+4, inComponent: 0, animated: false)
-        let customStartTime = customStartScroller.selectedRow(inComponent: 0) * (15*60)
-        let customEndTime = customEndScroller.selectedRow(inComponent: 0) * (15*60)
+        let customStartTime = getEpochTime(row: customStartScroller.selectedRow(inComponent: 0))//customStartScroller.selectedRow(inComponent: 0) * (15*60)
+        let customEndTime = getEpochTime(row: customEndScroller.selectedRow(inComponent: 0))//customEndScroller.selectedRow(inComponent: 0) * (15*60)
         
 //        self.segmentedView.addSubview(standardTimeView)
 //        standardTimeView.frame =  CGRect(x: 0, y: 0, width: self.segmentedView.frame.width, height: 210)
@@ -644,11 +644,26 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         currentStartTimeView.setTitle(timeRange[self.customStartScroller.selectedRow(inComponent: 0)], for: .normal)
         currentEndTimeView.setTitle(timeRange[self.customEndScroller.selectedRow(inComponent: 0)], for: .normal)
         
-        let customStartTime = customStartScroller.selectedRow(inComponent: 0) * (15*60)
-        let customEndTime = customEndScroller.selectedRow(inComponent: 0) * (15*60)
+        let customStartTime = getEpochTime(row: customStartScroller.selectedRow(inComponent: 0))//customStartScroller.selectedRow(inComponent: 0) * (15*60)
+        let customEndTime = getEpochTime(row: customEndScroller.selectedRow(inComponent: 0))//customEndScroller.selectedRow(inComponent: 0) * (15*60)
         customTimes[selectedDayOfWeek!] = [ParkingTimeInterval(start: customStartTime, end: customEndTime)]
                 
         self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    func setUserTimeZoneTime(hour: Int, minute: Int) -> Date {
+        return Calendar.current.date(bySettingHour: hour, minute: minute, second: 0, of: Date())!
+    }
+    
+    func getEpochTime(row: Int) -> Int {
+        let userTimeZoneTime = setUserTimeZoneTime(hour: row/4, minute: (row%4) * 15)
+        let delta = TimeInterval(-1 * TimeZone.current.secondsFromGMT())
+        let UTCTime = userTimeZoneTime.addingTimeInterval(delta)
+  
+        let hour = Calendar.current.component(.hour, from: UTCTime)
+        let minutes = Calendar.current.component(.minute, from: UTCTime)
+        print("\(hour): \(minutes)")
+        return (hour * 3600) + (minutes * 60)
     }
     
     func change(to index: Int) {

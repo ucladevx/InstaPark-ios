@@ -246,6 +246,9 @@ class TransactionTableViewController: UITableViewController, CustomSegmentedCont
                 nextViewController.total = transaction.total
                 nextViewController.provider = parkingSpot.provider
                 nextViewController.directions = parkingSpot.selfParking.specificDirections
+                if self?.upcomingTab == true {
+                    nextViewController.upcomingSpot = true
+                }
                 
                 let dateFormatter1 = DateFormatter()
                 dateFormatter1.dateFormat = "MMMM d"

@@ -132,9 +132,9 @@ class MapViewViewController: ViewController, passFromProfile{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("MapKit did load")
-        if shortTermStartTime == nil || shortTermEndTime == nil {
-            setUpTimePopup()
-        }
+//        if shortTermStartTime == nil || shortTermEndTime == nil {
+//            setUpTimePopup()
+//        }
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -332,7 +332,12 @@ class MapViewViewController: ViewController, passFromProfile{
     }
     
     @IBAction func timeFrameBtn(_ sender: Any) {
-        setUpTimePopup() 
+//        setUpTimePopup()
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "hourlyTimeView") as! hourlyTimeViewController
+        nextViewController.modalPresentationStyle = .fullScreen
+        nextViewController.modalTransitionStyle = .coverVertical
+        self.present(nextViewController, animated: true, completion: nil)
     }
     @IBAction func reserveBtn(_ sender: UIButton) {
         let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
@@ -840,7 +845,7 @@ extension MapViewViewController: MKMapViewDelegate {
             let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
             cost.append(price_string)
             
-            let perHour = " per hour"
+            let perHour = "/hr"
             let hour_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Medium", size: 16)]
             let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
             cost.append(hour_string)
