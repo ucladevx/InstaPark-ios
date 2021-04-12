@@ -30,7 +30,7 @@ class ListingMapViewController: UIViewController {
         let viewLocation = MKCoordinateRegion(center: coord, span: span)
         mapView.setRegion(viewLocation, animated: true)
         
-        let annotation = ParkingSpaceMapAnnotation(id: "", name: "", email: "", phoneNumber: "", photo: "", coordinate: coord, price: price, address: Address(city: "", state: "", street: "", zip: ""), tags: [""], comments: "",startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: [""], selfParking: false)
+        let annotation = ParkingSpaceMapAnnotation(id: "", name: "", email: "", phoneNumber: "", photo: "", coordinate: coord, price: price, address: Address(city: "", state: "", street: "", zip: ""), tags: [""], comments: "",startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: [""], selfParking: SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections: ""))
         mapView.addAnnotation(annotation)
     }
 
