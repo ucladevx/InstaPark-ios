@@ -67,6 +67,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: false)
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
+    
     var total = 0.0
     var startDate: Date? = nil
     var startTime: Date? = nil
@@ -454,7 +455,13 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 // set up saving of long term parking spot here
             }
         } else {
-            self.performSegue(withIdentifier: "segueToPaymentPage", sender: self)
+            ParkingSpotService.getParkingSpotById(self.info.id) { parkingSpot, error in
+                if let parkingSpot = parkingSpot, let startTime = self.startTime, let endTime = self.endTime {
+                    self.ShortTermParking = parkingSpot as? ShortTermParkingSpot;
+                    self.performSegue(withIdentifier: "segueToPaymentPage", sender: self)
+                }
+            }
+           
             
 //            START COMMENT
             
@@ -541,7 +548,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? PaymentViewController {
-            vc.transaction = Transaction(id: "", customer: Auth.auth().currentUser!.uid, startTime: 0, endTime: 0, fromParkingSpot: ShortTermParking)
+            if let startTime = startTime, let endTime = endTime {
+                vc.transaction = Transaction(id: "", customer: Auth.auth().currentUser!.uid, startTime:Int(startTime.timeIntervalSince1970) , endTime: Int(endTime.timeIntervalSince1970), fromParkingSpot: self.ShortTermParking)
+            }
         }
         if let vc = segue.destination as? AvailabilityViewController {
             vc.delegate = self

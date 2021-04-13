@@ -160,7 +160,7 @@ class ParkingSpotService {
         // save parking spot information as transaction
         let docRef = db.collection("Transaction").document()
         if let user = Auth.auth().currentUser {
-            let transaction = Transaction.init(id: docRef.documentID, customer: user.uid, startTime: startTime, endTime: endTime, address: parkingSpot.address, fromParkingSpot: parkingSpot)
+            let transaction = Transaction.init(id: docRef.documentID, customer: user.uid, startTime: startTime, endTime: endTime, fromParkingSpot: parkingSpot)
             docRef.setData(transaction.dictionary)
             db.collection("ParkingSpot").document(parkingSpot.id).updateData(["reservations": FieldValue.arrayUnion([docRef.documentID])])
         }
