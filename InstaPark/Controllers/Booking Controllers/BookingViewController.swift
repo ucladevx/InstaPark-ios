@@ -38,7 +38,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
-   // @IBOutlet weak var tagStack: UIStackView!
+    @IBOutlet var accessPhoto: UIImageView!
+    @IBOutlet var accessTitle: UILabel!
+    @IBOutlet var accessInfo: UILabel!
+    // @IBOutlet weak var tagStack: UIStackView!
     var bookmarkFlag = false
     var transaction = false
     
@@ -64,7 +67,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: false)
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections: ""))
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
@@ -132,14 +135,32 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 23)]
         let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
         cost.append(price_string)
-        
-        var perHour = "/hr"
+        let perHour = "/hr"
         let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 16)]
         let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
         cost.append(hour_string)
         
         priceLabel.attributedText = cost
         
+        //set up access view
+        switch info.selfParking.selfParkingMethod {
+        case "remote":
+            accessPhoto.image = UIImage(named: "remote")
+            accessTitle.text = "Remote Access"
+            accessInfo.text = "The seller will give you a remote to access this spot."
+        case "key":
+            accessPhoto.image = UIImage(named: "key2")
+            accessTitle.text = "Key Access"
+            accessInfo.text = "The seller will give you a key to access this spot."
+        case "code":
+            accessPhoto.image = UIImage(named: "code")
+            accessTitle.text = "Code Access"
+            accessInfo.text = "The seller will give you a code to access this spot."
+        default:
+            accessPhoto.image = UIImage(named: "open")
+            accessTitle.text = "Open Access"
+            accessInfo.text = "Nothing is needed to access this spot."
+        }
         
 //        for tag in tags {
 //            tag.layer.borderWidth = 1.5

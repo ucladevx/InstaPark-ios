@@ -11,32 +11,7 @@ class SelfParkingViewController: UIViewController, UITextViewDelegate {
     var parkingType = ParkingType.short
     var ShortTermParking: ShortTermParkingSpot!
     @IBOutlet var hidden: [UIView]!
-    @IBOutlet weak var selfParkingAvailableButton: UIButton!
-    
-    @IBOutlet weak var selfParkingUnavailableButton: UIButton!
-    @IBOutlet weak var selectionDetailsText: UILabel!
-    var selectedSelfParking = false
-    @IBAction func selfParkingSelect(_ sender: UIButton) {
-        if(!selectedSelfParking) {
-            for view in hidden {
-                view.isHidden = false
-            }
-        }
-        selectedSelfParking = true
-        for btn in selfParkingRadioButtons! {
-            btn.setImage(UIImage(), for: .normal)
-            btn.tintColor = UIColor.darkGray
-        }
-        sender.tintColor = UIColor(red: 183/255, green: 91/255, blue: 1, alpha: 1)
-        sender.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-        if sender == selfParkingAvailableButton {
-            ShortTermParking.selfParking.hasSelfParking = true
-            selectionDetailsText.text = "Any details to access your parking spot will be sent automatically after a reservation request."
-        } else {
-            ShortTermParking.selfParking.hasSelfParking = false
-            selectionDetailsText.text = "Booking transactions will be held until you accept and confirm booking reservation requests."
-        }
-    }
+
     @IBOutlet weak var remoteAccessButton: UIButton!
     @IBOutlet weak var codeAccessButton: UIButton!
     @IBOutlet weak var keyAccessButton: UIButton!
@@ -50,25 +25,23 @@ class SelfParkingViewController: UIViewController, UITextViewDelegate {
         }
         sender.tintColor = UIColor(red: 183/255, green: 91/255, blue: 1, alpha: 1)
         sender.setImage(UIImage(systemName: "circle.fill"), for: .normal)
-        ShortTermParking.selfParking.selfParkingMethod = sender.value(forKey: "tag") as? String ?? ""
+        switch sender.tag {
+        case 0:
+            ShortTermParking.selfParking.selfParkingMethod = "remote"
+        case 1:
+            ShortTermParking.selfParking.selfParkingMethod = "code"
+        case 2:
+            ShortTermParking.selfParking.selfParkingMethod = "key"
+        default:
+            ShortTermParking.selfParking.selfParkingMethod = "open"
+        }
     }
     @IBOutlet weak var specificDirectionsInput: UITextView!
     @IBOutlet weak var wordCount: UILabel!
-    var selfParkingRadioButtons:[UIButton]?
     var accessRadioButtons:[UIButton]?
     override func viewDidLoad() {
-        for view in hidden {
-            view.isHidden = true
-        }
-        selfParkingRadioButtons = [selfParkingAvailableButton, selfParkingUnavailableButton]
         accessRadioButtons = [remoteAccessButton, codeAccessButton, keyAccessButton, otherAccessButton]
         super.viewDidLoad()
-        for btn in selfParkingRadioButtons! {
-            btn.layer.cornerRadius = btn.frame.width/2
-            btn.layer.borderWidth = 1
-            btn.layer.borderColor = UIColor(red: 0.429, green: 0.429, blue: 0.429, alpha: 1).cgColor
-            btn.imageEdgeInsets = UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1)
-        }
         for btn in accessRadioButtons! {
             btn.layer.cornerRadius = btn.frame.width/2
             btn.layer.borderWidth = 1
@@ -83,7 +56,7 @@ class SelfParkingViewController: UIViewController, UITextViewDelegate {
     }
     func checkBeforeMovingPages() -> Bool {
         ShortTermParking.selfParking.specificDirections = specificDirectionsInput.text
-        if(selectedSelfParking && selectedAccess) {
+        if(selectedAccess) {
             return true;
         } else {
             let alert = UIAlertController(title: "Error", message: "Please fill out self driving & access options.", preferredStyle: .alert)

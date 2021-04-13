@@ -36,6 +36,9 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
     @IBOutlet weak var directionsOutlineView: UIView!
+    @IBOutlet var accessPhoto: UIImageView!
+    @IBOutlet var accessTitle: UILabel!
+    @IBOutlet var accessInfo: UILabel!
     
     var bookmarkFlag = false
     var transaction = false
@@ -55,7 +58,7 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: false)
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: SelfParking(hasSelfParking: false, selfParkingMethod:"", specificDirections: ""))
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
@@ -90,6 +93,26 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
         
         if directions != nil {
             directionsLabel.text = directions
+        }
+        
+        //set up access view
+        switch info.selfParking.selfParkingMethod {
+        case "remote":
+            accessPhoto.image = UIImage(named: "remote")
+            accessTitle.text = "Remote Access"
+            accessInfo.text = "The seller will give you a remote to access this spot."
+        case "key":
+            accessPhoto.image = UIImage(named: "key2")
+            accessTitle.text = "Key Access"
+            accessInfo.text = "The seller will give you a key to access this spot."
+        case "code":
+            accessPhoto.image = UIImage(named: "code")
+            accessTitle.text = "Code Access"
+            accessInfo.text = "The seller will give you a code to access this spot."
+        default:
+            accessPhoto.image = UIImage(named: "open")
+            accessTitle.text = "Open Access"
+            accessInfo.text = "Nothing is needed to access this spot."
         }
         
         //shadow for user info view
