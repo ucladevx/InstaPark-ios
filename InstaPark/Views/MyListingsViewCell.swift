@@ -14,8 +14,8 @@ class MyListingsViewCell: UITableViewCell {
     @IBOutlet weak var address: UILabel!
     @IBOutlet weak var Date: UILabel!
     @IBOutlet weak var Time: UILabel!
-    
-    
+    @IBOutlet weak var price: UILabel!
+    @IBOutlet weak var profilePicture: UIButton!
     
     override func awakeFromNib() {
         super.awakeFromNib()
