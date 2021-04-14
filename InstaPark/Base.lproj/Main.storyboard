@@ -5952,12 +5952,32 @@
                                     <action selector="venmoPayment:" destination="XZo-nB-whM" eventType="touchUpInside" id="lN3-0v-qd5"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Please click the button down below to pay through venmo. Make sure you return to the app after paying!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1EA-3P-Stl">
+                                <rect key="frame" x="45" y="324" width="338" height="123"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="84n-7G-IGO">
+                                <rect key="frame" x="204" y="505" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Processing Payment" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lkq-ZB-O2a">
+                                <rect key="frame" x="137" y="533" width="155" height="21"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="hsc-mx-aab"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     </view>
                     <navigationItem key="navigationItem" id="yEf-t9-Wj0"/>
                     <connections>
+                        <outlet property="paymentLoadingSpinner" destination="84n-7G-IGO" id="LFM-cs-hjD"/>
+                        <outlet property="processingPaymentLabel" destination="Lkq-ZB-O2a" id="jdr-ev-kR3"/>
                         <outlet property="venmoButton" destination="xAq-WU-zDn" id="TNd-s6-9VR"/>
                     </connections>
                 </viewController>
@@ -5993,7 +6013,7 @@
                 </view>
                 <exit id="bhc-C1-NWN" userLabel="Exit" sceneMemberID="exit"/>
             </objects>
-            <point key="canvasLocation" x="4365" y="80"/>
+            <point key="canvasLocation" x="4362.6168224299063" y="79.697624190064801"/>
         </scene>
     </scenes>
     <designables>

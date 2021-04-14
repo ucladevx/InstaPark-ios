@@ -65,5 +65,17 @@ class TransactionService {
         }
         
     }
-    
+    static func saveTransactionObject(transaction: Transaction) {
+        var newTransaction = transaction;
+        if let user = Auth.auth().currentUser {
+            newTransaction.customer = user.uid;
+            let docRef = db.collection("Transaction").document()
+            newTransaction.id = docRef.documentID
+            docRef.setData(newTransaction.dictionary)
+            db.collection("User").document(user.uid).updateData(["transactions": FieldValue.arrayUnion([newTransaction.id])])
+            print("Transaction information: ")
+            print("Transaction ID " + newTransaction.id)
+            db.collection(ParkingSpotService.parkingDBName).document(newTransaction.parkingSpot).updateData(["super.reservations": FieldValue.arrayUnion([docRef.documentID])])
+        }
+    }
 }
