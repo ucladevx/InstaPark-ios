@@ -112,8 +112,8 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         calendar.rowHeight = 15
         calendar.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
         calendar.swipeToChooseGesture.isEnabled = true
-        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
-                calendar.addGestureRecognizer(scopeGesture)
+//        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
+//                calendar.addGestureRecognizer(scopeGesture)
         //calendarView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
         calendar.roundBottomCorners(cornerRadius: 18)
         if calendar.selectedDates.count == 0 {
