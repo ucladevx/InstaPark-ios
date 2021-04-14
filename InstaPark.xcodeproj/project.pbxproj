@@ -286,6 +286,7 @@
 				6A6212AC098713102D55085B /* Frameworks */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		0410B1172548D8E9001C4D27 /* Products */ = {
 			isa = PBXGroup;
