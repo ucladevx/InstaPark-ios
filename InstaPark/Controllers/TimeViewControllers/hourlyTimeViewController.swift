@@ -43,8 +43,8 @@ class hourlyTimeViewController: UIViewController {
         calendar.rowHeight = 15
         calendar.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
         calendar.swipeToChooseGesture.isEnabled = true
-        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
-                calendar.addGestureRecognizer(scopeGesture)
+//        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
+//                calendar.addGestureRecognizer(scopeGesture)
         calendar.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
         if calendar.selectedDates.count == 0 {
             selectedDateLabel.text = ""
