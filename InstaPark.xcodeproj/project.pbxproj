@@ -23,6 +23,8 @@
 		044A3FE3254E9EF000B5F19C /* ParkingSpot.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */; };
 		044A3FE8254EA07A00B5F19C /* Transaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044A3FE7254EA07A00B5F19C /* Transaction.swift */; };
 		044AD5802581EE07000FE799 /* SlideOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AD57F2581EE07000FE799 /* SlideOutView.swift */; };
+		04522DFD26267B4300DC0258 /* EmptyListingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04522DFB26267B4300DC0258 /* EmptyListingsViewCell.swift */; };
+		04522DFE26267B4300DC0258 /* EmptyListingsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04522DFC26267B4300DC0258 /* EmptyListingsViewCell.xib */; };
 		045FF1BE2573854A00DC7327 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */; };
 		0464F72D25D3815700C9A055 /* ContactInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */; };
 		046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */; };
@@ -154,6 +156,8 @@
 		044A3FE2254E9EF000B5F19C /* ParkingSpot.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ParkingSpot.swift; sourceTree = "<group>"; };
 		044A3FE7254EA07A00B5F19C /* Transaction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Transaction.swift; sourceTree = "<group>"; };
 		044AD57F2581EE07000FE799 /* SlideOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutView.swift; sourceTree = "<group>"; };
+		04522DFB26267B4300DC0258 /* EmptyListingsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListingsViewCell.swift; sourceTree = "<group>"; };
+		04522DFC26267B4300DC0258 /* EmptyListingsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyListingsViewCell.xib; sourceTree = "<group>"; };
 		045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoViewController.swift; sourceTree = "<group>"; };
 		046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
@@ -351,6 +355,8 @@
 			isa = PBXGroup;
 			children = (
 				0498632B2578354F00C7F370 /* TransactionTableViewCell.swift */,
+				04522DFB26267B4300DC0258 /* EmptyListingsViewCell.swift */,
+				04522DFC26267B4300DC0258 /* EmptyListingsViewCell.xib */,
 				04B5AFD3261D86B4004F3AF4 /* MyListingsViewCell.swift */,
 				945E02E925D4DB3C00741BDD /* BookingImageCollectionViewCell.swift */,
 				044AD57F2581EE07000FE799 /* SlideOutView.swift */,
@@ -698,6 +704,7 @@
 				2B2A1413260D12FE00A0CB03 /* OpenSans-Light.ttf in Resources */,
 				2B2A1419260D12FE00A0CB03 /* OpenSans-ExtraBoldItalic.ttf in Resources */,
 				0482FE9E255CB2A8002F522E /* google-icon.svg in Resources */,
+				04522DFE26267B4300DC0258 /* EmptyListingsViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -917,6 +924,7 @@
 				04AB789C255DCA320090B6E7 /* LongTermParking.swift in Sources */,
 				9451681325B932FE00939551 /* ListingAddressViewController.swift in Sources */,
 				0482FE85255CB157002F522E /* ParkingCalloutView.swift in Sources */,
+				04522DFD26267B4300DC0258 /* EmptyListingsViewCell.swift in Sources */,
 				2B29F77125BE3BC400E897E7 /* ParkingInfoView.swift in Sources */,
 				2B97AF1A25C3736E002950A9 /* ParkingTypeViewController.swift in Sources */,
 				045FF1BE2573854A00DC7327 /* UIButtonExtension.swift in Sources */,

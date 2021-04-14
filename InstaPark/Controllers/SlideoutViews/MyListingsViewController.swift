@@ -33,8 +33,9 @@ struct r {
 class MyListingsViewController: UITableViewController, CustomSegmentedControlDelegate {
     
     var requestsTab = true
-
+    
     @IBOutlet weak var transactionsList: UITableView!
+    
     
     var requests = [Transaction](){
         didSet{
@@ -55,6 +56,14 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
     var requestsNames = [String]()
     var sections = [r]()
     var dummy: [String] = []
+    
+    private let t: UITableView = {
+        let table = UITableView()
+        
+        table.register(EmptyListingsViewCell.nib(), forCellReuseIdentifier: EmptyListingsViewCell.identifier)
+        
+        return table
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -83,13 +92,13 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         let park = ParkingSpot(id: "", address: addy, coordinates: co, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp, approvedReservations: [])
         
         let tr = Transaction(id: "1", customer: "Joe Bruin", startTime: 0, endTime: 0, address: addy, fromParkingSpot: park)
-        requests.append(tr)
-        requestsNames.append(tr.customer)
+        //requests.append(tr)
+        //requestsNames.append(tr.customer)
         
         let s = NSMutableAttributedString(string: "PENDING APPROVAL", attributes: [NSAttributedString.Key.font: UIFont(name: "OpenSans-Regular", size: 10)!])
         s.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 97/256, green: 0/256, blue: 255/256, alpha: 1.0)], range: NSRange(location: 0, length: s.length))
         let req = Requests(item: tr, status: s)
-        self.pending.append(req)
+        //self.pending.append(req)
         
         //DUMMY 2
         let addy1 = Address(city: "Los Angeles", state: "CA", street: "330 De Neve Dr", zip: "90024")
@@ -101,16 +110,21 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         let park1 = ParkingSpot(id: "", address: addy1, coordinates: co1, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp1, approvedReservations: [])
         
         let tr1 = Transaction(id: "1", customer: "Bob Bruin", startTime: 0, endTime: 0, address: addy, fromParkingSpot: park1)
-        requests.append(tr1)
-        requestsNames.append(tr1.customer)
+        //requests.append(tr1)
+        //requestsNames.append(tr1.customer)
         
         let s1 = NSMutableAttributedString(string: "PENDING APPROVAL", attributes: [NSAttributedString.Key.font: UIFont(name: "OpenSans-Regular", size: 10)!])
         s1.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 97/256, green: 0/256, blue: 255/256, alpha: 1.0)], range: NSRange(location: 0, length: s1.length))
         let req1 = Requests(item: tr1, status: s1)
-        self.pending.append(req1)
+        //self.pending.append(req1)
         
-        splitRequests()
+        print("Size: \(pending.count)")
         
+        if pending.count > 0 {
+            splitRequests()
+        } else {
+            tableView.addSubview(t)
+        }
         /*let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
            for direction in directions {
                 let gesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe(sender:)))
@@ -212,11 +226,15 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //if requestsTab {
-        print("requests")
-        print(requests.count)
-        //let section = self.sections[section]
-        //return section.arr.count
-        return requests.count
+        if requests.count > 0 {
+            print("requests")
+            print(requests.count)
+            //let section = self.sections[section]
+            //return section.arr.count
+            return requests.count
+        } else {
+            return 1
+        }
         //}
     }
     
@@ -228,48 +246,54 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Preparing cell")
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyListingsViewCell", for: indexPath) as? MyListingsViewCell else {
-            fatalError("Dequeued cell not an instance of MyListingsViewCell")
-        }
-        var transaction: Transaction
-        var customerName = ""
-        //if requestsTab {
-        transaction = requests[indexPath.row]
-        customerName = requestsNames[indexPath.row]
-        //} else {
+        if pending.count > 0 {
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyListingsViewCell", for: indexPath) as? MyListingsViewCell else {
+                fatalError("Dequeued cell not an instance of MyListingsViewCell")
+            }
+            var transaction: Transaction
+            var customerName = ""
+            //if requestsTab {
+            transaction = requests[indexPath.row]
+            customerName = requestsNames[indexPath.row]
+            //} else {
 
-        //}
-        
-        let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "MMMM d"
-        let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "h:mm a"
-        var secondDate = ""
-        if transaction.startTime - transaction.endTime > 86400 { //transaction for more than a day
-            secondDate = " — " + dateFormatter1.string(from: Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime))) + "\n"
-        }
-        cell.Date.text = "Date: " + dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate
-        cell.Time.text = "Time: " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
-        cell.address.text = "Address: " + transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip
-        if customerName.isEmpty {
-            DispatchQueue.global(qos: .userInteractive).async {
-                UserService.getUserById(transaction.provider) { (user, error) in
-                    if let user = user {
-                        cell.customerRequest.text = "Request from " + user.displayName
-                        DispatchQueue.main.async {
-                            //if self.requestsTab {
-                                self.requestsNames[indexPath.row] = user.displayName
-                            //} else {
-                            //}
+            //}
+            
+            let dateFormatter1 = DateFormatter()
+            dateFormatter1.dateFormat = "MMMM d"
+            let dateFormatter2 = DateFormatter()
+            dateFormatter2.dateFormat = "h:mm a"
+            var secondDate = ""
+            if transaction.startTime - transaction.endTime > 86400 { //transaction for more than a day
+                secondDate = " — " + dateFormatter1.string(from: Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime))) + "\n"
+            }
+            cell.Date.text = "Date: " + dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate
+            cell.Time.text = "Time: " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
+            cell.address.text = "Address: " + transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip
+            if customerName.isEmpty {
+                DispatchQueue.global(qos: .userInteractive).async {
+                    UserService.getUserById(transaction.provider) { (user, error) in
+                        if let user = user {
+                            cell.customerRequest.text = "Request from " + user.displayName
+                            DispatchQueue.main.async {
+                                //if self.requestsTab {
+                                    self.requestsNames[indexPath.row] = user.displayName
+                                //} else {
+                                //}
+                            }
                         }
                     }
                 }
+            } else {
+                print("customer name already loaded once")
+                cell.customerRequest.text = "Request from " + customerName
             }
-        } else {
-            print("customer name already loaded once")
-            cell.customerRequest.text = "Request from " + customerName
+            return cell
         }
-        
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyListingsViewCell", for: indexPath) as? EmptyListingsViewCell else {
+            fatalError("Dequeued cell not an instance of EmptyListingsViewCell")
+        }
+        cell.configure()
         //print(cell.priceLabel.text ?? "")
         return cell
     }
