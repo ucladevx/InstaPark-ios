@@ -35,11 +35,17 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
-   
+    @IBOutlet weak var directionsOutlineView: UIView!
+    @IBOutlet var accessPhoto: UIImageView!
+    @IBOutlet var accessTitle: UILabel!
+    @IBOutlet var accessInfo: UILabel!
+    
     var bookmarkFlag = false
     var transaction = false
 
     var images = [UIImage]()
+    
+    var upcomingSpot = false
     
     
     @IBOutlet weak var commentsLabel: UILabel!
@@ -52,7 +58,7 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: false)
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: SelfParking(hasSelfParking: false, selfParkingMethod:"", specificDirections: ""))
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     var total = 0.0
@@ -87,6 +93,26 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
         
         if directions != nil {
             directionsLabel.text = directions
+        }
+        
+        //set up access view
+        switch info.selfParking.selfParkingMethod {
+        case "remote":
+            accessPhoto.image = UIImage(named: "remote")
+            accessTitle.text = "Remote Access"
+            accessInfo.text = "The seller will give you a remote to access this spot."
+        case "key":
+            accessPhoto.image = UIImage(named: "key2")
+            accessTitle.text = "Key Access"
+            accessInfo.text = "The seller will give you a key to access this spot."
+        case "code":
+            accessPhoto.image = UIImage(named: "code")
+            accessTitle.text = "Code Access"
+            accessInfo.text = "The seller will give you a code to access this spot."
+        default:
+            accessPhoto.image = UIImage(named: "open")
+            accessTitle.text = "Open Access"
+            accessInfo.text = "Nothing is needed to access this spot."
         }
         
         //shadow for user info view
@@ -230,22 +256,36 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
             availabilityLabel.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 14)
             availabilityLabel.isEnabled = false
             
-            timeFrameTitleLabel.text = "LAST BOOKED"
+            timeFrameTitleLabel.text = "TIME FRAME"
             totalLabel.text = "$" + String(format: "%.2f", total)
             totalLabel.textColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             totalLabel.font =  UIFont.init(name: "Roboto-Medium", size: 20)
             
             reserveButton.isEnabled = false
-            reserveButton.setTitle("Book Again", for: .normal)
+            reserveButton.setTitle("Reserve Again", for: .normal)
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
             reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
+            
+            
+            if upcomingSpot, directions != nil, !directions.isEmpty{
+                directionsOutlineView.layer.borderWidth = 1
+                directionsOutlineView.layer.borderColor = CGColor.init(red: 143.0/255.0, green: 0.0, blue: 1.0, alpha: 1.0)
+                print("upcoming")
+            } else {
+                directionsOutlineView.isHidden = true
+            }
         }
         // just browsing
         else {
             availabilityLabel.setTitle("To book, go back to select a specific time frame!", for: .normal)
             reserveButton.isEnabled = false
             availabilityLabel.isEnabled = false
+            reserveButton.isHidden = true
+            directionsOutlineView.layer.borderWidth = 1
+            directionsOutlineView.layer.borderColor = CGColor.init(red: 143.0/255.0, green: 0.0, blue: 1.0, alpha: 1.0)
+            totalLabel.isHidden = true
+            totalTitleLabel.isHidden = true
         }
         
         
@@ -451,25 +491,25 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
             return CGSize(width: 327, height: 256)
         } else { //tag view
             var width = 63.0 + 10.0
-            if index == 0 {
-                if self.info.selfParking {
-                    width = (20 * 6) + 30
-                } else {
-                    width = (23 * 6) + 30
+//            if index == 0 {
+//                if self.info.selfParking {
+//                    width = (20 * 6) + 30
+//                } else {
+//                    width = (23 * 6) + 30
+//                }
+//            }
+//            else {
+                if self.info.tags[index].count > 8 {
+                    width = (Double(self.info.tags[index].count) * 5.5) + 30
                 }
-            }
-            else {
-                if self.info.tags[index-1].count > 8 {
-                    width = (Double(self.info.tags[index-1].count) * 5.5) + 30
-                }
-            }
+//            }
             return CGSize(width: CGFloat(width), height: 33)
         }
         
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 2 {
-            return info.tags.count + 1
+            return info.tags.count
         } else {
             if transaction {
                 return info.images.count + 1
@@ -481,21 +521,21 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView.tag == 2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
-            var selfParkingText = "Self-Parking Not Available"
-            if self.info.selfParking {
-                selfParkingText = "Self-Parking Available"
-            }
+//            var selfParkingText = "Self-Parking Not Available"
+//            if self.info.selfParking {
+//                selfParkingText = "Self-Parking Available"
+//            }
             let index = indexPath.row
             var width = 63.0
-            if index == 0 {
-                if self.info.selfParking {
-                    width = (20 * 6) + 20
-                } else {
-                    width = (23 * 6) + 20
-                }
-            }
-            else if self.info.tags[index-1].count > 8 {
-                width = (Double(self.info.tags[index-1].count) * 5.5) + 20.0
+//            if index == 0 {
+//                if self.info.selfParking {
+//                    width = (20 * 6) + 20
+//                } else {
+//                    width = (23 * 6) + 20
+//                }
+//            }
+            if self.info.tags[index].count > 8 {
+                width = (Double(self.info.tags[index].count) * 5.5) + 20.0
             }
             cell.frame.size.width = CGFloat(width)
             cell.frame.size.height = 33
@@ -508,11 +548,11 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
             tag.layer.cornerRadius = 9
 //            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
             tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
-            if index == 0 {
-                tag.text = selfParkingText
-            } else {
-                tag.text = self.info.tags[index-1]
-            }
+//            if index == 0 {
+//                tag.text = selfParkingText
+//            } else {
+                tag.text = self.info.tags[index]
+//            }
             tag.textColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
             tag.font = .systemFont(ofSize: 10)
             tag.textAlignment = .center

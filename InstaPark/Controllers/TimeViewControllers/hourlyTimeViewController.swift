@@ -43,8 +43,8 @@ class hourlyTimeViewController: UIViewController {
         calendar.rowHeight = 15
         calendar.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
         calendar.swipeToChooseGesture.isEnabled = true
-        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
-                calendar.addGestureRecognizer(scopeGesture)
+//        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
+//                calendar.addGestureRecognizer(scopeGesture)
         calendar.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
         if calendar.selectedDates.count == 0 {
             selectedDateLabel.text = ""
@@ -295,10 +295,10 @@ extension hourlyTimeViewController: FSCalendarDelegate, FSCalendarDataSource, FS
         }
     }
     
-//    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
-//        monthPosition == .current
-//        return true
-//    }
+    func calendar(_ calendar: FSCalendar, shouldSelect date: Date, at monthPosition: FSCalendarMonthPosition) -> Bool {
+        let yesterday = Calendar.current.date(byAdding: .day, value: -1, to: Date())!
+        return date >= yesterday
+    }
     
     private func configureVisibleCells() {
             calendar.visibleCells().forEach { (cell) in

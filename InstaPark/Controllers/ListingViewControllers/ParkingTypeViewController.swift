@@ -70,8 +70,8 @@ class ParkingTypeViewController: UIViewController {
     let types = ["Driveway","Garage", "Street", "Lot"] //index and button tags are related
     var chosenTypes = [String]()
     
-    let features = ["Tandem","Well-lit","Gated","24/7 Access", "Security on-site",
-    "Remote controlled", "Cellular service available", "Covered"] //index and button tags are related
+    let features = ["Tandem","Well-lit","Gated","Covered", "Security on-site",
+    "Wheelchair accessible", "Cellular service available", "Underground"] //index and button tags are related
     var chosenFeatures = [String]()
     
     override func viewDidLoad() {

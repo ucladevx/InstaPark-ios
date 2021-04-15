@@ -9,7 +9,7 @@ import UIKit
 import FirebaseAuth
 import MapKit
 
-//MARK: now called 'My Bookings' View Controller
+//MARK: now called 'My Reservations' View Controller
 class TransactionTableViewController: UITableViewController, CustomSegmentedControlDelegate {
     @IBOutlet var transactionTable: UITableView!
 //    var transactions = [Transaction]() {
@@ -41,7 +41,7 @@ class TransactionTableViewController: UITableViewController, CustomSegmentedCont
         
         refreshControl!.addTarget(self, action: #selector(self.refresh(_:)), for: .valueChanged)
         tableView.addSubview(refreshControl!)
-        
+        tableView.allowsSelection = true
         getTransactions()
         
         let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
@@ -231,10 +231,12 @@ class TransactionTableViewController: UITableViewController, CustomSegmentedCont
         } else {
             transaction = pastTransactions[indexPath.row]
         }
-        ParkingSpotService.getParkingSpotById(transaction.parkingSpot) { [self] parkingSpot, error in
+        print("did select")
+        ParkingSpotService.getParkingSpotById(transaction.parkingSpot) { [weak self] parkingSpot, error in
             if let parkingSpot = parkingSpot{
                 //IF PARKING SPOT IS AVAILABLE
-                let parkingSpace = ParkingSpaceMapAnnotation(id: parkingSpot.id,name: "", email: "", phoneNumber: "", photo:"", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking.hasSelfParking)
+                print("did select")
+                let parkingSpace = ParkingSpaceMapAnnotation(id: parkingSpot.id,name: "", email: "", phoneNumber: "", photo:"", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
                 
                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
                 let nextViewController = storyBoard.instantiateViewController(withIdentifier: "transactionsBookingView") as! TransactionsBookingViewController
@@ -244,6 +246,9 @@ class TransactionTableViewController: UITableViewController, CustomSegmentedCont
                 nextViewController.total = transaction.total
                 nextViewController.provider = parkingSpot.provider
                 nextViewController.directions = parkingSpot.selfParking.specificDirections
+                if self?.upcomingTab == true {
+                    nextViewController.upcomingSpot = true
+                }
                 
                 let dateFormatter1 = DateFormatter()
                 dateFormatter1.dateFormat = "MMMM d"
@@ -258,7 +263,9 @@ class TransactionTableViewController: UITableViewController, CustomSegmentedCont
                     + " to " +  dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
                 nextViewController.transaction = true
                 
-                self.present(nextViewController, animated:true)
+                self?.present(nextViewController, animated:true)
+            } else {
+                print("error")
             }
         }
         

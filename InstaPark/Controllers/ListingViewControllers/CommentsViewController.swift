@@ -30,6 +30,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
         if comments.textColor == UIColor.lightGray {
             comments.text = ""
             comments.textColor = UIColor.black
+            comments.font = UIFont(name: "OpenSans-Regular", size: 14)
         }
     }
     
@@ -42,6 +43,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
         comments.delegate = self
         comments.text = "Start typing here..."
         comments.textColor = UIColor.lightGray
+        comments.font = UIFont(name: "OpenSans-Italic", size: 14)
         comments.textContainerInset.left = 10
         comments.textContainerInset.right = 10
     }
@@ -105,7 +107,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
             if start == end {
                 end = nil
             }
-            nextViewController.info = ParkingSpaceMapAnnotation.init(id: ShortTermParking.provider, name: "",email:"", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(self.ShortTermParking.coordinates.lat, self.ShortTermParking.coordinates.long), price: self.ShortTermParking.pricePerHour, address: self.ShortTermParking.address, tags: self.ShortTermParking.tags, comments: self.ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: start, endDate: end, images: [String](), selfParking: self.ShortTermParking.selfParking.hasSelfParking)
+            nextViewController.info = ParkingSpaceMapAnnotation.init(id: ShortTermParking.provider, name: "",email:"", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(self.ShortTermParking.coordinates.lat, self.ShortTermParking.coordinates.long), price: self.ShortTermParking.pricePerHour, address: self.ShortTermParking.address, tags: self.ShortTermParking.tags, comments: self.ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: start, endDate: end, images: [String](), selfParking: self.ShortTermParking.selfParking)
             
         } else {
             // pass in long term parking when ready

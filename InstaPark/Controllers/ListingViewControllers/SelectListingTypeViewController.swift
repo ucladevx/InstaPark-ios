@@ -39,6 +39,10 @@ class SelectListingTypeViewController: UIViewController {
     @IBAction func unwind( _ seg: UIStoryboardSegue) {
     }
     
+    @IBAction func back(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+    }
+    
     var isHourly = false
     
     @IBOutlet var monthlyButton: UIButton!
@@ -56,6 +60,11 @@ class SelectListingTypeViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.addSubview(ParkingInfo)
+        
+        //MARK: for now - hide monthly button
+        monthlyButton.isHidden = true
+        //parking info popup is also hidden for now on the storyboard
+        
         navigationController?.setNavigationBarHidden(true, animated: false)
         ParkingInfo.isHidden = true
         ParkingInfo.alpha = 0

@@ -38,7 +38,10 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var paymentStack: UIStackView!
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
-   // @IBOutlet weak var tagStack: UIStackView!
+    @IBOutlet var accessPhoto: UIImageView!
+    @IBOutlet var accessTitle: UILabel!
+    @IBOutlet var accessInfo: UILabel!
+    // @IBOutlet weak var tagStack: UIStackView!
     var bookmarkFlag = false
     var transaction = false
     
@@ -64,7 +67,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: false)
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections: ""))
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     
@@ -133,17 +136,32 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 23)]
         let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
         cost.append(price_string)
-        
-        var perHour = "/hour"
-        if price_string.length > 4 {
-            perHour = "/hr"
-        }
+        let perHour = "/hr"
         let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 16)]
         let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
         cost.append(hour_string)
         
         priceLabel.attributedText = cost
         
+        //set up access view
+        switch info.selfParking.selfParkingMethod {
+        case "remote":
+            accessPhoto.image = UIImage(named: "remote")
+            accessTitle.text = "Remote Access"
+            accessInfo.text = "The seller will give you a remote to access this spot."
+        case "key":
+            accessPhoto.image = UIImage(named: "key2")
+            accessTitle.text = "Key Access"
+            accessInfo.text = "The seller will give you a key to access this spot."
+        case "code":
+            accessPhoto.image = UIImage(named: "code")
+            accessTitle.text = "Code Access"
+            accessInfo.text = "The seller will give you a code to access this spot."
+        default:
+            accessPhoto.image = UIImage(named: "open")
+            accessTitle.text = "Open Access"
+            accessInfo.text = "Nothing is needed to access this spot."
+        }
         
 //        for tag in tags {
 //            tag.layer.borderWidth = 1.5
@@ -197,6 +215,28 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                     self.phoneNumberLabel.text = user.phoneNumber
                     self.emailLabel.text = user.email
                     self.info.photo = user.photoURL
+                    if user.photoURL != "" {
+                        self.photoImage.layer.cornerRadius = 18
+                        guard let url = URL(string: user.photoURL) else {
+                            print("can't convert string to URL")
+                            return
+                        }
+                        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                            guard let data = data, error == nil else {
+                                print("failed to convert image from url")
+                                return
+                            }
+                            DispatchQueue.main.async { [self] in
+                                guard let UIimage = UIImage(data: data) else {
+                                    print("failed to make image into UIimage")
+                                    return
+                                }
+                                print("image converted")
+                                self.photoImage.image = UIimage
+                            }
+                        }
+                        task.resume()
+                    }
                 }
             }
             paymentMethodLabel.isHidden = true
@@ -268,7 +308,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.backgroundColor = UIColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
             reserveButton.setTitleColor(.white, for: .normal)
             reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
-            
+            reserveButton.setTitle("Confirm Reservation", for: .normal)
             
             reserveButton.isEnabled = true
         }
@@ -445,10 +485,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 ParkingSpotService.saveShortTermParkingSpot(self.ShortTermParking) { (id, error) in
                     if let id = id, error == nil {
                         print(id)
+                        ImageService.uploadAllImages(images: self.images, spotID: id)
+                        UserService.saveListingToUser(uid: Auth.auth().currentUser!.uid, spotID: id)
                         DispatchQueue.main.async {
                             self.performSegue(withIdentifier: "showReservationConfirmation", sender: self)
                         }
-                        ImageService.uploadAllImages(images: self.images, spotID: id)
                     }
                 }
             } else {
@@ -552,6 +593,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 vc.transaction = Transaction(id: "", customer: Auth.auth().currentUser!.uid, startTime:Int(startTime.timeIntervalSince1970) , endTime: Int(endTime.timeIntervalSince1970), fromParkingSpot: self.ShortTermParking)
             }
         }
+        let navigationController = segue.destination
+        navigationController.modalPresentationStyle = .fullScreen
         if let vc = segue.destination as? AvailabilityViewController {
             vc.delegate = self
             if (startTime != nil && endTime != nil && startDate != nil)
@@ -573,8 +616,26 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         
         if let vc = segue.destination as? ReservationConfirmationViewController {
             vc.address = addressLabel.text!
-            vc.time = availabilityLabel.titleLabel!.text!
+//            vc.time = availabilityLabel.titleLabel!.text!
             vc.listing = listing
+            
+            let formatter1 = DateFormatter()
+            formatter1.dateFormat = "MMMM d"
+            let startday = formatter1.string(from: info.startDate ?? Date())
+            var endday = ""
+            if info.endDate != nil {
+                let formatter1b = DateFormatter()
+                formatter1b.dateFormat = "d yyyy"
+                endday = formatter1b.string(from: info.endDate ?? Date())
+                endday = "-" + endday
+            }
+            vc.date = startday + endday
+            
+            let formatter2 = DateFormatter()
+            formatter2.dateFormat = "h:mm a"
+            let startString = formatter2.string(from: startTime! as Date)
+            let endString = formatter2.string(from: endTime! as Date)
+            vc.time = startString + " to " + endString
         }
     }
     
@@ -680,25 +741,25 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
             return CGSize(width: 327, height: 256)
         } else { //tag view
             var width = 63.0 + 10.0
-            if index == 0 {
-                if self.info.selfParking {
-                    width = (20 * 6) + 30
-                } else {
-                    width = (23 * 6) + 30
+//            if index == 0 {
+//                if self.info.selfParking {
+//                    width = (20 * 6) + 30
+//                } else {
+//                    width = (23 * 6) + 30
+//                }
+//            }
+//            else {
+                if self.info.tags[index].count > 8 {
+                    width = (Double(self.info.tags[index].count) * 5.5) + 30
                 }
-            }
-            else {
-                if self.info.tags[index-1].count > 8 {
-                    width = (Double(self.info.tags[index-1].count) * 5.5) + 30
-                }
-            }
+//            }
             return CGSize(width: CGFloat(width), height: 33)
         }
         
     }
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         if collectionView.tag == 2 {
-            return info.tags.count + 1
+            return info.tags.count
         } else {
             if transaction {
                 return info.images.count + 1
@@ -710,21 +771,21 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         if collectionView.tag == 2 {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
-            var selfParkingText = "Self-Parking Not Available"
-            if self.info.selfParking {
-                selfParkingText = "Self-Parking Available"
-            }
+//            var selfParkingText = "Self-Parking Not Available"
+//            if self.info.selfParking {
+//                selfParkingText = "Self-Parking Available"
+//            }
             let index = indexPath.row
             var width = 63.0
-            if index == 0 {
-                if self.info.selfParking {
-                    width = (20 * 6) + 20
-                } else {
-                    width = (23 * 6) + 20
-                }
-            }
-            else if self.info.tags[index-1].count > 8 {
-                width = (Double(self.info.tags[index-1].count) * 5.5) + 20.0
+//            if index == 0 {
+//                if self.info.selfParking {
+//                    width = (20 * 6) + 20
+//                } else {
+//                    width = (23 * 6) + 20
+//                }
+//            }
+            if self.info.tags[index].count > 8 {
+                width = (Double(self.info.tags[index].count) * 5.5) + 20.0
             }
             cell.frame.size.width = CGFloat(width)
             cell.frame.size.height = 33
@@ -737,11 +798,11 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
             tag.layer.cornerRadius = 9
 //            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
             tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
-            if index == 0 {
-                tag.text = selfParkingText
-            } else {
-                tag.text = self.info.tags[index-1]
-            }
+//            if index == 0 {
+//                tag.text = selfParkingText
+//            } else {
+                tag.text = self.info.tags[index]
+//            }
             tag.textColor = UIColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
             tag.font = .systemFont(ofSize: 10)
             tag.textAlignment = .center

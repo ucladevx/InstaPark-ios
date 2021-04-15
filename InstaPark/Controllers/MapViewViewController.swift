@@ -18,7 +18,7 @@ protocol passFromProfile {
 class MapViewViewController: ViewController, passFromProfile{
     let locationManager = CLLocationManager()
     
-    @IBOutlet var timeSelectionPopup: UIView!
+    @IBOutlet var timeSelectionPopup: UIView! //MARK: hourly/monthly time selection popup
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var slideOutMenuUserName: UILabel!
     @IBOutlet weak var imageCollectionView: UICollectionView!
@@ -29,6 +29,10 @@ class MapViewViewController: ViewController, passFromProfile{
     @IBOutlet weak var tagCollectionView: UICollectionView!
     var shortTermDate: Date!
     @IBOutlet weak var timeFrameButton: UIButton!
+    
+    //MARK: hourly only time selection popup
+    @IBOutlet var singleTimeSelectionPopup: UIView!
+    
     
     // if coming from sign up, pass in uploaded photo
     var signupPhoto: UIImage!
@@ -128,9 +132,9 @@ class MapViewViewController: ViewController, passFromProfile{
     override func viewDidLoad() {
         super.viewDidLoad()
         print("MapKit did load")
-        if shortTermStartTime == nil || shortTermEndTime == nil {
-            setUpTimePopup()
-        }
+//        if shortTermStartTime == nil || shortTermEndTime == nil {
+//            setUpTimePopup()
+//        }
         mapView.delegate = self
         locationManager.delegate = self
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
@@ -328,7 +332,12 @@ class MapViewViewController: ViewController, passFromProfile{
     }
     
     @IBAction func timeFrameBtn(_ sender: Any) {
-        setUpTimePopup()
+//        setUpTimePopup()
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "hourlyTimeView") as! hourlyTimeViewController
+        nextViewController.modalPresentationStyle = .fullScreen
+        nextViewController.modalTransitionStyle = .coverVertical
+        self.present(nextViewController, animated: true, completion: nil)
     }
     @IBAction func reserveBtn(_ sender: UIButton) {
         let parkingSpace = mapView.selectedAnnotations as! [ParkingSpaceMapAnnotation]
@@ -364,7 +373,7 @@ class MapViewViewController: ViewController, passFromProfile{
                                                             print("Parking Spot is available")
                                                             print("Query by location")
                                                             
-                                                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking.hasSelfParking)
+                                                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
                                                             // short-term parking
                                                             if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                                                 annotation.startTime = self.shortTermStartTime
@@ -400,7 +409,7 @@ class MapViewViewController: ViewController, passFromProfile{
                                         UserService.getUserById(parkingSpot.provider) { (user, error) in
                                             if let user = user {
                                                 print("Query by location")
-                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking.hasSelfParking)
+                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
                                                 // short-term parking
                                                 if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                                     annotation.startTime = self.shortTermStartTime
@@ -520,9 +529,9 @@ class MapViewViewController: ViewController, passFromProfile{
                 DispatchQueue.global(qos: .userInteractive).async {
                     ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
                         if let parkingSpot = parkingSpot{
-                            //IF PARKING SPOT IS AVAILABLEx
+                            //IF PARKING SPOT IS AVAILABLE
                             print("Query by location")
-                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking.hasSelfParking)
+                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
                             // short-term parking
                             if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                 annotation.startTime = self.shortTermStartTime
@@ -546,33 +555,47 @@ class MapViewViewController: ViewController, passFromProfile{
     
     //MARK: time selection popup view setup
     func setUpTimePopup() {
+        let popup : UIView = singleTimeSelectionPopup //CHANGE THIS TO timeSelectionPopup IF WE WANT HOURLY/MONTHLY PARKING
+        
         blackScreen.alpha = 0.35
         blackScreen.backgroundColor = .black
         blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.view.addSubview(blackScreen)
-        self.view.addSubview(timeSelectionPopup)
-        timeSelectionPopup.isHidden = false
-        timeSelectionPopup.center.x = self.view.center.x
-        timeSelectionPopup.center.y = self.view.frame.height * 3 / 4
+        self.view.addSubview(popup)
+        popup.isHidden = false
+        popup.center.x = self.view.center.x
+        popup.center.y = self.view.frame.height * 3 / 4
         UIView.animate(withDuration: 0.3, delay: 0, options: [.curveEaseOut],
                        animations: {
-                        self.timeSelectionPopup.center = self.view.center
+                        popup.center = self.view.center
         }, completion: nil)
     }
     func dismissTimePopup() {
+        let popup : UIView = singleTimeSelectionPopup //CHANGE THIS TO timeSelectionPopup IF WE WANT HOURLY/MONTHLY PARKING
         UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseIn],
                        animations: {
-                        self.timeSelectionPopup.center.y = self.view.frame.height * 3 / 4
-                       }, completion: {_ in
-                        self.timeSelectionPopup.removeFromSuperview()
-                        self.timeSelectionPopup.isHidden = true
-                        self.blackScreen.removeFromSuperview()
-                       })
+                        popup.center.y = self.view.frame.height * 3 / 4
+                        print("animated")
+                       }, completion: { (complete) in
+                        if complete {
+                            print("complete")
+                            popup.removeFromSuperview()
+//                            popup.isHidden = true
+                            self.blackScreen.removeFromSuperview()
+                        }
+                    })
     }
+   
     @IBAction func timePopupDismiss(_ sender: Any) {
         dismissTimePopup()
     }
     @IBAction func timePopupSkipToMap(_ sender: Any) {
+        dismissTimePopup()
+    }
+    @IBAction func singleTimePopupDismiss(_ sender: Any) {
+        dismissTimePopup()
+    }
+    @IBAction func singleTimePopupSkipToMap(_ sender: Any) {
         dismissTimePopup()
     }
 }
@@ -822,7 +845,7 @@ extension MapViewViewController: MKMapViewDelegate {
             let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
             cost.append(price_string)
             
-            let perHour = " per hour"
+            let perHour = "/hr"
             let hour_attrs = [NSAttributedString.Key.font : UIFont.init(name: "Roboto-Medium", size: 16)]
             let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
             cost.append(hour_string)
@@ -831,12 +854,12 @@ extension MapViewViewController: MKMapViewDelegate {
             
             //set up tags
             self.selectedAnnotationTags = parkingSpace.tags
-            if parkingSpace.selfParking {
-                self.selectedAnnotationTags.insert("Self-Parking Available", at: 0)
-            }
-            else {
-                self.selectedAnnotationTags.insert("Self-Parking Not Available", at: 0)
-            }
+//            if parkingSpace.selfParking {
+//                self.selectedAnnotationTags.insert("Self-Parking Available", at: 0)
+//            }
+//            else {
+//                self.selectedAnnotationTags.insert("Self-Parking Not Available", at: 0)
+//            }
             
             self.selectedImages = parkingSpace.images
             tagCollectionView.reloadData()
@@ -1220,10 +1243,10 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
     
 }
 
-extension UICollectionView {
-    func roundTopCorners(cornerRadius: Double) {
-        self.layer.cornerRadius = CGFloat(cornerRadius)
-        self.clipsToBounds = true
-        self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
-    }
-}
+//extension UICollectionView {
+//    func roundTopCorners(cornerRadius: Double) {
+//        self.layer.cornerRadius = CGFloat(cornerRadius)
+//        self.clipsToBounds = true
+//        self.layer.maskedCorners = [.layerMaxXMinYCorner, .layerMinXMinYCorner]
+//    }
+//}

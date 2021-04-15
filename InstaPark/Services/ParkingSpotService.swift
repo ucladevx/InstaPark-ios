@@ -166,6 +166,89 @@ class ParkingSpotService {
         }
     }
     
+    static func getParkingSpotByIds(_ ids: [String], completion: @escaping([ParkingSpot]?, Error?)->Void) {
+        var parkingSpots = [ParkingSpot]()
+        if(ids.count == 0) {
+            completion(parkingSpots, nil)
+            return
+        }
+        let docRef: Query
+        switch parkingType {
+        case .short:
+            docRef = db.collection(parkingDBName).whereField("super.id", in: ids)
+        case .long:
+            docRef = db.collection("LongTermParkingSpot").whereField("super.id", in: ids)
+        }
+        let _: Void = docRef.getDocuments() { querySnapshot, err in
+            if let err = err {
+                completion(nil, err)
+            } else {
+                for document in querySnapshot!.documents {
+//                    print(document.data())
+                    var spot: ShortTermParkingSpot?
+                    switch parkingType {
+                    case .short:
+                        spot = try? ShortTermParkingSpot.init(from: document.data())
+                    case .long:
+                        print("long")
+                        spot = try? ShortTermParkingSpot.init(from: document.data())
+                    }
+                    if let spot = spot {
+                        parkingSpots.append(spot)
+                    }
+                }
+                completion(parkingSpots,nil)
+            }
+            
+        }
+    }
+    
+    static func deleteParkingSpotById(_ id: String) {
+        db.collection(parkingDBName).document(id).delete() { err in
+            if let err = err {
+                print("Error removing document: \(err)")
+            } else {
+                print("Document successfully removed")
+            }
+        }
+
+    }
+    //Gets all transactions associated with parking spots given parking spot ids
+    static func getAllReservationsForParkingSpot(ids: [String], completion: @escaping([Transaction]?, Error?)->Void) {
+        var allTransactions = [Transaction]()
+        getParkingSpotByIds(ids) { (parkingSpots, error) in
+            if let parkingSpots = parkingSpots, error == nil {
+                var reservations = [String]()
+                for spot in parkingSpots {
+                    reservations.append(contentsOf: spot.reservations)
+                }
+                print("reservations: \(reservations)")
+                TransactionService.getTransactionsByIds(reservations) { (transactions, error) in
+                    if let transactions = transactions, error == nil {
+                        print(transactions)
+                        completion(transactions, nil)
+                    } else {
+                        print("error")
+                        completion(nil, error)
+                    }
+                }
+//                for reservation in reservations {
+//                    TransactionService.getTransactionById(reservation) { (transaction, error) in
+//                        if let transaction = transaction, error == nil {
+//                            print("transaction")
+//                            print(transaction)
+//                            allTransactions.append(transaction)
+//                        } else {
+//                            print("error")
+//                            completion(nil, error)
+//                        }
+//                    }
+//                }
+                
+            }
+        }
+        completion(allTransactions, nil)
+    }
 }
 enum ParkingType {
     case short
