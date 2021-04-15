@@ -40,7 +40,11 @@ class SelectListingTypeViewController: UIViewController {
     }
     
     @IBAction func back(_ sender: Any) {
-        navigationController?.popViewController(animated: true)
+        if let navigationController = navigationController {
+            navigationController.popViewController(animated: true)
+        } else {
+            print("No Navigation Controller")
+        }
     }
     
     var isHourly = false

@@ -12,12 +12,17 @@ class PaymentViewController: UIViewController {
     var orderCode: String?
     var transaction: Transaction?
     var paymentOngoing = false
+    @IBOutlet weak var cancelButton: UIButton!
     @IBOutlet weak var paymentLoadingSpinner: UIActivityIndicatorView!
     @IBOutlet weak var processingPaymentLabel: UILabel!
+    @IBAction func cancelPressed(_ sender: Any) {
+        self.dismiss(animated:true)
+    }
     @IBAction func venmoPayment(_ sender: Any) {
         orderCode = generateOrderCode()
         print("Order Code: \(orderCode!)")
-        let urlString = "venmo://paycharge?txn=pay&recipients=Tony-Jiang-16&amount=\(transaction!.total)&note=Sparke:Parking%20for%20Westwood%20%23\(orderCode!)"
+//        let urlString = "venmo://paycharge?txn=pay&recipients=Tony-Jiang-16&amount=\(transaction!.total)&note=Sparke:Parking%20for%20Westwood%20%23\(orderCode!)"
+        let urlString = "venmo://paycharge?txn=pay&recipients=Tony-Jiang-16&amount=0.01&note=Sparke:Parking%20for%20Westwood%20%23\(orderCode!)"
         let url = URL(string: urlString)
         
         UIApplication.shared.open(url!, options: [:]) { success in
