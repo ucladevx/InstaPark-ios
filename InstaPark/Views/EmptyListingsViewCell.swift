@@ -12,9 +12,6 @@ class EmptyListingsViewCell: UITableViewCell {
     static let identifier = "EmptyListingsViewCell"
     
     @IBOutlet weak var emptyText: UILabel!
-    @IBAction func createListing(_ sender: Any){
-        
-    }
     
     static func nib() -> UINib {
         return UINib(nibName: "EmptyListingsViewCell", bundle: nil)

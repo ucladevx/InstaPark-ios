@@ -112,8 +112,8 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         calendar.rowHeight = 15
         calendar.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
         calendar.swipeToChooseGesture.isEnabled = true
-        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
-                calendar.addGestureRecognizer(scopeGesture)
+//        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
+//                calendar.addGestureRecognizer(scopeGesture)
         //calendarView.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
         calendar.roundBottomCorners(cornerRadius: 18)
         if calendar.selectedDates.count == 0 {
@@ -202,7 +202,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
 //        standardTimeView.frame =  CGRect(x: 0, y: 0, width: self.segmentedView.frame.width, height: 210)
         self.segmentedView.addSubview(customTimeView)
         customTimeView.frame =  CGRect(x: 0, y: 0, width: self.customTimeView.frame.width, height: 300)
-        customTimeView.center.x = segmentedView.center.x
+        customTimeView.center.x = view.center.x
         standardTime = false
         let timeBtns = [sundayStart, sundayEnd, mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd]
         var count = 0

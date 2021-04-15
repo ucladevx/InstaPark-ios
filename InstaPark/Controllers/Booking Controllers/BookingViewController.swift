@@ -214,6 +214,28 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                     self.phoneNumberLabel.text = user.phoneNumber
                     self.emailLabel.text = user.email
                     self.info.photo = user.photoURL
+                    if user.photoURL != "" {
+                        self.photoImage.layer.cornerRadius = 18
+                        guard let url = URL(string: user.photoURL) else {
+                            print("can't convert string to URL")
+                            return
+                        }
+                        let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                            guard let data = data, error == nil else {
+                                print("failed to convert image from url")
+                                return
+                            }
+                            DispatchQueue.main.async { [self] in
+                                guard let UIimage = UIImage(data: data) else {
+                                    print("failed to make image into UIimage")
+                                    return
+                                }
+                                print("image converted")
+                                self.photoImage.image = UIimage
+                            }
+                        }
+                        task.resume()
+                    }
                 }
             }
             paymentMethodLabel.isHidden = true
@@ -462,11 +484,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
                 ParkingSpotService.saveShortTermParkingSpot(self.ShortTermParking) { (id, error) in
                     if let id = id, error == nil {
                         print(id)
+                        ImageService.uploadAllImages(images: self.images, spotID: id)
+                        UserService.saveListingToUser(uid: Auth.auth().currentUser!.uid, spotID: id)
                         DispatchQueue.main.async {
                             self.performSegue(withIdentifier: "showReservationConfirmation", sender: self)
                         }
-                        ImageService.uploadAllImages(images: self.images, spotID: id)
-                        UserService.saveListingToUser(uid: Auth.auth().currentUser!.uid, spotID: id)
                     }
                 }
             } else {

@@ -25,6 +25,7 @@
 		044AD5802581EE07000FE799 /* SlideOutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 044AD57F2581EE07000FE799 /* SlideOutView.swift */; };
 		04522DFD26267B4300DC0258 /* EmptyListingsViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04522DFB26267B4300DC0258 /* EmptyListingsViewCell.swift */; };
 		04522DFE26267B4300DC0258 /* EmptyListingsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04522DFC26267B4300DC0258 /* EmptyListingsViewCell.xib */; };
+		04522E092627B2BD00DC0258 /* MyListingsViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04522E082627B2BD00DC0258 /* MyListingsViewCell.xib */; };
 		045FF1BE2573854A00DC7327 /* UIButtonExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */; };
 		0464F72D25D3815700C9A055 /* ContactInfoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */; };
 		046C40252563AF8800BD5E85 /* LocationSearchTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */; };
@@ -158,6 +159,7 @@
 		044AD57F2581EE07000FE799 /* SlideOutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SlideOutView.swift; sourceTree = "<group>"; };
 		04522DFB26267B4300DC0258 /* EmptyListingsViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyListingsViewCell.swift; sourceTree = "<group>"; };
 		04522DFC26267B4300DC0258 /* EmptyListingsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyListingsViewCell.xib; sourceTree = "<group>"; };
+		04522E082627B2BD00DC0258 /* MyListingsViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = MyListingsViewCell.xib; sourceTree = "<group>"; };
 		045FF1BD2573854A00DC7327 /* UIButtonExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIButtonExtension.swift; sourceTree = "<group>"; };
 		0464F72C25D3815700C9A055 /* ContactInfoViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactInfoViewController.swift; sourceTree = "<group>"; };
 		046C40242563AF8800BD5E85 /* LocationSearchTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearchTableViewController.swift; sourceTree = "<group>"; };
@@ -290,6 +292,7 @@
 				6A6212AC098713102D55085B /* Frameworks */,
 			);
 			sourceTree = "<group>";
+			usesTabs = 0;
 		};
 		0410B1172548D8E9001C4D27 /* Products */ = {
 			isa = PBXGroup;
@@ -358,6 +361,7 @@
 				04522DFB26267B4300DC0258 /* EmptyListingsViewCell.swift */,
 				04522DFC26267B4300DC0258 /* EmptyListingsViewCell.xib */,
 				04B5AFD3261D86B4004F3AF4 /* MyListingsViewCell.swift */,
+				04522E082627B2BD00DC0258 /* MyListingsViewCell.xib */,
 				945E02E925D4DB3C00741BDD /* BookingImageCollectionViewCell.swift */,
 				044AD57F2581EE07000FE799 /* SlideOutView.swift */,
 				2B29F77025BE3BC300E897E7 /* ParkingInfoView.swift */,
@@ -695,6 +699,7 @@
 				2B2A1417260D12FE00A0CB03 /* OpenSans-Bold.ttf in Resources */,
 				94C8ABA2257C9F9F00D89060 /* Roboto-Regular.ttf in Resources */,
 				2B2A1415260D12FE00A0CB03 /* OpenSans-ExtraBold.ttf in Resources */,
+				04522E092627B2BD00DC0258 /* MyListingsViewCell.xib in Resources */,
 				2B2A141C260D12FE00A0CB03 /* OpenSans-BoldItalic.ttf in Resources */,
 				0410B1232548D8EB001C4D27 /* Assets.xcassets in Resources */,
 				2B2A1418260D12FE00A0CB03 /* OpenSans-SemiBoldItalic.ttf in Resources */,

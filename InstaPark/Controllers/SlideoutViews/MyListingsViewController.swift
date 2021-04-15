@@ -18,6 +18,8 @@ import MapKit
 //SECTION HEADER TEXT CAN'T BE CUSTOMIZED
 
 
+//MARK: - designers want us to hold off on confirming/denying reservations
+
 /*Object used to differentiate between pending and approved requests*/
 struct Requests {
     var item: Transaction
@@ -42,6 +44,11 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         }
     }
     
+    var reservations = [Transaction](){
+        didSet{
+        }
+    }
+    
     var pending = [Requests]() {
         didSet{
         }
@@ -54,6 +61,8 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
     
     var tabs: CustomSegmentedControl!
     var requestsNames = [String]()
+    var requestProfilePics = [UIImage]()
+    var hasProfilePics = [Bool]()
     var sections = [r]()
     var dummy: [String] = []
     
@@ -82,43 +91,43 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         
         getTransactions()
         
-        //DUMMY 1
-        let addy = Address(city: "Los Angeles", state: "CA", street: "330 De Neve Dr", zip: "90024")
-        
-        let sp = SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections: "")
-        
-        let co = Coordinate(lat: 0.0, long: 0.0)
-        
-        let park = ParkingSpot(id: "", address: addy, coordinates: co, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp, approvedReservations: [])
-        
-        let tr = Transaction(id: "1", customer: "Joe Bruin", startTime: 0, endTime: 0, address: addy, fromParkingSpot: park)
-        //requests.append(tr)
-        //requestsNames.append(tr.customer)
-        
-        let s = NSMutableAttributedString(string: "PENDING APPROVAL", attributes: [NSAttributedString.Key.font: UIFont(name: "OpenSans-Regular", size: 10)!])
-        s.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 97/256, green: 0/256, blue: 255/256, alpha: 1.0)], range: NSRange(location: 0, length: s.length))
-        let req = Requests(item: tr, status: s)
-        //self.pending.append(req)
-        
-        //DUMMY 2
-        let addy1 = Address(city: "Los Angeles", state: "CA", street: "330 De Neve Dr", zip: "90024")
-        
-        let sp1 = SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections: "")
-        
-        let co1 = Coordinate(lat: 0.0, long: 0.0)
-        
-        let park1 = ParkingSpot(id: "", address: addy1, coordinates: co1, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp1, approvedReservations: [])
-        
-        let tr1 = Transaction(id: "1", customer: "Bob Bruin", startTime: 0, endTime: 0, address: addy, fromParkingSpot: park1)
-        //requests.append(tr1)
-        //requestsNames.append(tr1.customer)
-        
-        let s1 = NSMutableAttributedString(string: "PENDING APPROVAL", attributes: [NSAttributedString.Key.font: UIFont(name: "OpenSans-Regular", size: 10)!])
-        s1.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 97/256, green: 0/256, blue: 255/256, alpha: 1.0)], range: NSRange(location: 0, length: s1.length))
-        let req1 = Requests(item: tr1, status: s1)
-        //self.pending.append(req1)
-        
-        print("Size: \(pending.count)")
+//        //DUMMY 1
+//        let addy = Address(city: "Los Angeles", state: "CA", street: "330 De Neve Dr", zip: "90024")
+//
+//        let sp = SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections: "")
+//
+//        let co = Coordinate(lat: 0.0, long: 0.0)
+//
+//        let park = ParkingSpot(id: "", address: addy, coordinates: co, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp, approvedReservations: [])
+//
+//        let tr = Transaction(id: "1", customer: "Joe Bruin", startTime: 0, endTime: 0, address: addy, fromParkingSpot: park)
+//        requests.append(tr)
+//        requestsNames.append(tr.customer)
+//
+//        let s = NSMutableAttributedString(string: "PENDING APPROVAL", attributes: [NSAttributedString.Key.font: UIFont(name: "OpenSans-Regular", size: 10)!])
+//        s.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 97/256, green: 0/256, blue: 255/256, alpha: 1.0)], range: NSRange(location: 0, length: s.length))
+//        let req = Requests(item: tr, status: s)
+//        self.pending.append(req)
+//
+//        //DUMMY 2
+//        let addy1 = Address(city: "Los Angeles", state: "CA", street: "330 De Neve Dr", zip: "90024")
+//
+//        let sp1 = SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections: "")
+//
+//        let co1 = Coordinate(lat: 0.0, long: 0.0)
+//
+//        let park1 = ParkingSpot(id: "", address: addy1, coordinates: co1, pricePerHour: 0.0, provider: "", comments: "", tags: dummy, reservations: dummy, images: dummy, startDate: 0, endDate: 0, directions: "", selfParking: sp1, approvedReservations: [])
+//
+//        let tr1 = Transaction(id: "1", customer: "Bob Bruin", startTime: 0, endTime: 0, address: addy, fromParkingSpot: park1)
+//        requests.append(tr1)
+//        requestsNames.append(tr1.customer)
+//
+//        let s1 = NSMutableAttributedString(string: "PENDING APPROVAL", attributes: [NSAttributedString.Key.font: UIFont(name: "OpenSans-Regular", size: 10)!])
+//        s1.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 97/256, green: 0/256, blue: 255/256, alpha: 1.0)], range: NSRange(location: 0, length: s1.length))
+//        let req1 = Requests(item: tr1, status: s1)
+//        self.pending.append(req1)
+//
+//        splitRequests()
         
         if pending.count > 0 {
             splitRequests()
@@ -191,16 +200,20 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
             DispatchQueue.global(qos: .userInteractive).async {
                 if let user = user {
                     print(user.uid)
-                    for id in user.transactions {
-                        TransactionService.getTransactionById(id) { transaction, error in
-                            if let transaction = transaction {
-                                self.load(transaction: transaction) //add to arrays for separation
-                                print("Reloading data")
-                                DispatchQueue.main.async {
-                                    self.tableView.reloadData()
+                    ParkingSpotService.getAllReservationsForParkingSpot(ids: user.parkingSpots) { (transactions, error) in
+                        if let transactions = transactions, error == nil {
+                            self.reservations = transactions
+                            print(self.reservations.count)
+                            DispatchQueue.main.async {
+                                for _ in self.reservations {
+                                    self.requestsNames.append("")
+                                    self.requestProfilePics.append(UIImage())
+                                    self.hasProfilePics.append(false)
                                 }
+                                self.tableView.reloadData()
                             }
-                            
+                        } else {
+                            print("error")
                         }
                     }
                 }
@@ -221,7 +234,7 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
     
     // MARK: - Table view data source
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return self.sections.count
+        return 1//self.sections.count
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -232,31 +245,39 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
             //let section = self.sections[section]
             //return section.arr.count
             return requests.count
-        } else {
-            return 1
         }
-        //}
+        return 1
     }
     
-    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        let section = self.sections[section]
-        let header = section.s.string
-        return header
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 122
     }
+    
+//    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+//        let section = self.sections[section]
+//        let header = section.s.string
+//        return header
+//    }
+    
+    /*@IBAction func createListing(_ sender: Any){
+        self.performSegue(withIdentifier: "createListing", sender: self)
+    }*/
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Preparing cell")
         if pending.count > 0 {
+            tableView.register(MyListingsViewCell.nib(), forCellReuseIdentifier: "MyListingsViewCell")
             guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyListingsViewCell", for: indexPath) as? MyListingsViewCell else {
                 fatalError("Dequeued cell not an instance of MyListingsViewCell")
             }
             var transaction: Transaction
             var customerName = ""
             //if requestsTab {
-            transaction = requests[indexPath.row]
+            transaction = reservations[indexPath.row]
             customerName = requestsNames[indexPath.row]
+            var customerImage = requestProfilePics[indexPath.row]
+            
             //} else {
-
             //}
             
             let dateFormatter1 = DateFormatter()
@@ -267,17 +288,59 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
             if transaction.startTime - transaction.endTime > 86400 { //transaction for more than a day
                 secondDate = " — " + dateFormatter1.string(from: Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime))) + "\n"
             }
-            cell.Date.text = "Date: " + dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate
-            cell.Time.text = "Time: " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
-            cell.address.text = "Address: " + transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip
+            let date = attributedInfoBold(string: "Date: ", fontSize: 12)
+            date.append(attributedInfoRegular(string: dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate, fontSize: 12))
+            cell.Date.attributedText = date
+            
+            let time = attributedInfoBold(string: "Time: ", fontSize: 12)
+            time.append(attributedInfoRegular(string: dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime))), fontSize: 12))
+            cell.Time.attributedText = time
+            
+            let addr = attributedInfoBold(string: "Address: ", fontSize: 12)
+            addr.append(attributedInfoRegular(string: transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip, fontSize: 12))
+            cell.address.attributedText = addr
+            
+            cell.price.text = "$" + String(format: "%.2f", transaction.total)
+            
+            //cell.profilePicture = customerImage
+            
+    //        cell.Date.text = "Date: " + dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate
+    //        cell.Time.text = "Time: " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
+    //        cell.address.text = "Address: " + transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip
             if customerName.isEmpty {
                 DispatchQueue.global(qos: .userInteractive).async {
                     UserService.getUserById(transaction.provider) { (user, error) in
                         if let user = user {
-                            cell.customerRequest.text = "Request from " + user.displayName
+                            cell.customerRequest.attributedText = self.attributedInfoBold(string: user.displayName, fontSize: 14)
+                            if user.photoURL != "" {
+                                guard let url = URL(string: user.photoURL) else {
+                                    print("can't convert string to URL")
+                                    return
+                                }
+                                let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                                    guard let data = data, error == nil else {
+                                        print("failed to convert image from url")
+                                        return
+                                    }
+                                    DispatchQueue.main.async { [self] in
+                                        guard let UIimage = UIImage(data: data) else {
+                                            print("failed to make image into UIimage")
+                                            return
+                                        }
+                                        print("image converted")
+                                        cell.profilePicture.setImage(UIimage, for: .normal)
+                                        self.requestProfilePics[indexPath.row] = UIimage
+                                        self.hasProfilePics[indexPath.row] = true
+                                    }
+                                }
+                                task.resume()
+                            }
                             DispatchQueue.main.async {
                                 //if self.requestsTab {
+                                if indexPath.row < self.requestsNames.count {
                                     self.requestsNames[indexPath.row] = user.displayName
+                                }
+                                    
                                 //} else {
                                 //}
                             }
@@ -286,10 +349,14 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
                 }
             } else {
                 print("customer name already loaded once")
-                cell.customerRequest.text = "Request from " + customerName
+                cell.customerRequest.attributedText = attributedInfoBold(string: customerName, fontSize: 14)
+                if hasProfilePics[indexPath.row] {
+                    cell.profilePicture.setImage(requestProfilePics[indexPath.row], for: .normal)
+                }
             }
             return cell
         }
+        tableView.register(EmptyListingsViewCell.nib(), forCellReuseIdentifier: "EmptyListingsViewCell")
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyListingsViewCell", for: indexPath) as? EmptyListingsViewCell else {
             fatalError("Dequeued cell not an instance of EmptyListingsViewCell")
         }
@@ -298,59 +365,71 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         return cell
     }
     
-    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return decline(cellForRowAt: indexPath)
+    func attributedInfoBold(string: String, fontSize: CGFloat) -> NSMutableAttributedString {
+        let attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: fontSize)]
+        let attr = NSMutableAttributedString(string: string, attributes:attrs as [NSAttributedString.Key : Any])
+        return attr
     }
     
-    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        return confirm(cellForRowAt: indexPath)
-        
+    func attributedInfoRegular(string: String, fontSize: CGFloat) -> NSMutableAttributedString {
+        let attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-Regular", size: fontSize)]
+        let attr = NSMutableAttributedString(string: string, attributes:attrs as [NSAttributedString.Key : Any])
+        return attr
     }
     
-    private func decline(cellForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let c = UIContextualAction(style: .destructive, title: "Decline Request") { (action, swipeButtonView, completion) in
-            //self.tableView.deleteRows(at: [indexPath], with: .fade)
-            self.pending.remove(at: indexPath.item)
-            self.splitRequests()
-            print("DELETE HERE")
-            completion(true)
-        }
-        c.backgroundColor = UIColor(red: 128/256, green: 116/256, blue: 147/256, alpha: 1.0)
-        
-        let action = UISwipeActionsConfiguration(actions: [c])
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        
-        return action
-    }
-    
-    private func confirm(cellForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
-        let c = UIContextualAction(style: .normal, title: "Approve Request") { (action, swipeButtonView, completion) in
-            self.pending[indexPath.item].status = NSMutableAttributedString(string: "REQUESTS", attributes: [NSAttributedString.Key.font: UIFont(name: "OpenSans-Regular", size: 10)!]) //change status so second section can be created
-            self.pending[indexPath.item].status.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 97/256, green: 0/256, blue: 255/256, alpha: 1.0)], range: NSRange(location: 0, length: self.pending[indexPath.row].status.length))
-            self.approved.append(self.pending[indexPath.item])
-            print(indexPath.item)
-            self.splitRequests() //should re-split based on changed statuses
-            //let req = self.pending[indexPath.row]
-            //self.pending.remove(at: indexPath.row)
-            //self.tableView.deleteRows(at: [indexPath], with: .fade)
-            //self.pending.insert(req, at: indexPath.row)
-            print("COMPLETE HERE")
-            print(self.pending[indexPath.item].status)
-            completion(true)
-        }
-        c.backgroundColor = UIColor(red: 143/256, green: 0/256, blue: 255/256, alpha: 1.0)
-        
-        let action = UISwipeActionsConfiguration(actions: [c])
-        
-        DispatchQueue.main.async {
-            self.tableView.reloadData()
-        }
-        
-        return action
-    }
+//    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        return decline(cellForRowAt: indexPath)
+//    }
+//
+//    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        return confirm(cellForRowAt: indexPath)
+//
+//    }
+//
+//    private func decline(cellForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let c = UIContextualAction(style: .destructive, title: "Decline Request") { (action, swipeButtonView, completion) in
+//            //self.tableView.deleteRows(at: [indexPath], with: .fade)
+//            self.pending.remove(at: indexPath.item)
+//            self.splitRequests()
+//            print("DELETE HERE")
+//            completion(true)
+//        }
+//        c.backgroundColor = UIColor(red: 128/256, green: 116/256, blue: 147/256, alpha: 1.0)
+//
+//        let action = UISwipeActionsConfiguration(actions: [c])
+//
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+//
+//        return action
+//    }
+//
+//    private func confirm(cellForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+//        let c = UIContextualAction(style: .normal, title: "Approve Request") { (action, swipeButtonView, completion) in
+//            self.pending[indexPath.item].status = NSMutableAttributedString(string: "REQUESTS", attributes: [NSAttributedString.Key.font: UIFont(name: "OpenSans-Regular", size: 10)!]) //change status so second section can be created
+//            self.pending[indexPath.item].status.addAttributes([NSAttributedString.Key.foregroundColor: UIColor(red: 97/256, green: 0/256, blue: 255/256, alpha: 1.0)], range: NSRange(location: 0, length: self.pending[indexPath.row].status.length))
+//            self.approved.append(self.pending[indexPath.item])
+//            print(indexPath.item)
+//            self.splitRequests() //should re-split based on changed statuses
+//            //let req = self.pending[indexPath.row]
+//            //self.pending.remove(at: indexPath.row)
+//            //self.tableView.deleteRows(at: [indexPath], with: .fade)
+//            //self.pending.insert(req, at: indexPath.row)
+//            print("COMPLETE HERE")
+//            print(self.pending[indexPath.item].status)
+//            completion(true)
+//        }
+//        c.backgroundColor = UIColor(red: 143/256, green: 0/256, blue: 255/256, alpha: 1.0)
+//
+//        let action = UISwipeActionsConfiguration(actions: [c])
+//
+//        DispatchQueue.main.async {
+//            self.tableView.reloadData()
+//        }
+//
+//        return action
+//    }
     
     
     /*override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -394,5 +473,3 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
     }*/
 
 }
-
-

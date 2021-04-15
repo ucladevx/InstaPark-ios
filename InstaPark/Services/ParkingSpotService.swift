@@ -184,7 +184,7 @@ class ParkingSpotService {
                 completion(nil, err)
             } else {
                 for document in querySnapshot!.documents {
-                    print(document.data())
+//                    print(document.data())
                     var spot: ShortTermParkingSpot?
                     switch parkingType {
                     case .short:
@@ -212,6 +212,42 @@ class ParkingSpotService {
             }
         }
 
+    }
+    //Gets all transactions associated with parking spots given parking spot ids
+    static func getAllReservationsForParkingSpot(ids: [String], completion: @escaping([Transaction]?, Error?)->Void) {
+        var allTransactions = [Transaction]()
+        getParkingSpotByIds(ids) { (parkingSpots, error) in
+            if let parkingSpots = parkingSpots, error == nil {
+                var reservations = [String]()
+                for spot in parkingSpots {
+                    reservations.append(contentsOf: spot.reservations)
+                }
+                print("reservations: \(reservations)")
+                TransactionService.getTransactionsByIds(reservations) { (transactions, error) in
+                    if let transactions = transactions, error == nil {
+                        print(transactions)
+                        completion(transactions, nil)
+                    } else {
+                        print("error")
+                        completion(nil, error)
+                    }
+                }
+//                for reservation in reservations {
+//                    TransactionService.getTransactionById(reservation) { (transaction, error) in
+//                        if let transaction = transaction, error == nil {
+//                            print("transaction")
+//                            print(transaction)
+//                            allTransactions.append(transaction)
+//                        } else {
+//                            print("error")
+//                            completion(nil, error)
+//                        }
+//                    }
+//                }
+                
+            }
+        }
+        completion(allTransactions, nil)
     }
 }
 enum ParkingType {
