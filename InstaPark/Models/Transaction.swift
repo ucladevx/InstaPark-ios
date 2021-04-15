@@ -16,7 +16,7 @@ struct Transaction: Codable {
     var priceRatePerHour: Double
     var total: Double
     var address: Address
-    init(id: String, customer: String, startTime: Int, endTime: Int, address: Address, fromParkingSpot parkingSpot: ParkingSpot) {
+    init(id: String, customer: String, startTime: Int, endTime: Int, fromParkingSpot parkingSpot: ParkingSpot) {
         self.id = id
         self.customer = customer
         self.startTime = startTime
@@ -25,6 +25,6 @@ struct Transaction: Codable {
         self.provider = parkingSpot.provider
         self.priceRatePerHour = parkingSpot.pricePerHour
         self.total = parkingSpot.pricePerHour * Double((endTime - startTime))/3600
-        self.address = address
+        self.address = parkingSpot.address
     }
 }

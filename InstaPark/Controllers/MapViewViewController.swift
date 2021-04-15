@@ -63,7 +63,7 @@ class MapViewViewController: ViewController, passFromProfile{
     var selectedAnnotationTags = [String]()
     var selectedImages = [String]()
     var images = [UIImage]()
-    
+    var parkingSpots = [ShortTermParkingSpot]()
     
     @IBOutlet var slideOutBar: SlideOutView!
     var slideOutBarCollapsed = true
@@ -347,7 +347,6 @@ class MapViewViewController: ViewController, passFromProfile{
         nextViewController.modalTransitionStyle = .coverVertical
         nextViewController.info = parkingSpace[0]
         nextViewController.images = images
-        
         self.present(nextViewController, animated:true)
     }
     
@@ -382,6 +381,7 @@ class MapViewViewController: ViewController, passFromProfile{
                                                                 annotation.date = self.shortTermDate
                                                             }
                                                             self.annotations.append(annotation)
+                                                            self.parkingSpots.append(parkingSpot)
                                                             mapView.addAnnotation(annotation)
                                                             }
                                                     }

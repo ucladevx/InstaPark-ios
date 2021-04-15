@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqL-Pm-fmq">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
+        <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -1217,6 +1218,7 @@
                         <outlet property="totalTitleLabel" destination="XSv-aw-HBZ" id="ID1-Ix-ib8"/>
                         <outlet property="userInfoView" destination="cCB-Qv-sJg" id="b5n-WZ-742"/>
                         <segue destination="IGB-7k-VAN" kind="show" identifier="showReservationConfirmation" id="CmZ-r1-A73"/>
+                        <segue destination="XZo-nB-whM" kind="show" identifier="segueToPaymentPage" id="dU1-Pb-29V"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="AIH-D0-LWr" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2846,7 +2848,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="cardholder name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="VLA-G6-kOI" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                <rect key="frame" x="39" y="281.66666666666669" width="350" height="18.333333333333314"/>
+                                <rect key="frame" x="39" y="281.66666666666669" width="350" height="17.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="sQq-tC-40H"/>
                                 </constraints>
@@ -2858,7 +2860,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="card number" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Y1n-fe-0od" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                <rect key="frame" x="39" y="350" width="350" height="18.333333333333314"/>
+                                <rect key="frame" x="39" y="349.33333333333331" width="350" height="17.666666666666686"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="350" id="MLC-wv-C7Q"/>
                                 </constraints>
@@ -2870,10 +2872,10 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="50" translatesAutoresizingMaskIntoConstraints="NO" id="NSX-TF-b4Q">
-                                <rect key="frame" x="39" y="418.33333333333331" width="350" height="21.333333333333314"/>
+                                <rect key="frame" x="39" y="417" width="350" height="20.666666666666686"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="MM/YY" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="EfV-pq-Tdq" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="150" height="21.333333333333332"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="150" height="20.666666666666668"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <userDefinedRuntimeAttributes>
@@ -2881,7 +2883,7 @@
                                         </userDefinedRuntimeAttributes>
                                     </textField>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="CVV" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UMB-2c-bWQ" customClass="DesignableTextField" customModule="InstaPark" customModuleProvider="target">
-                                        <rect key="frame" x="200" y="0.0" width="150" height="21.333333333333332"/>
+                                        <rect key="frame" x="200" y="0.0" width="150" height="20.666666666666668"/>
                                         <fontDescription key="fontDescription" name="OpenSans-Italic" family="Open Sans" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                         <userDefinedRuntimeAttributes>
@@ -2894,7 +2896,7 @@
                                 </constraints>
                             </stackView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Sja-KU-2Zo">
-                                <rect key="frame" x="136" y="514.66666666666663" width="156" height="32"/>
+                                <rect key="frame" x="136" y="512.66666666666663" width="156" height="32"/>
                                 <color key="backgroundColor" red="0.83529411760000005" green="0.62352941179999999" blue="1" alpha="0.84705882349999995" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="156" id="vM6-R5-GZR"/>
@@ -2911,7 +2913,7 @@
                                 </userDefinedRuntimeAttributes>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="30Y-tx-uEc">
-                                <rect key="frame" x="136" y="576.66666666666663" width="156" height="32"/>
+                                <rect key="frame" x="136" y="574.66666666666663" width="156" height="32"/>
                                 <color key="backgroundColor" red="0.3803921569" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="156" id="qYJ-yJ-C4Z"/>
@@ -3443,12 +3445,12 @@
         <scene sceneID="CSG-YE-fiO">
             <objects>
                 <viewController storyboardIdentifier="Listing1" id="xfK-up-MuI" customClass="ListingAddressViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="eAt-q7-6Sn">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="eAt-q7-6Sn">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fgR-1y-cRO">
-                                <rect key="frame" x="0.0" y="0.0" width="428" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="896"/>
                                 <gestureRecognizers/>
                             </mapView>
                             <view contentMode="scaleToFill" id="QU9-qp-laF">
@@ -5847,7 +5849,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5qk-pZ-lpd" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2718.840579710145" y="-717.1875"/>
+            <point key="canvasLocation" x="2718" y="-642"/>
         </scene>
         <!--My Listings View Controller-->
         <scene sceneID="Jmd-ps-ZId">
@@ -6565,7 +6567,106 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgD-oh-qEp" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
                 <panGestureRecognizer minimumNumberOfTouches="1" id="aMM-a3-qSF"/>
             </objects>
-            <point key="canvasLocation" x="3246.7289719626165" y="-1357.4514038876891"/>
+            <point key="canvasLocation" x="2718" y="-1350"/>
+        </scene>
+        <!--Payment View Controller-->
+        <scene sceneID="Jit-jg-0yP">
+            <objects>
+                <viewController id="XZo-nB-whM" customClass="PaymentViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="qVg-pc-YOD">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xAq-WU-zDn">
+                                <rect key="frame" x="169" y="455" width="90" height="16"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="16" id="Qyj-ht-yRO"/>
+                                    <constraint firstAttribute="width" constant="90" id="Uuh-9o-aAy"/>
+                                </constraints>
+                                <state key="normal" image="venmo_logo_blue"/>
+                                <connections>
+                                    <action selector="venmoButton:" destination="bhc-C1-NWN" eventType="touchUpInside" id="S5e-Yz-CCV"/>
+                                    <action selector="venmoPayment:" destination="XZo-nB-whM" eventType="touchUpInside" id="lN3-0v-qd5"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Please click the button down below to pay through venmo. Make sure you return to the app after paying!" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1EA-3P-Stl">
+                                <rect key="frame" x="45" y="324" width="338" height="123"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="123" id="QYj-gx-HeC"/>
+                                    <constraint firstAttribute="width" constant="338" id="Z7D-nP-fb3"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="large" translatesAutoresizingMaskIntoConstraints="NO" id="84n-7G-IGO">
+                                <rect key="frame" x="204" y="528" width="20" height="37"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="20" id="jvd-gl-Cyw"/>
+                                    <constraint firstAttribute="height" constant="37" id="xvS-8E-an6"/>
+                                </constraints>
+                            </activityIndicatorView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Processing Payment" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lkq-ZB-O2a">
+                                <rect key="frame" x="136.66666666666666" y="579" width="154.99999999999997" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="hsc-mx-aab"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="84n-7G-IGO" firstAttribute="centerX" secondItem="qVg-pc-YOD" secondAttribute="centerX" id="0nV-V7-yXF"/>
+                            <constraint firstItem="84n-7G-IGO" firstAttribute="top" secondItem="xAq-WU-zDn" secondAttribute="bottom" constant="57" id="4HG-S3-uMl"/>
+                            <constraint firstItem="xAq-WU-zDn" firstAttribute="top" secondItem="1EA-3P-Stl" secondAttribute="bottom" constant="8" symbolic="YES" id="LV5-8F-wOh"/>
+                            <constraint firstItem="Lkq-ZB-O2a" firstAttribute="top" secondItem="84n-7G-IGO" secondAttribute="bottom" constant="14" id="QIi-sd-PIs"/>
+                            <constraint firstItem="1EA-3P-Stl" firstAttribute="centerX" secondItem="qVg-pc-YOD" secondAttribute="centerX" id="V4T-VO-Aan"/>
+                            <constraint firstItem="1EA-3P-Stl" firstAttribute="top" secondItem="hsc-mx-aab" secondAttribute="top" constant="324" id="bs3-1x-e6v"/>
+                            <constraint firstItem="xAq-WU-zDn" firstAttribute="top" secondItem="1EA-3P-Stl" secondAttribute="bottom" constant="8" symbolic="YES" id="fvZ-bc-oHC"/>
+                            <constraint firstItem="xAq-WU-zDn" firstAttribute="centerX" secondItem="qVg-pc-YOD" secondAttribute="centerX" id="jU7-2m-N3m"/>
+                            <constraint firstItem="Lkq-ZB-O2a" firstAttribute="centerX" secondItem="qVg-pc-YOD" secondAttribute="centerX" id="le4-mL-B5E"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="yEf-t9-Wj0"/>
+                    <connections>
+                        <outlet property="paymentLoadingSpinner" destination="84n-7G-IGO" id="LFM-cs-hjD"/>
+                        <outlet property="processingPaymentLabel" destination="Lkq-ZB-O2a" id="jdr-ev-kR3"/>
+                        <outlet property="venmoButton" destination="xAq-WU-zDn" id="TNd-s6-9VR"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3WZ-ai-0Wh" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <view contentMode="scaleToFill" id="CSF-3C-TTG">
+                    <rect key="frame" x="0.0" y="0.0" width="250" height="200"/>
+                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                    <subviews>
+                        <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="jEx-xe-7LI">
+                            <rect key="frame" x="115" y="90" width="20" height="20"/>
+                        </activityIndicatorView>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Verifying Payment ..." textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="aLD-Qr-gic">
+                            <rect key="frame" x="47" y="130" width="156" height="21"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <nil key="textColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ov7-mx-xdR">
+                            <rect key="frame" x="59" y="159" width="132" height="30"/>
+                            <state key="normal" title="Cancel Transaction"/>
+                        </button>
+                    </subviews>
+                    <viewLayoutGuide key="safeArea" id="XVM-di-H98"/>
+                    <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                    <constraints>
+                        <constraint firstItem="ov7-mx-xdR" firstAttribute="centerX" secondItem="CSF-3C-TTG" secondAttribute="centerX" id="CNh-gh-PBC"/>
+                        <constraint firstItem="aLD-Qr-gic" firstAttribute="top" secondItem="jEx-xe-7LI" secondAttribute="bottom" constant="20" id="Hx3-vX-0lU"/>
+                        <constraint firstItem="jEx-xe-7LI" firstAttribute="centerX" secondItem="CSF-3C-TTG" secondAttribute="centerX" id="MZh-zB-VIS"/>
+                        <constraint firstItem="aLD-Qr-gic" firstAttribute="centerX" secondItem="CSF-3C-TTG" secondAttribute="centerX" id="ccq-NY-U2M"/>
+                        <constraint firstItem="ov7-mx-xdR" firstAttribute="top" secondItem="aLD-Qr-gic" secondAttribute="bottom" constant="8" symbolic="YES" id="htO-ei-OJ5"/>
+                        <constraint firstItem="jEx-xe-7LI" firstAttribute="centerY" secondItem="CSF-3C-TTG" secondAttribute="centerY" id="nBm-Wl-lki"/>
+                    </constraints>
+                </view>
+                <exit id="bhc-C1-NWN" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="4362.6168224299063" y="79.697624190064801"/>
         </scene>
         <!--My Listings Table View Controller-->
         <scene sceneID="gE3-1W-IDN">
@@ -6782,6 +6883,7 @@
         <image name="reservation-confirmation-2" width="1240" height="416"/>
         <image name="rightPage" width="11" height="14"/>
         <image name="square" catalog="system" width="128" height="114"/>
+        <image name="venmo_logo_blue" width="786" height="149"/>
         <image name="watch" width="512" height="833"/>
         <image name="x" width="12" height="12"/>
         <image name="xmark" catalog="system" width="128" height="113"/>
