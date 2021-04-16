@@ -191,10 +191,10 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         let hourAfterNow = Calendar.current.date(byAdding: .hour, value: 1, to: todayDate!)
         let start = timeRange.firstIndex(of: timeFormatter1.string(from: todayDate!))!
         
-        startScroller.selectRow(start, inComponent: 0, animated: false)
-        endScroller.selectRow(start+4, inComponent: 0, animated: false)
-        customStartScroller.selectRow(start, inComponent: 0, animated: false)
-        customEndScroller.selectRow(start+4, inComponent: 0, animated: false)
+        startScroller.selectRow(8*4, inComponent: 0, animated: false) //default 8am to 5 pm time frame
+        endScroller.selectRow(17*4, inComponent: 0, animated: false)
+        customStartScroller.selectRow(8*4, inComponent: 0, animated: false)
+        customEndScroller.selectRow(17*4, inComponent: 0, animated: false)
         let customStartTime = getEpochTime(row: customStartScroller.selectedRow(inComponent: 0))//customStartScroller.selectedRow(inComponent: 0) * (15*60)
         let customEndTime = getEpochTime(row: customEndScroller.selectedRow(inComponent: 0))//customEndScroller.selectedRow(inComponent: 0) * (15*60)
         
@@ -212,10 +212,10 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             btn?.layer.borderWidth = 1
             btn?.layer.borderColor = .init(red: 0.0, green: 0.0, blue: 0.0, alpha: 0.5)
             if count % 2 == 0 {
-                btn?.setTitle(timeFormatter1.string(from: todayDate!), for: .normal)
+                btn?.setTitle("8:00 AM"/*timeFormatter1.string(from: todayDate!)*/, for: .normal)
                 customTimes[count/2] = [ParkingTimeInterval(start: customStartTime, end: customEndTime)]
             } else {
-                btn?.setTitle(timeFormatter1.string(from: hourAfterNow!), for: .normal)
+                btn?.setTitle("5:00 PM"/*timeFormatter1.string(from: hourAfterNow!)*/, for: .normal)
             }
             count += 1
         }
