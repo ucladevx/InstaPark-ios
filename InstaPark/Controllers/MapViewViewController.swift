@@ -156,9 +156,16 @@ class MapViewViewController: ViewController, passFromProfile{
         self.view.addSubview(slideOutBar)
         slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
         
-        // make user name & image a user default so it doesn't have to be queried every time
 //        loadSlideoutData()
         profileImage.layer.cornerRadius = 30
+        
+        profileImage.isUserInteractionEnabled = true
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+        let tapRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+        profileImage.addGestureRecognizer(tapRecognizer2)
+        slideOutMenuUserName.isUserInteractionEnabled = true
+        slideOutMenuUserName.addGestureRecognizer(tapRecognizer)
+        
         
         //time frame button
         timeFrameButton.layer.shadowRadius = 4.0
@@ -312,6 +319,14 @@ class MapViewViewController: ViewController, passFromProfile{
         setupView()
         SlideUpView.isHidden = true
         
+    }
+    
+    @objc func profileTapped() {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "profileVC") as! ContactInfoViewController
+        nextViewController.modalPresentationStyle = .fullScreen
+        nextViewController.modalTransitionStyle = .coverVertical
+        self.present(nextViewController, animated: true, completion: nil)
     }
     
     func reload(firstName: String, lastName: String, image: UIImage?) {

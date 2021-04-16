@@ -230,6 +230,12 @@ class ListingAddressViewController: UIViewController {
                 stateAndZip.removeAll {$0 == ""}
                 ShortTermParking.address = Address(city: addressArray[2], state: stateAndZip[0], street: addressArray[0] + ", " +  addressArray[1], zip: stateAndZip[1])
                 print(ShortTermParking.address)
+                if addressArray[2] != "Los Angeles" {
+                    let alert = UIAlertController(title: "Error", message: "Listings are only listable in Los Angeles currently.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return false
+                }
                 return true
             }
             else if addressArray.count == 4 {
@@ -239,6 +245,12 @@ class ListingAddressViewController: UIViewController {
                 }
                 ShortTermParking.address = Address(city: addressArray[1], state: stateAndZip[0], street: addressArray[0], zip: stateAndZip[1])
                 print(ShortTermParking.address)
+                if addressArray[1] != "Los Angeles" {
+                    let alert = UIAlertController(title: "Error", message: "Listings are only listable in Los Angeles currently.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                    return false
+                }
                 return true
             }
             else {
