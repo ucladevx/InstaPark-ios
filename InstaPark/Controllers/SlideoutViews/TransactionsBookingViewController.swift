@@ -36,9 +36,9 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
     @IBOutlet weak var directionsOutlineView: UIView!
-    @IBOutlet var accessPhoto: UIImageView!
-    @IBOutlet var accessTitle: UILabel!
-    @IBOutlet var accessInfo: UILabel!
+//    @IBOutlet var accessPhoto: UIImageView!
+//    @IBOutlet var accessTitle: UILabel!
+//    @IBOutlet var accessInfo: UILabel!
     
     var bookmarkFlag = false
     var transaction = false
@@ -96,24 +96,24 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
         }
         
         //set up access view
-        switch info.selfParking.selfParkingMethod {
-        case "remote":
-            accessPhoto.image = UIImage(named: "remote")
-            accessTitle.text = "Remote Access"
-            accessInfo.text = "The seller will give you a remote to access this spot."
-        case "key":
-            accessPhoto.image = UIImage(named: "key2")
-            accessTitle.text = "Key Access"
-            accessInfo.text = "The seller will give you a key to access this spot."
-        case "code":
-            accessPhoto.image = UIImage(named: "code")
-            accessTitle.text = "Code Access"
-            accessInfo.text = "The seller will give you a code to access this spot."
-        default:
-            accessPhoto.image = UIImage(named: "open")
-            accessTitle.text = "Open Access"
-            accessInfo.text = "Nothing is needed to access this spot."
-        }
+//        switch info.selfParking.selfParkingMethod {
+//        case "remote":
+//            accessPhoto.image = UIImage(named: "remote")
+//            accessTitle.text = "Remote Access"
+//            accessInfo.text = "The seller will give you a remote to access this spot."
+//        case "key":
+//            accessPhoto.image = UIImage(named: "key2")
+//            accessTitle.text = "Key Access"
+//            accessInfo.text = "The seller will give you a key to access this spot."
+//        case "code":
+//            accessPhoto.image = UIImage(named: "code")
+//            accessTitle.text = "Code Access"
+//            accessInfo.text = "The seller will give you a code to access this spot."
+//        default:
+//            accessPhoto.image = UIImage(named: "open")
+//            accessTitle.text = "Open Access"
+//            accessInfo.text = "Nothing is needed to access this spot."
+//        }
         
         //shadow for user info view
         userInfoView.layer.shadowRadius = 5.0
