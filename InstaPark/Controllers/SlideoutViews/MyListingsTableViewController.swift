@@ -13,13 +13,19 @@ class MyListingsTableViewController: UITableViewController,CustomSegmentedContro
 
         @IBOutlet var listingTable: UITableView!
     
-        var myListings = [ShortTermParkingSpot]() {
+    @IBOutlet var deactivatePopup: UIView!
+    var blackScreen: UIView!
+    
+    var myListings = [ShortTermParkingSpot]() {
             didSet {
             }
         }
     
         var listingsTab = true
         var tabs: CustomSegmentedControl!
+    
+    var currentSelectedID: String!
+    var currentIndex: Int!
     
         override func viewDidLoad() {
             super.viewDidLoad()
@@ -45,6 +51,8 @@ class MyListingsTableViewController: UITableViewController,CustomSegmentedContro
                     self.view.addGestureRecognizer(gesture)
                }
             
+            blackScreen = UIView()
+            blackScreen.backgroundColor = .black
             // Uncomment the following line to preserve selection between presentations
             // self.clearsSelectionOnViewWillAppear = false
 
@@ -154,14 +162,38 @@ class MyListingsTableViewController: UITableViewController,CustomSegmentedContro
                 
                 self.present(nextViewController, animated:true)
             })
-            let viewAction = UIAlertAction(title: "View on Map", style: .default, handler: {action -> Void in
-                let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "ListingMapViewController") as! ListingMapViewController
-                nextViewController.modalPresentationStyle = .fullScreen
-                nextViewController.modalTransitionStyle = .coverVertical
-                nextViewController.coord = CLLocationCoordinate2D(latitude: self.myListings[sender.tag].coordinates.lat, longitude: self.myListings[sender.tag].coordinates.long)
-                nextViewController.price = self.myListings[sender.tag].pricePerHour
-                self.present(nextViewController, animated: true)
+            let parkingSpot = self.myListings[sender.tag]
+            var action2Title = "Temporarily Deactivate Listing"
+            if parkingSpot.deactivated {
+                print("reactivating")
+                action2Title = "Reactivate Listing"
+            }
+            let viewAction = UIAlertAction(title: action2Title, style: .default, handler: {action -> Void in
+                if parkingSpot.deactivated {
+                    ParkingSpotService.deactivateParkingSpot(id: parkingSpot.id, deactivate: false)
+                    self.myListings[sender.tag].deactivated = false
+                    let alert = UIAlertController(title: "Success", message: "Your listing has been reactivated.", preferredStyle: .alert)
+                    alert.addAction(UIAlertAction(title: "OK", style: UIAlertAction.Style.default, handler: nil))
+                    self.present(alert, animated: true, completion: nil)
+                } else {
+                    self.currentSelectedID = parkingSpot.id
+                    self.blackScreen.alpha = 0.0
+                    self.blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: UIScreen.main.bounds.height)
+                    self.view.addSubview(self.blackScreen)
+                    
+                    self.deactivatePopup.frame = CGRect(x: 0 , y: 0 , width: 325, height: 300)
+                    self.deactivatePopup.center.x = self.view.center.x
+                    self.deactivatePopup.center.y = self.view.frame.height * 3 / 4
+                    self.view.addSubview(self.deactivatePopup)
+                    self.deactivatePopup.isHidden = false
+                    self.currentIndex = sender.tag
+                    
+                    
+                    UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseOut],
+                                   animations: {
+                                    self.deactivatePopup.center.y = self.view.center.y * 0.8
+                                   }, completion: {_ in })
+                }
             })
             let deleteAction = UIAlertAction(title: "Delete Listing", style: .destructive, handler: {action -> Void in
                 let alert = UIAlertController(title: "Delete Your Lisiting?", message: "This action cannot be undone.", preferredStyle: .alert)
@@ -182,8 +214,27 @@ class MyListingsTableViewController: UITableViewController,CustomSegmentedContro
            self.present(optionMenu, animated: true, completion: nil)
         }
     
-
-        
+    @IBAction func deactivate(_ sender: Any) {
+        ParkingSpotService.deactivateParkingSpot(id: currentSelectedID, deactivate: true)
+        myListings[currentIndex].deactivated = true
+        dismissPopup()
+    }
+    
+    @IBAction func canelDeactivation(_ sender: Any) {
+        dismissPopup()
+    }
+    
+    func dismissPopup() {
+        UIView.animate(withDuration: 0.15, delay: 0, options: [.curveEaseIn],
+                       animations: {
+                        self.deactivatePopup.center.y = self.view.frame.height * 3 / 4
+                       }, completion: {_ in
+                        self.deactivatePopup.removeFromSuperview()
+                        self.deactivatePopup.isHidden = true
+                        self.blackScreen.removeFromSuperview()
+                       })
+    }
+    
 
         @IBAction func backBtn(_ sender: Any) {
             dismiss(animated: true)

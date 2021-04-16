@@ -420,7 +420,7 @@ class MapViewViewController: ViewController, passFromProfile{
                         ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
                             if let parkingSpot = parkingSpot{
                                 if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
-                                    if parkingSpot.provider != "" {
+                                    if parkingSpot.provider != "", !parkingSpot.deactivated, Date(timeIntervalSince1970: TimeInterval(parkingSpot.endDate)) >= Date(){
                                         UserService.getUserById(parkingSpot.provider) { (user, error) in
                                             if let user = user {
                                                 print("Query by location")

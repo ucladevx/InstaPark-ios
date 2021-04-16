@@ -25,6 +25,7 @@ class ParkingSpot: Codable {
         self.directions = directions
         self.selfParking = selfParking
         self.approvedReservations = approvedReservations
+        self.deactivated = false
     }
     
     var id: String
@@ -49,11 +50,12 @@ class ParkingSpot: Codable {
 //
     //List of IDs for all transactions
     var reservations: [String]
-    var approvedReservations: [String]
+    var approvedReservations: [String]?
     func validateTimeSlot(start: Int, end: Int, completion: @escaping(Bool)->Void) {
         completion(true);
     }
     var selfParking: SelfParking
+    var deactivated: Bool
 }
 struct Address: Codable {
     var city: String

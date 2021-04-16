@@ -274,6 +274,7 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
                 print("upcoming")
             } else {
                 directionsOutlineView.isHidden = true
+                directionsOutlineView.frame.size.height = 0
             }
         }
         // just browsing
