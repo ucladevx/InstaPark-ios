@@ -281,6 +281,10 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         
         cell.price.text = "$" + String(format: "%.2f", transaction.total)
         
+        cell.profilePicture.isUserInteractionEnabled = true
+        let tapRecognizer = MyTapGesture(target: self, action: #selector(profileTapped))
+        tapRecognizer.uid = transaction.customer
+        cell.profilePicture.addGestureRecognizer(tapRecognizer)
         
         
 //        cell.Date.text = "Date: " + dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate
@@ -288,7 +292,7 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
 //        cell.address.text = "Address: " + transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip
         if customerName.isEmpty {
             DispatchQueue.global(qos: .userInteractive).async {
-                UserService.getUserById(transaction.provider) { (user, error) in
+                UserService.getUserById(transaction.customer ) { (user, error) in
                     if let user = user {
                         cell.customerRequest.attributedText = self.attributedInfoBold(string: user.displayName, fontSize: 14)
                         if user.photoURL != "" {
@@ -336,6 +340,16 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         
         //print(cell.priceLabel.text ?? "")
         return cell
+    }
+    
+    @objc func profileTapped(sender : MyTapGesture){
+        let uid = sender.uid
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "userProfileVC") as! UserProfileViewController
+        nextViewController.modalPresentationStyle = .fullScreen
+        nextViewController.modalTransitionStyle = .coverVertical
+        nextViewController.uid = uid
+        self.present(nextViewController, animated: true, completion: nil)
     }
     
     func attributedInfoBold(string: String, fontSize: CGFloat) -> NSMutableAttributedString {
@@ -445,4 +459,8 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         
     }*/
 
+}
+
+class MyTapGesture: UITapGestureRecognizer {
+    var uid = String()
 }
