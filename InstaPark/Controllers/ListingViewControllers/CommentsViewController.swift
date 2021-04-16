@@ -30,6 +30,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
         if comments.textColor == UIColor.lightGray {
             comments.text = ""
             comments.textColor = UIColor.black
+            comments.font = UIFont(name: "OpenSans-Regular", size: 14)
         }
     }
     
@@ -42,6 +43,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
         comments.delegate = self
         comments.text = "Start typing here..."
         comments.textColor = UIColor.lightGray
+        comments.font = UIFont(name: "OpenSans-Italic", size: 14)
         comments.textContainerInset.left = 10
         comments.textContainerInset.right = 10
     }

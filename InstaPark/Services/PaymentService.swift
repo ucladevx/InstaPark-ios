@@ -21,6 +21,9 @@ class PaymentService {
         let success: Bool
         let error_message: String
     }
+    struct VenmoResponse: Decodable {
+        let success: Bool
+    }
     static func savePaymentToDatabase(providerId: String, customerId: String, transactionId: String) {
         let url = URL(string: "https://salty-river-57707.herokuapp.com/savePayment")!
         var request = URLRequest(url: url)
@@ -54,6 +57,43 @@ class PaymentService {
             }
             completion(.error("Error"))
             // TODO: Handle success or failure
+        }.resume()
+    }
+    static func testGet() {
+        print("Test Get")
+        let requestURL = URL(string: "https://salty-river-57707.herokuapp.com/test")!
+        var request = URLRequest(url:requestURL)
+        request.httpMethod = "GET"
+        URLSession.shared.dataTask(with: request) {(data, response, error) in
+            print(data)
+            print(response)
+            print(error)
+        }.resume()
+    }
+    static func validatePayment(transaction: Transaction, orderCode: String, completion: @escaping(Bool)->Void) {
+//        let requestURL = URL(string: "https://salty-river-57707.herokuapp.com/validatePayment")!
+        let requestURL = URL(string: "https://salty-river-57707.herokuapp.com/validatePayment")!
+        var request = URLRequest(url: requestURL)
+        let body: [String: Any] = ["orderCode": orderCode,
+                                   "amount": transaction.total,
+                                   "providerId": transaction.provider,
+                                   "customerId": transaction.customer,
+                                   "parkingSpotId": transaction.parkingSpot]
+        let jsonData = try? JSONSerialization.data(withJSONObject: body)
+        request.httpBody = jsonData
+        request.httpMethod = "POST"
+        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+        print("Do post request")
+        URLSession.shared.dataTask(with: request) {(data, response, error) in
+            if let data = data {
+                print("VERIFACATION BACK!")
+                let decoder = JSONDecoder()
+                let res = try! decoder.decode(VenmoResponse.self, from: data)
+                completion(res.success)
+            } else {
+                print(error);
+                completion(false);
+            }
         }.resume()
     }
 }

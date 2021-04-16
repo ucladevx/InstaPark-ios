@@ -202,7 +202,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
 //        standardTimeView.frame =  CGRect(x: 0, y: 0, width: self.segmentedView.frame.width, height: 210)
         self.segmentedView.addSubview(customTimeView)
         customTimeView.frame =  CGRect(x: 0, y: 0, width: self.customTimeView.frame.width, height: 300)
-        customTimeView.center.x = segmentedView.center.x
+        customTimeView.center.x = view.center.x
         standardTime = false
         let timeBtns = [sundayStart, sundayEnd, mondayStart, mondayEnd, tuesdayStart, tuesdayEnd, wednesdayStart, wednesdayEnd, thursdayStart, thursdayEnd, fridayStart, fridayEnd, saturdayStart, saturdayEnd]
         var count = 0
