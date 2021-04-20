@@ -80,8 +80,8 @@ class ParkingTypeViewController: UIViewController {
         //Runtime attributes must be done here b/c borderColor doesn't work on Storyboard
         for i in typeButtons {
         i.layer.cornerRadius = 10
-        i.layer.borderWidth = 2
-        i.layer.borderColor = UIColor(red: 0.429, green: 0.429, blue: 0.429, alpha: 1).cgColor
+        i.layer.borderWidth = 1
+            i.layer.borderColor = UIColor(red: 0.77, green: 0.77, blue: 0.77, alpha: 1).cgColor
         }
         for i in featureButtons {
         i.layer.cornerRadius = 3
