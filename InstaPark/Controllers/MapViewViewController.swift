@@ -1188,10 +1188,10 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.contentView.frame.size.width = CGFloat(width) + 5
             cell.contentView.frame.size.height = 30
             let tag = cell.tagLabel ?? UILabel()
-            tag.layer.borderWidth = 1.5
+            tag.layer.borderWidth = 1
             tag.frame.size.width = CGFloat(width)
             tag.frame.size.height = 20
-            tag.layer.cornerRadius = 9
+            tag.layer.cornerRadius = 10
 //            tag.layer.borderColor = CGColor(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
             tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
             tag.text = self.selectedAnnotationTags[index]

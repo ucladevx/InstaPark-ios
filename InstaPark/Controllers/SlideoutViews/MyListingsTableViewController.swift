@@ -149,16 +149,15 @@ class MyListingsTableViewController: UITableViewController,CustomSegmentedContro
            let optionMenu = UIAlertController(title: nil, message: "Select Action", preferredStyle: .actionSheet)
             let editAction = UIAlertAction(title: "View Listing", style: .default, handler: {action -> Void in
                 let parkingSpot = self.myListings[sender.tag]
-                let parkingSpace = ParkingSpaceMapAnnotation(id: parkingSpot.id,name: "", email: "", phoneNumber: "", photo:"", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
+                let parkingSpace = ParkingSpaceMapAnnotation(id: parkingSpot.id,name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
                 
                 let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
-                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "transactionsBookingView") as! TransactionsBookingViewController
+                let nextViewController = storyBoard.instantiateViewController(withIdentifier: "bookingView") as! BookingViewController
                 nextViewController.modalPresentationStyle = .fullScreen
                 nextViewController.modalTransitionStyle = .coverVertical
                 nextViewController.info = parkingSpace
-                nextViewController.total = parkingSpot.pricePerHour
-                nextViewController.provider = parkingSpot.provider
-                nextViewController.directions = parkingSpot.selfParking.specificDirections
+                nextViewController.ShortTermParking = parkingSpot
+                nextViewController.fromMyListings = true
                 
                 self.present(nextViewController, animated:true)
             })
