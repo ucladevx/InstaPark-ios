@@ -365,6 +365,16 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         return cell
     }
     
+    @objc func profileTapped(sender : MyTapGesture){
+        let uid = sender.uid
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "userProfileVC") as! UserProfileViewController
+        nextViewController.modalPresentationStyle = .fullScreen
+        nextViewController.modalTransitionStyle = .coverVertical
+        nextViewController.uid = uid
+        self.present(nextViewController, animated: true, completion: nil)
+    }
+    
     func attributedInfoBold(string: String, fontSize: CGFloat) -> NSMutableAttributedString {
         let attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: fontSize)]
         let attr = NSMutableAttributedString(string: string, attributes:attrs as [NSAttributedString.Key : Any])
@@ -472,4 +482,8 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         
     }*/
 
+}
+
+class MyTapGesture: UITapGestureRecognizer {
+    var uid = String()
 }

@@ -11,15 +11,17 @@ class UserService {
     static let db = Firestore.firestore()
     static func getUserById(_ id: String, completion: @escaping(User?,Error?)->Void) {
         let docRef = db.collection("User").document(id)
-        print(id)
+        print("User id: " + id)
         docRef.getDocument() { document, error in
             if let error = error {
                 completion(nil, error)
                 return
             }else {
                 if let document = document {
-                    if let user = try? User.init(from: document.data()!) {
-                        completion(user, nil)
+                    if let data = document.data() {
+                        if let user = try? User.init(from: data) {
+                            completion(user, nil)
+                        }
                     }
                 }
             }

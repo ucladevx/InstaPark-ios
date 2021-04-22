@@ -93,7 +93,9 @@ class ShortTermParkingSpot: ParkingSpot {
                         let k = (startWeekday + i)%7
                         if (k == endWeekday){
                             if(compareHourMinutes(endParking, times[k]![0].end)<=0) {
-                                return true
+                                if !self.deactivated {
+                                    return true
+                                }
                             }
                         } else {
                             if times[k]![0].start == 0 && isEndOfDay(times[k]![0].end){

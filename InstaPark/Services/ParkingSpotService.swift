@@ -160,7 +160,7 @@ class ParkingSpotService {
         // save parking spot information as transaction
         let docRef = db.collection("Transaction").document()
         if let user = Auth.auth().currentUser {
-            let transaction = Transaction.init(id: docRef.documentID, customer: user.uid, startTime: startTime, endTime: endTime, address: parkingSpot.address, fromParkingSpot: parkingSpot)
+            let transaction = Transaction.init(id: docRef.documentID, customer: user.uid, startTime: startTime, endTime: endTime, fromParkingSpot: parkingSpot)
             docRef.setData(transaction.dictionary)
             db.collection("ParkingSpot").document(parkingSpot.id).updateData(["reservations": FieldValue.arrayUnion([docRef.documentID])])
         }
@@ -215,7 +215,6 @@ class ParkingSpotService {
     }
     //Gets all transactions associated with parking spots given parking spot ids
     static func getAllReservationsForParkingSpot(ids: [String], completion: @escaping([Transaction]?, Error?)->Void) {
-        var allTransactions = [Transaction]()
         getParkingSpotByIds(ids) { (parkingSpots, error) in
             if let parkingSpots = parkingSpots, error == nil {
                 var reservations = [String]()
@@ -232,22 +231,13 @@ class ParkingSpotService {
                         completion(nil, error)
                     }
                 }
-//                for reservation in reservations {
-//                    TransactionService.getTransactionById(reservation) { (transaction, error) in
-//                        if let transaction = transaction, error == nil {
-//                            print("transaction")
-//                            print(transaction)
-//                            allTransactions.append(transaction)
-//                        } else {
-//                            print("error")
-//                            completion(nil, error)
-//                        }
-//                    }
-//                }
-                
             }
         }
-        completion(allTransactions, nil)
+    }
+    
+    static func deactivateParkingSpot(id: String, deactivate: Bool) {
+        let docRef = db.collection(parkingDBName).document(id)
+        docRef.updateData(["super.deactivated": deactivate])
     }
 }
 enum ParkingType {

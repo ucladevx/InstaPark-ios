@@ -36,9 +36,9 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
     @IBOutlet weak var bookmarkButton: UIButton!
     @IBOutlet weak var totalTitleLabel: UILabel!
     @IBOutlet weak var directionsOutlineView: UIView!
-    @IBOutlet var accessPhoto: UIImageView!
-    @IBOutlet var accessTitle: UILabel!
-    @IBOutlet var accessInfo: UILabel!
+//    @IBOutlet var accessPhoto: UIImageView!
+//    @IBOutlet var accessTitle: UILabel!
+//    @IBOutlet var accessInfo: UILabel!
     
     var bookmarkFlag = false
     var transaction = false
@@ -96,24 +96,24 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
         }
         
         //set up access view
-        switch info.selfParking.selfParkingMethod {
-        case "remote":
-            accessPhoto.image = UIImage(named: "remote")
-            accessTitle.text = "Remote Access"
-            accessInfo.text = "The seller will give you a remote to access this spot."
-        case "key":
-            accessPhoto.image = UIImage(named: "key2")
-            accessTitle.text = "Key Access"
-            accessInfo.text = "The seller will give you a key to access this spot."
-        case "code":
-            accessPhoto.image = UIImage(named: "code")
-            accessTitle.text = "Code Access"
-            accessInfo.text = "The seller will give you a code to access this spot."
-        default:
-            accessPhoto.image = UIImage(named: "open")
-            accessTitle.text = "Open Access"
-            accessInfo.text = "Nothing is needed to access this spot."
-        }
+//        switch info.selfParking.selfParkingMethod {
+//        case "remote":
+//            accessPhoto.image = UIImage(named: "remote")
+//            accessTitle.text = "Remote Access"
+//            accessInfo.text = "The seller will give you a remote to access this spot."
+//        case "key":
+//            accessPhoto.image = UIImage(named: "key2")
+//            accessTitle.text = "Key Access"
+//            accessInfo.text = "The seller will give you a key to access this spot."
+//        case "code":
+//            accessPhoto.image = UIImage(named: "code")
+//            accessTitle.text = "Code Access"
+//            accessInfo.text = "The seller will give you a code to access this spot."
+//        default:
+//            accessPhoto.image = UIImage(named: "open")
+//            accessTitle.text = "Open Access"
+//            accessInfo.text = "Nothing is needed to access this spot."
+//        }
         
         //shadow for user info view
         userInfoView.layer.shadowRadius = 5.0
@@ -268,12 +268,16 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
             
             
-            if upcomingSpot, directions != nil, !directions.isEmpty{
+            if upcomingSpot {
+                if directions == nil || directions.isEmpty {
+                    directionsLabel.text = "No specific directions were given"
+                }
                 directionsOutlineView.layer.borderWidth = 1
                 directionsOutlineView.layer.borderColor = CGColor.init(red: 143.0/255.0, green: 0.0, blue: 1.0, alpha: 1.0)
                 print("upcoming")
             } else {
                 directionsOutlineView.isHidden = true
+                directionsOutlineView.frame.size.height = 0
             }
         }
         // just browsing
@@ -542,10 +546,10 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
             cell.contentView.frame.size.width = CGFloat(width) + 5
             cell.contentView.frame.size.height = 30
             let tag = cell.tagLabel ?? UILabel()
-            tag.layer.borderWidth = 1.5
+            tag.layer.borderWidth = 1
             tag.frame.size.width = CGFloat(width)
             tag.frame.size.height = 20
-            tag.layer.cornerRadius = 9
+            tag.layer.cornerRadius = 10
 //            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
             tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
 //            if index == 0 {

@@ -63,7 +63,7 @@ class MapViewViewController: ViewController, passFromProfile{
     var selectedAnnotationTags = [String]()
     var selectedImages = [String]()
     var images = [UIImage]()
-    
+    var parkingSpots = [ShortTermParkingSpot]()
     
     @IBOutlet var slideOutBar: SlideOutView!
     var slideOutBarCollapsed = true
@@ -156,9 +156,16 @@ class MapViewViewController: ViewController, passFromProfile{
         self.view.addSubview(slideOutBar)
         slideOutBar.frame = CGRect(x: -self.view.bounds.width/2, y:0, width: self.view.bounds.width/2, height: self.view.bounds.height)
         
-        // make user name & image a user default so it doesn't have to be queried every time
 //        loadSlideoutData()
         profileImage.layer.cornerRadius = 30
+        
+        profileImage.isUserInteractionEnabled = true
+        let tapRecognizer = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+        let tapRecognizer2 = UITapGestureRecognizer(target: self, action: #selector(profileTapped))
+        profileImage.addGestureRecognizer(tapRecognizer2)
+        slideOutMenuUserName.isUserInteractionEnabled = true
+        slideOutMenuUserName.addGestureRecognizer(tapRecognizer)
+        
         
         //time frame button
         timeFrameButton.layer.shadowRadius = 4.0
@@ -314,6 +321,14 @@ class MapViewViewController: ViewController, passFromProfile{
         
     }
     
+    @objc func profileTapped() {
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "profileVC") as! ContactInfoViewController
+        nextViewController.modalPresentationStyle = .fullScreen
+        nextViewController.modalTransitionStyle = .coverVertical
+        self.present(nextViewController, animated: true, completion: nil)
+    }
+    
     func reload(firstName: String, lastName: String, image: UIImage?) {
         slideOutMenuUserName.text = firstName + "\n" + lastName
         if image != nil {
@@ -347,7 +362,6 @@ class MapViewViewController: ViewController, passFromProfile{
         nextViewController.modalTransitionStyle = .coverVertical
         nextViewController.info = parkingSpace[0]
         nextViewController.images = images
-        
         self.present(nextViewController, animated:true)
     }
     
@@ -382,6 +396,7 @@ class MapViewViewController: ViewController, passFromProfile{
                                                                 annotation.date = self.shortTermDate
                                                             }
                                                             self.annotations.append(annotation)
+                                                            self.parkingSpots.append(parkingSpot)
                                                             mapView.addAnnotation(annotation)
                                                             }
                                                     }
@@ -405,7 +420,7 @@ class MapViewViewController: ViewController, passFromProfile{
                         ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
                             if let parkingSpot = parkingSpot{
                                 if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
-                                    if parkingSpot.provider != "" {
+                                    if parkingSpot.provider != "", !parkingSpot.deactivated, Date(timeIntervalSince1970: TimeInterval(parkingSpot.endDate)) >= Date(){
                                         UserService.getUserById(parkingSpot.provider) { (user, error) in
                                             if let user = user {
                                                 print("Query by location")
@@ -1173,10 +1188,10 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.contentView.frame.size.width = CGFloat(width) + 5
             cell.contentView.frame.size.height = 30
             let tag = cell.tagLabel ?? UILabel()
-            tag.layer.borderWidth = 1.5
+            tag.layer.borderWidth = 1
             tag.frame.size.width = CGFloat(width)
             tag.frame.size.height = 20
-            tag.layer.cornerRadius = 9
+            tag.layer.cornerRadius = 10
 //            tag.layer.borderColor = CGColor(red: 0.502, green: 0.455, blue: 0.576, alpha: 1.0)
             tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
             tag.text = self.selectedAnnotationTags[index]
