@@ -42,8 +42,8 @@
         <scene sceneID="V1Z-3d-FuR">
             <objects>
                 <viewController storyboardIdentifier="MapViewVC" useStoryboardIdentifierAsRestorationIdentifier="YES" id="7w2-uL-iKy" customClass="MapViewViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="0tu-wt-Jpv">
-                        <rect key="frame" x="0.0" y="0.0" width="428" height="872"/>
+                    <view key="view" contentMode="scaleToFill" id="0tu-wt-Jpv">
+                        <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" mapType="standard" rotateEnabled="NO" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="j3k-4t-CT2">
@@ -79,7 +79,7 @@
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbx-F9-Sil">
-                                <rect key="frame" x="87" y="70" width="240" height="30"/>
+                                <rect key="frame" x="87" y="158" width="240" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="8TC-YG-d8X"/>
@@ -3595,12 +3595,12 @@
         <scene sceneID="CSG-YE-fiO">
             <objects>
                 <viewController storyboardIdentifier="Listing1" id="xfK-up-MuI" customClass="ListingAddressViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="eAt-q7-6Sn">
+                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="eAt-q7-6Sn">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fgR-1y-cRO">
-                                <rect key="frame" x="0.0" y="0.0" width="428" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="896"/>
                                 <gestureRecognizers/>
                             </mapView>
                             <view contentMode="scaleToFill" id="QU9-qp-laF">

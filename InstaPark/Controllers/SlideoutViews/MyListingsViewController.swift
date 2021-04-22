@@ -35,8 +35,9 @@ struct r {
 class MyListingsViewController: UITableViewController, CustomSegmentedControlDelegate {
     
     var requestsTab = true
-
+    
     @IBOutlet weak var transactionsList: UITableView!
+    
     
     var requests = [Transaction](){
         didSet{
@@ -64,6 +65,14 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
     var hasProfilePics = [Bool]()
     var sections = [r]()
     var dummy: [String] = []
+    
+    private let t: UITableView = {
+        let table = UITableView()
+        
+        table.register(EmptyListingsViewCell.nib(), forCellReuseIdentifier: EmptyListingsViewCell.identifier)
+        
+        return table
+    }()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -120,6 +129,11 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
 //
 //        splitRequests()
         
+        if pending.count > 0 {
+            splitRequests()
+        } else {
+            tableView.addSubview(t)
+        }
         /*let directions: [UISwipeGestureRecognizer.Direction] = [.right, .left]
            for direction in directions {
                 let gesture = UISwipeGestureRecognizer(target: self, action: #selector(self.handleSwipe(sender:)))
@@ -225,12 +239,14 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         //if requestsTab {
-        print("requests")
-//        print(requests.count)
-        //let section = self.sections[section]
-        //return section.arr.count
-        return reservations.count
-        //}
+        if requests.count > 0 {
+            print("requests")
+            print(requests.count)
+            //let section = self.sections[section]
+            //return section.arr.count
+            return requests.count
+        }
+        return 1
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -243,101 +259,108 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
 //        return header
 //    }
     
+    /*@IBAction func createListing(_ sender: Any){
+        self.performSegue(withIdentifier: "createListing", sender: self)
+    }*/
+    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         print("Preparing cell")
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyListingsViewCell", for: indexPath) as? MyListingsViewCell else {
-            fatalError("Dequeued cell not an instance of MyListingsViewCell")
-        }
-        var transaction: Transaction
-        var customerName = ""
-        //if requestsTab {
-        transaction = reservations[indexPath.row]
-        customerName = requestsNames[indexPath.row]
-        var customerImage = requestProfilePics[indexPath.row]
-        
-        //} else {
-
-        //}
-        
-        let dateFormatter1 = DateFormatter()
-        dateFormatter1.dateFormat = "MMMM d"
-        let dateFormatter2 = DateFormatter()
-        dateFormatter2.dateFormat = "h:mm a"
-        var secondDate = ""
-        if transaction.startTime - transaction.endTime > 86400 { //transaction for more than a day
-            secondDate = " — " + dateFormatter1.string(from: Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime))) + "\n"
-        }
-        let date = attributedInfoBold(string: "Date: ", fontSize: 12)
-        date.append(attributedInfoRegular(string: dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate, fontSize: 12))
-        cell.Date.attributedText = date
-        
-        let time = attributedInfoBold(string: "Time: ", fontSize: 12)
-        time.append(attributedInfoRegular(string: dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime))), fontSize: 12))
-        cell.Time.attributedText = time
-        
-        let addr = attributedInfoBold(string: "Address: ", fontSize: 12)
-        addr.append(attributedInfoRegular(string: transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip, fontSize: 12))
-        cell.address.attributedText = addr
-        
-        cell.price.text = "$" + String(format: "%.2f", transaction.total)
-        
-        cell.profilePicture.isUserInteractionEnabled = true
-        let tapRecognizer = MyTapGesture(target: self, action: #selector(profileTapped))
-        tapRecognizer.uid = transaction.customer
-        cell.profilePicture.addGestureRecognizer(tapRecognizer)
-        
-        
-//        cell.Date.text = "Date: " + dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate
-//        cell.Time.text = "Time: " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
-//        cell.address.text = "Address: " + transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip
-        if customerName.isEmpty {
-            DispatchQueue.global(qos: .userInteractive).async {
-                UserService.getUserById(transaction.customer ) { (user, error) in
-                    if let user = user {
-                        cell.customerRequest.attributedText = self.attributedInfoBold(string: user.displayName, fontSize: 14)
-                        if user.photoURL != "" {
-                            guard let url = URL(string: user.photoURL) else {
-                                print("can't convert string to URL")
-                                return
-                            }
-                            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
-                                guard let data = data, error == nil else {
-                                    print("failed to convert image from url")
+        if pending.count > 0 {
+            tableView.register(MyListingsViewCell.nib(), forCellReuseIdentifier: "MyListingsViewCell")
+            guard let cell = tableView.dequeueReusableCell(withIdentifier: "MyListingsViewCell", for: indexPath) as? MyListingsViewCell else {
+                fatalError("Dequeued cell not an instance of MyListingsViewCell")
+            }
+            var transaction: Transaction
+            var customerName = ""
+            //if requestsTab {
+            transaction = reservations[indexPath.row]
+            customerName = requestsNames[indexPath.row]
+            var customerImage = requestProfilePics[indexPath.row]
+            
+            //} else {
+            //}
+            
+            let dateFormatter1 = DateFormatter()
+            dateFormatter1.dateFormat = "MMMM d"
+            let dateFormatter2 = DateFormatter()
+            dateFormatter2.dateFormat = "h:mm a"
+            var secondDate = ""
+            if transaction.startTime - transaction.endTime > 86400 { //transaction for more than a day
+                secondDate = " — " + dateFormatter1.string(from: Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime))) + "\n"
+            }
+            let date = attributedInfoBold(string: "Date: ", fontSize: 12)
+            date.append(attributedInfoRegular(string: dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate, fontSize: 12))
+            cell.Date.attributedText = date
+            
+            let time = attributedInfoBold(string: "Time: ", fontSize: 12)
+            time.append(attributedInfoRegular(string: dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime))), fontSize: 12))
+            cell.Time.attributedText = time
+            
+            let addr = attributedInfoBold(string: "Address: ", fontSize: 12)
+            addr.append(attributedInfoRegular(string: transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip, fontSize: 12))
+            cell.address.attributedText = addr
+            
+            cell.price.text = "$" + String(format: "%.2f", transaction.total)
+            
+            //cell.profilePicture = customerImage
+            
+    //        cell.Date.text = "Date: " + dateFormatter1.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + secondDate
+    //        cell.Time.text = "Time: " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.startTime))) + " - " + dateFormatter2.string(from:Date.init(timeIntervalSince1970: TimeInterval(transaction.endTime)))
+    //        cell.address.text = "Address: " + transaction.address.street + " " + transaction.address.city + " " + transaction.address.state + " " + transaction.address.zip
+            if customerName.isEmpty {
+                DispatchQueue.global(qos: .userInteractive).async {
+                    UserService.getUserById(transaction.provider) { (user, error) in
+                        if let user = user {
+                            cell.customerRequest.attributedText = self.attributedInfoBold(string: user.displayName, fontSize: 14)
+                            if user.photoURL != "" {
+                                guard let url = URL(string: user.photoURL) else {
+                                    print("can't convert string to URL")
                                     return
                                 }
-                                DispatchQueue.main.async { [self] in
-                                    guard let UIimage = UIImage(data: data) else {
-                                        print("failed to make image into UIimage")
+                                let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                                    guard let data = data, error == nil else {
+                                        print("failed to convert image from url")
                                         return
                                     }
-                                    print("image converted")
-                                    cell.profilePicture.setImage(UIimage, for: .normal)
-                                    self.requestProfilePics[indexPath.row] = UIimage
-                                    self.hasProfilePics[indexPath.row] = true
+                                    DispatchQueue.main.async { [self] in
+                                        guard let UIimage = UIImage(data: data) else {
+                                            print("failed to make image into UIimage")
+                                            return
+                                        }
+                                        print("image converted")
+                                        cell.profilePicture.setImage(UIimage, for: .normal)
+                                        self.requestProfilePics[indexPath.row] = UIimage
+                                        self.hasProfilePics[indexPath.row] = true
+                                    }
                                 }
+                                task.resume()
                             }
-                            task.resume()
-                        }
-                        DispatchQueue.main.async {
-                            //if self.requestsTab {
-                            if indexPath.row < self.requestsNames.count {
-                                self.requestsNames[indexPath.row] = user.displayName
+                            DispatchQueue.main.async {
+                                //if self.requestsTab {
+                                if indexPath.row < self.requestsNames.count {
+                                    self.requestsNames[indexPath.row] = user.displayName
+                                }
+                                    
+                                //} else {
+                                //}
                             }
-                                
-                            //} else {
-                            //}
                         }
                     }
                 }
+            } else {
+                print("customer name already loaded once")
+                cell.customerRequest.attributedText = attributedInfoBold(string: customerName, fontSize: 14)
+                if hasProfilePics[indexPath.row] {
+                    cell.profilePicture.setImage(requestProfilePics[indexPath.row], for: .normal)
+                }
             }
-        } else {
-            print("customer name already loaded once")
-            cell.customerRequest.attributedText = attributedInfoBold(string: customerName, fontSize: 14)
-            if hasProfilePics[indexPath.row] {
-                cell.profilePicture.setImage(requestProfilePics[indexPath.row], for: .normal)
-            }
+            return cell
         }
-        
+        tableView.register(EmptyListingsViewCell.nib(), forCellReuseIdentifier: "EmptyListingsViewCell")
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: "EmptyListingsViewCell", for: indexPath) as? EmptyListingsViewCell else {
+            fatalError("Dequeued cell not an instance of EmptyListingsViewCell")
+        }
+        cell.configure()
         //print(cell.priceLabel.text ?? "")
         return cell
     }
