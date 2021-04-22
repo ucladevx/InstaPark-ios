@@ -129,6 +129,14 @@ class MapViewViewController: ViewController, passFromProfile{
             }
         }
     }
+    @IBAction func logout(_ sender: Any) {
+        do{
+            try Auth.auth().signOut()
+            
+        } catch let signOutError as NSError {
+            print("Error signing out")
+        }
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         print("MapKit did load")
@@ -388,7 +396,7 @@ class MapViewViewController: ViewController, passFromProfile{
                                                             print("Parking Spot is available")
                                                             print("Query by location")
                                                             
-                                                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
+                                                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, pricePerDay: parkingSpot.pricePerDay, dailyPriceEnabled: parkingSpot.dailyPriceEnabled, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
                                                             // short-term parking
                                                             if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                                                 annotation.startTime = self.shortTermStartTime
@@ -424,7 +432,7 @@ class MapViewViewController: ViewController, passFromProfile{
                                         UserService.getUserById(parkingSpot.provider) { (user, error) in
                                             if let user = user {
                                                 print("Query by location")
-                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
+                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, pricePerDay: parkingSpot.pricePerDay, dailyPriceEnabled: parkingSpot.dailyPriceEnabled, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
                                                 // short-term parking
                                                 if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                                     annotation.startTime = self.shortTermStartTime
@@ -546,7 +554,7 @@ class MapViewViewController: ViewController, passFromProfile{
                         if let parkingSpot = parkingSpot{
                             //IF PARKING SPOT IS AVAILABLE
                             print("Query by location")
-                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
+                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, pricePerDay: parkingSpot.pricePerDay, dailyPriceEnabled: parkingSpot.dailyPriceEnabled, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
                             // short-term parking
                             if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
                                 annotation.startTime = self.shortTermStartTime
@@ -997,8 +1005,8 @@ extension MapViewViewController: CLLocationManagerDelegate {
             let span = MKCoordinateSpan(latitudeDelta: 0.02, longitudeDelta: 0.02)
             //print(location.coordinate)
             let region = MKCoordinateRegion(center: location.coordinate, span: span)
-            self.queryInRegion(region: region, location: location.coordinate)
             mapView.setRegion(region, animated: true)
+            self.queryInRegion(region: region, location: location.coordinate)
         }
     }
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

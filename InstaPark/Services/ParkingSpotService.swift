@@ -20,7 +20,7 @@ class ParkingSpotService {
     }
     //Temporary function for creating dummy parking spots
     static func createParkingSpotIn(lat: Double, long: Double) {
-        let spot = ShortTermParkingSpot(id: "", address: Address(city: "Los Angeles", state: "CA", street: generateRandomStreet(), zip: String(Int.random(in: 10000..<99999))), coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, provider: "provider", comments: "Comment", tags: ["Tag"], reservations: [String](), fromFullDays: [0,1,2,3,4,5,6], images: [String](), startDate: 1609488000, endDate: 1641023940, directions: "directions", selfParking: SelfParking.blank(), approvedReservations: [])
+        let spot = ShortTermParkingSpot(id: "", address: Address(city: "Los Angeles", state: "CA", street: generateRandomStreet(), zip: String(Int.random(in: 10000..<99999))), coordinates: Coordinate(lat: lat, long: long), pricePerHour: 1.0, pricePerDay: 1.0, dailyPriceEnabled: false, provider: "provider", comments: "Comment", tags: ["Tag"], reservations: [String](), fromFullDays: [0,1,2,3,4,5,6], images: [String](), startDate: 1609488000, endDate: 1641023940, directions: "directions", selfParking: SelfParking.blank(), approvedReservations: [])
         let docRef = db.collection(parkingDBName).document()
         spot.id = docRef.documentID
         print("DOCUMENT ID:")
