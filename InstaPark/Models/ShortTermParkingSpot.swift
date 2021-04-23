@@ -59,7 +59,7 @@ class ShortTermParkingSpot: ParkingSpot {
     }
     //checks if time slot is available for reservation, including if they span across night (takes into account provider time-ranges. All times are in epoch
     func validateTimeSlotWithProvider(start: Int, end: Int) -> Bool {
-        if(!(start>startDate && end<endDate)) {
+        if(!(start>startDate && end<endDate) || self.deactivated) {
             return false;
         }
         //first, make sure valid with provider time intervals

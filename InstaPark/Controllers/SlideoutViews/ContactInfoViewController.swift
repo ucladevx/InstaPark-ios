@@ -48,9 +48,10 @@ class ContactInfoViewController: UIViewController, UITextFieldDelegate,UIImagePi
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let textFields = [nameTextField, emailTextField, phoneTextField]
+        let textFields: [UITextField] = [nameTextField, emailTextField, phoneTextField]
         for field in textFields {
-            field!.delegate = self
+            field.delegate = self
+            field.spellCheckingType = .no
         }
         
         userInfoView.layer.shadowRadius = 3.0
@@ -137,8 +138,6 @@ class ContactInfoViewController: UIViewController, UITextFieldDelegate,UIImagePi
     }
     
     @IBAction func saveBtn(_ sender: Any) {
-        //MARK: save info to database here???
-        //MARK: also did not implement saving of email since that might mess up authentication
         var changedData = [String:String]()
         if imageChanged {
             ImageService.uploadProfilePhoto(image: image, uid: uid)
@@ -153,7 +152,7 @@ class ContactInfoViewController: UIViewController, UITextFieldDelegate,UIImagePi
                 displayAlert("Email field cannot be empty")
                 return
             }
-            
+
             if name != originalUserInfo.displayName {
                 let fullNameArr = name.components(separatedBy: " ")
                 let firstName: String = fullNameArr[0]
@@ -165,13 +164,27 @@ class ContactInfoViewController: UIViewController, UITextFieldDelegate,UIImagePi
             if phoneNumber != originalUserInfo.phoneNumber {
                 changedData["phoneNumber"] = phoneNumber
             }
-            
-            if changedData.count != 0 {
+            if email != originalUserInfo.email {
+                print("entered")
+                let alert = UIAlertController(title: "Warning", message: "Are you sure you want to change your email? Note that you will only be able to login with the new email '\(email)' from now on if you proceed.", preferredStyle: .alert)
+                alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.default, handler: nil))
+                alert.addAction(UIAlertAction(title: "Update my email", style: .destructive, handler: { _ in
+                    changedData["email"] = email
+                    AuthService.updateEmail(email: email)
+                    print(changedData)
+                    UserService.updateUserInfo(id: self.uid, changedData: changedData)
+                    self.dismiss(animated: true)
+                }))
+
+                self.present(alert, animated: true, completion: nil)
+            } else if changedData.count != 0 {
                 print(changedData)
                 UserService.updateUserInfo(id: uid, changedData: changedData)
+                dismiss(animated: true)
+            } else {
+                dismiss(animated: true)
             }
         }
-        dismiss(animated: true)
     }
     
     @IBAction func backBtn(_ sender: Any) {
