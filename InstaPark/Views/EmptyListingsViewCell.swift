@@ -12,6 +12,7 @@ class EmptyListingsViewCell: UITableViewCell {
     static let identifier = "EmptyListingsViewCell"
     
     @IBOutlet weak var emptyText: UILabel!
+    @IBOutlet weak var toListingBtn: UIButton!
     
     static func nib() -> UINib {
         return UINib(nibName: "EmptyListingsViewCell", bundle: nil)
@@ -20,6 +21,10 @@ class EmptyListingsViewCell: UITableViewCell {
     public func configure(){
         contentView.addSubview(emptyText)
         emptyText.text = "Oops! You do not have any active listings."
+        toListingBtn.layer.shadowRadius = 3.0
+        toListingBtn.layer.shadowOpacity = 0.25
+        toListingBtn.layer.shadowOffset = CGSize.init(width: 1, height: 1)
+        toListingBtn.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
     }
     
 

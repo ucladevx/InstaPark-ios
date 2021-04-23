@@ -269,8 +269,8 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
             
             
             if upcomingSpot {
-                if directions == nil || directions.isEmpty {
-                    directionsLabel.text = "No specific directions were given"
+                if directions != nil, !directions.isEmpty {
+                    directionsLabel.text = directions
                 }
                 directionsOutlineView.layer.borderWidth = 1
                 directionsOutlineView.layer.borderColor = CGColor.init(red: 143.0/255.0, green: 0.0, blue: 1.0, alpha: 1.0)

@@ -9,15 +9,13 @@ import UIKit
 import FirebaseAuth
 import MapKit
 
-//DOES NOT SAVE BC THIS DOESNT ACCESS DATABASE
 //ALSO CAN STILL SWIPE ON APPROVED REQUESTS WHEN U SHOULD NOT BE ABLE TO
-//ADD CUSTOMER IMG AND ORGANIZE CELL CONTENT
 //CONFIRMING/DENYING TAKES LONG TIME
 //CONFIRMING/DENYING A REQUEST ALSO REPLICATES ACTION ON FOLLOWING REQUESTS
 //CANT IMPLEMENT CELL REMOVAL WITHOUT CRASHING
 //SECTION HEADER TEXT CAN'T BE CUSTOMIZED
 
-
+//MARK: this view controller is no longer in use since it has been combined with MyListinsTableView
 //MARK: - designers want us to hold off on confirming/denying reservations
 
 /*Object used to differentiate between pending and approved requests*/
@@ -78,7 +76,7 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         super.viewDidLoad()
 
         print("Loading transaction table view controller")
-        tabs = CustomSegmentedControl(frame: CGRect(x: 0, y: 58, width: self.view.frame.width, height: 35), buttonTitle: ["LISTINGS","RESERVATION REQUESTS"])
+        tabs = CustomSegmentedControl(frame: CGRect(x: 0, y: 69, width: self.view.frame.width, height: 35), buttonTitle: ["LISTINGS","RESERVATION REQUESTS"])
         tabs.backgroundColor = .clear
         tabs.delegate = self
         self.view.addSubview(tabs)
@@ -368,6 +366,9 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
             fatalError("Dequeued cell not an instance of EmptyListingsViewCell")
         }
         cell.configure()
+        cell.toListingBtn.isUserInteractionEnabled = true
+        let tapRecognizer = MyTapGesture(target: self, action: #selector(createListingTapped))
+        cell.toListingBtn.addGestureRecognizer(tapRecognizer)
         //print(cell.priceLabel.text ?? "")
         return cell
     }
@@ -379,6 +380,13 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
         nextViewController.modalPresentationStyle = .fullScreen
         nextViewController.modalTransitionStyle = .coverVertical
         nextViewController.uid = uid
+        self.present(nextViewController, animated: true, completion: nil)
+    }
+    @objc func createListingTapped(sender : MyTapGesture){
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "selectListingVC") as! SelectListingTypeViewController
+        nextViewController.modalPresentationStyle = .fullScreen
+        nextViewController.modalTransitionStyle = .coverVertical
         self.present(nextViewController, animated: true, completion: nil)
     }
     
@@ -491,6 +499,3 @@ class MyListingsViewController: UITableViewController, CustomSegmentedControlDel
 
 }
 
-class MyTapGesture: UITapGestureRecognizer {
-    var uid = String()
-}

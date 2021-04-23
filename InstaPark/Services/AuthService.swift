@@ -123,4 +123,14 @@ class AuthService {
         }
        
     }
+    
+    static func updateEmail(email: String) {
+        Auth.auth().currentUser?.updateEmail(to: email) { (error) in
+            if error != nil {
+                print("email successfully updated")
+            } else {
+                print("cannot update email")
+            }
+        }
+    }
 }

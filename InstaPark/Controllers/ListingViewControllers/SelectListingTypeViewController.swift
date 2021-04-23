@@ -44,6 +44,7 @@ class SelectListingTypeViewController: UIViewController {
             navigationController.popViewController(animated: true)
         } else {
             print("No Navigation Controller")
+            self.dismiss(animated: true)
         }
     }
     
