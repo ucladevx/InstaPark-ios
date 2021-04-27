@@ -14,6 +14,7 @@ struct Transaction: Codable {
     var startTime: Int
     var endTime: Int
     var priceRatePerHour: Double
+    var priceRatePerDay: Double
     var total: Double
     var address: Address
     init(id: String, customer: String, startTime: Int, endTime: Int, fromParkingSpot parkingSpot: ParkingSpot) {
@@ -24,6 +25,10 @@ struct Transaction: Codable {
         self.parkingSpot = parkingSpot.id
         self.provider = parkingSpot.provider
         self.priceRatePerHour = parkingSpot.pricePerHour
+        self.priceRatePerDay = parkingSpot.pricePerDay
+        if(parkingSpot.dailyPriceEnabled && Double((endTime-startTime))/3600 > 24) {
+            total = self.priceRatePerDay * Double((endTime - startTime))/(3600*24);
+        }
         self.total = parkingSpot.pricePerHour * Double((endTime - startTime))/3600
         self.address = parkingSpot.address
     }

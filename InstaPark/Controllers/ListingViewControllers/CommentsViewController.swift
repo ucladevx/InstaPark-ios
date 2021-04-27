@@ -90,9 +90,9 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
             for i in 0...6 {
                 let day = self.ShortTermParking.times[i]
                 if day?.isEmpty == false {
-                    startTime = Date.init(timeIntervalSince1970: TimeInterval(day![0].start))
+                    startTime = Date.init(timeIntervalSince1970: Double(ShortTermParking.startDate+day![0].start))
                     print(startTime)
-                    endTime = Date.init(timeIntervalSince1970: TimeInterval(day![0].end))
+                    endTime = Date.init(timeIntervalSince1970: Double(ShortTermParking.endDate+day![0].end))
                     break
                 }
             }
@@ -107,7 +107,7 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
             if start == end {
                 end = nil
             }
-            nextViewController.info = ParkingSpaceMapAnnotation.init(id: ShortTermParking.provider, name: "",email:"", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(self.ShortTermParking.coordinates.lat, self.ShortTermParking.coordinates.long), price: self.ShortTermParking.pricePerHour, address: self.ShortTermParking.address, tags: self.ShortTermParking.tags, comments: self.ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: start, endDate: end, images: [String](), selfParking: self.ShortTermParking.selfParking)
+            nextViewController.info = ParkingSpaceMapAnnotation.init(id: ShortTermParking.provider, name: "",email:"", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(self.ShortTermParking.coordinates.lat, self.ShortTermParking.coordinates.long), price: self.ShortTermParking.pricePerHour, pricePerDay: self.ShortTermParking.pricePerDay, dailyPriceEnabled: self.ShortTermParking.dailyPriceEnabled, address: self.ShortTermParking.address, tags: self.ShortTermParking.tags, comments: self.ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: start, endDate: end, images: [String](), selfParking: self.ShortTermParking.selfParking)
             
         } else {
             // pass in long term parking when ready

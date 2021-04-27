@@ -17,19 +17,28 @@ class SignupViewController: ViewController {
     @IBOutlet weak var password1: UITextField!
     @IBOutlet weak var password2: UITextField!
     @IBOutlet weak var phone: DesignableTextField!
-    
+    @IBOutlet weak var venmo_username: DesignableTextField!
+    var clickedVenmoBefore = false
     var password1Value = ""
     var password2Value = ""
     var user: User!
     
     @IBOutlet weak var signupButton: UIButton!
     
+    @IBAction func didTouchVenmoUsernameTextField(_ sender: Any) {
+        if(!clickedVenmoBefore) {
+            let alert = UIAlertController(title: "Important!", message: "Your venmo username will be used to receive payments. Please make sure it is correct!", preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Okay", style: .default))
+            self.present(alert, animated: true)
+            clickedVenmoBefore = true
+        }
+    }
     @IBAction func signupAction(_ sender: Any) {
-        if let email = email.text, let name = firstname.text, let phoneNumber = phone.text, let password1 = password1.text, let password2 = password2.text{
+        if let email = email.text, let name = firstname.text, let phoneNumber = phone.text, let password1 = password1.text, let password2 = password2.text, let venmouser = venmo_username.text{
             var fullNameArr = name.components(separatedBy: " ")
             var firstName: String = fullNameArr[0]
             var lastName: String? = fullNameArr.count > 1 ? fullNameArr[1] : nil
-            user = User(uid: "", displayName: name, phoneNumber: phoneNumber ?? "", firstName: firstName, lastName: lastName ?? "" , photoURL: "", email: email, transactions: [], parkingSpots: [])
+            user = User(uid: "", displayName: name, phoneNumber: phoneNumber ?? "", firstName: firstName, lastName: lastName ?? "" , photoURL: "", email: email, venmo_username: venmouser, transactions: [], parkingSpots: [])
 
             AuthService.signup(user: user, password1: password1, password2: password2) { (success, error) in
                if success != nil{

@@ -47,6 +47,7 @@ class LoginViewController: ViewController {
     }
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         navigationController?.isNavigationBarHidden = false
         //G Login Button
         googleLoginButton.setImage(UIImage(named: "google-icon.ico"), for: .normal)
@@ -75,7 +76,6 @@ class LoginViewController: ViewController {
             right: 0
         )
         super.hideNavBar(true)
-        super.viewDidLoad()
         loginButton.addTarget(self, action: #selector(loginAction), for: .touchUpInside)
         email.delegate = self
         password.delegate = self
@@ -107,6 +107,7 @@ class LoginViewController: ViewController {
         let gradient = getGradientLayer(bounds: instaparkLogo.bounds)
         instaparkLogo.textColor = gradientColor(bounds: instaparkLogo.bounds, gradientLayer: gradient)
         instaparkLogo?.font = UIFont(name: "ProximaNova-Bold", size: 48)
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

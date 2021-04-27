@@ -83,7 +83,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         navigationController?.setNavigationBarHidden(true, animated: animated)
     }
     //variables that are passed in from mapView
-    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections: ""))
+    var info = ParkingSpaceMapAnnotation(id: "0XsChhfAoV33XFCOZKUK", name: "temp", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(34.0703, -118.4441), price: 10.0, pricePerDay: 0.0, dailyPriceEnabled: false, address: Address.blankAddress(), tags: ["test"], comments: "test", startTime: Date(), endTime: Date(), date: Date(), startDate: Date(), endDate: Date(), images: [String](), selfParking: SelfParking(hasSelfParking: false, selfParkingMethod: "", specificDirections: ""))
     var ShortTermParking: ShortTermParkingSpot!
     //var LongTermParking : LongTermParkingSpot!
     
@@ -149,21 +149,39 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         self.paymentStack.addGestureRecognizer(paymentTap)
         
         //set up price Attributed String
-        let dollar = "$"
-        let dollar_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-Bold", size: 13)]
-        let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
-        print(info.price)
-        let price = String(format: "%.2f", info.price)
-        let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 23)]
-        let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
-        cost.append(price_string)
-        let perHour = "/hr"
-        let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 16)]
-        let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
-        cost.append(hour_string)
-        
-        priceLabel.attributedText = cost
-        
+        //if more than one day
+        //if less than 1 day
+        if(info.dailyPriceEnabled && ((endTime?.timeIntervalSince1970 ?? 0) - (startTime?.timeIntervalSince1970 ?? 0))/3600 > 24) {
+            let dollar = "$"
+            let dollar_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-Bold", size: 13)]
+            let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
+            print(info.price)
+            let price = String(format: "%.2f", info.pricePerDay)
+            let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 23)]
+            let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
+            cost.append(price_string)
+            let perHour = "/day"
+            let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 16)]
+            let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
+            cost.append(hour_string)
+            
+            priceLabel.attributedText = cost
+        } else {
+            let dollar = "$"
+            let dollar_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-Bold", size: 13)]
+            let cost = NSMutableAttributedString(string:dollar, attributes:dollar_attrs as [NSAttributedString.Key : Any])
+            print(info.price)
+            let price = String(format: "%.2f", info.price)
+            let price_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 23)]
+            let price_string = NSMutableAttributedString(string:price, attributes:price_attrs as [NSAttributedString.Key : Any])
+            cost.append(price_string)
+            let perHour = "/hr"
+            let hour_attrs = [NSAttributedString.Key.font :  UIFont.init(name: "OpenSans-SemiBold", size: 16)]
+            let hour_string = NSMutableAttributedString(string:perHour, attributes:hour_attrs as [NSAttributedString.Key : Any])
+            cost.append(hour_string)
+            
+            priceLabel.attributedText = cost
+        }
         //set up access view
         switch info.selfParking.selfParkingMethod {
         case "remote":
@@ -278,6 +296,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             }
             let formatter2 = DateFormatter()
             formatter2.dateFormat = "h:mm a"
+            
             let startString = formatter2.string(from: startTime! as Date)
             let endString = formatter2.string(from: endTime! as Date)
             availabilityLabel.setTitle(startday + endday + ", " + startString + " to " + endString, for: .normal)

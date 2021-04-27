@@ -656,13 +656,16 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
     }
     
     func getEpochTime(row: Int) -> Int {
-        let userTimeZoneTime = setUserTimeZoneTime(hour: row/4, minute: (row%4) * 15)
-        let delta = TimeInterval(-1 * TimeZone.current.secondsFromGMT())
-        let UTCTime = userTimeZoneTime.addingTimeInterval(delta)
-  
-        let hour = Calendar.current.component(.hour, from: UTCTime)
-        let minutes = Calendar.current.component(.minute, from: UTCTime)
-        print("\(hour): \(minutes)")
+//        let userTimeZoneTime = setUserTimeZoneTime(hour: row/4, minute: (row%4) * 15)
+//        let delta = TimeInterval(-1 * TimeZone.current.secondsFromGMT())
+//        let UTCTime = userTimeZoneTime.addingTimeInterval(delta)
+//
+//        let hour = Calendar.current.component(.hour, from: UTCTime)
+//        let minutes = Calendar.current.component(.minute, from: UTCTime)
+//        print("\(hour): \(minutes)")
+        print("Row number: " + String(row))
+        var hour = row/4;
+        var minutes = (row%4)*15;
         return (hour * 3600) + (minutes * 60)
     }
     
@@ -737,16 +740,20 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
 //                }
 //            }
             ShortTermParking.times = times
+            print(times)
             if selectedStartDate != nil {
-                ShortTermParking.startDate = Int(selectedStartDate.timeIntervalSince1970)
+                ShortTermParking.startDate = Int(Calendar.current.startOfDay(for: selectedStartDate).timeIntervalSince1970)
             }
             if selectedEndDate != nil {
-                ShortTermParking.endDate = Int(selectedEndDate.timeIntervalSince1970)
+                ShortTermParking.endDate = Int(Calendar.current.startOfDay(for: selectedEndDate).timeIntervalSince1970)
             } else {
-                ShortTermParking.endDate = Int(selectedStartDate.timeIntervalSince1970)
+                ShortTermParking.endDate = Int(Calendar.current.startOfDay(for: selectedEndDate).timeIntervalSince1970)
             }
             
             print(ShortTermParking.times)
+            print("Short Term Parking Start and End Dates")
+            print(ShortTermParking.startDate)
+            print(ShortTermParking.endDate)
             return true
             
         }

@@ -10,7 +10,7 @@ import Firebase
 //Don't directly instantiate this class, use either Short Term Parking or Long Term Parking
 class ParkingSpot: Codable {
 
-    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String, selfParking: SelfParking, approvedReservations: [String]) {
+    init(id: String, address: Address, coordinates: Coordinate, pricePerHour: Double, pricePerDay: Double, dailyPriceEnabled: Bool, provider: String, comments: String, tags: [String], reservations: [String], images: [String], startDate: Int, endDate: Int, directions: String, selfParking: SelfParking, approvedReservations: [String]) {
         self.id = id
         self.address = address
         self.coordinates = coordinates
@@ -26,12 +26,16 @@ class ParkingSpot: Codable {
         self.selfParking = selfParking
         self.approvedReservations = approvedReservations
         self.deactivated = false
+        self.pricePerDay = pricePerDay
+        self.dailyPriceEnabled = dailyPriceEnabled
     }
     
     var id: String
     var address: Address
     var coordinates: Coordinate
     var pricePerHour: Double
+    var pricePerDay: Double
+    var dailyPriceEnabled: Bool
     var provider: String
     var comments: String
     var tags: [String]
