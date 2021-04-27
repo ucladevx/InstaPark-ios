@@ -59,6 +59,14 @@ class MapViewViewController: ViewController, passFromProfile{
         toggleMenu()
     }
     
+    @IBAction func logoutPressed(_ sender: UIButton) {
+        toggleMenu()
+        let storyBoard : UIStoryboard = UIStoryboard(name: "Main", bundle:nil)
+        let nextViewController = storyBoard.instantiateViewController(withIdentifier: "loginView") as! LoginViewController
+        if let navigator = navigationController {
+            navigator.pushViewController(nextViewController, animated: true)
+        }
+    }
     @IBOutlet weak var slideoutBlackView: UIView!
     var selectedAnnotationTags = [String]()
     var selectedImages = [String]()

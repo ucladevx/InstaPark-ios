@@ -20,6 +20,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate, GIDSignInDelegate {
         if let windowScene = scene as? UIWindowScene {
             self.window = UIWindow(windowScene: windowScene)
             if Auth.auth().currentUser != nil{
+                print("Current User")
+                print(Auth.auth().currentUser)
                 // direct to times landing page
                 let landingVC = storyboard.instantiateViewController(withIdentifier: "MapViewVC")
                 let navigationController = UINavigationController.init(rootViewController: landingVC)

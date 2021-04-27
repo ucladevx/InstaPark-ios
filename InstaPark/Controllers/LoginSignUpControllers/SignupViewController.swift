@@ -29,6 +29,7 @@ class SignupViewController: ViewController {
         if(!clickedVenmoBefore) {
             let alert = UIAlertController(title: "Important!", message: "Your venmo username will be used to receive payments. Please make sure it is correct!", preferredStyle: .alert)
             alert.addAction(UIAlertAction(title: "Okay", style: .default))
+            self.present(alert, animated: true)
             clickedVenmoBefore = true
         }
     }
