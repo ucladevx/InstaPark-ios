@@ -225,17 +225,22 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? BookingViewController {
+            print("Prepare for booking view controller segue")
             vc.parkingType = parkingType
             if(parkingType == .short) {
+                print("Short Parking Spot")
                 vc.ShortTermParking = ShortTermParking
                 var startTime: Date = Date()
                 var endTime: Date = Date()
                 for i in 0...6 {
                     let day = ShortTermParking.times[i]
                     if day?.isEmpty == false {
-                        startTime = Date.init(timeIntervalSince1970: TimeInterval(day![0].start))
-                        print(startTime)
-                        endTime = Date.init(timeIntervalSince1970: TimeInterval(day![0].end))
+                        let formatter = DateFormatter()
+                        formatter.dateFormat = "HH:mm E, d MMM y"
+                        startTime = Date.init(timeIntervalSince1970: Double(ShortTermParking.startDate+day![0].start))
+                        print("Start Time: " + formatter.string(from: startTime))
+                        endTime = Date.init(timeIntervalSince1970: Double(ShortTermParking.endDate+day![0].end))
+                        print("End Time: " + formatter.string(from:endTime))
                         break
                     }
                 }
@@ -245,7 +250,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
                 address += ", " + ShortTermParking.address.city
                 address += ", " + ShortTermParking.address.state + " " + ShortTermParking.address.zip
                 vc.listing = true
-                vc.info = ParkingSpaceMapAnnotation.init(id: "", name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, pricePerDay: ShortTermParking.pricePerDay, dailyPriceEnabled: ShortTermParking.dailyPriceEnabled, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: Date(), endDate: nil, images: [String](), selfParking: ShortTermParking.selfParking)
+                vc.info = ParkingSpaceMapAnnotation.init(id: "", name: "", email: "", phoneNumber: "", photo: "", coordinate: CLLocationCoordinate2DMake(ShortTermParking.coordinates.lat, ShortTermParking.coordinates.long), price: ShortTermParking.pricePerHour, pricePerDay: ShortTermParking.pricePerDay, dailyPriceEnabled: ShortTermParking.dailyPriceEnabled, address: ShortTermParking.address, tags: ShortTermParking.tags, comments: ShortTermParking.comments, startTime: startTime, endTime: endTime, date: Date(), startDate: Date.init(timeIntervalSince1970:TimeInterval(ShortTermParking.startDate)), endDate:Date.init(timeIntervalSince1970: TimeInterval(ShortTermParking.endDate)), images: [String](), selfParking: ShortTermParking.selfParking)
                 if ShortTermParking.tags.isEmpty {
                     vc.info.tags = ["no", "tags", "passed"]
                 }

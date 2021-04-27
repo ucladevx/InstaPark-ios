@@ -15,6 +15,7 @@ struct User: Codable {
     var lastName: String = ""
     var photoURL: String = ""
     var email: String = ""
+    var venmo_username: String = ""
     var transactions: [String] = [String]()
     var parkingSpots: [String] = [String]()
 }

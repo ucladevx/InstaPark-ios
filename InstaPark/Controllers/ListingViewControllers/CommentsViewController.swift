@@ -90,9 +90,9 @@ class CommentsViewController: UIViewController, UITextViewDelegate{
             for i in 0...6 {
                 let day = self.ShortTermParking.times[i]
                 if day?.isEmpty == false {
-                    startTime = Date.init(timeIntervalSince1970: TimeInterval(day![0].start))
+                    startTime = Date.init(timeIntervalSince1970: Double(ShortTermParking.startDate+day![0].start))
                     print(startTime)
-                    endTime = Date.init(timeIntervalSince1970: TimeInterval(day![0].end))
+                    endTime = Date.init(timeIntervalSince1970: Double(ShortTermParking.endDate+day![0].end))
                     break
                 }
             }
