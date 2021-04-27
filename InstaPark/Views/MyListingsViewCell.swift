@@ -17,6 +17,10 @@ class MyListingsViewCell: UITableViewCell {
     @IBOutlet weak var price: UILabel!
     @IBOutlet weak var profilePicture: UIButton!
     
+    static func nib() -> UINib {
+        return UINib(nibName: "MyListingsViewCell", bundle: nil)
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code

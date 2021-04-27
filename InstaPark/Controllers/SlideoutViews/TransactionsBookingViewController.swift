@@ -268,7 +268,10 @@ class TransactionsBookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.titleLabel?.font = UIFont.init(name: "Roboto-Medium", size: 16)
             
             
-            if upcomingSpot, directions != nil, !directions.isEmpty{
+            if upcomingSpot {
+                if directions != nil, !directions.isEmpty {
+                    directionsLabel.text = directions
+                }
                 directionsOutlineView.layer.borderWidth = 1
                 directionsOutlineView.layer.borderColor = CGColor.init(red: 143.0/255.0, green: 0.0, blue: 1.0, alpha: 1.0)
                 print("upcoming")
@@ -543,10 +546,10 @@ extension TransactionsBookingViewController: UICollectionViewDelegate, UICollect
             cell.contentView.frame.size.width = CGFloat(width) + 5
             cell.contentView.frame.size.height = 30
             let tag = cell.tagLabel ?? UILabel()
-            tag.layer.borderWidth = 1.5
+            tag.layer.borderWidth = 1
             tag.frame.size.width = CGFloat(width)
             tag.frame.size.height = 20
-            tag.layer.cornerRadius = 9
+            tag.layer.cornerRadius = 10
 //            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
             tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
 //            if index == 0 {

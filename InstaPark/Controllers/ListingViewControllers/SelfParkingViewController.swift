@@ -42,7 +42,10 @@ class SelfParkingViewController: UIViewController, UITextViewDelegate {
     override func viewDidLoad() {
         accessRadioButtons = [remoteAccessButton, codeAccessButton, keyAccessButton, otherAccessButton]
         super.viewDidLoad()
+        var count = 0
         for btn in accessRadioButtons! {
+            btn.tag = count
+            count += 1
             btn.layer.cornerRadius = btn.frame.width/2
             btn.layer.borderWidth = 1
             btn.layer.borderColor = UIColor(red: 0.429, green: 0.429, blue: 0.429, alpha: 1).cgColor
@@ -58,7 +61,11 @@ class SelfParkingViewController: UIViewController, UITextViewDelegate {
         // Do any additional setup after loading the view.
     }
     func checkBeforeMovingPages() -> Bool {
-        ShortTermParking.selfParking.specificDirections = specificDirectionsInput.text
+        if specificDirectionsInput.text == "Start typing here..." {
+            ShortTermParking.selfParking.specificDirections = ""
+        } else {
+            ShortTermParking.selfParking.specificDirections = specificDirectionsInput.text
+        }
         if(selectedAccess) {
             return true;
         } else {

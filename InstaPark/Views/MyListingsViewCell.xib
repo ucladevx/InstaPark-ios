@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="OpenSans-Regular.ttf">
+            <string>OpenSans-Regular</string>
+        </array>
+        <array key="OpenSans-SemiBold.ttf">
+            <string>OpenSans-SemiBold</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyListingsViewCell" rowHeight="122" id="Pha-LQ-UKk" customClass="MyListingsViewCell" customModule="InstaPark" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="428" height="122"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Pha-LQ-UKk" id="ljP-jw-34a">
+                <rect key="frame" x="0.0" y="0.0" width="428" height="122"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="sv8-zT-vF6">
+                        <rect key="frame" x="108" y="11" width="225" height="21"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="Nvm-Va-T8f"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="14"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="$23.23" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="weT-Hc-ejH" userLabel="Price Label">
+                        <rect key="frame" x="343" y="11" width="65" height="20.5"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="65" id="iHO-6H-83X"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="OpenSans-SemiBold" family="Open Sans" pointSize="15"/>
+                        <color key="textColor" red="0.3803921569" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="54" translatesAutoresizingMaskIntoConstraints="NO" id="yyo-x9-XwN">
+                        <rect key="frame" x="108" y="45" width="295" height="16.5"/>
+                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oJa-UU-nwK">
+                        <rect key="frame" x="108" y="61.5" width="295" height="16.5"/>
+                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hSc-y8-fyu">
+                        <rect key="frame" x="108" y="78" width="295" height="17"/>
+                        <fontDescription key="fontDescription" name="OpenSans-Regular" family="Open Sans" pointSize="12"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="83F-UQ-kOb">
+                        <rect key="frame" x="30" y="11" width="45" height="45"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="45" id="Ib6-EA-JSZ"/>
+                            <constraint firstAttribute="height" constant="45" id="Vg4-Nn-4ua"/>
+                        </constraints>
+                        <state key="normal" image="Profile_avatar_placeholder_large"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="23"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </button>
+                </subviews>
+                <color key="backgroundColor" systemColor="systemGray6Color"/>
+                <constraints>
+                    <constraint firstItem="oJa-UU-nwK" firstAttribute="trailing" secondItem="hSc-y8-fyu" secondAttribute="trailing" id="14I-ku-7KR"/>
+                    <constraint firstItem="weT-Hc-ejH" firstAttribute="leading" secondItem="sv8-zT-vF6" secondAttribute="trailing" constant="10" id="1ik-hL-i6f"/>
+                    <constraint firstItem="sv8-zT-vF6" firstAttribute="leading" secondItem="ljP-jw-34a" secondAttribute="leadingMargin" constant="88" id="7h7-ta-dSc"/>
+                    <constraint firstItem="oJa-UU-nwK" firstAttribute="top" secondItem="yyo-x9-XwN" secondAttribute="bottom" id="Dkd-Gw-bY6"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="yyo-x9-XwN" secondAttribute="trailing" constant="5" id="HGf-D1-Mjg"/>
+                    <constraint firstItem="oJa-UU-nwK" firstAttribute="leading" secondItem="hSc-y8-fyu" secondAttribute="leading" id="I1i-aN-JJd"/>
+                    <constraint firstItem="weT-Hc-ejH" firstAttribute="top" secondItem="ljP-jw-34a" secondAttribute="topMargin" id="KoC-C0-58T"/>
+                    <constraint firstItem="sv8-zT-vF6" firstAttribute="leading" secondItem="yyo-x9-XwN" secondAttribute="leading" id="Lf7-QJ-VcN"/>
+                    <constraint firstItem="sv8-zT-vF6" firstAttribute="top" secondItem="ljP-jw-34a" secondAttribute="topMargin" id="UnM-1s-F3y"/>
+                    <constraint firstItem="yyo-x9-XwN" firstAttribute="top" secondItem="sv8-zT-vF6" secondAttribute="bottom" constant="13" id="Upy-fN-dqW"/>
+                    <constraint firstItem="yyo-x9-XwN" firstAttribute="trailing" secondItem="oJa-UU-nwK" secondAttribute="trailing" id="dSf-GC-J5p"/>
+                    <constraint firstItem="weT-Hc-ejH" firstAttribute="trailing" secondItem="ljP-jw-34a" secondAttribute="trailingMargin" id="eEv-Hf-iqJ"/>
+                    <constraint firstItem="83F-UQ-kOb" firstAttribute="top" secondItem="ljP-jw-34a" secondAttribute="topMargin" id="f5M-iZ-xBJ"/>
+                    <constraint firstItem="hSc-y8-fyu" firstAttribute="top" secondItem="oJa-UU-nwK" secondAttribute="bottom" id="j47-Ic-2Fz"/>
+                    <constraint firstItem="83F-UQ-kOb" firstAttribute="leading" secondItem="ljP-jw-34a" secondAttribute="leadingMargin" constant="10" id="ruv-bj-uHC"/>
+                    <constraint firstItem="yyo-x9-XwN" firstAttribute="leading" secondItem="oJa-UU-nwK" secondAttribute="leading" id="sTz-2y-bXJ"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="Date" destination="oJa-UU-nwK" id="nDi-n1-B2H"/>
+                <outlet property="Time" destination="hSc-y8-fyu" id="8Ei-MV-roT"/>
+                <outlet property="address" destination="yyo-x9-XwN" id="7nf-Wg-RkM"/>
+                <outlet property="customerRequest" destination="sv8-zT-vF6" id="YWe-tl-5BG"/>
+                <outlet property="price" destination="weT-Hc-ejH" id="BnA-fL-sBs"/>
+                <outlet property="profilePicture" destination="83F-UQ-kOb" id="HXs-y9-t9T"/>
+            </connections>
+            <point key="canvasLocation" x="-130" y="-33"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="Profile_avatar_placeholder_large" width="360" height="360"/>
+        <systemColor name="systemGray6Color">
+            <color red="0.94901960784313721" green="0.94901960784313721" blue="0.96862745098039216" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>

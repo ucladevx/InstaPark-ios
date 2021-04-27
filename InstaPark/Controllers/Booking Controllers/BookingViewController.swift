@@ -50,6 +50,22 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
 
     var images = [UIImage]()
     
+    @IBOutlet var content: UIView!
+    @IBOutlet var directionsView: UIStackView!
+    @IBOutlet var directionsText: UILabel!
+    @IBOutlet var infoView: UIView!
+    @IBAction func infoBack(_ sender: Any) {
+        UIView.animate(withDuration: 0.3, animations: {
+            self.content.alpha = 1
+            self.infoView.alpha = 0
+        }, completion: {_ in self.infoView.isHidden = true})
+    }
+    @IBAction func infoPress(_ sender: Any) {
+        infoView.isHidden = false
+        UIView.animate(withDuration: 0.3, animations: {self.content.alpha = 0.5
+            self.infoView.alpha = 1
+        })
+    }
     
 //    @IBOutlet weak var tag1: UIButton!
 //    @IBOutlet weak var tag2: UIButton!
@@ -77,12 +93,17 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
     var endTime: Date? = nil
     var parkingType: ParkingType = .short //update this later
     var listing = false // only true if this is listing model
+    var fromMyListings = false // only true if from my listings view controller
     override func viewDidLoad() {
         super.viewDidLoad()
 //        if info.images.count != 0 {
 //            print(info.images[0])
 //            getAllImages()
 //        }
+        self.view.addSubview(infoView)
+        infoView.isHidden = true
+        infoView.alpha = 0
+        infoView.center = view.center
         mapView.delegate = self
         imageCollectionView.delegate = self
         imageCollectionView.dataSource = self
@@ -288,6 +309,8 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.setTitleColor(.white, for: .normal)
             reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
             
+            directionsText.text = info.selfParking.specificDirections
+            
         }
         // short term
         else if(info.startTime != nil && info.endTime != nil && info.date != nil) {
@@ -330,12 +353,13 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.setTitle("Confirm Reservation", for: .normal)
             
             reserveButton.isEnabled = true
+            directionsView.isHidden = true
         }
         // long term
         else if (info.startDate != nil && info.endDate != nil) {
             availabilityLabel.isEnabled = false
             reserveButton.isEnabled = true
-            
+            directionsView.isHidden = true
         }
         // transaction reciept
         else if (transationDate != nil) {
@@ -360,11 +384,51 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.setTitleColor(.white, for: .normal)
             reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
         }
-        // just browsing
+        // just browsing or from mylistingscontroller
         else {
             availabilityLabel.setTitle("To book, go back to select a specific time frame!", for: .normal)
             reserveButton.isEnabled = false
             availabilityLabel.isEnabled = false
+            if fromMyListings {
+                UserService.getUserById(ShortTermParking.provider) { (user, error) in
+                    if let user = user {
+                        self.nameLabel.text = user.displayName
+                        self.phoneNumberLabel.text = user.phoneNumber
+                        self.emailLabel.text = user.email
+                        self.info.photo = user.photoURL
+                        if user.photoURL != "" {
+                            self.photoImage.layer.cornerRadius = 18
+                            guard let url = URL(string: user.photoURL) else {
+                                print("can't convert string to URL")
+                                return
+                            }
+                            let task = URLSession.shared.dataTask(with: url) { (data, _, error) in
+                                guard let data = data, error == nil else {
+                                    print("failed to convert image from url")
+                                    return
+                                }
+                                DispatchQueue.main.async { [self] in
+                                    guard let UIimage = UIImage(data: data) else {
+                                        print("failed to make image into UIimage")
+                                        return
+                                    }
+                                    print("image converted")
+                                    self.photoImage.image = UIimage
+                                }
+                            }
+                            task.resume()
+                        }
+                    }
+                }
+                if info.selfParking.specificDirections.isEmpty {
+                    directionsText.text = "No specific directions were given"
+                } else {
+                    directionsText.text = info.selfParking.specificDirections
+                }
+                directionsView.isHidden = false
+            } else {
+            directionsView.isHidden = true
+            }
         }
         
         
@@ -811,10 +875,10 @@ extension BookingViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.contentView.frame.size.width = CGFloat(width) + 5
             cell.contentView.frame.size.height = 33
             let tag = cell.tagLabel ?? UILabel()
-            tag.layer.borderWidth = 1.5
+            tag.layer.borderWidth = 1
             tag.frame.size.width = CGFloat(width)
             tag.frame.size.height = 20
-            tag.layer.cornerRadius = 9
+            tag.layer.cornerRadius = 10
 //            tag.layer.borderColor = CGColor.init(red: 0.427, green: 0.427, blue: 0.427, alpha: 1.0)
             tag.layer.borderColor = CGColor.init(red: 196.0/255.0, green: 196.0/255.0, blue: 0196.0/255.0, alpha: 1.0)
 //            if index == 0 {
