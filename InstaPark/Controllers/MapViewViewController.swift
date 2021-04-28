@@ -158,6 +158,19 @@ class MapViewViewController: ViewController, passFromProfile{
         locationManager.requestLocation()
         searchBar.delegate = self
         searchBar.backgroundImage = UIImage()
+        searchBar.layer.shadowRadius = 4.0
+        searchBar.layer.shadowOpacity = 0.4
+        searchBar.setPositionAdjustment(UIOffset(horizontal: 5, vertical: 0), for: .search)
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
+        searchBar.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+        searchBar.searchTextField.layer.cornerRadius = 50
+        searchBar.searchTextField.backgroundColor = UIColor(red: 246/256, green: 246/256, blue: 246/256, alpha: 1)
+        searchBar.searchTextField.text = "Search by address..."
+        searchBar.searchTextField.textColor = UIColor.lightGray
+        searchBar.searchTextField.font = UIFont(name: "OpenSans-Italic", size: 14)
+        searchBar.searchTextField.clearButtonMode = .whileEditing
+        searchBar.searchTextField.layer.cornerRadius = 18
+        searchBar.searchTextField.clipsToBounds = true
         overlay.frame = CGRect(x: 0, y: 100, width: self.view.bounds.width, height: self.view.bounds.height-50)
         overlay.tag = 100
         overlay.dataSource = self
@@ -1108,8 +1121,15 @@ extension MapViewViewController: UISearchBarDelegate {
         self.SlideUpView.isHidden = true
     }
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
-        self.view.addSubview(overlay)
+        if let textfield = searchBar.value(forKey: "searchField") as? UITextField{
+            if textfield.textColor == UIColor.lightGray {
+                textfield.text = ""
+                textfield.textColor = UIColor.label
+                textfield.font = UIFont(name: "OpenSans-Regular", size: 14)
+            }
+        }
         searchBar.setShowsCancelButton(true, animated: true)
+        self.view.addSubview(overlay)
     }
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         if let overlay = self.view.viewWithTag(100) {
