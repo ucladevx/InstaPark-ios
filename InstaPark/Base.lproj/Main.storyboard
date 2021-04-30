@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="18122" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqL-Pm-fmq">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="17701" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="wqL-Pm-fmq">
     <device id="retina6_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="18093"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="17703"/>
         <capability name="Image references" minToolsVersion="12.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="Stack View standard spacing" minToolsVersion="9.0"/>
@@ -73,13 +73,15 @@
                                     <action selector="didTapMenuButton:" destination="7w2-uL-iKy" eventType="touchUpInside" id="XWf-PQ-RfQ"/>
                                 </connections>
                             </button>
-                            <searchBar contentMode="redraw" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="bwu-FT-YUQ">
-                                <rect key="frame" x="0.0" y="44" width="428" height="50"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="bwu-FT-YUQ">
+                                <rect key="frame" x="15" y="55" width="384" height="50"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="JEG-wT-dfH"/>
+                                </constraints>
                                 <textInputTraits key="textInputTraits"/>
                             </searchBar>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Jbx-F9-Sil">
-                                <rect key="frame" x="87" y="158" width="240" height="30"/>
+                                <rect key="frame" x="87" y="120" width="240" height="30"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="240" id="8TC-YG-d8X"/>
@@ -168,7 +170,7 @@
                                                     <constraint firstItem="Jto-NA-GkR" firstAttribute="leading" secondItem="tYY-HL-OWo" secondAttribute="trailing" id="qes-Eo-lhJ"/>
                                                 </constraints>
                                             </stackView>
-                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="haC-5G-YU6">
+                                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" tag="2" contentMode="scaleToFill" bounces="NO" bouncesZoom="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="haC-5G-YU6">
                                                 <rect key="frame" x="0.0" y="36.666666666666629" width="324" height="30"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -302,16 +304,19 @@
                             <constraint firstItem="7k6-gW-eKd" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="6ac-Tw-2gU"/>
                             <constraint firstItem="7k6-gW-eKd" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" id="CwZ-Kf-qDE"/>
                             <constraint firstItem="Jbx-F9-Sil" firstAttribute="centerX" secondItem="0tu-wt-Jpv" secondAttribute="centerX" id="FOn-MK-NjH"/>
+                            <constraint firstItem="bwu-FT-YUQ" firstAttribute="top" secondItem="0tu-wt-Jpv" secondAttribute="top" constant="55" id="H5i-ZQ-Cdz"/>
                             <constraint firstItem="j3k-4t-CT2" firstAttribute="top" secondItem="0tu-wt-Jpv" secondAttribute="top" id="IAw-5g-x65"/>
                             <constraint firstItem="YIb-ms-dvT" firstAttribute="bottom" secondItem="kHw-2e-c0X" secondAttribute="bottom" constant="20" id="J1S-D0-UUo"/>
                             <constraint firstItem="j3k-4t-CT2" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="KYB-Jk-kjr"/>
                             <constraint firstItem="kHw-2e-c0X" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" constant="40" id="Pj5-lw-8BM"/>
                             <constraint firstItem="j3k-4t-CT2" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" id="Qc6-Wf-2zr"/>
+                            <constraint firstAttribute="trailing" secondItem="bwu-FT-YUQ" secondAttribute="trailing" constant="15" id="Wlg-mR-QHd"/>
+                            <constraint firstItem="bwu-FT-YUQ" firstAttribute="leading" secondItem="0tu-wt-Jpv" secondAttribute="leading" constant="15" id="d3p-EO-wrs"/>
                             <constraint firstAttribute="bottom" secondItem="Yzw-oZ-U85" secondAttribute="bottom" id="ea8-lU-P0X"/>
                             <constraint firstItem="7k6-gW-eKd" firstAttribute="top" secondItem="0tu-wt-Jpv" secondAttribute="top" id="qdL-cV-e7z"/>
-                            <constraint firstItem="Jbx-F9-Sil" firstAttribute="top" secondItem="YIb-ms-dvT" secondAttribute="top" constant="70" id="tEG-jJ-TFY"/>
                             <constraint firstItem="Yzw-oZ-U85" firstAttribute="leading" secondItem="YIb-ms-dvT" secondAttribute="leading" id="vz1-ak-SCP"/>
                             <constraint firstItem="Yzw-oZ-U85" firstAttribute="trailing" secondItem="YIb-ms-dvT" secondAttribute="trailing" id="yyR-bk-QLd"/>
+                            <constraint firstItem="Jbx-F9-Sil" firstAttribute="top" secondItem="bwu-FT-YUQ" secondAttribute="bottom" constant="15" id="zpd-qM-9lO"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="cFu-If-GhV"/>
@@ -344,7 +349,7 @@
                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                     <prototypes>
                         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="zMU-sa-RZT" detailTextLabel="Oc5-Xe-YeV" style="IBUITableViewCellStyleSubtitle" id="LCo-E3-oeS">
-                            <rect key="frame" x="0.0" y="24.333333969116211" width="240" height="55.666667938232422"/>
+                            <rect key="frame" x="0.0" y="28" width="240" height="55.666667938232422"/>
                             <autoresizingMask key="autoresizingMask"/>
                             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="LCo-E3-oeS" id="a3Q-pD-3T7">
                                 <rect key="frame" x="0.0" y="0.0" width="240" height="55.666667938232422"/>
@@ -1671,7 +1676,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="TransactionTableViewCell" rowHeight="90" id="gvw-dH-krr" customClass="TransactionTableViewCell" customModule="InstaPark" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="134.33333396911621" width="428" height="90"/>
+                                <rect key="frame" x="0.0" y="138" width="428" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="gvw-dH-krr" id="NVQ-pR-avR">
                                     <rect key="frame" x="0.0" y="0.0" width="428" height="90"/>
@@ -3614,12 +3619,12 @@
         <scene sceneID="CSG-YE-fiO">
             <objects>
                 <viewController storyboardIdentifier="Listing1" id="xfK-up-MuI" customClass="ListingAddressViewController" customModule="InstaPark" customModuleProvider="target" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" ambiguous="YES" id="eAt-q7-6Sn">
+                    <view key="view" contentMode="scaleToFill" id="eAt-q7-6Sn">
                         <rect key="frame" x="0.0" y="0.0" width="428" height="926"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="fgR-1y-cRO">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="896"/>
+                                <rect key="frame" x="0.0" y="0.0" width="428" height="896"/>
                                 <gestureRecognizers/>
                             </mapView>
                             <view contentMode="scaleToFill" id="QU9-qp-laF">
@@ -3660,7 +3665,7 @@
                                         <color key="sectionIndexBackgroundColor" systemColor="systemBackgroundColor"/>
                                         <prototypes>
                                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationWidth="10" reuseIdentifier="searchCell" textLabel="Tkp-ux-ZMM" detailTextLabel="wxQ-wU-qx9" style="IBUITableViewCellStyleSubtitle" id="ADc-5h-ieC">
-                                                <rect key="frame" x="0.0" y="24.333333969116211" width="414" height="63.666667938232422"/>
+                                                <rect key="frame" x="0.0" y="28" width="414" height="63.666667938232422"/>
                                                 <autoresizingMask key="autoresizingMask"/>
                                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ADc-5h-ieC" id="3gt-jA-YEm">
                                                     <rect key="frame" x="0.0" y="0.0" width="414" height="63.666667938232422"/>
@@ -5745,7 +5750,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="bad-Bd-cnd"/>
                             </scrollView>
                             <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="3jW-K7-UaD">
-                                <rect key="frame" x="154" y="568" width="120.33333333333331" height="26.333333333333371"/>
+                                <rect key="frame" x="153.33333333333334" y="568" width="121.33333333333334" height="26.333333333333371"/>
                                 <color key="pageIndicatorTintColor" red="0.89803921568627454" green="0.89803921568627454" blue="0.89803921568627454" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <color key="currentPageIndicatorTintColor" red="0.56078431370000004" green="0.0" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </pageControl>
@@ -6189,7 +6194,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyListingsViewCell" rowHeight="122" id="o0y-yJ-8h8" customClass="MyListingsViewCell" customModule="InstaPark" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="144.33333396911621" width="428" height="122"/>
+                                <rect key="frame" x="0.0" y="148" width="428" height="122"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="o0y-yJ-8h8" id="NdC-tM-sZi">
                                     <rect key="frame" x="0.0" y="0.0" width="428" height="122"/>
@@ -6908,7 +6913,7 @@
                         </view>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MyListingTableViewCell" rowHeight="90" id="6fF-VQ-FhU" customClass="MyListingsTableViewCell" customModule="InstaPark" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="134.33333396911621" width="428" height="90"/>
+                                <rect key="frame" x="0.0" y="138" width="428" height="90"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6fF-VQ-FhU" id="G68-SV-nYo">
                                     <rect key="frame" x="0.0" y="0.0" width="428" height="90"/>
@@ -7472,7 +7477,7 @@
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="tPA-UG-6oZ"/>
-        <segue reference="fHt-Y7-lI7"/>
+        <segue reference="mXm-Gb-kR6"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="Arrow" width="6" height="10"/>

@@ -119,6 +119,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         backBtn.layer.shadowOffset = CGSize.init(width: 1, height: 1)
         backBtn.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         
+        photoImage.contentMode = .scaleAspectFill
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         
         layout.sectionInset = UIEdgeInsets(top: 0, left: -4, bottom: 0, right: 0)
@@ -284,16 +285,22 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             startTime = info.startTime
             endTime = info.endTime
             startDate = info.date
+            var endday = ""
             let formatter1 = DateFormatter()
             formatter1.dateFormat = "MMMM d"
             let startday = formatter1.string(from: info.startDate ?? Date())
-            var endday = ""
-            if info.endDate != nil {
+            
+            let getMonth = DateFormatter()
+            getMonth.dateFormat = "MMMM"
+            if getMonth.string(from: info.startDate ?? Date()) == getMonth.string(from: info.endDate ?? Date()) && info.endDate != nil{
                 let formatter1b = DateFormatter()
                 formatter1b.dateFormat = "d yyyy"
                 endday = formatter1b.string(from: info.endDate ?? Date())
                 endday = "-" + endday
+            } else if info.endDate != nil {
+                endday = " - " + formatter1.string(from: info.endDate ?? Date())
             }
+            
             let formatter2 = DateFormatter()
             formatter2.dateFormat = "h:mm a"
             
@@ -309,8 +316,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             reserveButton.setTitleColor(.white, for: .normal)
             reserveButton.titleLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
             
-            directionsText.text = info.selfParking.specificDirections
-            
+            if !info.selfParking.specificDirections.isEmpty {
+                directionsText.text = info.selfParking.specificDirections
+            } else {
+                directionsView.isHidden = true
+            }
         }
         // short term
         else if(info.startTime != nil && info.endTime != nil && info.date != nil) {
