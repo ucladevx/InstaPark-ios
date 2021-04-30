@@ -142,7 +142,7 @@ class MapViewViewController: ViewController, passFromProfile{
             try Auth.auth().signOut()
             
         } catch let signOutError as NSError {
-            print("Error signing out")
+            print("Error signing out: \(signOutError)")
         }
     }
     override func viewDidLoad() {
@@ -171,7 +171,7 @@ class MapViewViewController: ViewController, passFromProfile{
         searchBar.searchTextField.clearButtonMode = .whileEditing
         searchBar.searchTextField.layer.cornerRadius = 18
         searchBar.searchTextField.clipsToBounds = true
-        overlay.frame = CGRect(x: 0, y: 100, width: self.view.bounds.width, height: self.view.bounds.height-50)
+        overlay.frame = CGRect(x: 0, y: 110, width: self.view.bounds.width, height: self.view.bounds.height-50)
         overlay.tag = 100
         overlay.dataSource = self
         overlay.delegate = self
@@ -1215,6 +1215,10 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
             print("refreshing tags")
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "tagCell", for: indexPath) as! BookingTagCollectionViewCell
             let index = indexPath.row
+            guard index < selectedAnnotationTags.count else {
+                cell.tagLabel.text = ""
+                return cell
+            }
             var width: Double = 63.0
             if self.selectedAnnotationTags[index].count > 8 {
                 width = (Double(self.selectedAnnotationTags[index].count) * 5.5) + 20.0
@@ -1244,6 +1248,9 @@ extension MapViewViewController: UICollectionViewDelegate, UICollectionViewDataS
             cell.frame.size.width = 250
             cell.frame.size.height = 144
             let index = indexPath.row
+            guard index < selectedAnnotationTags.count else {
+                return cell
+            }
             if selectedImages.count != 0 {
 //                if index == 0 {
 //                    cell.roundCorners(corners: [.topLeft], radius: SlideViewConstant.cornerRadiusOfSlideView)

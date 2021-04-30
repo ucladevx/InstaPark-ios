@@ -60,6 +60,20 @@ class ListingAddressViewController: UIViewController {
         cardViewController.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         setupCard()
         searchBar.delegate = self
+        searchBar.backgroundImage = UIImage()
+        searchBar.layer.shadowRadius = 4.0
+        searchBar.layer.shadowOpacity = 0.4
+        searchBar.backgroundColor = .clear
+        searchBar.setPositionAdjustment(UIOffset(horizontal: 5, vertical: 0), for: .search)
+        searchBar.searchTextPositionAdjustment = UIOffset(horizontal: 5, vertical: 0)
+        searchBar.layer.shadowOffset = CGSize.init(width: 1, height: 2)
+        searchBar.searchTextField.layer.cornerRadius = 50
+        searchBar.searchTextField.backgroundColor = UIColor(red: 246/256, green: 246/256, blue: 246/256, alpha: 1)
+        searchBar.searchTextField.placeholder = "Street Address, City, State, Zip"
+        searchBar.searchTextField.font = UIFont(name: "OpenSans-Regular", size: 14)
+        searchBar.searchTextField.clearButtonMode = .whileEditing
+        searchBar.searchTextField.layer.cornerRadius = 18
+        searchBar.searchTextField.clipsToBounds = true
         
         tableView.dataSource = self
         tableView.delegate = self

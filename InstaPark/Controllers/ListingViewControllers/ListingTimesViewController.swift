@@ -664,8 +664,8 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
 //        let minutes = Calendar.current.component(.minute, from: UTCTime)
 //        print("\(hour): \(minutes)")
         print("Row number: " + String(row))
-        var hour = row/4;
-        var minutes = (row%4)*15;
+        let hour = row/4;
+        let minutes = (row%4)*15;
         return (hour * 3600) + (minutes * 60)
     }
     
@@ -747,7 +747,9 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             if selectedEndDate != nil {
                 ShortTermParking.endDate = Int(Calendar.current.startOfDay(for: selectedEndDate).timeIntervalSince1970)
             } else {
-                ShortTermParking.endDate = Int(Calendar.current.startOfDay(for: selectedEndDate).timeIntervalSince1970)
+                if selectedStartDate != nil {
+                    ShortTermParking.endDate = Int(Calendar.current.startOfDay(for: selectedStartDate).timeIntervalSince1970)
+                }
             }
             
             print(ShortTermParking.times)
