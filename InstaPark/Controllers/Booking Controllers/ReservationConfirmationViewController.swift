@@ -17,6 +17,7 @@ class ReservationConfirmationViewController: UIViewController {
     @IBOutlet weak var instructionsLabel: UILabel!
     var listing = false // only true if new listing is created
     
+    @IBOutlet weak var contactLabel: UILabel!
     @IBOutlet weak var segueToMyReservations: UIButton!
     @IBAction func segueToMyReservations(_ sender: Any) {
         weak var pvc = self.presentingViewController
@@ -67,14 +68,28 @@ class ReservationConfirmationViewController: UIViewController {
     var time = ""
     var date = ""
     var address = ""
+    var phoneNumber = ""
+    var fullName = ""
+    @objc
+    func tapContactLabel(sender: UITapGestureRecognizer) {
+        
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
         if listing {
+            contactLabel.text=""
             parkLabel.text = "Your listing is up!"
             instructionsLabel.text = "Your listing is live for buyers to view!\nYou'll get a notification if anyone purchases your spot."
             segueToMyReservations.setTitle("My Listings", for: .normal)
         } else {
-            let instructions = attributedInfoRegular(string: "Your reservation has been processed and a confirmation has been sent to your email. Check the ", fontSize: 14)
+            let contact = attributedInfoRegular(string: "Please contact ", fontSize: 14)
+            contact.append(attributedInfoBold(string: "\(fullName) at \(format(phoneNumber: phoneNumber) ?? phoneNumber)", fontSize: 14))
+            contact.append(attributedInfoRegular(string: " for parking instructions/payment", fontSize: 14))
+            contactLabel.attributedText = contact
+            let contactTap = UITapGestureRecognizer(target: self, action: #selector(tapContactLabel))
+            contactLabel.isUserInteractionEnabled = true
+            contactLabel.addGestureRecognizer(contactTap)
+            let instructions = attributedInfoRegular(string: "Your reservation has been saved. Check the ", fontSize: 14)
             instructions.append(attributedInfoBold(string: "My Reservations", fontSize: 14))
             instructions.append(attributedInfoRegular(string: " tab for additional details regarding your reservation.", fontSize: 14))
             instructionsLabel.attributedText = instructions
@@ -127,5 +142,65 @@ class ReservationConfirmationViewController: UIViewController {
         // Pass the selected object to the new view controller.
     }
     */
+    func format(phoneNumber sourcePhoneNumber: String) -> String? {
+        // Remove any character that is not a number
+        let numbersOnly = sourcePhoneNumber.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+        let length = numbersOnly.count
+        let hasLeadingOne = numbersOnly.hasPrefix("1")
 
+        // Check for supported phone number length
+        guard length == 7 || (length == 10 && !hasLeadingOne) || (length == 11 && hasLeadingOne) else {
+            return nil
+        }
+
+        let hasAreaCode = (length >= 10)
+        var sourceIndex = 0
+
+        // Leading 1
+        var leadingOne = ""
+        if hasLeadingOne {
+            leadingOne = "1 "
+            sourceIndex += 1
+        }
+
+        // Area code
+        var areaCode = ""
+        if hasAreaCode {
+            let areaCodeLength = 3
+            guard let areaCodeSubstring = numbersOnly.substring(start: sourceIndex, offsetBy: areaCodeLength) else {
+                return nil
+            }
+            areaCode = String(format: "(%@) ", areaCodeSubstring)
+            sourceIndex += areaCodeLength
+        }
+
+        // Prefix, 3 characters
+        let prefixLength = 3
+        guard let prefix = numbersOnly.substring(start: sourceIndex, offsetBy: prefixLength) else {
+            return nil
+        }
+        sourceIndex += prefixLength
+
+        // Suffix, 4 characters
+        let suffixLength = 4
+        guard let suffix = numbersOnly.substring(start: sourceIndex, offsetBy: suffixLength) else {
+            return nil
+        }
+
+        return leadingOne + areaCode + prefix + "-" + suffix
+    }
+}
+extension String {
+    /// This method makes it easier extract a substring by character index where a character is viewed as a human-readable character (grapheme cluster).
+    internal func substring(start: Int, offsetBy: Int) -> String? {
+        guard let substringStartIndex = self.index(startIndex, offsetBy: start, limitedBy: endIndex) else {
+            return nil
+        }
+
+        guard let substringEndIndex = self.index(startIndex, offsetBy: start + offsetBy, limitedBy: endIndex) else {
+            return nil
+        }
+
+        return String(self[substringStartIndex ..< substringEndIndex])
+    }
 }

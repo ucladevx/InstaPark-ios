@@ -210,7 +210,7 @@ class ListingViewController: UIPageViewController, UIPageViewControllerDataSourc
     
     func updatePageControl() {
         if currentViewIndex == 6 {
-            rightButton.setImage(UIImage(named: "ListingDone"), for: .normal)
+            rightButton.setImage(UIImage(named: "listing-done"), for: .normal)
         } else {
             rightButton.setImage(UIImage(named: "rightPage"), for: .normal)
         }
