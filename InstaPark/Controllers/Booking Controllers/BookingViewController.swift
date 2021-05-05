@@ -591,8 +591,11 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         } else {
             ParkingSpotService.getParkingSpotById(self.info.id) { parkingSpot, error in
                 if let parkingSpot = parkingSpot, let startTime = self.startTime, let endTime = self.endTime {
-                    self.ShortTermParking = parkingSpot as? ShortTermParkingSpot;
-                    self.performSegue(withIdentifier: "segueToPaymentPage", sender: self)
+                    self.ShortTermParking = parkingSpot as? ShortTermParkingSpot
+                    DispatchQueue.main.async {
+                        self.performSegue(withIdentifier: "showReservationConfirmation", sender: self)
+                    }
+                    // self.performSegue(withIdentifier: "segueToPaymentPage", sender: self)
                 }
             }
            
@@ -708,6 +711,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         }
         
         if let vc = segue.destination as? ReservationConfirmationViewController {
+            if let startTime = startTime, let endTime = endTime {
+                TransactionService.saveTransactionObject(transaction: Transaction(id: "", customer: Auth.auth().currentUser!.uid, startTime:Int(startTime.timeIntervalSince1970) , endTime: Int(endTime.timeIntervalSince1970), fromParkingSpot: self.ShortTermParking))
+            }
             vc.address = addressLabel.text!
 //            vc.time = availabilityLabel.titleLabel!.text!
             vc.listing = listing
@@ -729,6 +735,9 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
             let startString = formatter2.string(from: startTime! as Date)
             let endString = formatter2.string(from: endTime! as Date)
             vc.time = startString + " to " + endString
+            vc.phoneNumber = info.phoneNumber
+            vc.fullName = info.name
+            
         }
     }
     
