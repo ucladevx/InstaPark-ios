@@ -17,6 +17,7 @@ class SignupViewController: ViewController {
     @IBOutlet weak var password1: UITextField!
     @IBOutlet weak var password2: UITextField!
     @IBOutlet weak var phone: DesignableTextField!
+    @IBOutlet weak var signupStack: UIStackView!
     @IBOutlet weak var venmo_username: DesignableTextField!
     var clickedVenmoBefore = false
     var password1Value = ""
@@ -26,12 +27,70 @@ class SignupViewController: ViewController {
     @IBOutlet weak var signupButton: UIButton!
     
     @IBAction func didTouchVenmoUsernameTextField(_ sender: Any) {
-        if(!clickedVenmoBefore) {
-            let alert = UIAlertController(title: "Important!", message: "Your venmo username will be used to receive payments. Please make sure it is correct!", preferredStyle: .alert)
-            alert.addAction(UIAlertAction(title: "Okay", style: .default))
-            self.present(alert, animated: true)
-            clickedVenmoBefore = true
-        }
+//        if(!clickedVenmoBefore) {
+//            let alert = UIAlertController(title: "Important!", message: "Your venmo username will be used to receive payments. Please make sure it is correct!", preferredStyle: .alert)
+//            alert.addAction(UIAlertAction(title: "Okay", style: .default))
+//            self.present(alert, animated: true)
+//            clickedVenmoBefore = true
+//        }
+    }
+    @IBOutlet weak var bottomConstraint: NSLayoutConstraint!
+//    @objc func keyboardWasShown(notification: NSNotification) {
+//        let info = notification.userInfo!
+//        let keyboardFrame: CGRect = (info[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+//
+//        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+//            self.bottomConstraint.constant = keyboardFrame.size.height + 20
+//        })
+//    }
+//    @objc func keyboardWasHidden(notification: NSNotification) {
+//        UIView.animate(withDuration: 0.3, animations: { () -> Void in
+//            self.bottomConstraint.constant = 150
+//        })
+//    }
+    var activeField: UITextField?
+    func registerForKeyboardNotifications()
+   {
+       //Adding notifies on keyboard appearing
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWasShown), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillBeHidden), name: UIResponder.keyboardWillHideNotification, object: nil)
+   }
+   func deregisterFromKeyboardNotifications()
+   {
+    
+       //Removing notifies on keyboard appearing
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+    NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+   }
+
+   @objc func keyboardWasShown(notification: NSNotification)
+   {
+       //Need to calculate keyboard exact size due to Apple suggestions
+       var info = notification.userInfo!
+       var keyboardSize = (info[UIResponder.keyboardFrameBeginUserInfoKey] as? NSValue)?.cgRectValue.size
+//       var aRect : CGRect = self.view.frame
+//       aRect.size.height -= keyboardSize!.height
+//       if let activeFieldPresent = activeField
+//       {
+//        if (!aRect.contains(activeField!.frame.origin))
+//           {
+//            bottomConstraint.constant = keyboardSize!.height + 20
+//           }
+//       }
+    if(activeField == password2 || activeField == venmo_username) {
+        bottomConstraint.constant = keyboardSize!.height + 20
+    }
+
+   }
+    @objc func keyboardWillBeHidden(notifcation: NSNotification) {
+        bottomConstraint.constant = 150
+    }
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        activeField = textField
+        print(activeField?.placeholder)
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        activeField = nil
     }
     @IBAction func signupAction(_ sender: Any) {
         if let email = email.text, let name = firstname.text, let phoneNumber = phone.text, let password1 = password1.text, let password2 = password2.text, let venmouser = venmo_username.text{
@@ -88,6 +147,9 @@ class SignupViewController: ViewController {
         firstname.delegate = self
         password1.delegate = self
         password2.delegate = self
+        venmo_username.delegate = self
+        registerForKeyboardNotifications()
+        
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
