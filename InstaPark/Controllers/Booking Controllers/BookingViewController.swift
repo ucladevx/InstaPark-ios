@@ -535,7 +535,7 @@ class BookingViewController: UIViewController, isAbleToReceiveData {
         blackScreen.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: self.view.frame.height)
         self.view.addSubview(blackScreen)
         popupTitle.font =  UIFont(name: "OpenSans-Bold", size: 24)
-        popupView.frame = CGRect(x: self.view.frame.midX , y: self.view.frame.midY , width: 325, height: 300)
+        popupView.frame = CGRect(x: self.view.frame.midX , y: self.view.frame.midY , width: 325, height: 400)
         self.view.addSubview(popupView)
         popupView.center = self.view.center
         popupView.isHidden = false

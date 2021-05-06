@@ -70,9 +70,13 @@ class ReservationConfirmationViewController: UIViewController {
     var address = ""
     var phoneNumber = ""
     var fullName = ""
-    @objc
-    func tapContactLabel(sender: UITapGestureRecognizer) {
-        
+    @objc func contactLabelTap() {
+        print("Contact Label Clicked")
+        if let url = URL(string: "tel://\(phoneNumber)") {
+            if UIApplication.shared.canOpenURL(url) {
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            }
+        }
     }
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -86,9 +90,9 @@ class ReservationConfirmationViewController: UIViewController {
             contact.append(attributedInfoBold(string: "\(fullName) at \(format(phoneNumber: phoneNumber) ?? phoneNumber)", fontSize: 14))
             contact.append(attributedInfoRegular(string: " for parking instructions/payment", fontSize: 14))
             contactLabel.attributedText = contact
-            let contactTap = UITapGestureRecognizer(target: self, action: #selector(tapContactLabel))
             contactLabel.isUserInteractionEnabled = true
-            contactLabel.addGestureRecognizer(contactTap)
+            let contactLabelTap = UITapGestureRecognizer(target: self, action: #selector(self.contactLabelTap))
+            contactLabel.addGestureRecognizer(contactLabelTap)
             let instructions = attributedInfoRegular(string: "Your reservation has been saved. Check the ", fontSize: 14)
             instructions.append(attributedInfoBold(string: "My Reservations", fontSize: 14))
             instructions.append(attributedInfoRegular(string: " tab for additional details regarding your reservation.", fontSize: 14))
