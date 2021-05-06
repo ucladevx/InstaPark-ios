@@ -10,8 +10,12 @@ import MessageUI
 
 class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate {
 
+    @IBOutlet weak var feebackFormBtn: UIButton!
+    @IBOutlet weak var emailStack: UIStackView!
     @IBOutlet weak var sparkeLogo: UILabel!
     @IBOutlet weak var emailView: UIView!
+    
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         //sparke logo
@@ -40,8 +44,11 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
         emailView.layer.shadowOffset = CGSize.init(width: 1, height: 2)
         emailView.layer.shadowColor = CGColor.init(red: 0.0, green: 0.0, blue: 0.0, alpha: 1.0)
         let emailTap = UITapGestureRecognizer(target:self, action: #selector(self.email(_:)))
-        self.emailView.isUserInteractionEnabled = true
-        self.emailView.addGestureRecognizer(emailTap)
+        self.emailStack.isUserInteractionEnabled = true
+        self.emailStack.addGestureRecognizer(emailTap)
+        
+        
+        feebackFormBtn.titleLabel?.attributedText = NSAttributedString(string: "Feedback Form", attributes: [.underlineStyle: NSUnderlineStyle.single.rawValue])
     }
     
     @IBAction func backBtn(_ sender: Any) {
@@ -64,6 +71,14 @@ class HelpViewController: UIViewController, MFMailComposeViewControllerDelegate 
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         controller.dismiss(animated: true)
     }
+    
+    @IBAction func didTapFormBtn(_ sender: Any) {
+        let nextViewController = FeedbackFormViewController()
+        nextViewController.modalPresentationStyle = .popover
+        nextViewController.modalTransitionStyle = .coverVertical
+        self.present(nextViewController, animated:true)
+    }
+    
     /*
     // MARK: - Navigation
 
