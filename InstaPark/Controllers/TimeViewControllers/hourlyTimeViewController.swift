@@ -36,8 +36,8 @@ class hourlyTimeViewController: UIViewController {
         calendar.placeholderType = .none
         //calendar.select(Date())
         calendar.reloadData()
-        calendar.appearance.titleFont = UIFont.init(name: "Roboto-Medium", size: 16)
-        calendar.appearance.headerTitleFont = UIFont.init(name: "Roboto-Medium", size: 16)
+        calendar.appearance.titleFont = UIFont.init(name: "OpenSans-SemiBold", size: 16)
+        calendar.appearance.headerTitleFont = UIFont.init(name: "OpenSans-SemiBold", size: 16)
         calendar.backgroundColor = UIColor.init(red: 248.0/255.0, green: 240/255.0, blue: 1.0, alpha: 1.0)
         calendar.dataSource = self
         calendar.rowHeight = 15
@@ -381,7 +381,7 @@ extension hourlyTimeViewController: UIPickerViewDelegate {
         var pickerLabel: UILabel? = (view as? UILabel)
         if pickerLabel == nil {
             pickerLabel = UILabel()
-            pickerLabel?.font = UIFont.init(name: "Roboto-Medium", size: 18)
+            pickerLabel?.font = UIFont.init(name: "OpenSans-SemiBold", size: 16)
             pickerLabel?.textAlignment = .center
         }
         pickerLabel?.text = self.timeRange[row]

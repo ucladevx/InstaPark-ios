@@ -193,6 +193,8 @@ class MapViewViewController: ViewController, passFromProfile{
         timeFrameButton.layer.shadowOpacity = 0.4
         timeFrameButton.layer.shadowOffset = CGSize.init(width: 1, height: 2)
         timeFrameButton.layer.shadowColor = CGColor.init(red: 0.380, green: 0.0, blue: 1.0, alpha: 1.0)
+        timeFrameButton.titleLabel?.adjustsFontSizeToFitWidth = true
+        timeFrameButton.titleLabel?.minimumScaleFactor = 0.5
         
         //tag collection view
         tagCollectionView.delegate = self

@@ -100,8 +100,8 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
         calendar.placeholderType = .none
         //calendar.select(Date() as Date)
         calendar.backgroundColor = UIColor.init(red: 248.0/255.0, green: 240/255.0, blue: 1.0, alpha: 1.0)
-        calendar.appearance.titleFont = .boldSystemFont(ofSize: 16)
-        calendar.appearance.headerTitleFont = .boldSystemFont(ofSize: 16)
+        calendar.appearance.titleFont = UIFont.init(name: "OpenSans-SemiBold", size: 16)
+        calendar.appearance.headerTitleFont = UIFont.init(name: "OpenSans-SemiBold", size: 16)
         calendar.appearance.todayColor = .clear
         calendar.appearance.headerTitleColor = UIColor.init(red: 143.0/255, green: 0.0, blue: 1.0, alpha: 1.0)
         calendar.appearance.borderRadius = 0.6
@@ -704,6 +704,7 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             self.present(alert, animated: true, completion: nil)
             return false
         }
+        
         var times = [0: [ParkingTimeInterval](), 1: [ParkingTimeInterval](), 2: [ParkingTimeInterval](), 3:[ParkingTimeInterval](), 4:[ParkingTimeInterval](), 5:[ParkingTimeInterval](), 6:[ParkingTimeInterval]()]
         if parkingType == .short {
             if twentyFourHourAccess {
@@ -743,9 +744,11 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             print(times)
             if selectedStartDate != nil {
                 ShortTermParking.startDate = Int(Calendar.current.startOfDay(for: selectedStartDate).timeIntervalSince1970)
+                print(ShortTermParking.startDate)
             }
             if selectedEndDate != nil {
                 ShortTermParking.endDate = Int(Calendar.current.startOfDay(for: selectedEndDate).timeIntervalSince1970)
+                print(ShortTermParking.endDate)
             } else {
                 if selectedStartDate != nil {
                     ShortTermParking.endDate = Int(Calendar.current.startOfDay(for: selectedStartDate).timeIntervalSince1970)
@@ -754,8 +757,6 @@ class ListingTimesViewController: UIViewController, FSCalendarDataSource, FSCale
             
             print(ShortTermParking.times)
             print("Short Term Parking Start and End Dates")
-            print(ShortTermParking.startDate)
-            print(ShortTermParking.endDate)
             return true
             
         }
