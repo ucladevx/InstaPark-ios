@@ -97,6 +97,7 @@ class PriceViewController: UIViewController, UITextFieldDelegate {
         dailyPricingCheckbox.layer.cornerRadius = 3
         dailyPricingCheckbox.layer.borderWidth = 0.5
         dailyPricingCheckbox.layer.borderColor = UIColor(red: 0.429, green: 0.429, blue: 0.429, alpha: 1).cgColor
+        dailyPricingCheckbox.tintColor = .white
     }
     
     func checkBeforeMovingPages() -> Bool {
