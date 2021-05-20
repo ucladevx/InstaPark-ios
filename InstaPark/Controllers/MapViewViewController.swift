@@ -388,41 +388,33 @@ class MapViewViewController: ViewController, passFromProfile{
         self.present(nextViewController, animated:true)
     }
     
-    func queryInRegion(region: MKCoordinateRegion, location: CLLocationCoordinate2D) {
-        regionQuery = geoFire.query(with: region) // for some reason geoFire isn't working with regionQuery???
-        circleQuery = geoFire.query(at: CLLocation.init(latitude: location.latitude, longitude: location.longitude), withRadius: 20)
-        // if user has chosen a time frame & date query only to that time frame/date
+    //MARK: temporary function to retrieve all parking spots in db
+    func addAllParkingSpots() {
         if shortTermStartTime != nil && shortTermEndTime != nil {
-            // get all parking spaces within a 20000 km radius from the db
-            _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
-                print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
-                ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
-                    DispatchQueue.global(qos: .userInteractive).async {
-                        ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
-                            if let parkingSpot = parkingSpot{
-                                parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
-                                    if (success) {
-                                        if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
-                                            parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
-                                                if(success && parkingSpot.provider != ""){
-                                                    UserService.getUserById(parkingSpot.provider) { (user, error) in
-                                                        if let user = user {
-                                                            //IF PARKING SPOT IS AVAILABLE
-                                                            print("Parking Spot is available")
-                                                            print("Query by location")
-                                                            
-                                                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, pricePerDay: parkingSpot.pricePerDay, dailyPriceEnabled: parkingSpot.dailyPriceEnabled, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
-                                                            // short-term parking
-                                                            if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
-                                                                annotation.startTime = self.shortTermStartTime
-                                                                annotation.endTime = self.shortTermEndTime
-                                                                annotation.date = self.shortTermDate
-                                                            }
-                                                            self.annotations.append(annotation)
-                                                            self.parkingSpots.append(parkingSpot)
-                                                            mapView.addAnnotation(annotation)
-                                                            }
+            ParkingSpotService.getAllParkingSpots { [self] parkingSpots, error in
+                if let parkingSpots = parkingSpots {
+                    for parkingSpot in parkingSpots {
+                        parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+                            if (success) {
+                                if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+                                    parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+                                        if(success && parkingSpot.provider != ""){
+                                            UserService.getUserById(parkingSpot.provider) { (user, error) in
+                                                if let user = user {
+                                                    //IF PARKING SPOT IS AVAILABLE
+                                                    print("Parking Spot is available")
+                                                    print("Query by location")
+                                                    
+                                                    let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, pricePerDay: parkingSpot.pricePerDay, dailyPriceEnabled: parkingSpot.dailyPriceEnabled, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
+                                                    // short-term parking
+                                                    if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+                                                        annotation.startTime = self.shortTermStartTime
+                                                        annotation.endTime = self.shortTermEndTime
+                                                        annotation.date = self.shortTermDate
                                                     }
+                                                    self.annotations.append(annotation)
+                                                    self.parkingSpots.append(parkingSpot)
+                                                    mapView.addAnnotation(annotation)
                                                 }
                                             }
                                         }
@@ -432,40 +424,116 @@ class MapViewViewController: ViewController, passFromProfile{
                         }
                     }
                 }
-            })
-        }
-        // no time is selected - query all parking spots in user location so map is not empty??
-        else {
-            _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
-                print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
-                ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
-                    DispatchQueue.global(qos: .userInteractive).async {
-                        ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
-                            if let parkingSpot = parkingSpot{
-                                if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
-                                    if parkingSpot.provider != "", !parkingSpot.deactivated, Date(timeIntervalSince1970: TimeInterval(parkingSpot.endDate)) >= Date(){
-                                        UserService.getUserById(parkingSpot.provider) { (user, error) in
-                                            if let user = user {
-                                                print("Query by location")
-                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, pricePerDay: parkingSpot.pricePerDay, dailyPriceEnabled: parkingSpot.dailyPriceEnabled, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
-                                                // short-term parking
-                                                if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
-                                                    annotation.startTime = self.shortTermStartTime
-                                                    annotation.endTime = self.shortTermEndTime
-                                                    annotation.date = self.shortTermDate
-                                                }
-                                                self.annotations.append(annotation)
-                                                mapView.addAnnotation(annotation)
-                                                }
+            }
+        } else {
+            ParkingSpotService.getAllParkingSpots { [self] parkingSpots, error in
+                if let parkingSpots = parkingSpots {
+                    for parkingSpot in parkingSpots {
+                        if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+                            if parkingSpot.provider != "", !parkingSpot.deactivated, Date(timeIntervalSince1970: TimeInterval(parkingSpot.endDate)) >= Date(){
+                                UserService.getUserById(parkingSpot.provider) { (user, error) in
+                                    if let user = user {
+                                        print("Query by location")
+                                        let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, pricePerDay: parkingSpot.pricePerDay, dailyPriceEnabled: parkingSpot.dailyPriceEnabled, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
+                                        // short-term parking
+                                        if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+                                            annotation.startTime = self.shortTermStartTime
+                                            annotation.endTime = self.shortTermEndTime
+                                            annotation.date = self.shortTermDate
                                         }
-                                    }
+                                        self.annotations.append(annotation)
+                                        mapView.addAnnotation(annotation)
+                                        }
                                 }
                             }
                         }
                     }
                 }
-            })
+            }
         }
+    }
+    
+    func queryInRegion(region: MKCoordinateRegion, location: CLLocationCoordinate2D) {
+        //temp for now: dont worry about region
+        addAllParkingSpots()
+        //MARK: uncomment to go back to range/distance queries 
+//        regionQuery = geoFire.query(with: region) // for some reason geoFire isn't working with regionQuery???
+//        circleQuery = geoFire.query(at: CLLocation.init(latitude: location.latitude, longitude: location.longitude), withRadius: 20)
+//        // if user has chosen a time frame & date query only to that time frame/date
+//        if shortTermStartTime != nil && shortTermEndTime != nil {
+//            // get all parking spaces within a 20 km radius from the db
+//            _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
+//                print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
+//                ParkingSpotService.getParkingSpotById(key) { parkingSpot, error in
+//                    DispatchQueue.global(qos: .userInteractive).async {
+//                        ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
+//                            if let parkingSpot = parkingSpot{
+//                                parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+//                                    if (success) {
+//                                        if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+//                                            parkingSpot.validateTimeSlot(start: Int(shortTermStartTime.timeIntervalSince1970), end: Int(shortTermEndTime.timeIntervalSince1970)) { success in
+//                                                if(success && parkingSpot.provider != ""){
+//                                                    UserService.getUserById(parkingSpot.provider) { (user, error) in
+//                                                        if let user = user {
+//                                                            //IF PARKING SPOT IS AVAILABLE
+//                                                            print("Parking Spot is available")
+//                                                            print("Query by location")
+//
+//                                                            let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, pricePerDay: parkingSpot.pricePerDay, dailyPriceEnabled: parkingSpot.dailyPriceEnabled, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
+//                                                            // short-term parking
+//                                                            if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+//                                                                annotation.startTime = self.shortTermStartTime
+//                                                                annotation.endTime = self.shortTermEndTime
+//                                                                annotation.date = self.shortTermDate
+//                                                            }
+//                                                            self.annotations.append(annotation)
+//                                                            self.parkingSpots.append(parkingSpot)
+//                                                            mapView.addAnnotation(annotation)
+//                                                            }
+//                                                    }
+//                                                }
+//                                            }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//        }
+//        // no time is selected - query all parking spots in user location so map is not empty??
+//        else {
+//            _ = circleQuery?.observe(.keyEntered, with: { (key:String!, location:CLLocation!) in
+//                print("FOUND KEY: ",key!,"WITH LOCATION: ",location!)
+//                ParkingSpotService.getParkingSpotById(key!) { parkingSpot, error in
+//                    DispatchQueue.global(qos: .userInteractive).async {
+//                        ParkingSpotService.getParkingSpotById(key) { [self] parkingSpot, error in
+//                            if let parkingSpot = parkingSpot{
+//                                if let parkingSpot = parkingSpot as? ShortTermParkingSpot {
+//                                    if parkingSpot.provider != "", !parkingSpot.deactivated, Date(timeIntervalSince1970: TimeInterval(parkingSpot.endDate)) >= Date(){
+//                                        UserService.getUserById(parkingSpot.provider) { (user, error) in
+//                                            if let user = user {
+//                                                print("Query by location")
+//                                                let annotation = ParkingSpaceMapAnnotation(id: parkingSpot.id, name: user.displayName, email: user.email, phoneNumber: user.phoneNumber, photo: user.photoURL, coordinate: CLLocationCoordinate2DMake(parkingSpot.coordinates.lat, parkingSpot.coordinates.long), price: parkingSpot.pricePerHour, pricePerDay: parkingSpot.pricePerDay, dailyPriceEnabled: parkingSpot.dailyPriceEnabled, address: parkingSpot.address, tags: parkingSpot.tags, comments: parkingSpot.comments,startTime: nil, endTime: nil, date: nil, startDate: nil, endDate: nil, images: parkingSpot.images, selfParking: parkingSpot.selfParking)
+//                                                // short-term parking
+//                                                if(self.shortTermStartTime != nil && self.shortTermEndTime != nil && self.shortTermDate != nil) {
+//                                                    annotation.startTime = self.shortTermStartTime
+//                                                    annotation.endTime = self.shortTermEndTime
+//                                                    annotation.date = self.shortTermDate
+//                                                }
+//                                                self.annotations.append(annotation)
+//                                                mapView.addAnnotation(annotation)
+//                                                }
+//                                        }
+//                                    }
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+//            })
+//        }
     }
     
     func existingAnnotation(location: CLLocationCoordinate2D) -> Bool{
