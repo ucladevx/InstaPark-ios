@@ -35,14 +35,14 @@ class hourlyTimeViewController: UIViewController {
         calendar.allowsMultipleSelection = true
         calendar.placeholderType = .none
         //calendar.select(Date())
-        calendar.reloadData()
+//        calendar.reloadData()
         calendar.appearance.titleFont = UIFont.init(name: "OpenSans-SemiBold", size: 16)
         calendar.appearance.headerTitleFont = UIFont.init(name: "OpenSans-SemiBold", size: 16)
         calendar.backgroundColor = UIColor.init(red: 248.0/255.0, green: 240/255.0, blue: 1.0, alpha: 1.0)
         calendar.dataSource = self
         calendar.rowHeight = 15
         calendar.register(DIYCalendarCell.self, forCellReuseIdentifier: "cell")
-        calendar.swipeToChooseGesture.isEnabled = true
+//        calendar.swipeToChooseGesture.isEnabled = true
 //        let scopeGesture = UIPanGestureRecognizer(target: calendar, action: #selector(calendar.handleScopeGesture(_:)));
 //                calendar.addGestureRecognizer(scopeGesture)
         calendar.roundCorners(corners: [.bottomLeft, .bottomRight], radius: 18)
